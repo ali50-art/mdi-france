@@ -2,9 +2,6 @@
 // ** Next Import
 import Link from 'next/link'
 
-//logo svg
-import logo from '../../../../../../public/images/logo.svg'
-
 // Next Image
 import Image from 'next/image'
 
@@ -133,7 +130,7 @@ const VerticalNavHeader = (props: Props) => {
             }}
           >
             <Image
-              src={logo}
+              src='/images/logo.svg'
               alt='logo'
               style={{
                 width: '70%',

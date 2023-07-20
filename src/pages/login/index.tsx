@@ -5,7 +5,6 @@ import { useState, ReactNode } from 'react'
 // import Link from 'next/link'
 
 import Image from 'next/image'
-import logo from '../../../public/images/logo.svg'
 
 // ** MUI Components
 import Button from '@mui/material/Button'
@@ -166,8 +165,10 @@ const LoginPage = () => {
         >
           <Box sx={{ width: '100%', maxWidth: 400 }}>
             <Image
-              src={logo}
+              src='/images/logo.svg'
               alt='logo'
+              width={100}
+              height={100}
               style={{
                 width: '25%',
                 height: '25%'
