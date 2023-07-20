@@ -125,15 +125,17 @@ const VerticalNavHeader = (props: Props) => {
             style={{
               display: 'flex',
               justifyContent: 'center',
-              paddingBottom: '2rem',
-              paddingTop: '2rem'
+              paddingBottom: '1rem',
+              paddingTop: '1rem'
             }}
           >
             <Image
               src='/images/logo.svg'
               alt='logo'
+              width={100}
+              height={100}
               style={{
-                width: '70%',
+                width: '60%',
                 height: '100%'
               }}
             />
