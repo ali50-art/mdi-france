@@ -152,6 +152,9 @@ const VerticalNavHeader = (props: Props) => {
       {hidden ? (
         <IconButton
           disableRipple
+          style={{
+            paddingRight: '1rem'
+          }}
           disableFocusRipple
           onClick={toggleNavVisibility}
           sx={{ p: 0, color: 'text.secondary', backgroundColor: 'transparent !important' }}
