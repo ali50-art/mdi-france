@@ -1,11 +1,20 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 // ** Next Import
 import Link from 'next/link'
 
+//logo svg
+import logo from '../../../../../../public/images/logo.svg'
+
+// Next Image
+import Image from 'next/image'
+
 // ** MUI Imports
 import IconButton from '@mui/material/IconButton'
-import Box, { BoxProps } from '@mui/material/Box'
-import { styled, useTheme } from '@mui/material/styles'
-import Typography, { TypographyProps } from '@mui/material/Typography'
+
+// import Box, { BoxProps } from '@mui/material/Box'
+import { styled } from '@mui/material/styles'
+
+// import Typography, { TypographyProps } from '@mui/material/Typography'
 
 // ** Type Import
 import { LayoutProps } from 'src/@core/layouts/types'
@@ -13,8 +22,10 @@ import { LayoutProps } from 'src/@core/layouts/types'
 // ** Custom Icon Import
 import Icon from 'src/@core/components/icon'
 
+// import { useState } from 'react'
+
 // ** Configs
-import themeConfig from 'src/configs/themeConfig'
+// import themeConfig from 'src/configs/themeConfig'
 
 interface Props {
   navHover: boolean
@@ -30,20 +41,20 @@ interface Props {
 }
 
 // ** Styled Components
-const MenuHeaderWrapper = styled(Box)<BoxProps>(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  paddingRight: theme.spacing(3.5),
-  transition: 'padding .25s ease-in-out',
-  minHeight: theme.mixins.toolbar.minHeight
-}))
+// const MenuHeaderWrapper = styled(Box)<BoxProps>(({ theme }) => ({
+//   display: 'flex',
+//   alignItems: 'center',
+//   justifyContent: 'space-between',
+//   paddingRight: theme.spacing(3.5),
+//   transition: 'padding .25s ease-in-out',
+//   minHeight: theme.mixins.toolbar.minHeight
+// }))
 
-const HeaderTitle = styled(Typography)<TypographyProps>({
-  fontWeight: 700,
-  lineHeight: '24px',
-  transition: 'opacity .25s ease-in-out, margin .25s ease-in-out'
-})
+// const HeaderTitle = styled(Typography)<TypographyProps>({
+//   fontWeight: 700,
+//   lineHeight: '24px',
+//   transition: 'opacity .25s ease-in-out, margin .25s ease-in-out'
+// })
 
 const LinkStyled = styled(Link)({
   display: 'flex',
@@ -52,6 +63,8 @@ const LinkStyled = styled(Link)({
 })
 
 const VerticalNavHeader = (props: Props) => {
+  // const [ImageWidth, setImageWidth] = useState('70%')
+
   // ** Props
   const {
     hidden,
@@ -67,12 +80,20 @@ const VerticalNavHeader = (props: Props) => {
   } = props
 
   // ** Hooks & Vars
-  const theme = useTheme()
+  // const theme = useTheme()
   const { navCollapsed } = settings
 
+  // if (navCollapsed) {
+  //   setImageWidth('250%')
+  // } else {
+  //   setImageWidth('70%')
+  // }
   const menuCollapsedStyles = navCollapsed && !navHover ? { opacity: 0 } : { opacity: 1 }
-
-  const menuHeaderPaddingLeft = () => {
+  let displayButton = 'none'
+  if (navHover) {
+    displayButton = 'block'
+  }
+  const menuHeaderPaddingLeft = async () => {
     if (navCollapsed && !navHover) {
       if (userNavMenuBranding) {
         return 0
@@ -89,42 +110,40 @@ const VerticalNavHeader = (props: Props) => {
   const MenuUnlockedIcon = () => userMenuUnlockedIcon || <Icon icon='tabler:circle' />
 
   return (
-    <MenuHeaderWrapper className='nav-header' sx={{ pl: menuHeaderPaddingLeft() }}>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center'
+      }}
+    >
       {userNavMenuBranding ? (
         userNavMenuBranding(props)
       ) : (
         <LinkStyled href='/'>
-          <svg width={34} viewBox='0 0 32 22' fill='none' xmlns='http://www.w3.org/2000/svg'>
-            <path
-              fillRule='evenodd'
-              clipRule='evenodd'
-              fill={theme.palette.primary.main}
-              d='M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z'
+          <div
+            className='pb-4'
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              paddingBottom: '2rem',
+              paddingTop: '2rem'
+            }}
+          >
+            <Image
+              src={logo}
+              alt='logo'
+              style={{
+                width: '70%',
+                height: '100%'
+              }}
             />
-            <path
-              fill='#161616'
-              opacity={0.06}
-              fillRule='evenodd'
-              clipRule='evenodd'
-              d='M7.69824 16.4364L12.5199 3.23696L16.5541 7.25596L7.69824 16.4364Z'
-            />
-            <path
-              fill='#161616'
-              opacity={0.06}
-              fillRule='evenodd'
-              clipRule='evenodd'
-              d='M8.07751 15.9175L13.9419 4.63989L16.5849 7.28475L8.07751 15.9175Z'
-            />
-            <path
-              fillRule='evenodd'
-              clipRule='evenodd'
-              fill={theme.palette.primary.main}
-              d='M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z'
-            />
-          </svg>
-          <HeaderTitle variant='h4' sx={{ ...menuCollapsedStyles, ...(navCollapsed && !navHover ? {} : { ml: 2.5 }) }}>
-            {themeConfig.templateName}
-          </HeaderTitle>
+          </div>
+          {/* <HeaderTitle
+              variant='h4'
+              sx={{ ...menuCollapsedStyles, ...(navCollapsed && !navHover ? {} : { ml: 2.5 }) }}
+            >
+              
+            </HeaderTitle> */}
         </LinkStyled>
       )}
 
@@ -140,10 +159,14 @@ const VerticalNavHeader = (props: Props) => {
       ) : userMenuLockedIcon === null && userMenuUnlockedIcon === null ? null : (
         <IconButton
           disableRipple
+          style={{
+            display: displayButton,
+            paddingRight: '1rem'
+          }}
           disableFocusRipple
           onClick={() => saveSettings({ ...settings, navCollapsed: !navCollapsed })}
           sx={{
-            p: 0,
+            pr: 0,
             color: 'text.primary',
             backgroundColor: 'transparent !important',
             '& svg': {
@@ -156,7 +179,7 @@ const VerticalNavHeader = (props: Props) => {
           {navCollapsed ? MenuUnlockedIcon() : MenuLockedIcon()}
         </IconButton>
       )}
-    </MenuHeaderWrapper>
+    </div>
   )
 }
 
