@@ -71,9 +71,11 @@ const VerticalNavHeader = (props: Props) => {
     navHover,
     settings,
     saveSettings,
-    collapsedNavWidth,
+
+    // collapsedNavWidth,
     toggleNavVisibility,
-    navigationBorderWidth,
+
+    // navigationBorderWidth,
     menuLockedIcon: userMenuLockedIcon,
     navMenuBranding: userNavMenuBranding,
     menuUnlockedIcon: userMenuUnlockedIcon
@@ -93,17 +95,18 @@ const VerticalNavHeader = (props: Props) => {
   if (navHover) {
     displayButton = 'block'
   }
-  const menuHeaderPaddingLeft = async () => {
-    if (navCollapsed && !navHover) {
-      if (userNavMenuBranding) {
-        return 0
-      } else {
-        return (collapsedNavWidth - navigationBorderWidth - 34) / 8
-      }
-    } else {
-      return 6
-    }
-  }
+
+  // const menuHeaderPaddingLeft = async () => {
+  //   if (navCollapsed && !navHover) {
+  //     if (userNavMenuBranding) {
+  //       return 0
+  //     } else {
+  //       return (collapsedNavWidth - navigationBorderWidth - 34) / 8
+  //     }
+  //   } else {
+  //     return 6
+  //   }
+  // }
 
   const MenuLockedIcon = () => userMenuLockedIcon || <Icon icon='tabler:circle-dot' />
 
