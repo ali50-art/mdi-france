@@ -11,6 +11,32 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'tabler:smart-home'
     },
     {
+      sectionTitle: 'manipulation',
+      action: 'magne',
+      subject: 'users'
+    },
+    {
+      title: 'staff',
+      path: '/users',
+      action: 'mange',
+      subject: 'users',
+      icon: 'tabler:users'
+    },
+    {
+      title: 'logistique',
+      path: '/admin-logistique',
+      action: 'mange',
+      subject: 'admin-logistique',
+      icon: 'tabler:truck'
+    },
+    {
+      title: 'instalateurs',
+      path: '/admin-instalateur',
+      action: 'mange',
+      subject: 'admin-instalateur',
+      icon: 'tabler:clock'
+    },
+    {
       path: '/instalateur-dahsboard',
       action: 'read',
       subject: 'instalateur-dahsboard',

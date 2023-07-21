@@ -19,10 +19,10 @@ const CardStatsHorizontalWithDetails = (props: CardStatsHorizontalWithDetailsPro
     stats,
     title,
     subtitle,
-    trendDiff,
+
     iconSize = 24,
     avatarSize = 38,
-    trend = 'positive',
+
     avatarColor = 'primary'
   } = props
 
@@ -33,9 +33,6 @@ const CardStatsHorizontalWithDetails = (props: CardStatsHorizontalWithDetailsPro
           <Typography sx={{ mb: 1, color: 'text.secondary' }}>{title}</Typography>
           <Box sx={{ mb: 1, columnGap: 1.5, display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
             <Typography variant='h4'>{stats}</Typography>
-            <Typography
-              sx={{ color: trend === 'negative' ? 'error.main' : 'success.main' }}
-            >{`(${trendDiff})%`}</Typography>
           </Box>
           <Typography variant='h6' sx={{ color: 'text.secondary' }}>
             {subtitle}
