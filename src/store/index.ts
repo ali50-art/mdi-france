@@ -4,10 +4,14 @@ import { configureStore } from '@reduxjs/toolkit'
 // ** Reducers
 
 import user from 'src/store/apps/user'
+import material from 'src/store/apps/material'
+import order from 'src/store/apps/order'
 
 export const store = configureStore({
   reducer: {
-    user
+    user,
+    material,
+    order
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

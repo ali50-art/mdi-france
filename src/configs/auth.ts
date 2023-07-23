@@ -5,3 +5,6 @@ export default {
   storageTokenKeyName: 'accessToken',
   onTokenExpiration: 'refreshToken' // logout | refreshToken
 }
+export const serverUri = {
+  uri: process.env.NEXT_PUBLIC_SERVER_URI
+}

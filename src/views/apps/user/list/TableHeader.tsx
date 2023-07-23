@@ -10,13 +10,14 @@ import Icon from 'src/@core/components/icon'
 
 interface TableHeaderProps {
   value: string
+  name: string
   toggle: () => void
   handleFilter: (val: string) => void
 }
 
 const TableHeader = (props: TableHeaderProps) => {
   // ** Props
-  const { handleFilter, toggle, value } = props
+  const { handleFilter, toggle, value, name } = props
 
   return (
     <Box
@@ -42,7 +43,8 @@ const TableHeader = (props: TableHeaderProps) => {
 
         <Button onClick={toggle} variant='contained' sx={{ '& svg': { mr: 2 } }}>
           <Icon fontSize='1.125rem' icon='tabler:plus' />
-          Ajouter un nouvel utilisateur
+
+          {name}
         </Button>
       </Box>
     </Box>

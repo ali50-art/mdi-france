@@ -25,27 +25,27 @@ import Icon from 'src/@core/components/icon'
 import { useDispatch } from 'react-redux'
 
 // ** Actions Imports
-import { addUser } from 'src/store/apps/user'
+import { updateUser } from 'src/store/apps/user'
 
 // ** Types Imports
 import { AppDispatch } from 'src/store'
 
-// import { UsersType } from 'src/types/apps/userTypes'
+import { UsersType } from 'src/types/apps/userTypes'
 
 interface SidebarAddUserType {
   open: boolean
   toggle: () => void
+  user: UsersType
 }
 
-interface UserData {
-  email: string
-  company: string
-  billing: string
-  country: string
-  phone: number
-  fullName: string
-  username: string
-}
+// interface DataUSer {
+//   email: string
+//   phone: number
+//   fullName: string
+//   password: string
+//   role: string
+//   status: string
+// }
 
 const showErrors = (field: string, valueLen: number, min: number) => {
   if (valueLen === 0) {
@@ -74,25 +74,70 @@ const schema = yup.object().shape({
   fullName: yup
     .string()
     .min(3, obj => showErrors('Nome & prenom', obj.value.length, obj.min))
+    .required(),
+  password: yup
+    .string()
+    .min(8, obj => showErrors('Mot de pass', obj.value.length, obj.min))
     .required()
 })
 
-const defaultValues = {
-  email: '',
-  company: '',
-  country: '',
-  billing: '',
-  fullName: '',
-  username: '',
-  phone: Number('')
-}
-
 const SidebarAddUser = (props: SidebarAddUserType) => {
   // ** Props
-  const { open, toggle } = props
+  const { open, toggle, user } = props
+  const handleDefaultValue = () => {
+    let email
+    if (user?.email) {
+      email = user?.email
+    } else {
+      email = ''
+    }
+    let fullName
+    if (user?.fullName) {
+      fullName = user?.fullName
+    } else {
+      fullName = ''
+    }
+    let phone
+    if (user?.phone) {
+      phone = Number(user?.phone)
+    } else {
+      phone = Number(0)
+    }
+    let password
+    if (user?.password) {
+      password = user?.password
+    } else {
+      password = Number(0)
+    }
+
+    return { email, fullName, phone, password }
+  }
+  const { email, fullName, phone, password } = handleDefaultValue()
+
+  const defaultValues = {
+    email,
+    fullName,
+    phone,
+    password
+  }
 
   // ** State
-  const [role, setRole] = useState<string>('instalateur')
+  let defaultRole
+  if (user?.role) {
+    defaultRole = user?.role
+  } else {
+    defaultRole = ''
+  }
+  let defaultStatus
+  if (user?.status) {
+    defaultStatus = user?.status.toString()
+  } else {
+    defaultStatus = 'true'
+  }
+  console.log('default status : ', defaultStatus)
+
+  const [role, setRole] = useState<string>(defaultRole)
+  const [status, setStatus] = useState<string>(defaultStatus)
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
@@ -109,15 +154,16 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
     mode: 'onChange',
     resolver: yupResolver(schema)
   })
-  const onSubmit = (data: UserData) => {
-    dispatch(addUser({ ...data, role }))
+  const onSubmit = (data: any) => {
+    const id: any = user?.id
+    dispatch(updateUser({ ...data, role, id, status }))
     toggle()
     reset()
   }
 
   const handleClose = () => {
-    setRole('subscriber')
-    setValue('phone', Number(''))
+    setRole('')
+    setValue('phone', Number(0))
     toggle()
     reset()
   }
@@ -132,7 +178,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
       sx={{ '& .MuiDrawer-paper': { width: { xs: 300, sm: 400 } } }}
     >
       <Header>
-        <Typography variant='h5'>Ajouter un utilisateur</Typography>
+        <Typography variant='h5'>Modefier un utilisateur</Typography>
         <IconButton
           size='small'
           onClick={handleClose}
@@ -204,6 +250,24 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
               />
             )}
           />
+          <Controller
+            name='password'
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { value, onChange } }) => (
+              <CustomTextField
+                fullWidth
+                type='text'
+                value={value}
+                sx={{ mb: 4 }}
+                label='Mot de pass'
+                onChange={onChange}
+                placeholder='(397) 294-5153'
+                error={Boolean(errors.password)}
+                {...(errors.password && { helperText: errors.password.message })}
+              />
+            )}
+          />
           <CustomTextField
             select
             fullWidth
@@ -218,10 +282,21 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
             <MenuItem value='instalateur'>Instalateur</MenuItem>
             <MenuItem value='assistant'>assistant</MenuItem>
           </CustomTextField>
-
+          <CustomTextField
+            select
+            fullWidth
+            value={status}
+            sx={{ mb: 4 }}
+            label='Sélectionnez la status'
+            onChange={e => setStatus(e.target.value)}
+            SelectProps={{ value: status, onChange: e => setStatus(e.target.value as string) }}
+          >
+            <MenuItem value='true'>Active</MenuItem>
+            <MenuItem value='false'>Unactive</MenuItem>
+          </CustomTextField>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Button type='submit' variant='contained' sx={{ mr: 3 }} onClick={handleSubmit(onSubmit)}>
-              sauvegarder
+              modifier
             </Button>
             <Button variant='tonal' color='secondary' onClick={handleClose}>
               Annuler

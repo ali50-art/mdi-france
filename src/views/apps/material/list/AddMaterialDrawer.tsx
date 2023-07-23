@@ -1,10 +1,9 @@
 // ** React Imports
-import { useState } from 'react'
+// import { useState } from 'react'
 
 // ** MUI Imports
 import Drawer from '@mui/material/Drawer'
 import Button from '@mui/material/Button'
-import MenuItem from '@mui/material/MenuItem'
 import { styled } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
@@ -25,7 +24,7 @@ import Icon from 'src/@core/components/icon'
 import { useDispatch } from 'react-redux'
 
 // ** Actions Imports
-import { addUser } from 'src/store/apps/user'
+import { addMateriel } from 'src/store/apps/material'
 
 // ** Types Imports
 import { AppDispatch } from 'src/store'
@@ -37,24 +36,10 @@ interface SidebarAddUserType {
   toggle: () => void
 }
 
-interface UserData {
-  email: string
-  company: string
-  billing: string
-  country: string
-  phone: number
-  fullName: string
-  username: string
-}
-
-const showErrors = (field: string, valueLen: number, min: number) => {
-  if (valueLen === 0) {
-    return `${field} est obligatoire !`
-  } else if (valueLen > 0 && valueLen < min) {
-    return `${field} doit contenir au moins  ${min} caractères`
-  } else {
-    return ''
-  }
+interface MaterialData {
+  model: string
+  ref: string
+  type: string
 }
 
 const Header = styled(Box)<BoxProps>(({ theme }) => ({
@@ -65,26 +50,15 @@ const Header = styled(Box)<BoxProps>(({ theme }) => ({
 }))
 
 const schema = yup.object().shape({
-  email: yup.string().email().required(),
-  phone: yup
-    .number()
-    .typeError('phone est obligatoir')
-    .min(10, obj => showErrors('phone', obj.value.length, obj.min))
-    .required(),
-  fullName: yup
-    .string()
-    .min(3, obj => showErrors('Nome & prenom', obj.value.length, obj.min))
-    .required()
+  model: yup.string().required(),
+  ref: yup.string().required(),
+  type: yup.string().required()
 })
 
 const defaultValues = {
-  email: '',
-  company: '',
-  country: '',
-  billing: '',
-  fullName: '',
-  username: '',
-  phone: Number('')
+  model: '',
+  ref: '',
+  type: ''
 }
 
 const SidebarAddUser = (props: SidebarAddUserType) => {
@@ -92,7 +66,6 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
   const { open, toggle } = props
 
   // ** State
-  const [role, setRole] = useState<string>('instalateur')
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
@@ -101,7 +74,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
   const {
     reset,
     control,
-    setValue,
+
     handleSubmit,
     formState: { errors }
   } = useForm({
@@ -109,15 +82,13 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
     mode: 'onChange',
     resolver: yupResolver(schema)
   })
-  const onSubmit = (data: UserData) => {
-    dispatch(addUser({ ...data, role }))
+  const onSubmit = (data: MaterialData) => {
+    dispatch(addMateriel({ ...data }))
     toggle()
     reset()
   }
 
   const handleClose = () => {
-    setRole('subscriber')
-    setValue('phone', Number(''))
     toggle()
     reset()
   }
@@ -132,7 +103,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
       sx={{ '& .MuiDrawer-paper': { width: { xs: 300, sm: 400 } } }}
     >
       <Header>
-        <Typography variant='h5'>Ajouter un utilisateur</Typography>
+        <Typography variant='h5'>Ajouter un Matriel</Typography>
         <IconButton
           size='small'
           onClick={handleClose}
@@ -152,7 +123,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
       <Box sx={{ p: theme => theme.spacing(0, 6, 6) }}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Controller
-            name='fullName'
+            name='model'
             control={control}
             rules={{ required: true }}
             render={({ field: { value, onChange } }) => (
@@ -160,64 +131,48 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                 fullWidth
                 value={value}
                 sx={{ mb: 4 }}
-                label='Nom et prénom'
+                label='Modéle'
                 onChange={onChange}
-                placeholder='exemple...'
-                error={Boolean(errors.fullName)}
-                {...(errors.fullName && { helperText: errors.fullName.message })}
+                placeholder='exemple B1,...'
+                error={Boolean(errors.model)}
+                {...(errors.model && { helperText: errors.model.message })}
               />
             )}
           />
           <Controller
-            name='email'
+            name='ref'
             control={control}
             rules={{ required: true }}
             render={({ field: { value, onChange } }) => (
               <CustomTextField
                 fullWidth
-                type='email'
-                label='Email'
                 value={value}
                 sx={{ mb: 4 }}
+                label='Referance'
                 onChange={onChange}
-                error={Boolean(errors.email)}
-                placeholder='exemple@gmail.com'
-                {...(errors.email && { helperText: errors.email.message })}
+                placeholder='exemple xyz,...'
+                error={Boolean(errors.ref)}
+                {...(errors.ref && { helperText: errors.ref.message })}
               />
             )}
           />
           <Controller
-            name='phone'
+            name='type'
             control={control}
             rules={{ required: true }}
             render={({ field: { value, onChange } }) => (
               <CustomTextField
                 fullWidth
-                type='Phone'
                 value={value}
                 sx={{ mb: 4 }}
-                label='Phone'
+                label='Type'
                 onChange={onChange}
-                placeholder='(397) 294-5153'
-                error={Boolean(errors.phone)}
-                {...(errors.phone && { helperText: errors.phone.message })}
+                placeholder='exemple xyz,...'
+                error={Boolean(errors.type)}
+                {...(errors.type && { helperText: errors.type.message })}
               />
             )}
           />
-          <CustomTextField
-            select
-            fullWidth
-            value={role}
-            sx={{ mb: 4 }}
-            label='Sélectionnez un rôle'
-            onChange={e => setRole(e.target.value)}
-            SelectProps={{ value: role, onChange: e => setRole(e.target.value as string) }}
-          >
-            <MenuItem value='admin'>Admin</MenuItem>
-            <MenuItem value='logistique'>Logistique</MenuItem>
-            <MenuItem value='instalateur'>Instalateur</MenuItem>
-            <MenuItem value='assistant'>assistant</MenuItem>
-          </CustomTextField>
 
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Button type='submit' variant='contained' sx={{ mr: 3 }} onClick={handleSubmit(onSubmit)}>

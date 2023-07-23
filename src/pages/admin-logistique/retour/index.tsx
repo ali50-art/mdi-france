@@ -10,9 +10,9 @@ const AdminInstalateur = () => {
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <Card>
-          <CardHeader title='partie Instaleur 🚀'></CardHeader>
+          <CardHeader title='partie logistique 🚀'></CardHeader>
           <CardContent>
-            <Typography sx={{ mb: 2 }}>page d'instalation</Typography>
+            <Typography sx={{ mb: 2 }}>page de retour logistique</Typography>
             <Typography>cette page en train de développer merci pour votre consultation</Typography>
           </CardContent>
         </Card>

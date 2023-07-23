@@ -1,10 +1,8 @@
 // ** React Imports
-import { useState } from 'react'
 
 // ** MUI Imports
 import Drawer from '@mui/material/Drawer'
 import Button from '@mui/material/Button'
-import MenuItem from '@mui/material/MenuItem'
 import { styled } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
@@ -25,27 +23,27 @@ import Icon from 'src/@core/components/icon'
 import { useDispatch } from 'react-redux'
 
 // ** Actions Imports
-import { addUser } from 'src/store/apps/user'
+import { updateOrder } from 'src/store/apps/order'
 
 // ** Types Imports
 import { AppDispatch } from 'src/store'
 
-// import { UsersType } from 'src/types/apps/userTypes'
+import { OrderTypes } from 'src/types/apps/orderDetails'
 
 interface SidebarAddUserType {
   open: boolean
   toggle: () => void
+  order: OrderTypes
 }
 
-interface UserData {
-  email: string
-  company: string
-  billing: string
-  country: string
-  phone: number
-  fullName: string
-  username: string
-}
+// interface DataUSer {
+//   email: string
+//   phone: number
+//   fullName: string
+//   password: string
+//   role: string
+//   status: string
+// }
 
 const showErrors = (field: string, valueLen: number, min: number) => {
   if (valueLen === 0) {
@@ -56,7 +54,6 @@ const showErrors = (field: string, valueLen: number, min: number) => {
     return ''
   }
 }
-
 const Header = styled(Box)<BoxProps>(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -65,34 +62,74 @@ const Header = styled(Box)<BoxProps>(({ theme }) => ({
 }))
 
 const schema = yup.object().shape({
+  address: yup.string().required(),
+  codePost: yup.string().required(),
+  ville: yup.string().required(),
   email: yup.string().email().required(),
   phone: yup
-    .number()
+    .string()
     .typeError('phone est obligatoir')
     .min(10, obj => showErrors('phone', obj.value.length, obj.min))
     .required(),
-  fullName: yup
+  name: yup
     .string()
-    .min(3, obj => showErrors('Nome & prenom', obj.value.length, obj.min))
+    .min(3, obj => showErrors('Nom', obj.value.length, obj.min))
     .required()
 })
 
-const defaultValues = {
-  email: '',
-  company: '',
-  country: '',
-  billing: '',
-  fullName: '',
-  username: '',
-  phone: Number('')
-}
-
 const SidebarAddUser = (props: SidebarAddUserType) => {
   // ** Props
-  const { open, toggle } = props
+  const { open, toggle, order } = props
+  const handleDefaultValue = () => {
+    let address
+    if (order?.address) {
+      address = order?.address
+    } else {
+      address = ''
+    }
+    let codePost
+    if (order?.codePost) {
+      codePost = order?.codePost
+    } else {
+      codePost = ''
+    }
+    let ville
+    if (order?.ville) {
+      ville = order?.ville
+    } else {
+      ville = ''
+    }
+    let email
+    if (order?.email) {
+      email = order?.email
+    } else {
+      email = ''
+    }
+    let phone
+    if (order?.phone) {
+      phone = order?.phone
+    } else {
+      phone = ''
+    }
+    let name
+    if (order?.name) {
+      name = order?.name
+    } else {
+      name = ''
+    }
 
-  // ** State
-  const [role, setRole] = useState<string>('instalateur')
+    return { address, codePost, ville, email, phone, name }
+  }
+  const { address, codePost, ville, email, phone, name } = handleDefaultValue()
+
+  const defaultValues = {
+    address,
+    codePost,
+    ville,
+    email,
+    phone,
+    name
+  }
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
@@ -101,7 +138,6 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
   const {
     reset,
     control,
-    setValue,
     handleSubmit,
     formState: { errors }
   } = useForm({
@@ -109,15 +145,14 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
     mode: 'onChange',
     resolver: yupResolver(schema)
   })
-  const onSubmit = (data: UserData) => {
-    dispatch(addUser({ ...data, role }))
+  const onSubmit = (data: any) => {
+    const id: any = order?.id
+    dispatch(updateOrder({ ...data, id }))
     toggle()
     reset()
   }
 
   const handleClose = () => {
-    setRole('subscriber')
-    setValue('phone', Number(''))
     toggle()
     reset()
   }
@@ -132,7 +167,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
       sx={{ '& .MuiDrawer-paper': { width: { xs: 300, sm: 400 } } }}
     >
       <Header>
-        <Typography variant='h5'>Ajouter un utilisateur</Typography>
+        <Typography variant='h5'>Modefier un Materiel</Typography>
         <IconButton
           size='small'
           onClick={handleClose}
@@ -152,7 +187,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
       <Box sx={{ p: theme => theme.spacing(0, 6, 6) }}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Controller
-            name='fullName'
+            name='name'
             control={control}
             rules={{ required: true }}
             render={({ field: { value, onChange } }) => (
@@ -160,11 +195,11 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                 fullWidth
                 value={value}
                 sx={{ mb: 4 }}
-                label='Nom et prénom'
+                label='Nom'
                 onChange={onChange}
-                placeholder='exemple...'
-                error={Boolean(errors.fullName)}
-                {...(errors.fullName && { helperText: errors.fullName.message })}
+                placeholder='exemple B1,...'
+                error={Boolean(errors.name)}
+                {...(errors.name && { helperText: errors.name.message })}
               />
             )}
           />
@@ -176,12 +211,12 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
               <CustomTextField
                 fullWidth
                 type='email'
-                label='Email'
                 value={value}
                 sx={{ mb: 4 }}
+                label='Email'
                 onChange={onChange}
+                placeholder='order@exemple.com'
                 error={Boolean(errors.email)}
-                placeholder='exemple@gmail.com'
                 {...(errors.email && { helperText: errors.email.message })}
               />
             )}
@@ -193,35 +228,71 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
             render={({ field: { value, onChange } }) => (
               <CustomTextField
                 fullWidth
-                type='Phone'
                 value={value}
                 sx={{ mb: 4 }}
                 label='Phone'
                 onChange={onChange}
-                placeholder='(397) 294-5153'
+                placeholder='numero de telephone'
                 error={Boolean(errors.phone)}
                 {...(errors.phone && { helperText: errors.phone.message })}
               />
             )}
           />
-          <CustomTextField
-            select
-            fullWidth
-            value={role}
-            sx={{ mb: 4 }}
-            label='Sélectionnez un rôle'
-            onChange={e => setRole(e.target.value)}
-            SelectProps={{ value: role, onChange: e => setRole(e.target.value as string) }}
-          >
-            <MenuItem value='admin'>Admin</MenuItem>
-            <MenuItem value='logistique'>Logistique</MenuItem>
-            <MenuItem value='instalateur'>Instalateur</MenuItem>
-            <MenuItem value='assistant'>assistant</MenuItem>
-          </CustomTextField>
+          <Controller
+            name='address'
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { value, onChange } }) => (
+              <CustomTextField
+                fullWidth
+                value={value}
+                sx={{ mb: 4 }}
+                label='Address'
+                onChange={onChange}
+                placeholder='xyz,..'
+                error={Boolean(errors.address)}
+                {...(errors.address && { helperText: errors.address.message })}
+              />
+            )}
+          />
+          <Controller
+            name='codePost'
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { value, onChange } }) => (
+              <CustomTextField
+                fullWidth
+                value={value}
+                sx={{ mb: 4 }}
+                label='Code Postal'
+                onChange={onChange}
+                placeholder='Code Postal'
+                error={Boolean(errors.codePost)}
+                {...(errors.codePost && { helperText: errors.codePost.message })}
+              />
+            )}
+          />
+          <Controller
+            name='ville'
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { value, onChange } }) => (
+              <CustomTextField
+                fullWidth
+                value={value}
+                sx={{ mb: 4 }}
+                label='Ville'
+                onChange={onChange}
+                placeholder='ville'
+                error={Boolean(errors.ville)}
+                {...(errors.ville && { helperText: errors.ville.message })}
+              />
+            )}
+          />
 
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Button type='submit' variant='contained' sx={{ mr: 3 }} onClick={handleSubmit(onSubmit)}>
-              sauvegarder
+              modifier
             </Button>
             <Button variant='tonal' color='secondary' onClick={handleClose}>
               Annuler

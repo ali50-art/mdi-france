@@ -11,23 +11,55 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'tabler:smart-home'
     },
     {
-      sectionTitle: 'manipulation',
+      sectionTitle: 'manipulation & configuration',
       action: 'magne',
       subject: 'users'
     },
     {
-      title: 'staff',
+      title: 'Materiel',
+      path: '/material',
+      action: 'mange',
+      subject: 'material',
+      icon: 'tabler:chart-pie-2'
+    },
+    {
+      title: "Donner D'order",
+      path: '/orderDetails',
+      action: 'mange',
+      subject: 'orderDetails',
+      icon: 'tabler:shopping-cart'
+    },
+    {
+      title: 'Staff',
       path: '/users',
       action: 'mange',
       subject: 'users',
       icon: 'tabler:users'
     },
     {
-      title: 'logistique',
-      path: '/admin-logistique',
+      sectionTitle: 'traviler',
+      action: 'magne',
+      subject: 'admin-logistique'
+    },
+    {
+      title: 'Logistique',
       action: 'mange',
       subject: 'admin-logistique',
-      icon: 'tabler:truck'
+      icon: 'tabler:truck',
+      children: [
+        {
+          title: 'En cours',
+          path: '/admin-logistique/inprogress',
+          action: 'mange',
+          subject: 'admin-logistique'
+        },
+        {
+          title: 'Terminé',
+          path: '/admin-logistique/retour',
+          action: 'mange',
+          subject: 'admin-logistique'
+        }
+      ]
     },
     {
       title: 'instalateurs',

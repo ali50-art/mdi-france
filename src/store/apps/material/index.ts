@@ -1,7 +1,6 @@
 // ** Redux Imports
 import { Dispatch } from 'redux'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import randomstring from 'randomstring'
 
 // ** Axios Imports
 import axios from 'axios'
@@ -20,15 +19,15 @@ interface Redux {
 }
 
 // ** Fetch Users
-export const fetchData = createAsyncThunk('appUsers/fetchData', async (params: any) => {
+export const fetchData = createAsyncThunk('appMaterial/fetchData', async (params: any) => {
   const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
-  const response = await axios.get(`${serverUri.uri}/api/admin/users`, {
+  const response = await axios.get(`${serverUri.uri}/api/material`, {
     headers: {
       Authorization: storedToken
     },
     params
   })
-  const response2 = await axios.get(`${serverUri.uri}/api/admin/users/count`, {
+  const response2 = await axios.get(`${serverUri.uri}/api/material/count`, {
     headers: {
       Authorization: storedToken
     },
@@ -42,8 +41,8 @@ export const fetchData = createAsyncThunk('appUsers/fetchData', async (params: a
 })
 
 // ** Add User
-export const addUser = createAsyncThunk(
-  'appUsers/addUser',
+export const addMateriel = createAsyncThunk(
+  'appMaterial/addMateriel',
   async (data: { [key: string]: number | string }, { getState, dispatch }: Redux) => {
     const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
     const config = {
@@ -52,13 +51,11 @@ export const addUser = createAsyncThunk(
         Authorization: storedToken
       }
     }
-    const password = randomstring.generate(10)
     const newData = {
-      ...data,
-      password
+      ...data
     }
 
-    const response = await axios.post(`${serverUri.uri}/api/admin/users`, newData, config)
+    const response = await axios.post(`${serverUri.uri}/api/material`, newData, config)
     dispatch(fetchData(getState().user.params))
 
     const dataCoipe = { ...response.data.data }
@@ -69,8 +66,8 @@ export const addUser = createAsyncThunk(
 )
 
 // ** Delete User
-export const deleteUser = createAsyncThunk(
-  'appUsers/deleteUser',
+export const deleteMaterial = createAsyncThunk(
+  'appMaterial/deleteMaterial',
   async (id: number | string, { getState, dispatch }: Redux) => {
     const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
     const config = {
@@ -79,7 +76,7 @@ export const deleteUser = createAsyncThunk(
         Authorization: storedToken
       }
     }
-    const response = await axios.delete(`${serverUri.uri}/api/admin/users/${id}`, config)
+    const response = await axios.delete(`${serverUri.uri}/api/material/${id}`, config)
     dispatch(fetchData(getState().user.params))
 
     return response.data
@@ -87,8 +84,8 @@ export const deleteUser = createAsyncThunk(
 )
 
 // ** Update User
-export const updateUser = createAsyncThunk(
-  'appUsers/deleteUser',
+export const updateMateriel = createAsyncThunk(
+  'appMaterial/updateMaterial',
   async (data: { [key: string]: number | string }, { getState, dispatch }: Redux) => {
     const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
     const config = {
@@ -97,20 +94,21 @@ export const updateUser = createAsyncThunk(
         Authorization: storedToken
       }
     }
-    const response = await axios.put(`${serverUri.uri}/api/admin/users/${data.id}`, data, config)
+    const { id, ...filterData } = data
+    const response = await axios.put(`${serverUri.uri}/api/material/${id}`, filterData, config)
     dispatch(fetchData(getState().user.params))
 
     return response.data
   }
 )
 
-export const appUsersSlice = createSlice({
-  name: 'appUsers',
+export const appMaterialSlice = createSlice({
+  name: 'appMaterial',
   initialState: {
     data: [],
     total: 1,
-    count: [],
     params: {},
+    count: 0,
     allData: []
   },
   reducers: {},
@@ -125,4 +123,4 @@ export const appUsersSlice = createSlice({
   }
 })
 
-export default appUsersSlice.reducer
+export default appMaterialSlice.reducer
