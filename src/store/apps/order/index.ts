@@ -41,29 +41,23 @@ export const fetchData = createAsyncThunk('appOrder/fetchData', async (params: a
 })
 
 // ** Add User
-export const addOrder = createAsyncThunk(
-  'appOrder/addOrder',
-  async (data: { [key: string]: number | string }, { getState, dispatch }: Redux) => {
-    const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
-    const config = {
-      headers: {
-        'Content-Type': 'application/json', // Example: JSON data
-        Authorization: storedToken
-      }
+export const addOrder = createAsyncThunk('appOrder/addOrder', async (data: object, { getState, dispatch }: Redux) => {
+  const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
+  const config = {
+    headers: {
+      'content-type': 'multipart/form-data', // Example: JSON data
+      Authorization: storedToken
     }
-    const newData = {
-      ...data
-    }
-
-    const response = await axios.post(`${serverUri.uri}/api/orderDetails`, newData, config)
-    dispatch(fetchData(getState().user.params))
-
-    const dataCoipe = { ...response.data.data }
-    dataCoipe.docs.forEach((element: any) => (element.id = element._id))
-
-    return dataCoipe
   }
-)
+
+  const response = await axios.post(`${serverUri.uri}/api/orderDetails`, data, config)
+  dispatch(fetchData(getState().user.params))
+
+  const dataCoipe = { ...response.data.data }
+  dataCoipe.docs.forEach((element: any) => (element.id = element._id))
+
+  return dataCoipe
+})
 
 // ** Delete User
 export const deleteorderDetails = createAsyncThunk(
@@ -86,16 +80,19 @@ export const deleteorderDetails = createAsyncThunk(
 // ** Update User
 export const updateOrder = createAsyncThunk(
   'appOrder/updateOrder',
-  async (data: { [key: string]: number | string }, { getState, dispatch }: Redux) => {
+  async (payload: any, { getState, dispatch }: Redux) => {
     const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
     const config = {
       headers: {
-        'Content-Type': 'application/json', // Example: JSON data
+        'content-type': 'multipart/form-data',
         Authorization: storedToken
       }
     }
-    const { id, ...filterData } = data
-    const response = await axios.put(`${serverUri.uri}/api/orderDetails/${id}`, filterData, config)
+    console.log('payload : ', payload)
+
+    const { id, data } = payload
+
+    const response = await axios.put(`${serverUri.uri}/api/orderDetails/${id}`, data, config)
     dispatch(fetchData(getState().user.params))
 
     return response.data

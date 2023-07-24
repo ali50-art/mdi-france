@@ -2,7 +2,7 @@
 
 // ** MUI Imports
 import Drawer from '@mui/material/Drawer'
-import Button from '@mui/material/Button'
+import Button, { ButtonProps } from '@mui/material/Button'
 import { styled } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
@@ -29,6 +29,7 @@ import { updateOrder } from 'src/store/apps/order'
 import { AppDispatch } from 'src/store'
 
 import { OrderTypes } from 'src/types/apps/orderDetails'
+import { ElementType, useState } from 'react'
 
 interface SidebarAddUserType {
   open: boolean
@@ -59,6 +60,28 @@ const Header = styled(Box)<BoxProps>(({ theme }) => ({
   alignItems: 'center',
   padding: theme.spacing(6),
   justifyContent: 'space-between'
+}))
+const ImgStyled = styled('img')(({ theme }) => ({
+  width: 50,
+  height: 50,
+  marginRight: theme.spacing(6),
+  borderRadius: theme.shape.borderRadius
+}))
+const ButtonStyled = styled(Button)<ButtonProps & { component?: ElementType; htmlFor?: string }>(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+    textAlign: 'center'
+  }
+}))
+
+const ResetButtonStyled = styled(Button)<ButtonProps>(({ theme }) => ({
+  marginLeft: theme.spacing(4),
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+    marginLeft: 0,
+    textAlign: 'center',
+    marginTop: theme.spacing(2)
+  }
 }))
 
 const schema = yup.object().shape({
@@ -133,6 +156,27 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
+  const [inputValue, setInputValue] = useState<string>('')
+  const [file, setFile] = useState<any>(null)
+  const [imgSrc, setImgSrc] = useState<string>(`${process.env.NEXT_PUBLIC_SERVER_URI}/orderDetails/default.png`)
+  const handleInputImageChanges = (file: any) => {
+    setFile(file.target.files[0])
+    const reader = new FileReader()
+    const { files } = file.target as HTMLInputElement
+    if (files && files.length !== 0) {
+      reader.onload = () => setImgSrc(reader.result as string)
+      reader.readAsDataURL(files[0])
+      setInputValue(reader.result as string)
+      if (reader.result !== null) {
+        setInputValue(reader.result as string)
+      }
+    }
+  }
+
+  const handleInputImageReset = () => {
+    setInputValue('')
+    setImgSrc(`${process.env.NEXT_PUBLIC_SERVER_URI}/orderDetails/default.png`)
+  }
 
   // const store = useSelector((state: RootState) => state.user)
   const {
@@ -147,7 +191,15 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
   })
   const onSubmit = (data: any) => {
     const id: any = order?.id
-    dispatch(updateOrder({ ...data, id }))
+    const foromData = new FormData()
+    foromData.append('name', data.name)
+    foromData.append('email', data.email)
+    foromData.append('address', data.address)
+    foromData.append('phone', data.phone)
+    foromData.append('codePost', data.codePost)
+    foromData.append('ville', data.ville)
+    foromData.append('file', file)
+    dispatch(updateOrder({ data: foromData, id }))
     toggle()
     reset()
   }
@@ -167,7 +219,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
       sx={{ '& .MuiDrawer-paper': { width: { xs: 300, sm: 400 } } }}
     >
       <Header>
-        <Typography variant='h5'>Modefier un Materiel</Typography>
+        <Typography variant='h5'>Modefier la Donner D'order</Typography>
         <IconButton
           size='small'
           onClick={handleClose}
@@ -186,6 +238,25 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
       </Header>
       <Box sx={{ p: theme => theme.spacing(0, 6, 6) }}>
         <form onSubmit={handleSubmit(onSubmit)}>
+          <Box sx={{ alignItems: 'center' }}>
+            <ImgStyled src={imgSrc} alt='Profile Pic' />
+            <Box sx={{ marginTop: '1rem', marginBottom: '1rem' }}>
+              <ButtonStyled component='label' variant='contained' htmlFor='account-settings-upload-images'>
+                Ajouter un logo +
+                <input
+                  hidden
+                  type='file'
+                  value={inputValue}
+                  accept='*'
+                  onChange={handleInputImageChanges}
+                  id='account-settings-upload-images'
+                />
+              </ButtonStyled>
+              <ResetButtonStyled color='secondary' variant='tonal' onClick={handleInputImageReset}>
+                Reset
+              </ResetButtonStyled>
+            </Box>
+          </Box>
           <Controller
             name='name'
             control={control}

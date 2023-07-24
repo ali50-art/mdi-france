@@ -1,9 +1,9 @@
 // ** React Imports
-// import { useState } from 'react'
+import { useState, ElementType } from 'react'
 
 // ** MUI Imports
 import Drawer from '@mui/material/Drawer'
-import Button from '@mui/material/Button'
+import Button, { ButtonProps } from '@mui/material/Button'
 import { styled } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
@@ -59,6 +59,28 @@ const Header = styled(Box)<BoxProps>(({ theme }) => ({
   padding: theme.spacing(6),
   justifyContent: 'space-between'
 }))
+const ImgStyled = styled('img')(({ theme }) => ({
+  width: 50,
+  height: 50,
+  marginRight: theme.spacing(6),
+  borderRadius: theme.shape.borderRadius
+}))
+const ButtonStyled = styled(Button)<ButtonProps & { component?: ElementType; htmlFor?: string }>(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+    textAlign: 'center'
+  }
+}))
+
+const ResetButtonStyled = styled(Button)<ButtonProps>(({ theme }) => ({
+  marginLeft: theme.spacing(4),
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+    marginLeft: 0,
+    textAlign: 'center',
+    marginTop: theme.spacing(2)
+  }
+}))
 
 const schema = yup.object().shape({
   address: yup.string().required(),
@@ -93,6 +115,29 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
+  const [inputValue, setInputValue] = useState<string>('')
+  const [imgSrc, setImgSrc] = useState<string>(`${process.env.NEXT_PUBLIC_SERVER_URI}/orderDetails/default.png`)
+  const handleInputImageChange = (file: any) => {
+    const reader = new FileReader()
+    const { files } = file.target as HTMLInputElement
+    if (files && files.length !== 0) {
+      reader.onload = () => setImgSrc(reader.result as string)
+      reader.readAsDataURL(files[0])
+
+      if (reader.result !== null) {
+        setInputValue(reader.result as string)
+      }
+    }
+  }
+
+  const handleInputImageReset = () => {
+    setInputValue('')
+    setImgSrc(`${process.env.NEXT_PUBLIC_SERVER_URI}/orderDetails/default.png`)
+  }
+
+  // const handleFormChange = (field: keyof Data, value: Data[keyof Data]) => {
+  //   setFormData({ ...formData, [field]: value })
+  // }
 
   // const store = useSelector((state: RootState) => state.user)
   const {
@@ -106,7 +151,17 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
     resolver: yupResolver(schema)
   })
   const onSubmit = (data: orderData) => {
-    dispatch(addOrder({ ...data }))
+    const foromData = new FormData()
+
+    foromData.append('name', data.name)
+    foromData.append('email', data.email)
+    foromData.append('address', data.address)
+    foromData.append('phone', data.phone)
+    foromData.append('codePost', data.codePost)
+    foromData.append('ville', data.ville)
+    foromData.append('file', inputValue)
+
+    dispatch(addOrder(foromData))
     toggle()
     reset()
   }
@@ -145,6 +200,25 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
       </Header>
       <Box sx={{ p: theme => theme.spacing(0, 6, 6) }}>
         <form onSubmit={handleSubmit(onSubmit)}>
+          <Box sx={{ alignItems: 'center' }}>
+            <ImgStyled src={imgSrc} alt='Profile Pic' />
+            <Box sx={{ marginTop: '1rem', marginBottom: '1rem' }}>
+              <ButtonStyled component='label' variant='contained' htmlFor='account-settings-upload-image'>
+                Ajouter un logo +
+                <input
+                  hidden
+                  type='file'
+                  value={inputValue}
+                  accept='image/png, image/jpeg'
+                  onChange={handleInputImageChange}
+                  id='account-settings-upload-image'
+                />
+              </ButtonStyled>
+              <ResetButtonStyled color='secondary' variant='tonal' onClick={handleInputImageReset}>
+                Reset
+              </ResetButtonStyled>
+            </Box>
+          </Box>
           <Controller
             name='name'
             control={control}

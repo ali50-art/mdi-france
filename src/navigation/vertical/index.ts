@@ -62,6 +62,26 @@ const navigation = (): VerticalNavItemsType => {
       ]
     },
     {
+      title: 'Logistique',
+      action: 'mange',
+      subject: 'logistique',
+      icon: 'tabler:truck',
+      children: [
+        {
+          title: 'En cours',
+          path: '/logistique/inProgress',
+          action: 'mange',
+          subject: 'logistique'
+        },
+        {
+          title: 'Terminé',
+          path: '/logistique/retour',
+          action: 'mange',
+          subject: 'logistique'
+        }
+      ]
+    },
+    {
       title: 'instalateurs',
       path: '/admin-instalateur',
       action: 'mange',

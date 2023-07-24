@@ -17,17 +17,15 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-import { getInitials } from 'src/@core/utils/get-initials'
-
 // ** Store Imports
 import { useDispatch, useSelector } from 'react-redux'
 
 // ** Custom Components Imports
-import CustomAvatar from 'src/@core/components/mui/avatar'
+
 import CardStatsHorizontalWithDetails from 'src/@core/components/card-statistics/card-stats-horizontal-with-details'
 
 // ** Actions Imports
-import { fetchData, deleteorderDetails } from 'src/store/apps/order'
+import { fetchData, deleteMaterial } from 'src/store/apps/material'
 
 // import authConfig from 'src/configs/auth'
 // import { serverUri } from 'src/configs/auth'
@@ -37,41 +35,20 @@ import { RootState, AppDispatch } from 'src/store'
 
 // import { CardStatsType } from 'src/@fake-db/types'
 
-import { OrderTypes } from 'src/types/apps/orderDetails'
+import { MaterialTypes } from 'src/types/apps/materialTypes'
 
 // ** Custom Table Components Imports
 import TableHeader from 'src/views/apps/user/list/TableHeader'
-import AddOrderDrawer from 'src/views/apps/order/list/AddOrderDrawer'
-import EditOrderDrawer from 'src/views/apps/order/list/editOrderDrawer'
-import { Box } from '@mui/system'
-import Link from 'next/link'
+import AddMaterialDrawer from 'src/views/apps/material/list/AddMaterialDrawer'
+import EditMertialDrawer from 'src/views/apps/material/list/editMaterialDrawer'
 
 // import EditUserDrawer from 'src/views/apps/user/list/EditeUserDrawer'
 
 interface CellType {
-  row: OrderTypes
+  row: MaterialTypes
 }
 
 // ** renders client column
-const renderClient = (row: OrderTypes) => {
-  if (row.photo) {
-    return (
-      <CustomAvatar
-        src={`${process.env.NEXT_PUBLIC_SERVER_URI}/orderDetails/${row.photo}`}
-        sx={{ mr: 2.5, width: 38, height: 38 }}
-      />
-    )
-  } else {
-    return (
-      <CustomAvatar
-        skin='light'
-        sx={{ mr: 2.5, width: 38, height: 38, fontWeight: 500, fontSize: theme => theme.typography.body1.fontSize }}
-      >
-        {getInitials(row.name ? row.name : 'Missing !')}
-      </CustomAvatar>
-    )
-  }
-}
 
 const RowOptions = ({ id }: { id: number | string }) => {
   // ** Hooks
@@ -81,9 +58,9 @@ const RowOptions = ({ id }: { id: number | string }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
 
-  const store = useSelector((state: RootState) => state.order)
+  const store = useSelector((state: RootState) => state.material)
 
-  const [order, setorder] = useState<any>({})
+  const [material, setmaterial] = useState<any>({})
   const rowOptionsOpen = Boolean(anchorEl)
 
   const handleRowOptionsClick = (event: MouseEvent<HTMLElement>) => {
@@ -93,13 +70,13 @@ const RowOptions = ({ id }: { id: number | string }) => {
     setAnchorEl(null)
   }
   const handleOpenEdite = () => {
-    const orderIdex = store?.data.findIndex((el: any) => el.id.toString() === id.toString())
-    setorder(store?.data[orderIdex])
+    const materialIdex = store?.data.findIndex((el: any) => el.id.toString() === id.toString())
+    setmaterial(store?.data[materialIdex])
     handleRowOptionsClose()
     setAddUserOpen(!addUserOpen)
   }
   const handleDelete = () => {
-    dispatch(deleteorderDetails(id))
+    dispatch(deleteMaterial(id))
     handleRowOptionsClose()
   }
 
@@ -132,106 +109,11 @@ const RowOptions = ({ id }: { id: number | string }) => {
           Delete
         </MenuItem>
       </Menu>
-      {addUserOpen && <EditOrderDrawer open={addUserOpen} toggle={handleOpenEdite} order={order} />}
+      {addUserOpen && <EditMertialDrawer open={addUserOpen} toggle={handleOpenEdite} material={material} />}
     </>
   )
 }
-const columns: GridColDef[] = [
-  {
-    flex: 0.25,
-    minWidth: 280,
-    field: 'name',
-    headerName: 'Order',
-    renderCell: ({ row }: CellType) => {
-      const { name, email } = row
 
-      return (
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          {renderClient(row)}
-          <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
-            <Typography
-              noWrap
-              component={Link}
-              href=''
-              sx={{
-                fontWeight: 500,
-                textDecoration: 'none',
-                color: 'text.secondary',
-                '&:hover': { color: 'primary.main' }
-              }}
-            >
-              {name}
-            </Typography>
-            <Typography noWrap variant='body2' sx={{ color: 'text.disabled' }}>
-              {email}
-            </Typography>
-          </Box>
-        </Box>
-      )
-    }
-  },
-
-  {
-    flex: 0.15,
-    minWidth: 190,
-    field: 'phone',
-    headerName: 'Phone',
-    renderCell: ({ row }: CellType) => {
-      return (
-        <Typography noWrap sx={{ color: 'text.secondary' }}>
-          {row?.phone}
-        </Typography>
-      )
-    }
-  },
-  {
-    flex: 0.1,
-    minWidth: 110,
-    field: 'address',
-    headerName: 'Adress',
-    renderCell: ({ row }: CellType) => {
-      return (
-        <Typography noWrap sx={{ color: 'text.secondary' }}>
-          {row?.address}
-        </Typography>
-      )
-    }
-  },
-  {
-    flex: 0.1,
-    minWidth: 110,
-    field: 'codePost',
-    headerName: 'Code Postal',
-    renderCell: ({ row }: CellType) => {
-      return (
-        <Typography noWrap sx={{ color: 'text.secondary' }}>
-          {row?.codePost}
-        </Typography>
-      )
-    }
-  },
-  {
-    flex: 0.1,
-    minWidth: 110,
-    field: 'ville',
-    headerName: 'Ville',
-    renderCell: ({ row }: CellType) => {
-      return (
-        <Typography noWrap sx={{ color: 'text.secondary' }}>
-          {row?.ville}
-        </Typography>
-      )
-    }
-  },
-  {
-    flex: 0.1,
-    minWidth: 100,
-    sortable: false,
-    field: 'actions',
-    headerName: 'Actions',
-    renderCell: ({ row }: CellType) => <RowOptions id={row.id} />
-  }
-]
 const UserList = () => {
   // ** State
   const [value, setValue] = useState<string>('')
@@ -241,9 +123,86 @@ const UserList = () => {
   // Handle Edit dialog
   // const handleEditClickOpen = () => setOpenEdit(true)
 
+  const columns: GridColDef[] = [
+    {
+      flex: 0.15,
+      minWidth: 120,
+      headerName: 'Modéle',
+      field: 'model',
+      renderCell: ({ row }: CellType) => {
+        return (
+          <Typography noWrap sx={{ fontWeight: 500, color: 'text.secondary', textTransform: 'capitalize' }}>
+            {row.model}
+          </Typography>
+        )
+      }
+    },
+
+    {
+      flex: 0.15,
+      minWidth: 190,
+      field: 'ref',
+      headerName: 'Reference',
+      renderCell: ({ row }: CellType) => {
+        return (
+          <Typography noWrap sx={{ color: 'text.secondary' }}>
+            {row?.ref}
+          </Typography>
+        )
+      }
+    },
+    {
+      flex: 0.1,
+      minWidth: 110,
+      field: 'type',
+      headerName: 'Type',
+      renderCell: ({ row }: CellType) => {
+        return (
+          <Typography noWrap sx={{ color: 'text.secondary' }}>
+            {row?.type}
+          </Typography>
+        )
+      }
+    },
+    {
+      flex: 0.1,
+      minWidth: 110,
+      field: 'createdAt',
+      headerName: 'Creé a',
+      renderCell: ({ row }: CellType) => {
+        return (
+          <Typography noWrap sx={{ color: 'text.secondary' }}>
+            {row?.createdAt}
+          </Typography>
+        )
+      }
+    },
+    {
+      flex: 0.1,
+      minWidth: 110,
+      field: 'updatedAt',
+      headerName: 'edite a',
+      renderCell: ({ row }: CellType) => {
+        return (
+          <Typography noWrap sx={{ color: 'text.secondary' }}>
+            {row?.updatedAt}
+          </Typography>
+        )
+      }
+    },
+    {
+      flex: 0.1,
+      minWidth: 100,
+      sortable: false,
+      field: 'actions',
+      headerName: 'Actions',
+      renderCell: ({ row }: CellType) => <RowOptions id={row.id} />
+    }
+  ]
+
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
-  const store = useSelector((state: RootState) => state.order)
+  const store = useSelector((state: RootState) => state.material)
   useEffect(() => {
     dispatch(
       fetchData({
@@ -256,12 +215,12 @@ const UserList = () => {
     setValue(val)
   }, [])
 
-  const toggleAddOrderDrawer = () => setAddUserOpen(!addUserOpen)
+  const toggleAddMaterialDrawer = () => setAddUserOpen(!addUserOpen)
   const item: any = {
     stats: 0,
-    title: 'Donner Orders',
+    title: 'Matier',
     icon: 'tabler:chart-pie-2',
-    subtitle: 'total de order'
+    subtitle: 'total de Matier'
   }
   if (store.count >= 0) {
     item.stats = store.count
@@ -282,8 +241,8 @@ const UserList = () => {
           <TableHeader
             value={value}
             handleFilter={handleFilter}
-            toggle={toggleAddOrderDrawer}
-            name='Ajouter un nouvel order'
+            toggle={toggleAddMaterialDrawer}
+            name='Ajouter un nouvel matrérél'
           />
           <DataGrid
             autoHeight
@@ -298,13 +257,13 @@ const UserList = () => {
         </Card>
       </Grid>
 
-      <AddOrderDrawer open={addUserOpen} toggle={toggleAddOrderDrawer} />
+      <AddMaterialDrawer open={addUserOpen} toggle={toggleAddMaterialDrawer} />
     </Grid>
   )
 }
 
 UserList.acl = {
   action: 'mange',
-  subject: 'orderDetails'
+  subject: 'logistique'
 }
 export default UserList

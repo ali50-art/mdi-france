@@ -41,6 +41,20 @@ export const fetchData = createAsyncThunk('appUsers/fetchData', async (params: a
   return { dataCoipe, count: response2.data.data }
 })
 
+export const fetchInstalateursData = createAsyncThunk('appUsers/fetchInstaleursData', async () => {
+  const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
+  const response = await axios.get(`${serverUri.uri}/api/admin/users?instalater=true`, {
+    headers: {
+      Authorization: storedToken
+    }
+  })
+
+  const dataCoipe = { ...response.data.data }
+  dataCoipe.docs.forEach((element: any) => (element.id = element._id))
+
+  return { dataCoipe }
+})
+
 // ** Add User
 export const addUser = createAsyncThunk(
   'appUsers/addUser',
@@ -121,6 +135,12 @@ export const appUsersSlice = createSlice({
       state.params = action.payload.dataCoipe.meta
       state.allData = action.payload.dataCoipe
       state.count = action.payload.count
+    })
+    builder.addCase(fetchInstalateursData.fulfilled, (state, action) => {
+      state.data = action.payload.dataCoipe.docs
+      state.total = action.payload.dataCoipe.meta.totalDocs
+      state.params = action.payload.dataCoipe.meta
+      state.allData = action.payload.dataCoipe
     })
   }
 })
