@@ -1,14 +1,16 @@
 // ** React Imports
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, MouseEvent, useCallback } from 'react'
 
 // ** Next Imports
+import { useRouter } from 'next/router'
 
 // ** MUI Imports
 import Card from '@mui/material/Card'
 
-import CustomChip from 'src/@core/components/mui/chip'
 import Grid from '@mui/material/Grid'
 import Divider from '@mui/material/Divider'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
@@ -27,7 +29,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import CardStatsHorizontalWithDetails from 'src/@core/components/card-statistics/card-stats-horizontal-with-details'
 
 // ** Actions Imports
-import { fetchData } from 'src/store/apps/logistique'
+import { fetchOne } from 'src/store/apps/ChargeDetails'
+import { desarge } from 'src/store/apps/logistique'
 
 // import authConfig from 'src/configs/auth'
 // import { serverUri } from 'src/configs/auth'
@@ -42,10 +45,9 @@ import { RootState, AppDispatch } from 'src/store'
 // ** Custom Table Components Imports
 import TableHeader from 'src/views/apps/user/list/TableHeader'
 import CustomAvatar from 'src/@core/components/mui/avatar'
-import Dialog from 'src/views/apps/logistique/list/SelectInstalateurDialog'
-import AddMaterialDialog from 'src/views/apps/logistique/list/AddMaterialDialog'
+
+import AddMaterialDialog from 'src/views/apps/logistique/list/RechargeDialog'
 import { Box } from '@mui/system'
-import Link from 'next/link'
 
 // import EditUserDrawer from 'src/views/apps/user/list/EditeUserDrawer'
 
@@ -54,76 +56,106 @@ interface CellType {
 }
 
 // ** renders client column
-const renderClient = (row: any) => {
-  return <CustomAvatar src={row.avatar} sx={{ mr: 2.5, width: 38, height: 38 }} />
-}
+
 const RowOptions = ({ id }: { id: number | string }) => {
   // ** Hooks
+  const dispatch = useDispatch<AppDispatch>()
+
+  // ** State
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
+  const store = useSelector((state: RootState) => state.user)
+  const router = useRouter()
+  const [user, setUser] = useState<any>({})
+  console.log(user)
+
+  const rowOptionsOpen = Boolean(anchorEl)
+
+  const handleRowOptionsClick = (event: MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleRowOptionsClose = () => {
+    setAnchorEl(null)
+  }
+  const handleOpenEdite = () => {
+    const userIdex = store?.data.findIndex((el: any) => el.id.toString() === id.toString())
+    setUser(store?.data[userIdex])
+    handleRowOptionsClose()
+    setAddUserOpen(!addUserOpen)
+  }
+  const handleDelete = () => {
+    const slug: any = router.query.slug
+
+    dispatch(desarge({ chargeId: slug, id: id }))
+    dispatch(fetchOne({ id: id }))
+    handleRowOptionsClose()
+  }
 
   return (
-    <Link href={`/logistique/inProgress/${id}`}>
-      <IconButton size='small'>
-        <Icon icon='tabler:eye-filled' />
+    <>
+      <IconButton size='small' onClick={handleRowOptionsClick}>
+        <Icon icon='tabler:dots-vertical' />
       </IconButton>
-    </Link>
+      <Menu
+        keepMounted
+        anchorEl={anchorEl}
+        open={rowOptionsOpen}
+        onClose={handleRowOptionsClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right'
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right'
+        }}
+        PaperProps={{ style: { minWidth: '8rem' } }}
+      >
+        <MenuItem onClick={handleDelete} sx={{ '& svg': { mr: 2 } }}>
+          <Icon icon='tabler:eye' fontSize={20} />
+          voir
+        </MenuItem>
+        <MenuItem onClick={handleOpenEdite} sx={{ '& svg': { mr: 2 } }}>
+          <Icon icon='tabler:edit' fontSize={20} />
+          Edit
+        </MenuItem>
+        <MenuItem onClick={handleDelete} sx={{ '& svg': { mr: 2 } }}>
+          <Icon icon='tabler:trash' fontSize={20} />
+          Delete
+        </MenuItem>
+      </Menu>
+      {/* {addUserOpen && <EditUserDrawer open={addUserOpen} toggle={handleOpenEdite} user={user} />} */}
+    </>
   )
 }
 
 const UserList = () => {
   // ** State
   const [value, setValue] = useState<string>('')
-  const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
   const [addMaterial, setAddMaterial] = useState<boolean>(false)
 
   // Handle Edit dialog
   // const handleEditClickOpen = () => setOpenEdit(true)
+  const handleCountTotal = (materials: any) => {
+    let nb = 0
+    materials?.forEach((el: any) => {
+      nb += el.stock
+    })
 
+    return nb
+  }
   const columns: GridColDef[] = [
-    {
-      flex: 0.25,
-      minWidth: 70,
-      field: 'fullName',
-      headerName: 'Instalateur',
-      renderCell: ({ row }: CellType) => {
-        const { fullName, phone } = row.instalateurId
-
-        return (
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            {renderClient(row)}
-            <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
-              <Typography
-                noWrap
-                component={Link}
-                href='/apps/user/view/account'
-                sx={{
-                  fontWeight: 500,
-                  textDecoration: 'none',
-                  color: 'text.secondary',
-                  '&:hover': { color: 'primary.main' }
-                }}
-              >
-                {fullName}
-              </Typography>
-              <Typography noWrap variant='body2' sx={{ color: 'text.disabled' }}>
-                {phone}
-              </Typography>
-            </Box>
-          </Box>
-        )
-      }
-    },
-
     {
       flex: 0.15,
       minWidth: 70,
-      field: 'nbCharge',
-      headerName: 'Nomber de chrage',
+      field: 'Total',
+      headerName: 'Total',
       renderCell: ({ row }: CellType) => {
         return (
-          <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '3rem' }}>
+          <Box>
             <CustomAvatar skin='light' sx={{ mr: 4, width: 30, height: 30 }} color='info'>
-              {row?.chargeDetails.length}
+              {handleCountTotal(row?.materials)}
             </CustomAvatar>
           </Box>
         )
@@ -132,26 +164,8 @@ const UserList = () => {
     {
       flex: 0.1,
       minWidth: 110,
-      field: 'status',
-      headerName: 'Status',
-      renderCell: ({ row }: CellType) => {
-        return (
-          <CustomChip
-            rounded
-            skin='light'
-            size='small'
-            label={row.retourDetails?.length == 0 ? 'En Cours' : 'Terminer'}
-            color={row.retourDetails?.length === 0 ? 'success' : 'error'}
-            sx={{ textTransform: 'capitalize' }}
-          />
-        )
-      }
-    },
-    {
-      flex: 0.1,
-      minWidth: 110,
       field: 'createAt',
-      headerName: 'Creé a',
+      headerName: 'Chargé a',
       renderCell: ({ row }: CellType) => {
         return (
           <Typography noWrap sx={{ color: 'text.secondary' }}>
@@ -171,28 +185,21 @@ const UserList = () => {
     }
   ]
 
+  const router = useRouter()
+
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
-  const store = useSelector((state: RootState) => state.logistique)
+  const store = useSelector((state: RootState) => state.chargeDetails)
+  const id = router.query.slug
 
   useEffect(() => {
-    dispatch(
-      fetchData({
-        search: value
-      })
-    )
-  }, [dispatch, value])
+    dispatch(fetchOne({ id: id }))
+  }, [dispatch, value, id])
 
   const handleFilter = useCallback((val: string) => {
     setValue(val)
   }, [])
 
-  const toggleAddMaterialDrawer = () => {
-    setAddUserOpen(!addUserOpen)
-    if (addUserOpen === false && addUserOpen == false) {
-      setAddMaterial(true)
-    }
-  }
   const toggleAddMaterialDialog = () => {
     setAddMaterial(!addMaterial)
   }
@@ -218,12 +225,7 @@ const UserList = () => {
         <Card>
           <CardHeader title='Filtres de recherche' />
           <Divider sx={{ m: '0 !important' }} />
-          <TableHeader
-            value={value}
-            handleFilter={handleFilter}
-            toggle={toggleAddMaterialDrawer}
-            name='Déclarer un chargement'
-          />
+          <TableHeader value={value} handleFilter={handleFilter} toggle={toggleAddMaterialDialog} name='rechargez' />
           <DataGrid
             autoHeight
             rowHeight={62}
@@ -238,7 +240,6 @@ const UserList = () => {
       </Grid>
 
       <AddMaterialDialog open={addMaterial} toggle={toggleAddMaterialDialog} />
-      <Dialog open={addUserOpen} toggle={toggleAddMaterialDrawer} />
     </Grid>
   )
 }

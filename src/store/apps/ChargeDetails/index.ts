@@ -1,7 +1,6 @@
 // ** Redux Imports
 import { Dispatch } from 'redux'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import randomstring from 'randomstring'
 
 // ** Axios Imports
 import axios from 'axios'
@@ -20,44 +19,42 @@ interface Redux {
 }
 
 // ** Fetch Users
-export const fetchData = createAsyncThunk('appUsers/fetchData', async (params: any) => {
+export const fetchData = createAsyncThunk('appMaterial/fetchData', async (params: any) => {
   const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
-  const response = await axios.get(`${serverUri.uri}/api/admin/users`, {
+  const response = await axios.get(`${serverUri.uri}/api/`, {
     headers: {
       Authorization: storedToken
     },
     params
   })
-  const response2 = await axios.get(`${serverUri.uri}/api/admin/users/count`, {
-    headers: {
-      Authorization: storedToken
-    },
-    params
-  })
+
+  //   const response2 = await axios.get(`${serverUri.uri}/api/material/count`, {
+  //     headers: {
+  //       Authorization: storedToken
+  //     },
+  //     params
+  //   })
 
   const dataCoipe = { ...response.data.data }
   dataCoipe.docs.forEach((element: any) => (element.id = element._id))
 
-  return { dataCoipe, count: response2.data.data }
+  return { dataCoipe, count: 0 }
 })
-
-export const fetchInstalateursData = createAsyncThunk('appUsers/fetchInstaleursData', async () => {
+export const fetchAllData = createAsyncThunk('appMaterial/fetchAllData', async () => {
   const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
-  const response = await axios.get(`${serverUri.uri}/api/admin/users?search=instalateur`, {
+  const response = await axios.get(`${serverUri.uri}/api/material/all`, {
     headers: {
       Authorization: storedToken
     }
   })
-
   const dataCoipe = { ...response.data.data }
-  dataCoipe.docs.forEach((element: any) => (element.id = element._id))
 
   return { dataCoipe }
 })
 
 // ** Add User
-export const addUser = createAsyncThunk(
-  'appUsers/addUser',
+export const addMateriel = createAsyncThunk(
+  'appMaterial/addMateriel',
   async (data: { [key: string]: number | string }, { getState, dispatch }: Redux) => {
     const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
     const config = {
@@ -66,25 +63,20 @@ export const addUser = createAsyncThunk(
         Authorization: storedToken
       }
     }
-    const password = randomstring.generate(10)
     const newData = {
-      ...data,
-      password
+      ...data
     }
 
-    const response = await axios.post(`${serverUri.uri}/api/admin/users`, newData, config)
+    const response = await axios.post(`${serverUri.uri}/api/material`, newData, config)
     dispatch(fetchData(getState().user.params))
 
-    const dataCoipe = { ...response.data.data }
-    dataCoipe.docs.forEach((element: any) => (element.id = element._id))
-
-    return dataCoipe
+    return response.data.data
   }
 )
 
 // ** Delete User
-export const deleteUser = createAsyncThunk(
-  'appUsers/deleteUser',
+export const deleteMaterial = createAsyncThunk(
+  'appMaterial/deleteMaterial',
   async (id: number | string, { getState, dispatch }: Redux) => {
     const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
     const config = {
@@ -93,16 +85,37 @@ export const deleteUser = createAsyncThunk(
         Authorization: storedToken
       }
     }
-    const response = await axios.delete(`${serverUri.uri}/api/admin/users/${id}`, config)
+    const response = await axios.delete(`${serverUri.uri}/api/material/${id}`, config)
     dispatch(fetchData(getState().user.params))
 
     return response.data
   }
 )
+export const fetchOne = createAsyncThunk('appLogistique/fetchOneData', async (data: any) => {
+  const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
+
+  const response = await axios.get(`${serverUri.uri}/api/chargeDetails/allByCharge/${data.id}`, {
+    headers: {
+      Authorization: storedToken
+    }
+  })
+
+  //   const response2 = await axios.get(`${serverUri.uri}/api/charge/count`, {
+  //     headers: {
+  //       Authorization: storedToken
+  //     },
+  //     params
+  //   })
+
+  const dataCoipe = { ...response.data.data }
+  dataCoipe.docs.forEach((element: any) => (element.id = element._id))
+
+  return { dataCoipe, count: 0 }
+})
 
 // ** Update User
-export const updateUser = createAsyncThunk(
-  'appUsers/deleteUser',
+export const updateMateriel = createAsyncThunk(
+  'appMaterial/updateMaterial',
   async (data: { [key: string]: number | string }, { getState, dispatch }: Redux) => {
     const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
     const config = {
@@ -111,38 +124,33 @@ export const updateUser = createAsyncThunk(
         Authorization: storedToken
       }
     }
-    const response = await axios.put(`${serverUri.uri}/api/admin/users/${data.id}`, data, config)
+    const { id, ...filterData } = data
+    const response = await axios.put(`${serverUri.uri}/api/material/${id}`, filterData, config)
     dispatch(fetchData(getState().user.params))
 
     return response.data
   }
 )
 
-export const appUsersSlice = createSlice({
-  name: 'appUsers',
+export const appMaterialSlice = createSlice({
+  name: 'appMaterial',
   initialState: {
     data: [],
     total: 1,
-    count: [],
     params: {},
+    count: 0,
     allData: []
   },
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(fetchData.fulfilled, (state, action) => {
+    builder.addCase(fetchOne.fulfilled, (state, action) => {
       state.data = action.payload.dataCoipe.docs
       state.total = action.payload.dataCoipe.meta.totalDocs
       state.params = action.payload.dataCoipe.meta
       state.allData = action.payload.dataCoipe
       state.count = action.payload.count
     })
-    builder.addCase(fetchInstalateursData.fulfilled, (state, action) => {
-      state.data = action.payload.dataCoipe.docs
-      state.total = action.payload.dataCoipe.meta.totalDocs
-      state.params = action.payload.dataCoipe.meta
-      state.allData = action.payload.dataCoipe
-    })
   }
 })
 
-export default appUsersSlice.reducer
+export default appMaterialSlice.reducer

@@ -39,6 +39,17 @@ export const fetchData = createAsyncThunk('appMaterial/fetchData', async (params
 
   return { dataCoipe, count: response2.data.data }
 })
+export const fetchAllData = createAsyncThunk('appMaterial/fetchAllData', async () => {
+  const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
+  const response = await axios.get(`${serverUri.uri}/api/material/all`, {
+    headers: {
+      Authorization: storedToken
+    }
+  })
+  const dataCoipe = { ...response.data.data }
+
+  return { dataCoipe }
+})
 
 // ** Add User
 export const addMateriel = createAsyncThunk(
@@ -58,10 +69,7 @@ export const addMateriel = createAsyncThunk(
     const response = await axios.post(`${serverUri.uri}/api/material`, newData, config)
     dispatch(fetchData(getState().user.params))
 
-    const dataCoipe = { ...response.data.data }
-    dataCoipe.docs.forEach((element: any) => (element.id = element._id))
-
-    return dataCoipe
+    return response.data.data
   }
 )
 
@@ -119,6 +127,12 @@ export const appMaterialSlice = createSlice({
       state.params = action.payload.dataCoipe.meta
       state.allData = action.payload.dataCoipe
       state.count = action.payload.count
+    })
+    builder.addCase(fetchAllData.fulfilled, (state, action) => {
+      state.data = action.payload.dataCoipe
+      state.total = action.payload.dataCoipe.length
+      state.params = {}
+      state.allData = action.payload.dataCoipe
     })
   }
 })

@@ -6,12 +6,16 @@ import { configureStore } from '@reduxjs/toolkit'
 import user from 'src/store/apps/user'
 import material from 'src/store/apps/material'
 import order from 'src/store/apps/order'
+import logistique from './apps/logistique'
+import chargeDetails from './apps/ChargeDetails'
 
 export const store = configureStore({
   reducer: {
     user,
     material,
-    order
+    order,
+    logistique,
+    chargeDetails
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

@@ -88,8 +88,6 @@ export const updateOrder = createAsyncThunk(
         Authorization: storedToken
       }
     }
-    console.log('payload : ', payload)
-
     const { id, data } = payload
 
     const response = await axios.put(`${serverUri.uri}/api/orderDetails/${id}`, data, config)

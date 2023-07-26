@@ -59,8 +59,8 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
     mode: 'onChange',
     resolver: yupResolver(schema)
   })
-  const onSubmit = (role: any) => {
-    localStorage.setItem('instalateurId : ', role)
+  const onSubmit = () => {
+    localStorage.setItem('instalateurId', role)
     toggle()
     reset()
   }
@@ -77,7 +77,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
         onClose={toggle}
         aria-labelledby='user-view-edit'
         aria-describedby='user-view-edit-description'
-        sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 650, height: '20rem' } }}
+        sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 650, height: '40rem' } }}
       >
         <DialogTitle
           id='user-view-edit'
@@ -107,20 +107,13 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                   label='Sélectionnez un instalateur'
                   SelectProps={{ value: role, onChange: e => setRole(e.target.value as string) }}
                 >
-                  <div
-                    style={{
-                      height: '8rem',
-                      overflowY: 'scroll'
-                    }}
-                  >
-                    {store.data.map((el: any) => {
-                      return (
-                        <MenuItem value={el._id} key={el.id}>
-                          <span>{el.fullName}</span>
-                        </MenuItem>
-                      )
-                    })}
-                  </div>
+                  {store.data.map((el: any) => {
+                    return (
+                      <MenuItem value={el._id} key={el.id}>
+                        {el.fullName}
+                      </MenuItem>
+                    )
+                  })}
                 </CustomTextField>
               </Grid>
             </Grid>
@@ -133,7 +126,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
             }}
           >
             <Button type='submit' variant='contained' sx={{ mr: 3 }} onClick={handleSubmit(onSubmit)}>
-              sauvegarder
+              Suivant
             </Button>
             <Button variant='tonal' color='secondary' onClick={handleClose}>
               Annuler
