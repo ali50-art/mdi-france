@@ -56,6 +56,21 @@ interface CellType {
   row: any
 }
 
+const formateDate = (date: any) => {
+  // Format options for the date in French
+  const newData = new Date(date)
+  const options: any = {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit'
+  }
+
+  // Format the date using Intl.DateTimeFormat with the French locale
+  return new Intl.DateTimeFormat('fr-FR', options).format(newData)
+}
+
 // ** renders client column
 const renderClient = (row: any) => {
   return <CustomAvatar src={row.avatar} sx={{ mr: 2.5, width: 38, height: 38 }} />
@@ -81,8 +96,11 @@ const RowOptions = ({ id }: { id: number | string }) => {
 
   const handleShowMaterail = () => {
     handleRowOptionsClose()
-    dispatch(getAllRetourMaterail({ id: id }))
-    setShowMaterail(!showMateral)
+    const handleFetch = async () => {
+      await dispatch(getAllRetourMaterail({ id: id }))
+      setShowMaterail(!showMateral)
+    }
+    handleFetch()
   }
 
   return (
@@ -105,6 +123,10 @@ const RowOptions = ({ id }: { id: number | string }) => {
         }}
         PaperProps={{ style: { minWidth: '8rem' } }}
       >
+        <MenuItem onClick={handleShowMaterail} sx={{ '& svg': { mr: 2 } }}>
+          <Icon icon='tabler:eye' fontSize={20} />
+          Retour Details
+        </MenuItem>
         <Typography
           noWrap
           href={`/logistique/retour/${id}`}
@@ -116,15 +138,10 @@ const RowOptions = ({ id }: { id: number | string }) => {
           }}
         >
           <MenuItem sx={{ '& svg': { mr: 2 } }}>
-            <Icon icon='tabler:eye' fontSize={20} />
+            <Icon icon='tabler:file-analytics' fontSize={20} />
             Charge Details
           </MenuItem>
         </Typography>
-
-        <MenuItem onClick={handleShowMaterail} sx={{ '& svg': { mr: 2 } }}>
-          <Icon icon='tabler:file-analytics' fontSize={20} />
-          Retour Declair
-        </MenuItem>
       </Menu>
       {showMateral && <ShowAllMaterialDialog open={showMateral} toggle={handleShowMaterail} data={store.matData[0]} />}
     </>
@@ -140,7 +157,15 @@ const UserList = () => {
 
   // Handle Edit dialog
   // const handleEditClickOpen = () => setOpenEdit(true)
+  const countRetourStock = (arr: any) => {
+    let nb = 0
 
+    arr.forEach((element: any) => {
+      nb += element?.stock
+    })
+
+    return nb
+  }
   const columns: GridColDef[] = [
     {
       flex: 0.25,
@@ -177,12 +202,12 @@ const UserList = () => {
       flex: 0.15,
       minWidth: 70,
       field: 'nbCharge',
-      headerName: 'Nomber de chrage',
+      headerName: 'Total de retour',
       renderCell: ({ row }: CellType) => {
         return (
           <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '3rem' }}>
             <CustomAvatar skin='light' sx={{ mr: 4, width: 30, height: 30 }} color='info'>
-              {row?.chargeDetails.length}
+              {countRetourStock(row?.retourDetails[0]?.materials)}
             </CustomAvatar>
           </Box>
         )
@@ -214,7 +239,7 @@ const UserList = () => {
       renderCell: ({ row }: CellType) => {
         return (
           <Typography noWrap sx={{ color: 'text.secondary' }}>
-            {row?.updatedAt}
+            {formateDate(row?.updatedAt)}
           </Typography>
         )
       }
@@ -256,15 +281,24 @@ const UserList = () => {
   const toggleAddMaterialDialog = () => {
     setAddMaterial(!addMaterial)
   }
+  const counterTotaldeRetour = (arr: any) => {
+    let nb = 0
+    arr?.forEach((element: any) => {
+      element?.retourDetails[0]?.materials.forEach((el: any) => {
+        nb += el.stock
+      })
+    })
 
+    return nb
+  }
   const item: any = {
     stats: 0,
-    title: 'Matier',
+    title: 'Retour',
     icon: 'tabler:chart-pie-2',
-    subtitle: 'total de Matier'
+    subtitle: 'contiter total de retour'
   }
-  if (store.count >= 0) {
-    item.stats = store.count
+  if (store.data.length >= 0) {
+    item.stats = counterTotaldeRetour(store.data)
   }
 
   return (

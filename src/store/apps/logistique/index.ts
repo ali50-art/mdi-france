@@ -133,6 +133,8 @@ export const getAllRetourMaterail = createAsyncThunk('appLogistique/getAllRetour
   //     params
   //   })
 
+  console.log('response.data.data : ', response.data.data)
+
   return response.data.data
 })
 

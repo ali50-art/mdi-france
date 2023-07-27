@@ -47,6 +47,20 @@ import EditMertialDrawer from 'src/views/apps/material/list/editMaterialDrawer'
 interface CellType {
   row: MaterialTypes
 }
+const formateDate = (date: any) => {
+  // Format options for the date in French
+  const newData = new Date(date)
+  const options: any = {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit'
+  }
+
+  // Format the date using Intl.DateTimeFormat with the French locale
+  return new Intl.DateTimeFormat('fr-FR', options).format(newData)
+}
 
 // ** renders client column
 
@@ -172,7 +186,7 @@ const UserList = () => {
       renderCell: ({ row }: CellType) => {
         return (
           <Typography noWrap sx={{ color: 'text.secondary' }}>
-            {row?.createdAt}
+            {formateDate(row?.createdAt)}
           </Typography>
         )
       }
@@ -185,7 +199,7 @@ const UserList = () => {
       renderCell: ({ row }: CellType) => {
         return (
           <Typography noWrap sx={{ color: 'text.secondary' }}>
-            {row?.updatedAt}
+            {formateDate(row?.updatedAt)}
           </Typography>
         )
       }

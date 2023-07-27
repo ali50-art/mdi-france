@@ -44,13 +44,27 @@ import TableHeader from 'src/views/apps/user/list/TableHeader'
 import AddOrderDrawer from 'src/views/apps/order/list/AddOrderDrawer'
 import EditOrderDrawer from 'src/views/apps/order/list/editOrderDrawer'
 import { Box } from '@mui/system'
-import Link from 'next/link'
 
 // import EditUserDrawer from 'src/views/apps/user/list/EditeUserDrawer'
 
 interface CellType {
   row: OrderTypes
 }
+
+// const formateDate = (date: any) => {
+//   // Format options for the date in French
+//   const newData = new Date(date)
+//   const options: any = {
+//     year: 'numeric',
+//     month: '2-digit',
+//     day: '2-digit',
+//     hour: '2-digit',
+//     minute: '2-digit'
+//   }
+
+//   // Format the date using Intl.DateTimeFormat with the French locale
+//   return new Intl.DateTimeFormat('fr-FR', options).format(newData)
+// }
 
 // ** renders client column
 const renderClient = (row: OrderTypes) => {
@@ -151,13 +165,10 @@ const columns: GridColDef[] = [
           <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
             <Typography
               noWrap
-              component={Link}
-              href=''
               sx={{
                 fontWeight: 500,
                 textDecoration: 'none',
-                color: 'text.secondary',
-                '&:hover': { color: 'primary.main' }
+                color: 'text.secondary'
               }}
             >
               {name}

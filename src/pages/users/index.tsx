@@ -1,9 +1,6 @@
 // ** React Imports
 import { useState, useEffect, MouseEvent, useCallback } from 'react'
 
-// ** Next Imports
-import Link from 'next/link'
-
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
@@ -73,6 +70,21 @@ const userStatusObj: UserStatusType = {
   pending: 'warning',
   false: 'error'
 }
+
+// const formateDate = (date: any) => {
+//   // Format options for the date in French
+//   const newData = new Date(date)
+//   const options: any = {
+//     year: 'numeric',
+//     month: '2-digit',
+//     day: '2-digit',
+//     hour: '2-digit',
+//     minute: '2-digit'
+//   }
+
+//   // Format the date using Intl.DateTimeFormat with the French locale
+//   return new Intl.DateTimeFormat('fr-FR', options).format(newData)
+// }
 
 // ** renders client column
 const renderClient = (row: UsersType) => {
@@ -169,8 +181,6 @@ const columns: GridColDef[] = [
           <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
             <Typography
               noWrap
-              component={Link}
-              href='/apps/user/view/account'
               sx={{
                 fontWeight: 500,
                 textDecoration: 'none',

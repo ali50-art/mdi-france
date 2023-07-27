@@ -304,12 +304,3 @@
 // }
 
 // export default SidebarAddUser
-
-// <CustomTextField select fullWidth label='Country' defaultValue='USA'>
-// //                   <MenuItem value='USA'>USA</MenuItem>
-// //                   <MenuItem value='UK'>UK</MenuItem>
-// //                   <MenuItem value='Spain'>Spain</MenuItem>
-// //                   <MenuItem value='Russia'>Russia</MenuItem>
-// //                   <MenuItem value='France'>France</MenuItem>
-// //                   <MenuItem value='Germany'>Germany</MenuItem>
-// //                 </CustomTextField>

@@ -55,6 +55,20 @@ import { fetchOne } from 'src/store/apps/ChargeDetails'
 interface CellType {
   row: any
 }
+const formateDate = (date: any) => {
+  // Format options for the date in French
+  const newData = new Date(date)
+  const options: any = {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit'
+  }
+
+  // Format the date using Intl.DateTimeFormat with the French locale
+  return new Intl.DateTimeFormat('fr-FR', options).format(newData)
+}
 
 // ** renders client column
 const renderClient = (row: any) => {
@@ -215,7 +229,7 @@ const UserList = () => {
       renderCell: ({ row }: CellType) => {
         return (
           <Typography noWrap sx={{ color: 'text.secondary' }}>
-            {row?.updatedAt}
+            {formateDate(row?.updatedAt)}
           </Typography>
         )
       }
@@ -234,7 +248,6 @@ const UserList = () => {
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
   const store: any = useSelector((state: RootState) => state.logistique)
-  console.log('paginationModel : ', paginationModel)
 
   useEffect(() => {
     dispatch(
@@ -258,14 +271,28 @@ const UserList = () => {
     setAddMaterial(!addMaterial)
   }
 
+  const counterTotaldeRetour = (arr: any) => {
+    let nb = 0
+    arr?.forEach((element: any) => {
+      const data = element?.chargeDetails.map((obj: any) => obj.materials)
+
+      data?.forEach((el: any) => {
+        el?.forEach((d: any) => {
+          nb += d.stock
+        })
+      })
+    })
+
+    return nb
+  }
   const item: any = {
     stats: 0,
-    title: 'Matier',
+    title: 'Charge',
     icon: 'tabler:chart-pie-2',
-    subtitle: 'total de Matier'
+    subtitle: 'contiter total de chargement'
   }
-  if (store.count >= 0) {
-    item.stats = store.count
+  if (store.data.length >= 0) {
+    item.stats = counterTotaldeRetour(store.data)
   }
 
   return (
