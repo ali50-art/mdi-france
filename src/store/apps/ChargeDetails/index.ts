@@ -91,7 +91,7 @@ export const deleteMaterial = createAsyncThunk(
     return response.data
   }
 )
-export const fetchOne = createAsyncThunk('appLogistique/fetchOneData', async (data: any) => {
+export const fetchAllByChargeId = createAsyncThunk('appLogistique/fetchAllByChargeId', async (data: any) => {
   const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
 
   const response = await axios.get(`${serverUri.uri}/api/chargeDetails/allByCharge/${data.id}`, {
@@ -111,6 +111,24 @@ export const fetchOne = createAsyncThunk('appLogistique/fetchOneData', async (da
   dataCoipe.docs.forEach((element: any) => (element.id = element._id))
 
   return { dataCoipe, count: 0 }
+})
+export const fetchOne = createAsyncThunk('appLogistique/fetchOne', async (data: any) => {
+  const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
+
+  const response = await axios.get(`${serverUri.uri}/api/chargeDetails/${data.id}`, {
+    headers: {
+      Authorization: storedToken
+    }
+  })
+
+  //   const response2 = await axios.get(`${serverUri.uri}/api/charge/count`, {
+  //     headers: {
+  //       Authorization: storedToken
+  //     },
+  //     params
+  //   })
+
+  return response.data.data
 })
 
 // ** Update User
@@ -136,19 +154,32 @@ export const appMaterialSlice = createSlice({
   name: 'appMaterial',
   initialState: {
     data: [],
+    matData: [],
     total: 1,
+    isLoading: false,
     params: {},
     count: 0,
     allData: []
   },
   reducers: {},
   extraReducers: builder => {
+    builder
+      .addCase(fetchAllByChargeId.pending, state => {
+        state.isLoading = true
+      })
+      .addCase(fetchAllByChargeId.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.data = action.payload.dataCoipe.docs
+        state.total = action.payload.dataCoipe.meta.totalDocs
+        state.params = action.payload.dataCoipe.meta
+        state.allData = action.payload.dataCoipe
+        state.count = action.payload.count
+      })
+      .addCase(fetchAllByChargeId.rejected, state => {
+        state.isLoading = false
+      })
     builder.addCase(fetchOne.fulfilled, (state, action) => {
-      state.data = action.payload.dataCoipe.docs
-      state.total = action.payload.dataCoipe.meta.totalDocs
-      state.params = action.payload.dataCoipe.meta
-      state.allData = action.payload.dataCoipe
-      state.count = action.payload.count
+      state.matData = action.payload
     })
   }
 })

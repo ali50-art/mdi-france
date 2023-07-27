@@ -102,19 +102,28 @@ export const appOrderSlice = createSlice({
   initialState: {
     data: [],
     total: 1,
+    isLoading: false,
     params: {},
     count: 0,
     allData: []
   },
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(fetchData.fulfilled, (state, action) => {
-      state.data = action.payload.dataCoipe.docs
-      state.total = action.payload.dataCoipe.meta.totalDocs
-      state.params = action.payload.dataCoipe.meta
-      state.allData = action.payload.dataCoipe
-      state.count = action.payload.count
-    })
+    builder
+      .addCase(fetchData.pending, state => {
+        state.isLoading = true
+      })
+      .addCase(fetchData.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.data = action.payload.dataCoipe.docs
+        state.total = action.payload.dataCoipe.meta.totalDocs
+        state.params = action.payload.dataCoipe.meta
+        state.allData = action.payload.dataCoipe
+        state.count = action.payload.count
+      })
+      .addCase(fetchData.rejected, state => {
+        state.isLoading = false
+      })
   }
 })
 

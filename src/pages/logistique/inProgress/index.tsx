@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, MouseEvent, useCallback } from 'react'
 
 // ** Next Imports
 
@@ -43,9 +43,12 @@ import { RootState, AppDispatch } from 'src/store'
 import TableHeader from 'src/views/apps/user/list/TableHeader'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 import Dialog from 'src/views/apps/logistique/list/SelectInstalateurDialog'
+import DecalirRetourDialg from 'src/views/apps/logistique/list/DeclairRetourDialog'
 import AddMaterialDialog from 'src/views/apps/logistique/list/AddMaterialDialog'
 import { Box } from '@mui/system'
 import Link from 'next/link'
+import { Menu, MenuItem } from '@mui/material'
+import { fetchOne } from 'src/store/apps/ChargeDetails'
 
 // import EditUserDrawer from 'src/views/apps/user/list/EditeUserDrawer'
 
@@ -59,13 +62,73 @@ const renderClient = (row: any) => {
 }
 const RowOptions = ({ id }: { id: number | string }) => {
   // ** Hooks
+  const dispatch = useDispatch<AppDispatch>()
+
+  // ** State
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+
+  // const store = useSelector((state: RootState) => state.chargeDetails)
+
+  const [showMateral, setShowMaterail] = useState<any>(false)
+
+  const rowOptionsOpen = Boolean(anchorEl)
+
+  const handleRowOptionsClick = (event: MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleRowOptionsClose = () => {
+    setAnchorEl(null)
+  }
+
+  const handleShowMaterail = () => {
+    handleRowOptionsClose()
+    dispatch(fetchOne({ id: id }))
+    setShowMaterail(!showMateral)
+  }
 
   return (
-    <Link href={`/logistique/inProgress/${id}`}>
-      <IconButton size='small'>
-        <Icon icon='tabler:eye-filled' />
+    <>
+      <IconButton size='small' onClick={handleRowOptionsClick}>
+        <Icon icon='tabler:dots-vertical' />
       </IconButton>
-    </Link>
+      <Menu
+        keepMounted
+        anchorEl={anchorEl}
+        open={rowOptionsOpen}
+        onClose={handleRowOptionsClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right'
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right'
+        }}
+        PaperProps={{ style: { minWidth: '8rem' } }}
+      >
+        <Typography
+          noWrap
+          href={`/logistique/inProgress/${id}`}
+          component={Link}
+          sx={{
+            fontWeight: 500,
+            textDecoration: 'none',
+            color: 'text.secondary'
+          }}
+        >
+          <MenuItem sx={{ '& svg': { mr: 2 } }}>
+            <Icon icon='tabler:eye' fontSize={20} />
+            Details
+          </MenuItem>
+        </Typography>
+
+        <MenuItem onClick={handleShowMaterail} sx={{ '& svg': { mr: 2 } }}>
+          <Icon icon='tabler:file-analytics' fontSize={20} />
+          Declair Retour
+        </MenuItem>
+      </Menu>
+      {showMateral && <DecalirRetourDialg open={showMateral} toggle={handleShowMaterail} id={id} />}
+    </>
   )
 }
 
@@ -94,13 +157,10 @@ const UserList = () => {
             <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
               <Typography
                 noWrap
-                component={Link}
-                href='/apps/user/view/account'
                 sx={{
                   fontWeight: 500,
                   textDecoration: 'none',
-                  color: 'text.secondary',
-                  '&:hover': { color: 'primary.main' }
+                  color: 'text.secondary'
                 }}
               >
                 {fullName}
@@ -173,7 +233,8 @@ const UserList = () => {
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
-  const store = useSelector((state: RootState) => state.logistique)
+  const store: any = useSelector((state: RootState) => state.logistique)
+  console.log('paginationModel : ', paginationModel)
 
   useEffect(() => {
     dispatch(
@@ -228,6 +289,8 @@ const UserList = () => {
             autoHeight
             rowHeight={62}
             rows={store?.data}
+            loading={store?.isLoading}
+            rowCount={store?.total}
             columns={columns}
             disableRowSelectionOnClick
             pageSizeOptions={[10, 25, 50]}

@@ -407,6 +407,8 @@ const UserList = () => {
             autoHeight
             rowHeight={62}
             rows={store?.data}
+            loading={store?.isLoading}
+            rowCount={store?.total}
             columns={columns}
             disableRowSelectionOnClick
             pageSizeOptions={[10, 25, 50]}

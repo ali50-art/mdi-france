@@ -14,7 +14,9 @@ import { useForm } from 'react-hook-form'
 // ** Store Imports
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAllData } from 'src/store/apps/material'
-import { addCharge } from 'src/store/apps/logistique'
+
+import { fetchOne, fetchAllByChargeId } from 'src/store/apps/ChargeDetails'
+import { Retour } from 'src/store/apps/logistique'
 
 // ** Actions Imports
 
@@ -30,6 +32,7 @@ import { useState, useEffect } from 'react'
 interface SidebarAddUserType {
   open: boolean
   toggle: () => void
+  id: any
 }
 
 const schema = yup.object().shape({})
@@ -46,7 +49,7 @@ const defaultValues = {
 
 const SidebarAddUser = (props: SidebarAddUserType) => {
   // ** Props
-  const { open, toggle } = props
+  const { open, toggle, id } = props
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
@@ -74,15 +77,22 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
       }
       materials.push(newObj)
     })
-    const type = 'charge'
     const instalateurId = localStorage.getItem('instalateurId')
-    dispatch(addCharge({ type, materials, instalateurId }))
-    localStorage.removeItem('material')
+
+    const chargeId = id
+
+    dispatch(Retour({ chargeId, materials, instalateurId }))
+    localStorage.removeItem('marerial')
+    setMaterail([{ id: 1, model: 'B1', counter: 1 }])
+    dispatch(fetchOne({ id: chargeId }))
+    dispatch(fetchAllByChargeId({ id: chargeId }))
     toggle()
     reset()
   }
 
   const handleClose = () => {
+    localStorage.removeItem('marerial')
+    setMaterail([{ id: 1, model: 'B1', counter: 1 }])
     toggle()
     reset()
   }
@@ -97,8 +107,6 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
 
   const initMaterial = () => {
     const materailLocalsStorage = localStorage.getItem('marerial')
-    console.log('material : ', material)
-
     if (!materailLocalsStorage) {
       localStorage.setItem('marerial', JSON.stringify(material))
     } else if (JSON.parse(materailLocalsStorage).length < material.length) {
@@ -151,7 +159,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
             pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
           }}
         >
-          Ajouter le Matiére
+          Decalir un retour
         </DialogTitle>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent

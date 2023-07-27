@@ -14,7 +14,8 @@ import { useForm } from 'react-hook-form'
 // ** Store Imports
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAllData } from 'src/store/apps/material'
-import { fetchOne } from 'src/store/apps/ChargeDetails'
+
+import { fetchOne, fetchAllByChargeId } from 'src/store/apps/ChargeDetails'
 import { ReCharge } from 'src/store/apps/logistique'
 
 // ** Actions Imports
@@ -85,6 +86,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
     localStorage.removeItem('marerial')
     setMaterail([{ id: 1, model: 'B1', counter: 1 }])
     dispatch(fetchOne({ id: chargeId }))
+    dispatch(fetchAllByChargeId({ id: chargeId }))
     toggle()
     reset()
   }

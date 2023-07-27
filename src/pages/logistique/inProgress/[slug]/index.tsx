@@ -29,7 +29,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import CardStatsHorizontalWithDetails from 'src/@core/components/card-statistics/card-stats-horizontal-with-details'
 
 // ** Actions Imports
-import { fetchOne } from 'src/store/apps/ChargeDetails'
+import { fetchAllByChargeId, fetchOne } from 'src/store/apps/ChargeDetails'
 import { desarge } from 'src/store/apps/logistique'
 
 // import authConfig from 'src/configs/auth'
@@ -43,10 +43,11 @@ import { RootState, AppDispatch } from 'src/store'
 // import { MaterialTypes } from 'src/types/apps/'
 
 // ** Custom Table Components Imports
-import TableHeader from 'src/views/apps/user/list/TableHeader'
+import TableHeader from 'src/views/apps/logistique/list/TableHeaderWithButton'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
-import AddMaterialDialog from 'src/views/apps/logistique/list/RechargeDialog'
+import ShowAllMaterialDialog from 'src/views/apps/logistique/list/ShowMaterialDialog'
+import RechargeDialog from 'src/views/apps/logistique/list/RechargeDialog'
 import { Box } from '@mui/system'
 
 // import EditUserDrawer from 'src/views/apps/user/list/EditeUserDrawer'
@@ -63,11 +64,9 @@ const RowOptions = ({ id }: { id: number | string }) => {
 
   // ** State
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-  const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
-  const store = useSelector((state: RootState) => state.user)
+  const store = useSelector((state: RootState) => state.chargeDetails)
   const router = useRouter()
-  const [user, setUser] = useState<any>({})
-  console.log(user)
+  const [showMateral, setShowMaterail] = useState<any>(false)
 
   const rowOptionsOpen = Boolean(anchorEl)
 
@@ -77,17 +76,17 @@ const RowOptions = ({ id }: { id: number | string }) => {
   const handleRowOptionsClose = () => {
     setAnchorEl(null)
   }
-  const handleOpenEdite = () => {
-    const userIdex = store?.data.findIndex((el: any) => el.id.toString() === id.toString())
-    setUser(store?.data[userIdex])
+
+  const handleShowMaterail = () => {
     handleRowOptionsClose()
-    setAddUserOpen(!addUserOpen)
+    dispatch(fetchOne({ id: id }))
+    setShowMaterail(!showMateral)
   }
   const handleDelete = () => {
     const slug: any = router.query.slug
 
     dispatch(desarge({ chargeId: slug, id: id }))
-    dispatch(fetchOne({ id: id }))
+    dispatch(fetchAllByChargeId({ id: id }))
     handleRowOptionsClose()
   }
 
@@ -111,20 +110,16 @@ const RowOptions = ({ id }: { id: number | string }) => {
         }}
         PaperProps={{ style: { minWidth: '8rem' } }}
       >
-        <MenuItem onClick={handleDelete} sx={{ '& svg': { mr: 2 } }}>
+        <MenuItem onClick={handleShowMaterail} sx={{ '& svg': { mr: 2 } }}>
           <Icon icon='tabler:eye' fontSize={20} />
           voir
-        </MenuItem>
-        <MenuItem onClick={handleOpenEdite} sx={{ '& svg': { mr: 2 } }}>
-          <Icon icon='tabler:edit' fontSize={20} />
-          Edit
         </MenuItem>
         <MenuItem onClick={handleDelete} sx={{ '& svg': { mr: 2 } }}>
           <Icon icon='tabler:trash' fontSize={20} />
           Delete
         </MenuItem>
       </Menu>
-      {/* {addUserOpen && <EditUserDrawer open={addUserOpen} toggle={handleOpenEdite} user={user} />} */}
+      {showMateral && <ShowAllMaterialDialog open={showMateral} toggle={handleShowMaterail} data={store.matData} />}
     </>
   )
 }
@@ -193,7 +188,7 @@ const UserList = () => {
   const id = router.query.slug
 
   useEffect(() => {
-    dispatch(fetchOne({ id: id }))
+    dispatch(fetchAllByChargeId({ id: id }))
   }, [dispatch, value, id])
 
   const handleFilter = useCallback((val: string) => {
@@ -225,11 +220,20 @@ const UserList = () => {
         <Card>
           <CardHeader title='Filtres de recherche' />
           <Divider sx={{ m: '0 !important' }} />
-          <TableHeader value={value} handleFilter={handleFilter} toggle={toggleAddMaterialDialog} name='rechargez' />
+          <TableHeader
+            value={value}
+            handleFilter={handleFilter}
+            toggle={toggleAddMaterialDialog}
+            name='rechargez'
+            withName={true}
+            url='/logistique/inProgress/'
+          />
           <DataGrid
             autoHeight
             rowHeight={62}
             rows={store?.data}
+            loading={store?.isLoading}
+            rowCount={store?.total}
             columns={columns}
             disableRowSelectionOnClick
             pageSizeOptions={[10, 25, 50]}
@@ -238,8 +242,7 @@ const UserList = () => {
           />
         </Card>
       </Grid>
-
-      <AddMaterialDialog open={addMaterial} toggle={toggleAddMaterialDialog} />
+      <RechargeDialog open={addMaterial} toggle={toggleAddMaterialDialog} />
     </Grid>
   )
 }
