@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
 const withFonts = require('next-fonts')
-const withPWA = require('next-pwa')
+const withPWA = require('next-pwa')({
+  disable: process.env.NODE_ENV === 'development',
+  dest: 'public',
+  register: true,
+  skipWaiting: false
+})
 
 /** @type {import('next').NextConfig} */
 
@@ -10,12 +15,6 @@ const withPWA = require('next-pwa')
 const config = withPWA({
   trailingSlash: true,
   reactStrictMode: false,
-  pwa: {
-    dest: 'public',
-    register: true,
-    skipWaiting: true,
-    disable: process.env.NODE_ENV === 'development'
-  },
   webpack: config => {
     config.resolve.alias = {
       ...config.resolve.alias,
