@@ -443,7 +443,11 @@ const AddCard = (props: Props) => {
                       </Grid>
                       <Grid item lg={2.75} md={2.75} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
                         {data[i].saved ? (
-                          <CustomTextField placeholder='1' value={data[i].dn} InputProps={{ inputProps: { min: 0 } }} />
+                          <CustomTextField
+                            placeholder='1'
+                            value={data[i].type}
+                            InputProps={{ inputProps: { min: 0 } }}
+                          />
                         ) : (
                           <CustomTextField
                             select
@@ -473,7 +477,11 @@ const AddCard = (props: Props) => {
                       </Grid>
                       <Grid item lg={2.75} md={2.75} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
                         {data[i].saved ? (
-                          <CustomTextField placeholder='1' value={data[i].dn} InputProps={{ inputProps: { min: 0 } }} />
+                          <CustomTextField
+                            placeholder='1'
+                            value={data[i].red}
+                            InputProps={{ inputProps: { min: 0 } }}
+                          />
                         ) : (
                           <CustomTextField
                             select

@@ -30,7 +30,6 @@ import DatePicker from 'react-datepicker'
 import MenuItem from '@mui/material/MenuItem'
 
 // ** Configs
-import themeConfig from 'src/configs/themeConfig'
 
 // ** Types
 
@@ -116,6 +115,7 @@ const AddCard = (props: Props) => {
   const [issueDate, setIssueDate] = useState<any>(new Date())
   const [dueDate, setDueDate] = useState<any>(new Date(tomorrowDate))
   const [data, setData] = useState<any[]>([])
+  const [data2, setData2] = useState<any>([])
 
   // ** Hook
   const theme = useTheme()
@@ -125,9 +125,10 @@ const AddCard = (props: Props) => {
   const handleFetchData = async () => {
     try {
       const res = await getStoreData(Stores.PdfData)
-      console.log('res : ', res)
+      const res2 = await getStoreData(Stores.PdfInfo)
 
       setData([...res])
+      setData2([...res2])
     } catch (err) {
       toast.error('opps !')
     }
@@ -265,6 +266,20 @@ const AddCard = (props: Props) => {
       toast.error('opps !')
     }
   }
+  const formateDate = (date: any) => {
+    // Format options for the date in French
+    const newData = new Date(date)
+    const options: any = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit'
+    }
+
+    // Format the date using Intl.DateTimeFormat with the French locale
+    return new Intl.DateTimeFormat('fr-FR', options).format(newData)
+  }
   useEffect(() => {
     handleInitDB()
     handleFetchData()
@@ -278,49 +293,20 @@ const AddCard = (props: Props) => {
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
               <Box sx={{ mb: 6, display: 'flex', alignItems: 'center' }}>
                 <Typography variant='h4' sx={{ ml: 2.5, fontWeight: 700, lineHeight: '24px' }}>
-                  {themeConfig.templateName}
+                  a l'adresse du site
                 </Typography>
               </Box>
               <div>
-                <Typography sx={{ mb: 2, color: 'text.secondary' }}>Office 149, 450 South Brand Brooklyn</Typography>
-                <Typography sx={{ mb: 2, color: 'text.secondary' }}>San Diego County, CA 91905, USA</Typography>
-                <Typography sx={{ color: 'text.secondary' }}>+1 (123) 456 7891, +44 (876) 543 2198</Typography>
+                <Typography sx={{ mb: 2, color: 'text.secondary' }}>{data2[0]?.adressTravaux}</Typography>
+                <Typography sx={{ mb: 2, color: 'text.secondary' }}>{data2[0]?.villeTravaux}</Typography>
+                <Typography sx={{ color: 'text.secondary' }}>{data2[0]?.codePostalTravaux}</Typography>
               </div>
             </Box>
           </Grid>
           <Grid item xl={6} xs={12}>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: { xl: 'flex-end', xs: 'flex-start' } }}>
               <Box sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
-                <Typography variant='h4' sx={{ mr: 2, width: '105px' }} onClick={handleaddData}>
-                  Invoice
-                </Typography>
-                <CustomTextField
-                  fullWidth
-                  value={invoiceNumber}
-                  sx={{ width: { sm: '250px', xs: '170px' } }}
-                  InputProps={{
-                    disabled: true,
-                    startAdornment: <InputAdornment position='start'>#</InputAdornment>
-                  }}
-                />
-              </Box>
-              <Box sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
-                <Typography sx={{ mr: 3, width: '100px', color: 'text.secondary' }}>Date Issued:</Typography>
-                <DatePicker
-                  id='issue-date'
-                  selected={issueDate}
-                  customInput={<CustomInput />}
-                  onChange={(date: Date) => setIssueDate(date)}
-                />
-              </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Typography sx={{ mr: 3, width: '100px', color: 'text.secondary' }}>Date Due:</Typography>
-                <DatePicker
-                  id='due-date'
-                  selected={dueDate}
-                  customInput={<CustomInput />}
-                  onChange={(date: Date) => setDueDate(date)}
-                />
+                <CustomTextField value={formateDate(new Date())} />
               </Box>
             </Box>
           </Grid>
@@ -331,21 +317,19 @@ const AddCard = (props: Props) => {
 
       <CardContent sx={{ p: [`${theme.spacing(6)} !important`, `${theme.spacing(10)} !important`] }}>
         <Grid container>
-          <Grid item xs={12} sm={6} sx={{ mb: { lg: 0, xs: 4 } }}></Grid>
-          <Grid item xs={12} sm={6} sx={{ display: 'flex', justifyContent: ['flex-start', 'flex-end'] }}>
+          <Grid item xs={12} sm={6} sx={{ mb: { lg: 0, xs: 4 } }}>
             <div>
-              <Typography variant='h6' sx={{ mb: 6 }}>
-                Bill To:
-              </Typography>
               <TableContainer>
                 <Table>
-                  <TableBody sx={{ '& .MuiTableCell-root': { py: `${theme.spacing(0.75)} !important` } }}>
+                  <TableBody>
                     <TableRow>
                       <MUITableCell>
-                        <Typography sx={{ color: 'text.secondary' }}>Total Due:</Typography>
+                        <Typography sx={{ color: 'text.secondary' }}>ISOLANT ET REFFERENCE:</Typography>
                       </MUITableCell>
                       <MUITableCell>
-                        <Typography sx={{ fontWeight: 500, color: 'text.secondary' }}>$12,110.55</Typography>
+                        <Typography sx={{ fontWeight: 500, color: 'text.secondary' }}>
+                          Laine de verre OSOVER TECH ROLL 3.0-classé au feu A1
+                        </Typography>
                       </MUITableCell>
                     </TableRow>
                     <TableRow>
@@ -385,6 +369,7 @@ const AddCard = (props: Props) => {
               </TableContainer>
             </div>
           </Grid>
+          <Grid item xs={12} sm={6} sx={{ display: 'flex', justifyContent: ['flex-start', 'flex-end'] }}></Grid>
         </Grid>
       </CardContent>
 
@@ -481,7 +466,11 @@ const AddCard = (props: Props) => {
                       </Grid>
                       <Grid item lg={2} md={2} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
                         {data[i].saved ? (
-                          <CustomTextField placeholder='1' value={data[i].dn} InputProps={{ inputProps: { min: 0 } }} />
+                          <CustomTextField
+                            placeholder='1'
+                            value={data[i].type}
+                            InputProps={{ inputProps: { min: 0 } }}
+                          />
                         ) : (
                           <CustomTextField
                             select
@@ -511,7 +500,11 @@ const AddCard = (props: Props) => {
                       </Grid>
                       <Grid item lg={2} md={2} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
                         {data[i].saved ? (
-                          <CustomTextField placeholder='1' value={data[i].dn} InputProps={{ inputProps: { min: 0 } }} />
+                          <CustomTextField
+                            placeholder='1'
+                            value={data[i].red}
+                            InputProps={{ inputProps: { min: 0 } }}
+                          />
                         ) : (
                           <CustomTextField
                             select

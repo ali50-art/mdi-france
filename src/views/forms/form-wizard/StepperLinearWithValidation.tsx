@@ -86,7 +86,15 @@ const socialSchema = yup.object().shape({
 const StepperLinearWithValidation = () => {
   // ** States
   const [activeStep, setActiveStep] = useState<number>(0)
-  const [authType, setAuthType] = useState<any>(localStorage.getItem('pdfType'))
+  const handleFirstType = () => {
+    const type = localStorage.getItem('pdfType')
+    if (type) {
+      return type
+    } else {
+      return 'indestry'
+    }
+  }
+  const [authType, setAuthType] = useState<any>(() => handleFirstType())
   const [addCustomerOpen, setAddCustomerOpen] = useState<boolean>(false)
   const [selectedClient, setSelectedClient] = useState<any | null>(null)
   const [count, setCount2] = useState(0)
@@ -183,10 +191,11 @@ const StepperLinearWithValidation = () => {
       setActiveStep(activeStep + 2)
     }
   }
+
   const onSubmit = (data: any) => {
     handleAddInfoToDb(data)
     toast.success('informtion de client & travaux Ajouter avec succée')
-    setActiveStep(2)
+    setActiveStep(activeStep + 1)
   }
 
   const handleSetType = (authType: string) => {
