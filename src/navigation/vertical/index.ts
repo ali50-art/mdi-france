@@ -89,13 +89,6 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'tabler:clock'
     },
     {
-      path: '/instalateur-dahsboard',
-      action: 'read',
-      subject: 'instalateur-dahsboard',
-      title: 'Dashboard',
-      icon: 'tabler:smart-home'
-    },
-    {
       sectionTitle: 'interface construction',
       action: 'read',
       subject: 'instalateur-dahsboard'

@@ -5,6 +5,7 @@ import { Children } from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 // ** Emotion Imports
+
 import createEmotionServer from '@emotion/server/create-instance'
 
 // ** Utils Imports
@@ -15,6 +16,7 @@ class CustomDocument extends Document {
     return (
       <Html lang='en'>
         <Head>
+          <link rel='mainfest' href='/mainfest.json' />
           <link rel='preconnect' href='https://fonts.googleapis.com' />
           <link rel='preconnect' href='https://fonts.gstatic.com' />
           <link
@@ -40,7 +42,7 @@ CustomDocument.getInitialProps = async ctx => {
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: App => props =>
+      enhanceApp: (App: any) => (props: any) =>
         (
           <App
             {...props} // @ts-ignore
@@ -51,7 +53,7 @@ CustomDocument.getInitialProps = async ctx => {
 
   const initialProps = await Document.getInitialProps(ctx)
   const emotionStyles = extractCriticalToChunks(initialProps.html)
-  const emotionStyleTags = emotionStyles.styles.map(style => {
+  const emotionStyleTags = emotionStyles.styles.map((style: any) => {
     return (
       <style
         key={style.key}

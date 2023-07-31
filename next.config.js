@@ -1,13 +1,21 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
+const withFonts = require('next-fonts')
+const withPWA = require('next-pwa')
 
 /** @type {import('next').NextConfig} */
 
 // Remove this if you're not using Fullcalendar features
 
-module.exports = {
+const config = withPWA({
   trailingSlash: true,
   reactStrictMode: false,
+  pwa: {
+    dest: 'public',
+    register: true,
+    skipWaiting: true,
+    disable: process.env.NODE_ENV === 'development'
+  },
   webpack: config => {
     config.resolve.alias = {
       ...config.resolve.alias,
@@ -16,4 +24,5 @@ module.exports = {
 
     return config
   }
-}
+})
+module.exports = withFonts(config)
