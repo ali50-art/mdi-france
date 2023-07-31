@@ -159,10 +159,11 @@ const UserList = () => {
   // const handleEditClickOpen = () => setOpenEdit(true)
   const countRetourStock = (arr: any) => {
     let nb = 0
-
-    arr.forEach((element: any) => {
-      nb += element?.stock
-    })
+    if (arr) {
+      arr.forEach((element: any) => {
+        nb += element?.stock
+      })
+    }
 
     return nb
   }
