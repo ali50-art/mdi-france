@@ -298,9 +298,6 @@ const StepperLinearWithValidation = () => {
             </Grid>
 
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-              <Button variant='tonal' color='secondary' onClick={handleBack}>
-                Back
-              </Button>
               <Button type='submit' variant='contained' onClick={() => setActiveStep(activeStep + 1)}>
                 Next
               </Button>
@@ -467,7 +464,7 @@ const StepperLinearWithValidation = () => {
                 />
               </Grid>
               <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Button variant='tonal' color='secondary' disabled>
+                <Button variant='tonal' color='secondary' onClick={() => setActiveStep(activeStep - 1)}>
                   Back
                 </Button>
                 <Button type='submit' variant='contained'>
