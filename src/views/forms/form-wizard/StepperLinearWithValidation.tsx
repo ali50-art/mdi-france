@@ -484,7 +484,7 @@ const StepperLinearWithValidation = () => {
               <Grid container spacing={6}>
                 <Grid item xl={9} md={12} xs={12}>
                   {authType === 'residentiel' ? (
-                    <AddCard2
+                    <AddCard
                       clients={clients}
                       invoiceNumber={500}
                       selectedClient={selectedClient}
@@ -493,7 +493,7 @@ const StepperLinearWithValidation = () => {
                       handleSetCount={handleSetCount}
                     />
                   ) : (
-                    <AddCard
+                    <AddCard2
                       clients={clients}
                       invoiceNumber={500}
                       selectedClient={selectedClient}
