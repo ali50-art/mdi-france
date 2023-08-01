@@ -34,6 +34,7 @@ const AuthProvider = ({ children }: Props) => {
   // ** States
   const [user, setUser] = useState<UserDataType | null>(defaultProvider.user)
   const [loading, setLoading] = useState<boolean>(defaultProvider.loading)
+  const [online, setIsOnline] = useState<any>(false)
 
   // ** Hooks
   const router = useRouter()
@@ -42,7 +43,7 @@ const AuthProvider = ({ children }: Props) => {
     const initAuth = async (): Promise<void> => {
       const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
 
-      if (storedToken) {
+      if (storedToken && online == true) {
         setLoading(true)
         await axios
           .get(`${serverUri.uri}/api/profile`, {
@@ -52,6 +53,7 @@ const AuthProvider = ({ children }: Props) => {
           })
           .then(async (response: any) => {
             setLoading(false)
+            localStorage.setItem('userData', JSON.stringify(response.data.data))
             setUser({ ...response.data.data })
           })
           .catch(() => {
@@ -63,14 +65,30 @@ const AuthProvider = ({ children }: Props) => {
 
             router.replace('/login')
           })
+      } else if (storedToken && online == false) {
+        const x: any = localStorage.getItem('userData')
+        setUser(JSON.parse(x))
+        setLoading(false)
       } else {
         setLoading(false)
       }
     }
+    function handleOnlineStatusChange() {
+      setIsOnline(navigator.onLine)
+    }
 
+    window.addEventListener('online', handleOnlineStatusChange)
+    window.addEventListener('offline', handleOnlineStatusChange)
+    handleOnlineStatusChange()
     initAuth()
+
+    return () => {
+      window.removeEventListener('online', handleOnlineStatusChange)
+      window.removeEventListener('offline', handleOnlineStatusChange)
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [online])
 
   const handleLogin = (params: LoginParams, errorCallback?: ErrCallbackType) => {
     axios
