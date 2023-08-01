@@ -172,14 +172,11 @@ const PDFFile = ({ count }: any) => {
     await initDB()
   }
   const handleCountDn = async (d: any) => {
-    console.log('d : ', d)
-
     d.forEach((el: any) => {
       if (el.dn >= 20 && el.dn <= 65) {
         setDn((pre: any) => {
           return { ...pre, btwenn20And65: pre.btwenn20And65 + 1 }
         })
-        console.log('dn : ', dn)
       }
       if (el.dn >= 66 && el.dn <= 100) {
         setDn((pre: any) => {
@@ -385,7 +382,7 @@ const PDFFile = ({ count }: any) => {
   useEffect(() => {
     handleInitDB()
     handleFetchData()
-  }, [count])
+  }, [count, data])
 
   return (
     <Document>
