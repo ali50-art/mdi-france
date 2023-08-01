@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, useEffect, forwardRef, ForwardedRef } from 'react'
+import { useState, useEffect } from 'react'
 
 // ** MUI Imports
 import Card from '@mui/material/Card'
@@ -15,7 +15,7 @@ import Typography from '@mui/material/Typography'
 import Box, { BoxProps } from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 import Grid, { GridProps } from '@mui/material/Grid'
-import InputAdornment from '@mui/material/InputAdornment'
+
 import TableContainer from '@mui/material/TableContainer'
 import { styled, useTheme } from '@mui/material/styles'
 import TableCell, { TableCellBaseProps } from '@mui/material/TableCell'
@@ -23,9 +23,6 @@ import CardContent, { CardContentProps } from '@mui/material/CardContent'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
-// ** Third Party Imports
-import DatePicker from 'react-datepicker'
 
 import MenuItem from '@mui/material/MenuItem'
 
@@ -38,10 +35,6 @@ import Repeater from 'src/@core/components/repeater'
 import CustomTextField from 'src/@core/components/mui/text-field'
 import { toast } from 'react-hot-toast'
 
-interface PickerProps {
-  label?: string
-}
-
 interface Props {
   toggleAddCustomerDrawer: () => void
   invoiceNumber: number
@@ -50,10 +43,6 @@ interface Props {
   setSelectedClient: (val: any | null) => void
   handleSetCount: any
 }
-
-const CustomInput = forwardRef(({ ...props }: PickerProps, ref: ForwardedRef<HTMLElement>) => {
-  return <CustomTextField fullWidth inputRef={ref} sx={{ width: { sm: '250px', xs: '170px' } }} {...props} />
-})
 
 const MUITableCell = styled(TableCell)<TableCellBaseProps>(({ theme }) => ({
   borderBottom: 0,
@@ -103,17 +92,13 @@ const InvoiceAction = styled(Box)<BoxProps>(({ theme }) => ({
   borderLeft: `1px solid ${theme.palette.divider}`
 }))
 
-const now = new Date()
-const tomorrowDate = now.setDate(now.getDate() + 7)
-
 const AddCard = (props: Props) => {
   // ** Props
-  const { invoiceNumber, handleSetCount } = props
+  const { handleSetCount } = props
 
   // ** States
   const [count, setCount] = useState<number>(0)
-  const [issueDate, setIssueDate] = useState<any>(new Date())
-  const [dueDate, setDueDate] = useState<any>(new Date(tomorrowDate))
+
   const [data, setData] = useState<any[]>([])
   const [data2, setData2] = useState<any>([])
 
@@ -134,14 +119,6 @@ const AddCard = (props: Props) => {
     }
   }
 
-  const handleaddData = () => {
-    let nb = 1
-    if (localStorage.getItem('nb')) {
-      nb = Number(localStorage.getItem('nb'))
-    }
-
-    return nb
-  }
   const handleInitDB = async () => {
     await initDB()
   }
