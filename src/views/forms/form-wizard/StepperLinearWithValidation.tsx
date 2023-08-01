@@ -39,13 +39,14 @@ const steps = [
     title: 'Information Client & Travaux',
     subtitle: 'Enter les information de client et de travaux'
   },
-  {
-    title: 'Type de chaniter',
-    subtitle: 'Choisir type de chaniter'
-  },
+
   {
     title: 'construction de pdf',
     subtitle: 'consterouir voter pdf'
+  },
+  {
+    title: 'Type de chaniter',
+    subtitle: 'Choisir type de chaniter'
   }
 ]
 
