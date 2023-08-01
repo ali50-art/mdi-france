@@ -329,9 +329,7 @@ const PDFFile = ({ count }: any) => {
             </Text>
             <Text style={{ marginTop: '10px' }}>
               <Text>
-                <Text style={{ fontSize: 12 }}>
-                  Total de points singuliers = {dn.btwenn20And65 + dn.between66And100 + dn.morthen100}{' '}
-                </Text>{' '}
+                <Text style={{ fontSize: 12 }}>Total de points singuliers = {data.length} </Text>{' '}
               </Text>
             </Text>
           </View>
