@@ -228,25 +228,35 @@ const PDFFile = ({ count }: any) => {
               <Text style={styles.boldStyle3}>
                 <Text>
                   <Text style={{ fontSize: 12 }}>Résistance thermique</Text>{' '}
-                  <Text style={{ fontSize: '11' }}> : 1,58 m².K/w à un tempurature moyenne de 50°c</Text>
+                  <Text style={{ fontSize: '11' }}>
+                    {' '}
+                    : 1,5 m².K/w sur un réseau d'au chaude et retour de condensats a température moyenne de 70°c
+                  </Text>
                 </Text>
               </Text>
               <View style={styles.boldStyle3}>
                 <Text style={{ fontSize: '11', marginLeft: '130px' }}>
                   {' '}
-                  : 1,27 m².K/w à un tempurature moyenne de 100°c
+                  : 1,2 m².K/w sur un réseau vapeur a tempurature moyenne de 110°c
                 </Text>
               </View>
+              <View style={styles.boldStyle3}>
+                <Text style={{ fontSize: '11', marginLeft: '130px' }}>
+                  {' '}
+                  : 1,2 m².K/w sur un réseau fluide organique a tempurature moyenne de 120°c
+                </Text>
+              </View>
+
               <Text style={styles.boldStyle2}>
                 <Text>
                   <Text style={{ fontSize: 12 }}>Isolant et référance</Text>{' '}
-                  <Text style={{ fontSize: '11' }}> : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1</Text>
+                  <Text style={{ fontSize: '11' }}> : Laine de verre ISOVER TECH ROLL 3.0- classé au feu A1</Text>
                 </Text>
               </Text>
               <Text style={styles.boldStyle2}>
                 <Text>
                   <Text style={{ fontSize: 12 }}>Température maximale : </Text>{' '}
-                  <Text style={{ fontSize: '11' }}>200°C</Text>
+                  <Text style={{ fontSize: '11' }}>300°C</Text>
                 </Text>
               </Text>
             </View>
@@ -257,26 +267,10 @@ const PDFFile = ({ count }: any) => {
             }}
             fixed
           >
-            <Text style={{ marginTop: '50px' }}>
-              <Text>
-                <Text style={{ fontSize: 12 }}>Température fluide caloporteur : </Text>{' '}
-                <Text style={{ fontSize: '11' }}>70°C</Text>
-              </Text>
-            </Text>
+            <Text style={{ marginTop: '50px' }}></Text>
             <Text style={styles.boldStyle2}>
               <Text>
                 <Text style={{ fontSize: 12 }}>Référance : </Text> <Text style={{ fontSize: '11' }}>ISOVAN</Text>
-              </Text>
-            </Text>
-            <Text>
-              <Text>
-                <Text style={{ fontSize: 12 }}>Lieu d'implantationdes metelas : </Text>{' '}
-                <Text style={{ fontSize: '11' }}>CHAUFFERIE</Text>
-              </Text>
-            </Text>
-            <Text style={{ marginTop: '20px' }}>
-              <Text>
-                <Text style={{ fontSize: 12 }}>Nomber de points singuliers posés : </Text>{' '}
               </Text>
             </Text>
 
