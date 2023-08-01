@@ -282,7 +282,7 @@ const PDFFile = ({ count }: any) => {
 
             <Text style={{ marginTop: '10px' }}>
               <Text>
-                <Text style={{ fontSize: 12 }}>Total de points singuliers = 84 </Text>{' '}
+                <Text style={{ fontSize: 12 }}>Total de fuilde organique {data.length} </Text>{' '}
               </Text>
             </Text>
           </View>
