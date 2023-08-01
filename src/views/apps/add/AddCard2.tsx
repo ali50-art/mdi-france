@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, useEffect, forwardRef, ForwardedRef } from 'react'
+import { useState, useEffect } from 'react'
 
 // ** MUI Imports
 import Card from '@mui/material/Card'
@@ -15,7 +15,7 @@ import Typography from '@mui/material/Typography'
 import Box, { BoxProps } from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 import Grid, { GridProps } from '@mui/material/Grid'
-import InputAdornment from '@mui/material/InputAdornment'
+
 import TableContainer from '@mui/material/TableContainer'
 import { styled, useTheme } from '@mui/material/styles'
 import TableCell, { TableCellBaseProps } from '@mui/material/TableCell'
@@ -24,13 +24,7 @@ import CardContent, { CardContentProps } from '@mui/material/CardContent'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Third Party Imports
-import DatePicker from 'react-datepicker'
-
 import MenuItem from '@mui/material/MenuItem'
-
-// ** Configs
-import themeConfig from 'src/configs/themeConfig'
 
 // ** Types
 
@@ -38,10 +32,6 @@ import themeConfig from 'src/configs/themeConfig'
 import Repeater from 'src/@core/components/repeater'
 import CustomTextField from 'src/@core/components/mui/text-field'
 import { toast } from 'react-hot-toast'
-
-interface PickerProps {
-  label?: string
-}
 
 interface Props {
   toggleAddCustomerDrawer: () => void
@@ -51,10 +41,6 @@ interface Props {
   setSelectedClient: (val: any | null) => void
   handleSetCount: any
 }
-
-const CustomInput = forwardRef(({ ...props }: PickerProps, ref: ForwardedRef<HTMLElement>) => {
-  return <CustomTextField fullWidth inputRef={ref} sx={{ width: { sm: '250px', xs: '170px' } }} {...props} />
-})
 
 const MUITableCell = styled(TableCell)<TableCellBaseProps>(({ theme }) => ({
   borderBottom: 0,
@@ -104,18 +90,15 @@ const InvoiceAction = styled(Box)<BoxProps>(({ theme }) => ({
   borderLeft: `1px solid ${theme.palette.divider}`
 }))
 
-const now = new Date()
-const tomorrowDate = now.setDate(now.getDate() + 7)
-
 const AddCard = (props: Props) => {
   // ** Props
-  const { invoiceNumber, handleSetCount } = props
+  const { handleSetCount } = props
 
   // ** States
   const [count, setCount] = useState<number>(0)
-  const [issueDate, setIssueDate] = useState<any>(new Date())
-  const [dueDate, setDueDate] = useState<any>(new Date(tomorrowDate))
+
   const [data, setData] = useState<any[]>([])
+  const [data2, setData2] = useState<any[]>([])
 
   // ** Hook
   const theme = useTheme()
@@ -125,22 +108,15 @@ const AddCard = (props: Props) => {
   const handleFetchData = async () => {
     try {
       const res = await getStoreData(Stores.PdfData2)
-      console.log('res : ', res)
+      const res2 = await getStoreData(Stores.PdfInfo)
 
       setData([...res])
+      setData2([...res2])
     } catch (err) {
       toast.error('opps !')
     }
   }
 
-  const handleaddData = () => {
-    let nb = 1
-    if (localStorage.getItem('nb')) {
-      nb = Number(localStorage.getItem('nb'))
-    }
-
-    return nb
-  }
   const handleInitDB = async () => {
     await initDB()
   }
@@ -240,6 +216,20 @@ const AddCard = (props: Props) => {
     await updateDataById(Stores.PdfData2, id, { ...lastData })
     setCount(count + 1)
   }
+  const formateDate = (date: any) => {
+    // Format options for the date in French
+    const newData = new Date(date)
+    const options: any = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit'
+    }
+
+    // Format the date using Intl.DateTimeFormat with the French locale
+    return new Intl.DateTimeFormat('fr-FR', options).format(newData)
+  }
   const handleAddNewLine = async () => {
     const id = Number(localStorage.getItem('lastId'))
 
@@ -270,49 +260,20 @@ const AddCard = (props: Props) => {
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
               <Box sx={{ mb: 6, display: 'flex', alignItems: 'center' }}>
                 <Typography variant='h4' sx={{ ml: 2.5, fontWeight: 700, lineHeight: '24px' }}>
-                  {themeConfig.templateName}
+                  a l'adresse du site
                 </Typography>
               </Box>
               <div>
-                <Typography sx={{ mb: 2, color: 'text.secondary' }}>Office 149, 450 South Brand Brooklyn</Typography>
-                <Typography sx={{ mb: 2, color: 'text.secondary' }}>San Diego County, CA 91905, USA</Typography>
-                <Typography sx={{ color: 'text.secondary' }}>+1 (123) 456 7891, +44 (876) 543 2198</Typography>
+                <Typography sx={{ mb: 2, color: 'text.secondary' }}>{data2[0]?.adressTravaux}</Typography>
+                <Typography sx={{ mb: 2, color: 'text.secondary' }}>{data2[0]?.villeTravaux}</Typography>
+                <Typography sx={{ color: 'text.secondary' }}>{data2[0]?.codePostalTravaux}</Typography>
               </div>
             </Box>
           </Grid>
           <Grid item xl={6} xs={12}>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: { xl: 'flex-end', xs: 'flex-start' } }}>
               <Box sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
-                <Typography variant='h4' sx={{ mr: 2, width: '105px' }} onClick={handleaddData}>
-                  Invoice
-                </Typography>
-                <CustomTextField
-                  fullWidth
-                  value={invoiceNumber}
-                  sx={{ width: { sm: '250px', xs: '170px' } }}
-                  InputProps={{
-                    disabled: true,
-                    startAdornment: <InputAdornment position='start'>#</InputAdornment>
-                  }}
-                />
-              </Box>
-              <Box sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
-                <Typography sx={{ mr: 3, width: '100px', color: 'text.secondary' }}>Date Issued:</Typography>
-                <DatePicker
-                  id='issue-date'
-                  selected={issueDate}
-                  customInput={<CustomInput />}
-                  onChange={(date: Date) => setIssueDate(date)}
-                />
-              </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Typography sx={{ mr: 3, width: '100px', color: 'text.secondary' }}>Date Due:</Typography>
-                <DatePicker
-                  id='due-date'
-                  selected={dueDate}
-                  customInput={<CustomInput />}
-                  onChange={(date: Date) => setDueDate(date)}
-                />
+                <CustomTextField value={formateDate(new Date())} />
               </Box>
             </Box>
           </Grid>

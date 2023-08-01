@@ -64,7 +64,7 @@ const AddActions = ({ count }: any) => {
 
             {count >= 0 &&
               (pdfType === 'indestry' ? (
-                <PDFDownloadLink document={<PDFFile count={count} />} fileName={formateDate()}>
+                <PDFDownloadLink document={<PDFFile2 count={count} />} fileName={formateDate()}>
                   {({ loading }) =>
                     loading ? (
                       <Button fullWidth variant='tonal' color='secondary'>
@@ -78,7 +78,7 @@ const AddActions = ({ count }: any) => {
                   }
                 </PDFDownloadLink>
               ) : (
-                <PDFDownloadLink document={<PDFFile2 count={count} />} fileName={formateDate()}>
+                <PDFDownloadLink document={<PDFFile count={count} />} fileName={formateDate()}>
                   {({ loading }) =>
                     loading ? (
                       <Button fullWidth variant='tonal' color='secondary'>
