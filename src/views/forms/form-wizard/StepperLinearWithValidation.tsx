@@ -214,6 +214,101 @@ const StepperLinearWithValidation = () => {
     switch (step) {
       case 0:
         return (
+          <Grid container spacing={5} sx={{ justifyContent: 'center' }}>
+            <Grid item xs={12}>
+              <Box sx={{ mb: 4, textAlign: 'center' }}>
+                <Typography variant='h3' sx={{ mb: 3 }}>
+                  Selectionez le type de chaniter
+                </Typography>
+                <Typography sx={{ color: 'text.secondary' }}>
+                  pour passer de consterouir votre pdf cette etap est trés important
+                </Typography>
+              </Box>
+            </Grid>
+
+            <Grid item xs={4}>
+              <Box
+                onClick={() => handleSetType('residentiel')}
+                sx={{
+                  py: 4.75,
+                  px: 7.2,
+                  borderRadius: 1,
+                  cursor: 'pointer',
+                  border: theme =>
+                    `1px solid ${authType === 'residentiel' ? theme.palette.primary.main : theme.palette.divider}`
+                }}
+              >
+                <Box
+                  sx={{
+                    rowGap: 2,
+                    columnGap: 3,
+                    display: 'flex',
+                    alignItems: 'center',
+                    textAlign: ['center', 'start'],
+                    flexDirection: ['column', 'row']
+                  }}
+                >
+                  <Box sx={{ display: 'flex', ...(authType === 'residentiel' ? { color: 'primary.main' } : {}) }}></Box>
+                  <div>
+                    <Typography
+                      variant='h4'
+                      sx={{ mb: 2, ...(authType === 'residentiel' ? { color: 'primary.main' } : {}) }}
+                    >
+                      Residentiel/Tertiaire
+                    </Typography>
+                    <Typography sx={{ ...(authType === 'residentiel' ? { color: 'primary.main' } : {}) }}></Typography>
+                  </div>
+                </Box>
+              </Box>
+            </Grid>
+            <Grid item xs={4}>
+              <Box
+                onClick={() => handleSetType('indestry')}
+                sx={{
+                  py: 4.75,
+                  px: 7.2,
+                  borderRadius: 1,
+                  cursor: 'pointer',
+                  border: theme =>
+                    `1px solid ${authType === 'indestry' ? theme.palette.primary.main : theme.palette.divider}`
+                }}
+              >
+                <Box
+                  sx={{
+                    rowGap: 2,
+                    columnGap: 3,
+                    display: 'flex',
+                    alignItems: 'center',
+                    textAlign: ['center', 'start'],
+                    flexDirection: ['column', 'row']
+                  }}
+                >
+                  <Box sx={{ display: 'flex', ...(authType === 'indestry' ? { color: 'primary.main' } : {}) }}></Box>
+                  <div>
+                    <Typography
+                      variant='h4'
+                      sx={{ mb: 2, ...(authType === 'indestry' ? { color: 'primary.main' } : {}) }}
+                    >
+                      Indestry
+                    </Typography>
+                    <Typography sx={{ ...(authType === 'indestry' ? { color: 'primary.main' } : {}) }}></Typography>
+                  </div>
+                </Box>
+              </Box>
+            </Grid>
+
+            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Button variant='tonal' color='secondary' onClick={handleBack}>
+                Back
+              </Button>
+              <Button type='submit' variant='contained' onClick={() => setActiveStep(activeStep + 1)}>
+                Next
+              </Button>
+            </Grid>
+          </Grid>
+        )
+      case 1:
+        return (
           <form key={0} onSubmit={handleAccountSubmit(onSubmit)}>
             <Grid container spacing={5}>
               <Grid item xs={12}>
@@ -381,101 +476,6 @@ const StepperLinearWithValidation = () => {
               </Grid>
             </Grid>
           </form>
-        )
-      case 1:
-        return (
-          <Grid container spacing={5} sx={{ justifyContent: 'center' }}>
-            <Grid item xs={12}>
-              <Box sx={{ mb: 4, textAlign: 'center' }}>
-                <Typography variant='h3' sx={{ mb: 3 }}>
-                  Selectionez le type de chaniter
-                </Typography>
-                <Typography sx={{ color: 'text.secondary' }}>
-                  pour passer de consterouir votre pdf cette etap est trés important
-                </Typography>
-              </Box>
-            </Grid>
-
-            <Grid item xs={4}>
-              <Box
-                onClick={() => handleSetType('residentiel')}
-                sx={{
-                  py: 4.75,
-                  px: 7.2,
-                  borderRadius: 1,
-                  cursor: 'pointer',
-                  border: theme =>
-                    `1px solid ${authType === 'residentiel' ? theme.palette.primary.main : theme.palette.divider}`
-                }}
-              >
-                <Box
-                  sx={{
-                    rowGap: 2,
-                    columnGap: 3,
-                    display: 'flex',
-                    alignItems: 'center',
-                    textAlign: ['center', 'start'],
-                    flexDirection: ['column', 'row']
-                  }}
-                >
-                  <Box sx={{ display: 'flex', ...(authType === 'residentiel' ? { color: 'primary.main' } : {}) }}></Box>
-                  <div>
-                    <Typography
-                      variant='h4'
-                      sx={{ mb: 2, ...(authType === 'residentiel' ? { color: 'primary.main' } : {}) }}
-                    >
-                      Residentiel/Tertiaire
-                    </Typography>
-                    <Typography sx={{ ...(authType === 'residentiel' ? { color: 'primary.main' } : {}) }}></Typography>
-                  </div>
-                </Box>
-              </Box>
-            </Grid>
-            <Grid item xs={4}>
-              <Box
-                onClick={() => handleSetType('indestry')}
-                sx={{
-                  py: 4.75,
-                  px: 7.2,
-                  borderRadius: 1,
-                  cursor: 'pointer',
-                  border: theme =>
-                    `1px solid ${authType === 'indestry' ? theme.palette.primary.main : theme.palette.divider}`
-                }}
-              >
-                <Box
-                  sx={{
-                    rowGap: 2,
-                    columnGap: 3,
-                    display: 'flex',
-                    alignItems: 'center',
-                    textAlign: ['center', 'start'],
-                    flexDirection: ['column', 'row']
-                  }}
-                >
-                  <Box sx={{ display: 'flex', ...(authType === 'indestry' ? { color: 'primary.main' } : {}) }}></Box>
-                  <div>
-                    <Typography
-                      variant='h4'
-                      sx={{ mb: 2, ...(authType === 'indestry' ? { color: 'primary.main' } : {}) }}
-                    >
-                      Indestry
-                    </Typography>
-                    <Typography sx={{ ...(authType === 'indestry' ? { color: 'primary.main' } : {}) }}></Typography>
-                  </div>
-                </Box>
-              </Box>
-            </Grid>
-
-            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-              <Button variant='tonal' color='secondary' onClick={handleBack}>
-                Back
-              </Button>
-              <Button type='submit' variant='contained' onClick={() => setActiveStep(activeStep + 1)}>
-                Next
-              </Button>
-            </Grid>
-          </Grid>
         )
       case 2:
         return (

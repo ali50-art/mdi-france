@@ -317,51 +317,38 @@ const AddCard = (props: Props) => {
 
       <CardContent sx={{ p: [`${theme.spacing(6)} !important`, `${theme.spacing(10)} !important`] }}>
         <Grid container>
-          <Grid item xs={12} sm={6} sx={{ mb: { lg: 0, xs: 4 } }}>
+          <Grid item xs={12} sm={6} sx={{ display: 'flex', justifyContent: ['flex-start', 'flex-start'] }}>
             <div>
               <TableContainer>
                 <Table>
-                  <TableBody>
+                  <TableBody sx={{ '& .MuiTableCell-root': { py: `${theme.spacing(0.75)} !important` } }}>
                     <TableRow>
                       <MUITableCell>
-                        <Typography sx={{ color: 'text.secondary' }}>ISOLANT ET REFFERENCE:</Typography>
-                      </MUITableCell>
-                      <MUITableCell>
-                        <Typography sx={{ fontWeight: 500, color: 'text.secondary' }}>
-                          Laine de verre OSOVER TECH ROLL 3.0-classé au feu A1
+                        <Typography sx={{ color: 'text.secondary' }}>
+                          <strong>ISOLATION ET REFERANCE :</strong> Laine de verre ISOVER TECH ROLL 3.0 -classé au feu
+                          A1
                         </Typography>
                       </MUITableCell>
                     </TableRow>
                     <TableRow>
                       <MUITableCell>
-                        <Typography sx={{ color: 'text.secondary' }}>Bank name:</Typography>
-                      </MUITableCell>
-                      <MUITableCell>
-                        <Typography sx={{ color: 'text.secondary' }}>American Bank</Typography>
-                      </MUITableCell>
-                    </TableRow>
-                    <TableRow>
-                      <MUITableCell>
-                        <Typography sx={{ color: 'text.secondary' }}>Country:</Typography>
-                      </MUITableCell>
-                      <MUITableCell>
-                        <Typography sx={{ color: 'text.secondary' }}>United States</Typography>
+                        <Typography sx={{ color: 'text.secondary' }}>
+                          <strong>TEMPERATURE MAXIMALE:</strong> 200°c
+                        </Typography>
                       </MUITableCell>
                     </TableRow>
                     <TableRow>
                       <MUITableCell>
-                        <Typography sx={{ color: 'text.secondary' }}>IBAN:</Typography>
-                      </MUITableCell>
-                      <MUITableCell>
-                        <Typography sx={{ color: 'text.secondary' }}>ETD95476213874685</Typography>
+                        <Typography sx={{ color: 'text.secondary' }}>
+                          <strong>REFERANCE:</strong> ISOVAN
+                        </Typography>
                       </MUITableCell>
                     </TableRow>
                     <TableRow>
                       <MUITableCell>
-                        <Typography sx={{ color: 'text.secondary' }}>SWIFT code:</Typography>
-                      </MUITableCell>
-                      <MUITableCell>
-                        <Typography sx={{ color: 'text.secondary' }}>BR91905</Typography>
+                        <Typography sx={{ color: 'text.secondary' }}>
+                          <strong>MARQUE:</strong> MDI-TECHNOLOGE
+                        </Typography>
                       </MUITableCell>
                     </TableRow>
                   </TableBody>
@@ -369,7 +356,31 @@ const AddCard = (props: Props) => {
               </TableContainer>
             </div>
           </Grid>
-          <Grid item xs={12} sm={6} sx={{ display: 'flex', justifyContent: ['flex-start', 'flex-end'] }}></Grid>
+          <Grid item xs={12} sm={6} sx={{ display: 'flex', justifyContent: ['flex-start', 'flex-end'] }}>
+            <div>
+              <Typography variant='h6' sx={{ mb: 6 }}>
+                RESISTANCE THERMIQUE (m3.K/W)
+              </Typography>
+              <TableContainer>
+                <Table>
+                  <TableBody sx={{ '& .MuiTableCell-root': { py: `${theme.spacing(0.75)} !important` } }}>
+                    <TableRow>
+                      <MUITableCell>
+                        <Typography sx={{ color: 'text.secondary' }}>
+                          :1,58 m².K/W a une tempurature moyenne de 50 °C
+                        </Typography>
+                      </MUITableCell>
+                    </TableRow>
+                    <TableRow>
+                      <Typography sx={{ color: 'text.secondary' }}>
+                        :1,58 m².K/W a une tempurature moyenne de 100 °C
+                      </Typography>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </div>
+          </Grid>
         </Grid>
       </CardContent>
 
