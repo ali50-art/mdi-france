@@ -36,6 +36,10 @@ import AddCard2 from 'src/views/apps/add/AddCard2'
 
 const steps = [
   {
+    title: 'Type de chaniter',
+    subtitle: 'Choisir type de chaniter'
+  },
+  {
     title: 'Information Client & Travaux',
     subtitle: 'Enter les information de client et de travaux'
   },
@@ -43,10 +47,6 @@ const steps = [
   {
     title: 'construction de pdf',
     subtitle: 'consterouir voter pdf'
-  },
-  {
-    title: 'Type de chaniter',
-    subtitle: 'Choisir type de chaniter'
   }
 ]
 
