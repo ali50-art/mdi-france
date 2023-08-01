@@ -321,7 +321,7 @@ const PDFFile = ({ count }: any) => {
   useEffect(() => {
     handleInitDB()
     handleFetchData()
-  }, [count, data])
+  }, [count])
 
   return (
     <Document>
