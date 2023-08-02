@@ -101,6 +101,7 @@ const AddCard = (props: Props) => {
 
   const [data, setData] = useState<any[]>([])
   const [data2, setData2] = useState<any>([])
+  const [materials, setMaterial] = useState<any>([])
 
   // ** Hook
   const theme = useTheme()
@@ -257,9 +258,17 @@ const AddCard = (props: Props) => {
     // Format the date using Intl.DateTimeFormat with the French locale
     return new Intl.DateTimeFormat('fr-FR', options).format(newData)
   }
+  const handleMaterilas = () => {
+    if (localStorage.getItem('userData')) {
+      const x: any = localStorage.getItem('userData')
+      const user: any = JSON.parse(x)
+      setMaterial(user.charge.materials)
+    }
+  }
   useEffect(() => {
     handleInitDB()
     handleFetchData()
+    handleMaterilas()
   }, [, getStoreData, addData, count])
 
   return (
@@ -505,25 +514,13 @@ const AddCard = (props: Props) => {
                               onChange: e => hnadlesetRef(data[i].id, e.target.value)
                             }}
                           >
-                            <MenuItem value='ISOVANB1'>ISOVANB1</MenuItem>
-                            <MenuItem value='ISOVANB2'>ISOVANB2</MenuItem>
-                            <MenuItem value='ISOVANB3'>ISOVAN3</MenuItem>
-                            <MenuItem value='ISOVANB4'>ISOVANB4</MenuItem>
-                            <MenuItem value='ISOVANB5'>ISOVANB5</MenuItem>
-                            <MenuItem value='ISOVANB6'>ISOVANB6</MenuItem>
-                            <MenuItem value='ISOVANB7'>ISOVANB7</MenuItem>
-                            <MenuItem value='ISOVANB8'>ISOVANB8</MenuItem>
-                            <MenuItem value='ISOVANB9'>ISOVANB9</MenuItem>
-                            <MenuItem value='ISOVANT0'>ISOVANT0</MenuItem>
-                            <MenuItem value='ISOVANT1'>ISOVANT1</MenuItem>
-                            <MenuItem value='ISOVANT2'>ISOVANT2</MenuItem>
-                            <MenuItem value='ISOVANT3'>ISOVANT3</MenuItem>
-                            <MenuItem value='ISOVANT4'>ISOVANT4</MenuItem>
-                            <MenuItem value='ISOVANT5'>ISOVANT5</MenuItem>
-                            <MenuItem value='ISOVANT6'>ISOVANT6</MenuItem>
-                            <MenuItem value='ISOVANT7'>ISOVANT7</MenuItem>
-                            <MenuItem value='ISOVANT8'>ISOVANT8</MenuItem>
-                            <MenuItem value='ISOVANT9'>ISOVANT9</MenuItem>
+                            {materials?.map((el: any, i: number) => {
+                              return (
+                                <MenuItem value={el?.material?.model} key={i}>
+                                  ISOVAN{el?.material?.model}
+                                </MenuItem>
+                              )
+                            })}
                           </CustomTextField>
                         )}
                       </Grid>
