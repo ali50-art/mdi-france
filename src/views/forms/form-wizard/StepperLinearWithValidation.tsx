@@ -95,6 +95,9 @@ const StepperLinearWithValidation = () => {
       return 'indestry'
     }
   }
+  const handleActiStepTOfirstStep = () => {
+    setActiveStep(0)
+  }
   const [authType, setAuthType] = useState<any>(() => handleFirstType())
   const [addCustomerOpen, setAddCustomerOpen] = useState<boolean>(false)
   const [selectedClient, setSelectedClient] = useState<any | null>(null)
@@ -504,7 +507,11 @@ const StepperLinearWithValidation = () => {
                   )}
                 </Grid>
                 <Grid item xl={3} md={12} xs={12}>
-                  <AddActions count={count} handleSetCount={handleSetCount} />
+                  <AddActions
+                    count={count}
+                    handleSetCount={handleSetCount}
+                    handleActiStepTOfirstStep={handleActiStepTOfirstStep}
+                  />
                 </Grid>
               </Grid>
               <AddNewCustomers

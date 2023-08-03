@@ -11,13 +11,14 @@ import PDFFile from '../../../utils/generatePdf'
 import PDFFile2 from '../../../utils/generatePdf2'
 import CardContent from '@mui/material/CardContent'
 import { useDispatch } from 'react-redux'
+import toast from 'react-hot-toast'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 import { addPdf } from '../../../store/apps/pdf'
 import { AppDispatch } from 'src/store'
 
-const AddActions = ({ count, handleSetCount }: any) => {
+const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) => {
   const [online, setIsOnline] = useState(navigator.onLine)
   const [pdfType, setPdefType] = useState('indestry')
   const formateDate = () => {
@@ -45,8 +46,6 @@ const AddActions = ({ count, handleSetCount }: any) => {
     const type = localStorage.getItem('pdfType')
     if (type == 'residentiel') {
       const res = await getStoreData(Stores.PdfData)
-      console.log('res : ', res)
-
       const res2: any = await getStoreData(Stores.PdfInfo)
       const promises = res.map(async (el: any) => {
         const newObj: any = {
@@ -73,8 +72,13 @@ const AddActions = ({ count, handleSetCount }: any) => {
       const promises2 = res.map(async (el: any) => {
         return await deleteData(Stores.PdfData, el.id)
       })
+
       await Promise.all(promises2)
       handleSetCount()
+      toast.success('pdf envoyez avec success')
+      await deleteData(Stores.PdfInfo, res2[0].id)
+      localStorage.removeItem('pdfInfoId')
+      handleActiStepTOfirstStep()
     } else {
       const res = await getStoreData(Stores.PdfData2)
       const res2: any = await getStoreData(Stores.PdfInfo)
@@ -103,6 +107,10 @@ const AddActions = ({ count, handleSetCount }: any) => {
       })
       await Promise.all(promises2)
       handleSetCount()
+      toast.success('pdf envoyez avec success')
+      await deleteData(Stores.PdfInfo, res2[0].id)
+      localStorage.removeItem('pdfInfoId')
+      handleActiStepTOfirstStep()
     }
   }
 
