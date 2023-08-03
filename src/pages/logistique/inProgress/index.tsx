@@ -34,6 +34,7 @@ import { fetchData } from 'src/store/apps/logistique'
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
+import { Retour } from 'src/store/apps/logistique'
 
 // import { CardStatsType } from 'src/@fake-db/types'
 
@@ -43,7 +44,7 @@ import { RootState, AppDispatch } from 'src/store'
 import TableHeader from 'src/views/apps/user/list/TableHeader'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 import Dialog from 'src/views/apps/logistique/list/SelectInstalateurDialog'
-import DecalirRetourDialg from 'src/views/apps/logistique/list/DeclairRetourDialog'
+import DecalirRetourDialg from 'src/views/apps/logistique/list/ShowRetourDialog'
 import AddMaterialDialog from 'src/views/apps/logistique/list/AddMaterialDialog'
 import { Box } from '@mui/system'
 import Link from 'next/link'
@@ -74,14 +75,15 @@ const formateDate = (date: any) => {
 const renderClient = (row: any) => {
   return <CustomAvatar src={row.avatar} sx={{ mr: 2.5, width: 38, height: 38 }} />
 }
-const RowOptions = ({ id }: { id: number | string }) => {
+const RowOptions = ({ id, chargeDetailId }: { id: number | string; chargeDetailId: number | string }) => {
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
 
   // ** State
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
-  // const store = useSelector((state: RootState) => state.chargeDetails)
+  const store = useSelector((state: RootState) => state.chargeDetails)
+  console.log('store :', store.data)
 
   const [showMateral, setShowMaterail] = useState<any>(false)
 
@@ -96,8 +98,14 @@ const RowOptions = ({ id }: { id: number | string }) => {
 
   const handleShowMaterail = () => {
     handleRowOptionsClose()
-    dispatch(fetchOne({ id: id }))
+    dispatch(fetchOne({ id: chargeDetailId }))
     setShowMaterail(!showMateral)
+  }
+
+  const handleCompleteInstalteurBuiling = () => {
+    handleRowOptionsClose()
+    dispatch(Retour({ chargeId: id }))
+    dispatch(fetchData({}))
   }
 
   return (
@@ -138,10 +146,14 @@ const RowOptions = ({ id }: { id: number | string }) => {
 
         <MenuItem onClick={handleShowMaterail} sx={{ '& svg': { mr: 2 } }}>
           <Icon icon='tabler:file-analytics' fontSize={20} />
-          Declair Retour
+          voir Retour
+        </MenuItem>
+        <MenuItem onClick={handleCompleteInstalteurBuiling} sx={{ '& svg': { mr: 2 } }}>
+          <Icon icon='tabler:truck' fontSize={20} />
+          Terminer Chaniter
         </MenuItem>
       </Menu>
-      {showMateral && <DecalirRetourDialg open={showMateral} toggle={handleShowMaterail} id={id} />}
+      {showMateral && <DecalirRetourDialg open={showMateral} toggle={handleShowMaterail} data={store.matData} />}
     </>
   )
 }
@@ -241,7 +253,9 @@ const UserList = () => {
       sortable: false,
       field: 'actions',
       headerName: 'Actions',
-      renderCell: ({ row }: CellType) => <RowOptions id={row._id} />
+      renderCell: ({ row }: CellType) => (
+        <RowOptions id={row._id} chargeDetailId={row?.chargeDetails[row?.chargeDetails.length - 1]?._id} />
+      )
     }
   ]
 

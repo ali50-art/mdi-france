@@ -48,7 +48,7 @@ import AddMaterialDialog from 'src/views/apps/logistique/list/AddMaterialDialog'
 import { Box } from '@mui/system'
 import Link from 'next/link'
 import { Menu, MenuItem } from '@mui/material'
-import { getAllRetourMaterail } from 'src/store/apps/logistique'
+import { fetchOne } from 'src/store/apps/ChargeDetails'
 
 // import EditUserDrawer from 'src/views/apps/user/list/EditeUserDrawer'
 
@@ -75,14 +75,15 @@ const formateDate = (date: any) => {
 const renderClient = (row: any) => {
   return <CustomAvatar src={row.avatar} sx={{ mr: 2.5, width: 38, height: 38 }} />
 }
-const RowOptions = ({ id }: { id: number | string }) => {
+const RowOptions = ({ id, chargeDetailId }: { id: number | string; chargeDetailId: any }) => {
   // ** Hooks
+  console.log('row?.chargeDetails.length : ', chargeDetailId)
   const dispatch = useDispatch<AppDispatch>()
 
   // ** State
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
-  const store: any = useSelector((state: RootState) => state.logistique)
+  const store: any = useSelector((state: RootState) => state.chargeDetails)
   const [showMateral, setShowMaterail] = useState<any>(false)
 
   const rowOptionsOpen = Boolean(anchorEl)
@@ -97,7 +98,7 @@ const RowOptions = ({ id }: { id: number | string }) => {
   const handleShowMaterail = () => {
     handleRowOptionsClose()
     const handleFetch = async () => {
-      await dispatch(getAllRetourMaterail({ id: id }))
+      await dispatch(fetchOne({ id: chargeDetailId }))
       setShowMaterail(!showMateral)
     }
     handleFetch()
@@ -143,7 +144,7 @@ const RowOptions = ({ id }: { id: number | string }) => {
           </MenuItem>
         </Typography>
       </Menu>
-      {showMateral && <ShowAllMaterialDialog open={showMateral} toggle={handleShowMaterail} data={store.matData[0]} />}
+      {showMateral && <ShowAllMaterialDialog open={showMateral} toggle={handleShowMaterail} data={store.matData} />}
     </>
   )
 }
@@ -157,16 +158,7 @@ const UserList = () => {
 
   // Handle Edit dialog
   // const handleEditClickOpen = () => setOpenEdit(true)
-  const countRetourStock = (arr: any) => {
-    let nb = 0
-    if (arr) {
-      arr.forEach((element: any) => {
-        nb += element?.stock
-      })
-    }
 
-    return nb
-  }
   const columns: GridColDef[] = [
     {
       flex: 0.25,
@@ -175,6 +167,7 @@ const UserList = () => {
       headerName: 'Instalateur',
       renderCell: ({ row }: CellType) => {
         const { fullName, phone } = row.instalateurId
+        console.log('chargeDetailId : ', row?.chargeDetails)
 
         return (
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -200,21 +193,6 @@ const UserList = () => {
     },
 
     {
-      flex: 0.15,
-      minWidth: 70,
-      field: 'nbCharge',
-      headerName: 'Total de retour',
-      renderCell: ({ row }: CellType) => {
-        return (
-          <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '3rem' }}>
-            <CustomAvatar skin='light' sx={{ mr: 4, width: 30, height: 30 }} color='info'>
-              {countRetourStock(row?.retourDetails[0]?.materials)}
-            </CustomAvatar>
-          </Box>
-        )
-      }
-    },
-    {
       flex: 0.1,
       minWidth: 110,
       field: 'status',
@@ -225,7 +203,7 @@ const UserList = () => {
             rounded
             skin='light'
             size='small'
-            label={row.retourDetails?.length == 0 ? 'En Cours' : 'Terminer'}
+            label={'Terminer'}
             color={row.retourDetails?.length === 0 ? 'success' : 'error'}
             sx={{ textTransform: 'capitalize' }}
           />
@@ -252,14 +230,15 @@ const UserList = () => {
       sortable: false,
       field: 'actions',
       headerName: 'Actions',
-      renderCell: ({ row }: CellType) => <RowOptions id={row._id} />
+      renderCell: ({ row }: CellType) => (
+        <RowOptions id={row._id} chargeDetailId={row?.chargeDetails[row?.chargeDetails.length - 1]} />
+      )
     }
   ]
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
   const store: any = useSelector((state: any) => state.logistique)
-  console.log('paginationModel : ', paginationModel)
 
   useEffect(() => {
     dispatch(

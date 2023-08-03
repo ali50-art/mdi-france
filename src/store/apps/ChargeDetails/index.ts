@@ -127,6 +127,7 @@ export const fetchOne = createAsyncThunk('appLogistique/fetchOne', async (data: 
   //     },
   //     params
   //   })
+  console.log('response.data.data : ', response.data.data)
 
   return response.data.data
 })

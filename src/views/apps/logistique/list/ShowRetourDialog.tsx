@@ -63,8 +63,8 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                 <Grid item xs={4} sm={4}>
                   <CustomTextField
                     type='number'
-                    label='charge total'
-                    value={el.stock}
+                    label='charger'
+                    value={el.fixedStock}
                     id='form-props-number'
                     InputLabelProps={{ shrink: true }}
                   />
@@ -72,8 +72,8 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                 <Grid item xs={4} sm={4}>
                   <CustomTextField
                     type='number'
-                    label='Retour total'
-                    value={el.stock}
+                    label='utilisation'
+                    value={el.fixedStock - el.stock}
                     id='form-props-number'
                     InputLabelProps={{ shrink: true }}
                   />

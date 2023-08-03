@@ -113,7 +113,7 @@ export const Retour = createAsyncThunk('appLogistique/Retour', async (data: obje
     ...data
   }
 
-  const response = await axios.post(`${serverUri.uri}/api/charge/retour/${newData.chargeId}`, newData, config)
+  const response = await axios.post(`${serverUri.uri}/api/charge/retour/${newData.chargeId}`, {}, config)
 
   return response.data.data
 })

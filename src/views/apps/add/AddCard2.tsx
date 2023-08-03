@@ -40,6 +40,7 @@ interface Props {
   selectedClient: any | null
   setSelectedClient: (val: any | null) => void
   handleSetCount: any
+  count2: number
 }
 
 const MUITableCell = styled(TableCell)<TableCellBaseProps>(({ theme }) => ({
@@ -92,7 +93,7 @@ const InvoiceAction = styled(Box)<BoxProps>(({ theme }) => ({
 
 const AddCard = (props: Props) => {
   // ** Props
-  const { handleSetCount } = props
+  const { handleSetCount, count2 } = props
 
   // ** States
   const [count, setCount] = useState<number>(0)
@@ -250,7 +251,7 @@ const AddCard = (props: Props) => {
   useEffect(() => {
     handleInitDB()
     handleFetchData()
-  }, [, getStoreData, addData, count])
+  }, [, count2, getStoreData, addData, count])
 
   return (
     <Card>

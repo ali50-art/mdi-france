@@ -4,16 +4,20 @@ import { useState, useEffect } from 'react'
 import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
+import { deleteData, getStoreData, Stores } from '../../../lib/db'
 
 import { PDFDownloadLink } from '@react-pdf/renderer'
 import PDFFile from '../../../utils/generatePdf'
 import PDFFile2 from '../../../utils/generatePdf2'
 import CardContent from '@mui/material/CardContent'
+import { useDispatch } from 'react-redux'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
+import { addPdf } from '../../../store/apps/pdf'
+import { AppDispatch } from 'src/store'
 
-const AddActions = ({ count }: any) => {
+const AddActions = ({ count, handleSetCount }: any) => {
   const [online, setIsOnline] = useState(navigator.onLine)
   const [pdfType, setPdefType] = useState('indestry')
   const formateDate = () => {
@@ -33,9 +37,43 @@ const AddActions = ({ count }: any) => {
 
   const handleSetPdfType = () => {
     const type: any = localStorage.getItem('pdfType')
-    console.log('type : ', type)
 
     setPdefType(type)
+  }
+  const dispatch = useDispatch<AppDispatch>()
+  const handleSendPdf = async () => {
+    const type = localStorage.getItem('pdfType')
+    if (type == 'residentiel') {
+      const res = await getStoreData(Stores.PdfData)
+      const res2: any = await getStoreData(Stores.PdfInfo)
+      const promises = res.map(async (el: any) => {
+        const newObj: any = {
+          type: 'residentiel',
+          clientName: res2[0]?.username || '',
+          clientAdress: res2[0]?.address || '',
+          clientVille: res2[0]?.ville || '',
+          clientCodePostal: res2[0]?.codePostal || '',
+          travauxAdress: res2[0]?.adressTravaux || '',
+          travauxVille: res2[0]?.villeTravaux || '',
+          travauxCodePostal: res2[0]?.codePostalTravaux || '',
+          place: el.local || '',
+          filterType: el.type || '',
+          model: el.red || '',
+          mass: el.mass || '',
+          nbRep: el.rep || '',
+          dn: el.dn || '',
+          nature: el.nature || ''
+        }
+
+        return await dispatch(addPdf(newObj))
+      })
+      await Promise.all(promises)
+      const promises2 = res.map(async (el: any) => {
+        return await deleteData(Stores.PdfData, el.id)
+      })
+      await Promise.all(promises2)
+      handleSetCount()
+    }
   }
 
   useEffect(() => {
@@ -57,7 +95,13 @@ const AddActions = ({ count }: any) => {
       <Grid item xs={12}>
         <Card>
           <CardContent>
-            <Button fullWidth variant='contained' sx={{ mb: 2, '& svg': { mr: 2 } }} disabled={!online}>
+            <Button
+              fullWidth
+              variant='contained'
+              sx={{ mb: 2, '& svg': { mr: 2 } }}
+              disabled={!online}
+              onClick={handleSendPdf}
+            >
               <Icon fontSize='1.125rem' icon='tabler:send' />
               Envoez PDF
             </Button>

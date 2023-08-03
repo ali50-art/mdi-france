@@ -8,6 +8,7 @@ import material from 'src/store/apps/material'
 import order from 'src/store/apps/order'
 import logistique from './apps/logistique'
 import chargeDetails from './apps/ChargeDetails'
+import pdf from './apps/pdf'
 
 export const store = configureStore({
   reducer: {
@@ -15,7 +16,8 @@ export const store = configureStore({
     material,
     order,
     logistique,
-    chargeDetails
+    chargeDetails,
+    pdf
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

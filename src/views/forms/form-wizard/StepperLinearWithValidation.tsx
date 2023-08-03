@@ -489,6 +489,7 @@ const StepperLinearWithValidation = () => {
                       setSelectedClient={setSelectedClient}
                       toggleAddCustomerDrawer={toggleAddCustomerDrawer}
                       handleSetCount={handleSetCount}
+                      count2={count}
                     />
                   ) : (
                     <AddCard2
@@ -498,11 +499,12 @@ const StepperLinearWithValidation = () => {
                       setSelectedClient={setSelectedClient}
                       toggleAddCustomerDrawer={toggleAddCustomerDrawer}
                       handleSetCount={handleSetCount}
+                      count2={count}
                     />
                   )}
                 </Grid>
                 <Grid item xl={3} md={12} xs={12}>
-                  <AddActions count={count} />
+                  <AddActions count={count} handleSetCount={handleSetCount} />
                 </Grid>
               </Grid>
               <AddNewCustomers

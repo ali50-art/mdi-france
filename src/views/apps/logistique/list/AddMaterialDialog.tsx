@@ -70,7 +70,8 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
       const src: any = data[0][index]
       const newObj = {
         material: src._id.toString(),
-        stock: Number(element?.counter)
+        stock: Number(element?.counter),
+        fixedStock: Number(element?.counter)
       }
       materials.push(newObj)
     })
