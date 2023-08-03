@@ -73,6 +73,34 @@ const AddActions = ({ count, handleSetCount }: any) => {
       })
       await Promise.all(promises2)
       handleSetCount()
+    } else {
+      const res = await getStoreData(Stores.PdfData2)
+      const res2: any = await getStoreData(Stores.PdfInfo)
+      const promises = res.map(async (el: any) => {
+        const newObj: any = {
+          type: 'indestry',
+          clientName: res2[0]?.username || '',
+          clientAdress: res2[0]?.address || '',
+          clientVille: res2[0]?.ville || '',
+          clientCodePostal: res2[0]?.codePostal || '',
+          travauxAdress: res2[0]?.adressTravaux || '',
+          travauxVille: res2[0]?.villeTravaux || '',
+          travauxCodePostal: res2[0]?.codePostalTravaux || '',
+          place: el.local || '',
+          filterType: el.type || '',
+          model: el.red || '',
+          nbRep: el.rep || '',
+          nature: el.nature || ''
+        }
+
+        return await dispatch(addPdf(newObj))
+      })
+      await Promise.all(promises)
+      const promises2 = res.map(async (el: any) => {
+        return await deleteData(Stores.PdfData2, el.id)
+      })
+      await Promise.all(promises2)
+      handleSetCount()
     }
   }
 
