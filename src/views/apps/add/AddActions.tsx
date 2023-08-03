@@ -45,6 +45,8 @@ const AddActions = ({ count, handleSetCount }: any) => {
     const type = localStorage.getItem('pdfType')
     if (type == 'residentiel') {
       const res = await getStoreData(Stores.PdfData)
+      console.log('res : ', res)
+
       const res2: any = await getStoreData(Stores.PdfInfo)
       const promises = res.map(async (el: any) => {
         const newObj: any = {
@@ -76,7 +78,7 @@ const AddActions = ({ count, handleSetCount }: any) => {
     } else {
       const res = await getStoreData(Stores.PdfData2)
       const res2: any = await getStoreData(Stores.PdfInfo)
-      const promises = res.map(async (el: any) => {
+      res.forEach((el: any) => {
         const newObj: any = {
           type: 'indestry',
           clientName: res2[0]?.username || '',
@@ -93,9 +95,9 @@ const AddActions = ({ count, handleSetCount }: any) => {
           nature: el.nature || ''
         }
 
-        return await dispatch(addPdf(newObj))
+        dispatch(addPdf(newObj))
       })
-      await Promise.all(promises)
+
       const promises2 = res.map(async (el: any) => {
         return await deleteData(Stores.PdfData2, el.id)
       })
