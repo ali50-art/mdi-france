@@ -47,8 +47,11 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
     if (type == 'residentiel') {
       const res = await getStoreData(Stores.PdfData)
       const res2: any = await getStoreData(Stores.PdfInfo)
-      const promises = res.map(async (el: any) => {
+      const newArr: any = []
+      for (let i = 0; i < res.length; i++) {
+        const el: any = res[i]
         const newObj: any = {
+          firstPdf: i === 0 ? true : false,
           type: 'residentiel',
           clientName: res2[0]?.username || '',
           clientAdress: res2[0]?.address || '',
@@ -65,10 +68,9 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
           dn: el.dn || '',
           nature: el.nature || ''
         }
-
-        return await dispatch(addPdf(newObj))
-      })
-      await Promise.all(promises)
+        newArr.push(newObj)
+      }
+      await dispatch(addPdf(newArr))
       const promises2 = res.map(async (el: any) => {
         return await deleteData(Stores.PdfData, el.id)
       })
@@ -82,7 +84,9 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
     } else {
       const res = await getStoreData(Stores.PdfData2)
       const res2: any = await getStoreData(Stores.PdfInfo)
-      res.forEach((el: any) => {
+      const newArr: any = []
+      for (let i = 0; i < res.length; i++) {
+        const el: any = res[i]
         const newObj: any = {
           type: 'indestry',
           clientName: res2[0]?.username || '',
@@ -98,10 +102,9 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
           nbRep: el.rep || '',
           nature: el.nature || ''
         }
-
-        dispatch(addPdf(newObj))
-      })
-
+        newArr.push(newObj)
+      }
+      dispatch(addPdf(newArr))
       const promises2 = res.map(async (el: any) => {
         return await deleteData(Stores.PdfData2, el.id)
       })

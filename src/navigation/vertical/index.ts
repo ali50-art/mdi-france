@@ -4,10 +4,10 @@ import { VerticalNavItemsType } from 'src/@core/layouts/types'
 const navigation = (): VerticalNavItemsType => {
   return [
     {
-      title: 'Suive un Chantier',
-      path: '/admin-dashboard',
+      title: 'Suivi  Chantier',
+      path: '/suivi-chantier',
       action: 'read',
-      subject: 'admin-dahsboard',
+      subject: 'suivi-chantier',
       icon: 'tabler:smart-home'
     },
     {
@@ -37,31 +37,6 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'tabler:users'
     },
     {
-      sectionTitle: 'traviler',
-      action: 'magne',
-      subject: 'admin-logistique'
-    },
-    {
-      title: 'Logistique',
-      action: 'mange',
-      subject: 'admin-logistique',
-      icon: 'tabler:truck',
-      children: [
-        {
-          title: 'En cours',
-          path: '/admin-logistique/inprogress',
-          action: 'mange',
-          subject: 'admin-logistique'
-        },
-        {
-          title: 'Terminé',
-          path: '/admin-logistique/retour',
-          action: 'mange',
-          subject: 'admin-logistique'
-        }
-      ]
-    },
-    {
       title: 'Logistique',
       action: 'mange',
       subject: 'logistique',
@@ -80,13 +55,6 @@ const navigation = (): VerticalNavItemsType => {
           subject: 'logistique'
         }
       ]
-    },
-    {
-      title: 'instalateurs',
-      path: '/admin-instalateur',
-      action: 'mange',
-      subject: 'admin-instalateur',
-      icon: 'tabler:clock'
     },
     {
       sectionTitle: 'interface construction',

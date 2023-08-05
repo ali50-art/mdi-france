@@ -19,7 +19,7 @@ interface Redux {
 }
 
 // ** Fetch Users
-export const fetchData = createAsyncThunk('appPdf/fetchData', async (params: any) => {
+export const fetchData = createAsyncThunk('appSuiveChantier/fetchData', async (params: any) => {
   const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
   const response = await axios.get(`${serverUri.uri}/api/pdf`, {
     headers: {
@@ -27,32 +27,28 @@ export const fetchData = createAsyncThunk('appPdf/fetchData', async (params: any
     },
     params
   })
-  const response2 = await axios.get(`${serverUri.uri}/api/Pdf/count`, {
-    headers: {
-      Authorization: storedToken
-    },
-    params
-  })
 
   const dataCoipe = { ...response.data.data }
+  console.log('dataCoipe : ', dataCoipe)
+
   dataCoipe.docs.forEach((element: any) => (element.id = element._id))
 
-  return { dataCoipe, count: response2.data.data }
+  return { dataCoipe, count: 0 }
 })
-export const fetchAllData = createAsyncThunk('appPdf/fetchAllData', async () => {
+export const fetchOne = createAsyncThunk('appSuiveChantier/fetchOne', async (data: any) => {
   const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
-  const response = await axios.get(`${serverUri.uri}/api/Pdf/all`, {
+  const response = await axios.get(`${serverUri.uri}/api/pdf/${data.id}`, {
     headers: {
       Authorization: storedToken
     }
   })
-  const dataCoipe = { ...response.data.data }
+  console.log('response.data.data : ', response.data.data)
 
-  return { dataCoipe }
+  return response.data.data
 })
 
 // ** Add User
-export const addPdf = createAsyncThunk('appPdf/addPdf', async (data: any) => {
+export const addPdf = createAsyncThunk('appSuiveChantier/addPdf', async (data: any) => {
   const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
   const config = {
     headers: {
@@ -62,14 +58,14 @@ export const addPdf = createAsyncThunk('appPdf/addPdf', async (data: any) => {
   }
 
   const response = await axios.post(`${serverUri.uri}/api/pdf`, data, config)
-  console.log('response.data.data : ', response)
+  console.log('response.data.data : ', response.data.data)
 
-  return response
+  return response.data.data
 })
 
 // ** Delete User
 export const deletePdf = createAsyncThunk(
-  'appPdf/deletePdf',
+  'appSuiveChantier/deletePdf',
   async (id: number | string, { getState, dispatch }: Redux) => {
     const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
     const config = {
@@ -87,8 +83,8 @@ export const deletePdf = createAsyncThunk(
 
 // ** Update User
 export const updatePdf = createAsyncThunk(
-  'appPdf/updatePdf',
-  async (data: { [key: string]: number | string }, { getState, dispatch }: Redux) => {
+  'appSuiveChantier/updatePdf',
+  async (data: any, { getState, dispatch }: Redux) => {
     const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
     const config = {
       headers: {
@@ -96,23 +92,23 @@ export const updatePdf = createAsyncThunk(
         Authorization: storedToken
       }
     }
-    const { id, ...filterData } = data
-    const response = await axios.put(`${serverUri.uri}/api/Pdf/${id}`, filterData, config)
+
+    const response = await axios.put(`${serverUri.uri}/api/pdf/trainter/${data.pdfId}/${data.orderId}`, {}, config)
     dispatch(fetchData(getState().user.params))
 
     return response.data
   }
 )
 
-export const appPdfSlice = createSlice({
-  name: 'appPdf',
+export const appSuiveChantierSlice = createSlice({
+  name: 'appSuiveChantier',
   initialState: {
     data: [],
     total: 1,
     isLoading: false,
     params: {},
     count: 0,
-    allData: []
+    oneData: []
   },
   reducers: {},
   extraReducers: builder => {
@@ -125,19 +121,23 @@ export const appPdfSlice = createSlice({
         state.data = action.payload.dataCoipe.docs
         state.total = action.payload.dataCoipe.meta.totalDocs
         state.params = action.payload.dataCoipe.meta
-        state.allData = action.payload.dataCoipe
+        state.oneData = []
         state.count = action.payload.count
       })
       .addCase(fetchData.rejected, state => {
         state.isLoading = false
       })
-    builder.addCase(fetchAllData.fulfilled, (state, action) => {
-      state.data = action.payload.dataCoipe
-      state.total = action.payload.dataCoipe.length
-      state.params = {}
-      state.allData = action.payload.dataCoipe
-    })
+    builder
+      .addCase(fetchOne.pending, state => {
+        state.isLoading = true
+      })
+      .addCase(fetchOne.fulfilled, (state, action) => {
+        ;(state.oneData = action.payload), (state.data = []), (state.total = 1), (state.params = {}), (state.count = 0)
+      })
+      .addCase(fetchOne.rejected, state => {
+        state.isLoading = false
+      })
   }
 })
 
-export default appPdfSlice.reducer
+export default appSuiveChantierSlice.reducer
