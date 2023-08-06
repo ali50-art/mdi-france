@@ -103,6 +103,7 @@ const AddCard = (props: Props) => {
   const [data, setData] = useState<any[]>([])
   const [data2, setData2] = useState<any>([])
   const [materials, setMaterial] = useState<any>([])
+  const [lastId, setlastId] = useState<any>(null)
 
   // ** Hook
   const theme = useTheme()
@@ -111,11 +112,19 @@ const AddCard = (props: Props) => {
 
   const handleFetchData = async () => {
     try {
-      const res = await getStoreData(Stores.PdfData)
+      const res: any = await getStoreData(Stores.PdfData)
+
       const res2 = await getStoreData(Stores.PdfInfo)
 
-      setData([...res])
+      if (res) {
+        setData([...res])
+        setlastId(res[res.length - 1].id)
+      } else {
+        setlastId(0)
+      }
+
       setData2([...res2])
+
       handleMaterilas(res)
     } catch (err) {
       toast.error('opps !')
@@ -126,38 +135,44 @@ const AddCard = (props: Props) => {
     await initDB()
   }
   const handleAddNewItem = async () => {
-    let id = Number(localStorage.getItem('lastId'))
-    if (!id) {
-      id = 1
-      localStorage.setItem('lastId', JSON.stringify(id))
+    if (materials.length == 0) {
+      toast.error('voter stock est terminer !')
+
+      return
     } else {
-      id += 1
-      localStorage.setItem('lastId', JSON.stringify(id))
-    }
-    try {
-      let rep
-      if (localStorage.getItem('rep')) {
-        rep = Number(localStorage.getItem('rep')) + 1
+      let id = Number(localStorage.getItem('lastId'))
+      if (!id) {
+        id = 1
+        localStorage.setItem('lastId', JSON.stringify(id))
       } else {
-        rep = 1
+        id += 1
+        localStorage.setItem('lastId', JSON.stringify(id))
       }
-      const data = {
-        local: '',
-        type: 'Bride',
-        red: 'ISOVANB1',
-        mass: '35mg/m3',
-        rep: rep,
-        dn: '20',
-        nature: 'Réseau Chaud',
-        categoryId: JSON.stringify(new Date()),
-        saved: false
+      try {
+        let rep
+        if (localStorage.getItem('rep')) {
+          rep = Number(localStorage.getItem('rep')) + 1
+        } else {
+          rep = 1
+        }
+        const data = {
+          local: '',
+          type: '',
+          red: '',
+          mass: '35mg/m3',
+          rep: rep,
+          dn: '20',
+          nature: 'Réseau Chaud',
+          categoryId: JSON.stringify(new Date()),
+          saved: false
+        }
+        await addData(Stores.PdfData, { ...data, id })
+        localStorage.setItem('rep', '0')
+        toast.success('vos avez ajoutez noveux ligine')
+        setCount(count + 1)
+      } catch (err: any) {
+        toast.error('opps !')
       }
-      await addData(Stores.PdfData, { ...data, id })
-      localStorage.setItem('rep', '0')
-      toast.success('vos avez ajoutez noveux ligine')
-      setCount(count + 1)
-    } catch (err: any) {
-      toast.error('opps !')
     }
   }
   const handleDeleteItem = async (id: any, categoryId: any) => {
@@ -230,20 +245,34 @@ const AddCard = (props: Props) => {
     setCount(count + 1)
   }
   const handleAddNewLine = async () => {
-    const id = Number(localStorage.getItem('lastId'))
+    if (materials.length == 0) {
+      toast.error('voter stock est terminer !')
 
-    const index = data.findIndex((el: any) => el.id.toString() == id.toString())
+      return
+    } else {
+      const id = Number(localStorage.getItem('lastId'))
 
-    const lastData = data[index]
-    try {
-      lastData.rep += 1
-      lastData.id += 1
-      lastData.saved = false
-      setCount(count + 1)
-      await addData(Stores.PdfData, { ...lastData })
-      localStorage.setItem('lastId', JSON.stringify(id + 1))
-    } catch (err) {
-      toast.error('opps !')
+      const index = data.findIndex((el: any) => el.id.toString() == id.toString())
+
+      const lastData = data[index]
+
+      if (lastData.local == '' || lastData.red == '' || lastData.type == '') {
+        toast.error('completez le premier linge stp !')
+
+        return
+      }
+      try {
+        lastData.rep += 1
+        lastData.id += 1
+        lastData.type = ''
+        lastData.red = ''
+        lastData.saved = false
+        setCount(count + 1)
+        await addData(Stores.PdfData, { ...lastData })
+        localStorage.setItem('lastId', JSON.stringify(id + 1))
+      } catch (err) {
+        toast.error('opps !')
+      }
     }
   }
   const formateDate = (date: any) => {
@@ -276,8 +305,6 @@ const AddCard = (props: Props) => {
       const user: any = JSON.parse(x)
       const newMaterial: any = []
       user.charge.materials.forEach((element: any) => {
-        console.log('element.material.model : ', element.material.model)
-
         const stockNb = countStock(data, element.material.model)
         console.log('stockNb : ', stockNb)
 
@@ -288,10 +315,17 @@ const AddCard = (props: Props) => {
       setMaterial(newMaterial)
     }
   }
+  const ceckTheList = (arr: any, model: any) => {
+    const index = arr.findIndex((el: any) => el.material.model == model)
+
+    return index > -1
+  }
   useEffect(() => {
     handleInitDB()
     handleFetchData()
-  }, [, count2, getStoreData, addData, count])
+    console.log('materials : ', materials)
+    localStorage.setItem('lastId', lastId)
+  }, [, count2, getStoreData, addData, count, lastId, setMaterial])
 
   return (
     <Card>
@@ -521,7 +555,7 @@ const AddCard = (props: Props) => {
                         {data[i].saved ? (
                           <CustomTextField
                             placeholder='1'
-                            value={data[i].red}
+                            value={'ISOVAN' + data[i].red}
                             InputProps={{ inputProps: { min: 0 } }}
                           />
                         ) : (
@@ -536,14 +570,20 @@ const AddCard = (props: Props) => {
                               onChange: e => hnadlesetRef(data[i].id, e.target.value)
                             }}
                           >
+                            {data[i].red != '' ? (
+                              ceckTheList(materials, data[i].red) == false ? (
+                                <MenuItem value={data[i].red} key={i}>
+                                  ISOVAN{data[i].red}
+                                </MenuItem>
+                              ) : null
+                            ) : null}
+
                             {materials?.map((el: any, i: number) => {
-                              if (el.stock > 0) {
-                                return (
-                                  <MenuItem value={el?.material?.model} key={i}>
-                                    ISOVAN{el?.material?.model}
-                                  </MenuItem>
-                                )
-                              }
+                              return (
+                                <MenuItem value={el?.material?.model} key={i}>
+                                  ISOVAN{el?.material?.model}
+                                </MenuItem>
+                              )
                             })}
                           </CustomTextField>
                         )}
@@ -614,6 +654,7 @@ const AddCard = (props: Props) => {
             <Button variant='contained' onClick={() => handleAddNewItem()}>
               {data.length > 0 ? 'Changement de chaufferier' : 'Ajouter'}
             </Button>
+
             {data.length > 0 && (
               <Button variant='contained' onClick={() => handleAddNewLine()}>
                 Ajouter un ligne

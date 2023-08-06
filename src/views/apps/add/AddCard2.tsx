@@ -94,24 +94,56 @@ const InvoiceAction = styled(Box)<BoxProps>(({ theme }) => ({
 const AddCard = (props: Props) => {
   // ** Props
   const { handleSetCount, count2 } = props
+  const [materials, setMaterial] = useState<any>([])
 
   // ** States
   const [count, setCount] = useState<number>(0)
 
   const [data, setData] = useState<any[]>([])
   const [data2, setData2] = useState<any[]>([])
+  const [lastId, setlastId] = useState<any>(null)
 
   // ** Hook
   const theme = useTheme()
 
   // ** Deletes form
+  const countStock = (data: any, model: any) => {
+    let nb = 0
+    data.forEach((el: any) => {
+      if (el.red == model) {
+        nb += 1
+      }
+    })
 
+    return nb
+  }
+  const handleMaterilas = (data: any) => {
+    if (localStorage.getItem('userData')) {
+      const x: any = localStorage.getItem('userData')
+      const user: any = JSON.parse(x)
+      const newMaterial: any = []
+      user.charge.materials.forEach((element: any) => {
+        const stockNb = countStock(data, element.material.model)
+
+        if (stockNb < element.stock) {
+          newMaterial.push(element)
+        }
+      })
+      setMaterial(newMaterial)
+    }
+  }
   const handleFetchData = async () => {
     try {
-      const res = await getStoreData(Stores.PdfData2)
+      const res: any = await getStoreData(Stores.PdfData2)
       const res2 = await getStoreData(Stores.PdfInfo)
-
-      setData([...res])
+      setlastId(res[res.length - 1].id)
+      handleMaterilas(res)
+      if (res) {
+        setData([...res])
+        setlastId(res[res.length - 1].id)
+      } else {
+        setlastId(0)
+      }
       setData2([...res2])
     } catch (err) {
       toast.error('opps !')
@@ -122,37 +154,43 @@ const AddCard = (props: Props) => {
     await initDB()
   }
   const handleAddNewItem = async () => {
-    let id = Number(localStorage.getItem('lastId'))
-    if (!id) {
-      id = 1
-      localStorage.setItem('lastId', JSON.stringify(id))
-    } else {
-      id += 1
-      localStorage.setItem('lastId', JSON.stringify(id))
-    }
-    try {
-      let rep
-      if (localStorage.getItem('rep')) {
-        rep = Number(localStorage.getItem('rep')) + 1
-      } else {
-        rep = 1
-      }
-      const data = {
-        local: '',
-        type: 'Bride',
-        red: 'ISOVANB1',
+    if (materials.length == 0) {
+      toast.error('voter stock est terminer !')
 
-        rep: rep,
-        nature: 'FLUID ORGANIQUE',
-        categoryId: JSON.stringify(new Date()),
-        saved: false
+      return
+    } else {
+      let id = Number(localStorage.getItem('lastId'))
+      if (!id) {
+        id = 1
+        localStorage.setItem('lastId', JSON.stringify(id))
+      } else {
+        id += 1
+        localStorage.setItem('lastId', JSON.stringify(id))
       }
-      await addData(Stores.PdfData2, { ...data, id })
-      localStorage.setItem('rep', '0')
-      toast.success('vos avez ajoutez noveux ligine')
-      setCount(count + 1)
-    } catch (err: any) {
-      toast.error('opps !')
+      try {
+        let rep
+        if (localStorage.getItem('rep')) {
+          rep = Number(localStorage.getItem('rep')) + 1
+        } else {
+          rep = 1
+        }
+        const data = {
+          local: '',
+          type: '',
+          red: '',
+
+          rep: rep,
+          nature: 'FLUID ORGANIQUE',
+          categoryId: JSON.stringify(new Date()),
+          saved: false
+        }
+        await addData(Stores.PdfData2, { ...data, id })
+        localStorage.setItem('rep', '0')
+        toast.success('vos avez ajoutez noveux ligine')
+        setCount(count + 1)
+      } catch (err: any) {
+        toast.error('opps !')
+      }
     }
   }
   const handleDeleteItem = async (id: any, categoryId: any) => {
@@ -232,26 +270,46 @@ const AddCard = (props: Props) => {
     return new Intl.DateTimeFormat('fr-FR', options).format(newData)
   }
   const handleAddNewLine = async () => {
-    const id = Number(localStorage.getItem('lastId'))
+    if (materials.length == 0) {
+      toast.error('voter stock est terminer !')
 
-    const index = data.findIndex((el: any) => el.id.toString() == id.toString())
+      return
+    } else {
+      const id = Number(localStorage.getItem('lastId'))
 
-    const lastData = data[index]
-    try {
-      lastData.rep += 1
-      lastData.id += 1
-      lastData.saved = false
-      setCount(count + 1)
-      await addData(Stores.PdfData2, { ...lastData })
-      localStorage.setItem('lastId', JSON.stringify(id + 1))
-    } catch (err) {
-      toast.error('opps !')
+      const index = data.findIndex((el: any) => el.id.toString() == id.toString())
+
+      const lastData = data[index]
+      if (lastData?.local == '' || lastData?.red == '' || lastData?.type == '') {
+        toast.error('completez le premier linge stp !')
+
+        return
+      }
+      try {
+        lastData.rep += 1
+        lastData.id += 1
+        lastData.type = ''
+        lastData.red = ''
+        lastData.saved = false
+        setCount(count + 1)
+        await addData(Stores.PdfData2, { ...lastData })
+        localStorage.setItem('lastId', JSON.stringify(id + 1))
+      } catch (err) {
+        toast.error('opps !')
+      }
     }
+  }
+  const ceckTheList = (arr: any, model: any) => {
+    const index = arr.findIndex((el: any) => el.material.model == model)
+
+    return index > -1
   }
   useEffect(() => {
     handleInitDB()
     handleFetchData()
-  }, [, count2, getStoreData, addData, count])
+
+    localStorage.setItem('lastId', lastId)
+  }, [, count2, getStoreData, addData, count, lastId, materials])
 
   return (
     <Card>
@@ -466,25 +524,20 @@ const AddCard = (props: Props) => {
                               onChange: e => hnadlesetRef(data[i].id, e.target.value)
                             }}
                           >
-                            <MenuItem value='ISOVANB1'>ISOVANB1</MenuItem>
-                            <MenuItem value='ISOVANB2'>ISOVANB2</MenuItem>
-                            <MenuItem value='ISOVANB3'>ISOVAN3</MenuItem>
-                            <MenuItem value='ISOVANB4'>ISOVANB4</MenuItem>
-                            <MenuItem value='ISOVANB5'>ISOVANB5</MenuItem>
-                            <MenuItem value='ISOVANB6'>ISOVANB6</MenuItem>
-                            <MenuItem value='ISOVANB7'>ISOVANB7</MenuItem>
-                            <MenuItem value='ISOVANB8'>ISOVANB8</MenuItem>
-                            <MenuItem value='ISOVANB9'>ISOVANB9</MenuItem>
-                            <MenuItem value='ISOVANT0'>ISOVANT0</MenuItem>
-                            <MenuItem value='ISOVANT1'>ISOVANT1</MenuItem>
-                            <MenuItem value='ISOVANT2'>ISOVANT2</MenuItem>
-                            <MenuItem value='ISOVANT3'>ISOVANT3</MenuItem>
-                            <MenuItem value='ISOVANT4'>ISOVANT4</MenuItem>
-                            <MenuItem value='ISOVANT5'>ISOVANT5</MenuItem>
-                            <MenuItem value='ISOVANT6'>ISOVANT6</MenuItem>
-                            <MenuItem value='ISOVANT7'>ISOVANT7</MenuItem>
-                            <MenuItem value='ISOVANT8'>ISOVANT8</MenuItem>
-                            <MenuItem value='ISOVANT9'>ISOVANT9</MenuItem>
+                            {data[i].red != '' ? (
+                              ceckTheList(materials, data[i].red) == false ? (
+                                <MenuItem value={data[i].red} key={i}>
+                                  ISOVAN{data[i].red}
+                                </MenuItem>
+                              ) : null
+                            ) : null}
+                            {materials?.map((el: any, i: number) => {
+                              return (
+                                <MenuItem value={el?.material?.model} key={i}>
+                                  ISOVAN{el?.material?.model}
+                                </MenuItem>
+                              )
+                            })}
                           </CustomTextField>
                         )}
                       </Grid>
