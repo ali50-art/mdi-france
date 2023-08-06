@@ -116,6 +116,7 @@ const AddCard = (props: Props) => {
 
       setData([...res])
       setData2([...res2])
+      handleMaterilas(res)
     } catch (err) {
       toast.error('opps !')
     }
@@ -259,17 +260,37 @@ const AddCard = (props: Props) => {
     // Format the date using Intl.DateTimeFormat with the French locale
     return new Intl.DateTimeFormat('fr-FR', options).format(newData)
   }
-  const handleMaterilas = () => {
+  const countStock = (data: any, model: any) => {
+    let nb = 0
+    data.forEach((el: any) => {
+      if (el.red == model) {
+        nb += 1
+      }
+    })
+
+    return nb
+  }
+  const handleMaterilas = (data: any) => {
     if (localStorage.getItem('userData')) {
       const x: any = localStorage.getItem('userData')
       const user: any = JSON.parse(x)
-      setMaterial(user.charge.materials)
+      const newMaterial: any = []
+      user.charge.materials.forEach((element: any) => {
+        console.log('element.material.model : ', element.material.model)
+
+        const stockNb = countStock(data, element.material.model)
+        console.log('stockNb : ', stockNb)
+
+        if (stockNb < element.stock) {
+          newMaterial.push(element)
+        }
+      })
+      setMaterial(newMaterial)
     }
   }
   useEffect(() => {
     handleInitDB()
     handleFetchData()
-    handleMaterilas()
   }, [, count2, getStoreData, addData, count])
 
   return (
@@ -516,11 +537,13 @@ const AddCard = (props: Props) => {
                             }}
                           >
                             {materials?.map((el: any, i: number) => {
-                              return (
-                                <MenuItem value={el?.material?.model} key={i}>
-                                  ISOVAN{el?.material?.model}
-                                </MenuItem>
-                              )
+                              if (el.stock > 0) {
+                                return (
+                                  <MenuItem value={el?.material?.model} key={i}>
+                                    ISOVAN{el?.material?.model}
+                                  </MenuItem>
+                                )
+                              }
                             })}
                           </CustomTextField>
                         )}
