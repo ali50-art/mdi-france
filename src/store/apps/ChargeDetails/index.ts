@@ -97,7 +97,8 @@ export const fetchAllByChargeId = createAsyncThunk('appLogistique/fetchAllByChar
   const response = await axios.get(`${serverUri.uri}/api/chargeDetails/allByCharge/${data.id}`, {
     headers: {
       Authorization: storedToken
-    }
+    },
+    params: data.params
   })
 
   //   const response2 = await axios.get(`${serverUri.uri}/api/charge/count`, {

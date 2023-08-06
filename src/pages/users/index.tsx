@@ -282,6 +282,14 @@ const UserList = () => {
   const [status, setStatus] = useState<string>('')
   const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
+  const [page, setPage] = useState<number>(1)
+  const [pageSize, setpageSize] = useState<number>(10)
+  const handlePageSizeChange = (params: any) => {
+    setPage(params.page + 1)
+    setpageSize(params.pageSize)
+
+    setPaginationModel({ page: params.page, pageSize: params.pageSize })
+  }
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
@@ -289,10 +297,13 @@ const UserList = () => {
   useEffect(() => {
     dispatch(
       fetchData({
-        search: value
+        search: value,
+        page,
+        pageSize,
+        sort: 'createdAt'
       })
     )
-  }, [dispatch, role, status, value])
+  }, [dispatch, role, status, value, page, pageSize])
 
   const handleFilter = useCallback((val: string) => {
     setValue(val)
@@ -423,7 +434,7 @@ const UserList = () => {
             disableRowSelectionOnClick
             pageSizeOptions={[10, 25, 50]}
             paginationModel={paginationModel}
-            onPaginationModelChange={setPaginationModel}
+            onPaginationModelChange={handlePageSizeChange}
           />
         </Card>
       </Grid>
