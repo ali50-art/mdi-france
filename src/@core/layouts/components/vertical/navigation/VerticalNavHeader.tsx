@@ -89,6 +89,7 @@ const VerticalNavHeader = (props: Props) => {
   // }
   const menuCollapsedStyles = navCollapsed && !navHover ? { opacity: 0 } : { opacity: 1 }
   let displayButton = 'none'
+
   if (navHover) {
     displayButton = 'block'
   }
