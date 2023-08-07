@@ -122,16 +122,30 @@ const AddCard = () => {
                 </Typography>
               </Box>
               <div>
-                <Typography sx={{ mb: 2, color: 'text.secondary' }}>{data?.adressTravaux}</Typography>
-                <Typography sx={{ mb: 2, color: 'text.secondary' }}>{data?.villeTravaux}</Typography>
-                <Typography sx={{ color: 'text.secondary' }}>{data?.codePostalTravaux}</Typography>
+                {store?.data?.orderDetailId ? (
+                  <>
+                    <Typography sx={{ mb: 2, color: 'text.secondary' }}>{store?.data?.orderDetailId?.name}</Typography>
+                    <Typography sx={{ mb: 2, color: 'text.secondary' }}>
+                      {store?.data?.orderDetailId?.address}
+                    </Typography>
+                    <Typography sx={{ color: 'text.secondary' }}>{store?.data?.orderDetailId?.ville}</Typography>
+                    <Typography sx={{ color: 'text.secondary' }}>{store?.data?.orderDetailId?.codePost}</Typography>
+                  </>
+                ) : (
+                  <>
+                    <Typography sx={{ mb: 2, color: 'text.secondary' }}>{data?.clientName}</Typography>
+                    <Typography sx={{ mb: 2, color: 'text.secondary' }}>{data?.clientAdress}</Typography>
+                    <Typography sx={{ color: 'text.secondary' }}>{data?.clientVille}</Typography>
+                    <Typography sx={{ color: 'text.secondary' }}>{data?.clientCodePostal}</Typography>
+                  </>
+                )}
               </div>
             </Box>
           </Grid>
           <Grid item xl={6} xs={12}>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: { xl: 'flex-end', xs: 'flex-start' } }}>
               <Box sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
-                <CustomTextField value={formateDate(new Date())} />
+                <CustomTextField value={formateDate(data?.createdAt)} />
               </Box>
             </Box>
           </Grid>

@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
   image: {
     width: '40%',
     position: 'absolute',
-    marginTop: '150px',
     top: '100%',
     left: '50%',
     transform: 'translate(-120%, -50%)'
@@ -113,6 +112,27 @@ const styles = StyleSheet.create({
     height: 30,
     textAlign: 'center',
     fontSize: 12
+  },
+  container2: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    position: 'absolute',
+    bottom: 50,
+    width: '100%'
+  },
+  view: {
+    width: '50%',
+    textAlign: 'center',
+    padding: '0 10px'
+  },
+  text2: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    marginBottom: '2px'
+  },
+  text3: {
+    fontSize: 10,
+    marginBottom: '2px'
   }
 })
 const Table = () => (
@@ -191,11 +211,11 @@ const PDFFile = ({ data }: any) => {
               <Text style={{ textAlign: 'center', marginBottom: '4px' }}>
                 <Text style={styles.fontSize}>au bénefice de : </Text>
               </Text>
-              <Text style={styles.fontSize}>ALPOL COSMETIQUE</Text>
+              <Text style={styles.fontSize}>{store.data?.orderDetailId?.name}</Text>
               <Text style={{ textAlign: 'center', marginBottom: '4px' }}>
-                <Text style={styles.fontSize}>140 rue Pasteur </Text>
+                <Text style={styles.fontSize}>{store.data?.orderDetailId?.address}</Text>
               </Text>
-              <Text style={styles.fontSize}>01500 CHATEAU-GAILLARD</Text>
+              <Text style={styles.fontSize}>{store.data?.orderDetailId?.codePost}</Text>
               <Text style={[styles.fontSize, { marginTop: '20px' }]}>{store.data?.villeTravaux}</Text>
               <Text style={{ textAlign: 'center', marginBottom: '4px' }}>
                 <Text style={styles.fontSize}>{store.data?.adressTravaux} </Text>
@@ -296,6 +316,16 @@ const PDFFile = ({ data }: any) => {
                 </View>
               )
             })}
+          </View>
+          <View style={styles.container2}>
+            <View style={styles.view}>
+              <Text style={styles.text2}>Signature + Date + Cachet</Text>
+              <Text style={styles.text3}>Nom/Prénom/Fonction de réprésentation</Text>
+            </View>
+            <View style={styles.view}>
+              <Text style={styles.text2}>Signature + Date + Cachet</Text>
+              <Text style={styles.text3}>Nom/Prénom/Fonction de réprésentation</Text>
+            </View>
           </View>
           <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => `${pageNumber} / ${totalPages}`} />
         </Page>

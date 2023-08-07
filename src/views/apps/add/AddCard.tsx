@@ -116,15 +116,15 @@ const AddCard = (props: Props) => {
 
       const res2 = await getStoreData(Stores.PdfInfo)
 
-      if (res) {
+      if (res.length > 0) {
         setData([...res])
         setlastId(res[res.length - 1].id)
       } else {
         setlastId(0)
       }
-
-      setData2([...res2])
-
+      if (res2) {
+        setData2([...res2])
+      }
       handleMaterilas(res)
     } catch (err) {
       toast.error('opps !')
@@ -161,7 +161,7 @@ const AddCard = (props: Props) => {
           red: '',
           mass: '35mg/m3',
           rep: rep,
-          dn: '20',
+          dn: '',
           nature: 'Réseau Chaud',
           categoryId: JSON.stringify(new Date()),
           saved: false
@@ -266,6 +266,7 @@ const AddCard = (props: Props) => {
         lastData.id += 1
         lastData.type = ''
         lastData.red = ''
+        lastData.dn = ''
         lastData.saved = false
         setCount(count + 1)
         await addData(Stores.PdfData, { ...lastData })
@@ -306,7 +307,6 @@ const AddCard = (props: Props) => {
       const newMaterial: any = []
       user.charge.materials.forEach((element: any) => {
         const stockNb = countStock(data, element.material.model)
-        console.log('stockNb : ', stockNb)
 
         if (stockNb < element.stock) {
           newMaterial.push(element)
@@ -323,8 +323,6 @@ const AddCard = (props: Props) => {
   useEffect(() => {
     handleInitDB()
     handleFetchData()
-    console.log('materials : ', materials)
-    localStorage.setItem('lastId', lastId)
   }, [, count2, getStoreData, addData, count, lastId, setMaterial])
 
   return (

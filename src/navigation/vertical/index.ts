@@ -4,7 +4,7 @@ import { VerticalNavItemsType } from 'src/@core/layouts/types'
 const navigation = (): VerticalNavItemsType => {
   return [
     {
-      title: 'Suivi  Chantier',
+      title: 'Suivi des Chantier',
       path: '/suivi-chantier',
       action: 'read',
       subject: 'suivi-chantier',
@@ -16,14 +16,14 @@ const navigation = (): VerticalNavItemsType => {
       subject: 'users'
     },
     {
-      title: 'Materiel',
+      title: 'Matériaux',
       path: '/material',
       action: 'mange',
       subject: 'material',
       icon: 'tabler:chart-pie-2'
     },
     {
-      title: "Donner D'order",
+      title: "Donneur D'order",
       path: '/orderDetails',
       action: 'mange',
       subject: 'orderDetails',
@@ -62,7 +62,7 @@ const navigation = (): VerticalNavItemsType => {
       subject: 'instalateur-dahsboard'
     },
     {
-      title: 'constructeur',
+      title: 'Instalateur',
       action: 'read',
       subject: 'constructeur',
       path: '/constructeur',

@@ -10,6 +10,7 @@ import { RootState } from 'src/store'
 import { useSelector } from 'react-redux'
 import Link from 'next/link'
 import { Icon } from '@iconify/react'
+import { useEffect } from 'react'
 
 // ** Icon Imports
 
@@ -29,6 +30,9 @@ const AddActions = () => {
     return new Intl.DateTimeFormat('fr-FR', options).format(newData)
   }
   const store: any = useSelector((state: RootState) => state.suiviChantierPdf)
+  useEffect(() => {
+    console.log('ojpoj')
+  }, [store.data])
 
   return (
     <Grid container spacing={6}>

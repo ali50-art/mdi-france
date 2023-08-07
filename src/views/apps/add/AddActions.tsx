@@ -99,19 +99,20 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
           place: el.local || '',
           filterType: el.type || '',
           model: el.red || '',
+          mass: undefined,
+          dn: undefined,
           nbRep: el.rep || '',
           nature: el.nature || ''
         }
         newArr.push(newObj)
       }
-      dispatch(addPdf(newArr))
+      await dispatch(addPdf(newArr))
       const promises2 = res.map(async (el: any) => {
         return await deleteData(Stores.PdfData2, el.id)
       })
       await Promise.all(promises2)
       handleSetCount()
       toast.success('pdf envoyez avec success')
-      await deleteData(Stores.PdfInfo, res2[0].id)
       localStorage.removeItem('pdfInfoId')
       handleActiStepTOfirstStep()
     }

@@ -136,14 +136,15 @@ const AddCard = (props: Props) => {
     try {
       const res: any = await getStoreData(Stores.PdfData2)
       const res2 = await getStoreData(Stores.PdfInfo)
-      setlastId(res[res.length - 1].id)
-      handleMaterilas(res)
-      if (res) {
+
+      if (res.length > 0) {
         setData([...res])
+        setlastId(res[res.length - 1].id)
         setlastId(res[res.length - 1].id)
       } else {
         setlastId(0)
       }
+      handleMaterilas(res)
       setData2([...res2])
     } catch (err) {
       toast.error('opps !')
@@ -178,7 +179,6 @@ const AddCard = (props: Props) => {
           local: '',
           type: '',
           red: '',
-
           rep: rep,
           nature: 'FLUID ORGANIQUE',
           categoryId: JSON.stringify(new Date()),
