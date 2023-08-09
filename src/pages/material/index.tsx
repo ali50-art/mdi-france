@@ -266,7 +266,7 @@ const UserList = () => {
             value={value}
             handleFilter={handleFilter}
             toggle={toggleAddMaterialDrawer}
-            name='Ajouter un nouveau matrériel'
+            name='Ajouter un nouveau materiel'
           />
           <DataGrid
             autoHeight

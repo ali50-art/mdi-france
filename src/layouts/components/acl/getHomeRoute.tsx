@@ -3,7 +3,7 @@
  */
 const getHomeRoute = (role: string) => {
   if (role === 'instalateur') return '/constructeur'
-  else if (role === 'logistique') return '/logistique/inProgress'
+  else if (role === 'logisticien') return '/logistique/inProgress'
   else return '/suivi-chantier'
 }
 
