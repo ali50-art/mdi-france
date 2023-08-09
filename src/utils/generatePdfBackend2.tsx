@@ -1,4 +1,4 @@
-import { Page, Text, Image, Document, StyleSheet, View } from '@react-pdf/renderer'
+import { Page, Text, Document, StyleSheet, View } from '@react-pdf/renderer'
 import { Font } from '@react-pdf/renderer'
 import MyCustomFont from '../fonts/Anton-Regular.ttf'
 
@@ -192,7 +192,7 @@ const PDFFile = ({ data }: any) => {
               }}
               fixed
             >
-              <Image src='/images/apple-touch-icon.png' style={styles.image} />
+              {/* <Image src='/images/apple-touch-icon.png' style={styles.image} /> */}
             </View>
 
             <View>
@@ -200,9 +200,11 @@ const PDFFile = ({ data }: any) => {
               <Text style={{ textAlign: 'center', marginBottom: '4px' }}>
                 <Text style={styles.fontSize}>je sousigné</Text>
               </Text>
-              <Text style={styles.fontSize}>MD INDUSTRIE</Text>
-              <Text style={styles.fontSize}>23 Avenue Fréres Montgolfier</Text>
-              <Text style={styles.fontSize}>69680 CHASSIEU </Text>
+              <Text style={styles.fontSize}>{store.data?.orderDetailId?.name}</Text>
+              <Text style={styles.fontSize}>{store.data?.orderDetailId?.address}</Text>
+              <Text style={styles.fontSize}>
+                {store.data?.orderDetailId?.codePost + ' ' + store.data?.orderDetailId?.ville}{' '}
+              </Text>
             </View>
             <View style={{ marginTop: '16px' }}>
               <Text style={styles.fontSize}>
@@ -211,16 +213,12 @@ const PDFFile = ({ data }: any) => {
               <Text style={{ textAlign: 'center', marginBottom: '4px' }}>
                 <Text style={styles.fontSize}>au bénefice de : </Text>
               </Text>
-              <Text style={styles.fontSize}>{store.data?.orderDetailId?.name}</Text>
+
+              <Text style={styles.fontSize}>{store.data?.clientName}</Text>
               <Text style={{ textAlign: 'center', marginBottom: '4px' }}>
-                <Text style={styles.fontSize}>{store.data?.orderDetailId?.address}</Text>
+                <Text style={styles.fontSize}>{store.data?.clientAdress}</Text>
               </Text>
-              <Text style={styles.fontSize}>{store.data?.orderDetailId?.codePost}</Text>
-              <Text style={[styles.fontSize, { marginTop: '20px' }]}>{store.data?.villeTravaux}</Text>
-              <Text style={{ textAlign: 'center', marginBottom: '4px' }}>
-                <Text style={styles.fontSize}>{store.data?.adressTravaux} </Text>
-              </Text>
-              <Text style={styles.fontSize}>{store.data?.codePostal}</Text>
+              <Text style={styles.fontSize}>{store.data?.clientCodePostal + ' ' + store.data?.clientVille}</Text>
             </View>
             <View style={{ marginTop: '16px', marginBottom: '16px' }}>
               <Text style={styles.boldStyle2}>

@@ -131,7 +131,7 @@ const RowOptions = ({ id }: { id: number | string }) => {
         </MenuItem>
         <MenuItem onClick={handleDelete} sx={{ '& svg': { mr: 2 } }}>
           <Icon icon='tabler:trash' fontSize={20} />
-          Delete
+          supprimer
         </MenuItem>
       </Menu>
       {showMateral && <ShowAllMaterialDialog open={showMateral} toggle={handleShowMaterail} data={store.matData} />}

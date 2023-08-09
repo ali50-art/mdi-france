@@ -285,7 +285,7 @@ const AddCard = () => {
                   className='col-title'
                   sx={{ mb: { md: 2, xs: 0 }, color: 'text.secondary', textAlign: 'center' }}
                 >
-                  LNature du fluide caloporteur
+                  Nature du fluide caloporteur
                 </Typography>
               </Grid>
             </Grid>

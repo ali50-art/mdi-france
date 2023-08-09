@@ -21,7 +21,7 @@ const defineRulesFor = (role: string, subject: string) => {
 
   if (role === 'admin' || role === 'superAdmin') {
     can('manage', ['suivi-chantier', 'users', 'admin-logistique', 'admin-instalateur', 'orderDetails', 'material'])
-  } else if (role === 'logistique') {
+  } else if (role === 'logisticien') {
     can('manage', ['logistique'])
   } else if (role === 'instalateur') {
     can('manage', ['instalateur-dahsboard', 'constructeur', 'save-files'])

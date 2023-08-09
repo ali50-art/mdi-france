@@ -36,16 +36,16 @@ import AddCard2 from 'src/views/apps/add/AddCard2'
 
 const steps = [
   {
-    title: 'Type de chaniter',
-    subtitle: 'Choisir type de chaniter'
+    title: 'Type de chantier',
+    subtitle: 'Choisir votre type de chantier'
   },
   {
-    title: 'Information Client & Travaux',
-    subtitle: 'Enter les information de client et de travaux'
+    title: "Information d'Installation",
+    subtitle: "Enter les informations de l'installation"
   },
 
   {
-    title: 'construction de pdf',
+    title: "Début de l'installation",
     subtitle: 'consterouir voter pdf'
   }
 ]
@@ -71,10 +71,7 @@ const accountSchema = yup.object().shape({
   username: yup.string().required(),
   address: yup.string().required(),
   ville: yup.string().required(),
-  codePostal: yup.string().required(),
-  adressTravaux: yup.string().required(),
-  villeTravaux: yup.string().required(),
-  codePostalTravaux: yup.string().required()
+  codePostal: yup.string().required()
 })
 
 const socialSchema = yup.object().shape({
@@ -222,10 +219,10 @@ const StepperLinearWithValidation = () => {
             <Grid item xs={12}>
               <Box sx={{ mb: 4, textAlign: 'center' }}>
                 <Typography variant='h3' sx={{ mb: 3 }}>
-                  Selectionez le type de chaniter
+                  Sélectionnez le type de chantier
                 </Typography>
                 <Typography sx={{ color: 'text.secondary' }}>
-                  pour passer de consterouir votre pdf cette etap est trés important
+                  Pour passé a la case suivante veuillez choisir le type de chantier
                 </Typography>
               </Box>
             </Grid>
@@ -258,7 +255,7 @@ const StepperLinearWithValidation = () => {
                       variant='h4'
                       sx={{ mb: 2, ...(authType === 'residentiel' ? { color: 'primary.main' } : {}) }}
                     >
-                      Residentiel/Tertiaire
+                      Résidentiel/Tertiaire
                     </Typography>
                     <Typography sx={{ ...(authType === 'residentiel' ? { color: 'primary.main' } : {}) }}></Typography>
                   </div>
@@ -293,7 +290,7 @@ const StepperLinearWithValidation = () => {
                       variant='h4'
                       sx={{ mb: 2, ...(authType === 'indestry' ? { color: 'primary.main' } : {}) }}
                     >
-                      Indestry
+                      Indestrie
                     </Typography>
                     <Typography sx={{ ...(authType === 'indestry' ? { color: 'primary.main' } : {}) }}></Typography>
                   </div>
@@ -303,7 +300,7 @@ const StepperLinearWithValidation = () => {
 
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
               <Button type='submit' variant='contained' onClick={() => setActiveStep(activeStep + 1)}>
-                Next
+                Suivant
               </Button>
             </Grid>
           </Grid>
@@ -314,10 +311,10 @@ const StepperLinearWithValidation = () => {
             <Grid container spacing={5}>
               <Grid item xs={12}>
                 <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
-                  Information de client
+                  Information d'instalation
                 </Typography>
                 <Typography variant='caption' component='p'>
-                  entez les informations de client
+                  entez les informations d'instalation
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -329,7 +326,7 @@ const StepperLinearWithValidation = () => {
                     <CustomTextField
                       fullWidth
                       value={value}
-                      label='Nom de client'
+                      label='Nom de site'
                       onChange={onChange}
                       placeholder='Nom de client'
                       error={Boolean(accountErrors.username)}
@@ -348,7 +345,7 @@ const StepperLinearWithValidation = () => {
                     <CustomTextField
                       fullWidth
                       value={value}
-                      label='Address'
+                      label='Addresse'
                       onChange={onChange}
                       error={Boolean(accountErrors.address)}
                       placeholder='Address'
@@ -401,78 +398,12 @@ const StepperLinearWithValidation = () => {
               <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}></Grid>
             </Grid>
             <Grid container spacing={5}>
-              <Grid item xs={12}>
-                <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
-                  Information de travaux
-                </Typography>
-                <Typography variant='caption' component='p'>
-                  entez les informations de travaux
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Controller
-                  name='adressTravaux'
-                  control={accountControl}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <CustomTextField
-                      fullWidth
-                      value={value}
-                      label='Address'
-                      onChange={onChange}
-                      error={Boolean(accountErrors.adressTravaux)}
-                      placeholder='Address de travaux'
-                      aria-describedby='stepper-linear-account-email'
-                      {...(accountErrors.adressTravaux && { helperText: accountErrors.adressTravaux.message })}
-                    />
-                  )}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Controller
-                  name='villeTravaux'
-                  control={accountControl}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <CustomTextField
-                      fullWidth
-                      value={value}
-                      label='Ville'
-                      placeholder='Ville de travaux'
-                      onChange={onChange}
-                      id='stepper-linear-account-password'
-                      error={Boolean(accountErrors.villeTravaux)}
-                      {...(accountErrors.villeTravaux && { helperText: accountErrors.villeTravaux.message })}
-                    />
-                  )}
-                />
-              </Grid>
-
-              <Grid item xs={12} sm={6}>
-                <Controller
-                  name='codePostalTravaux'
-                  control={accountControl}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <CustomTextField
-                      fullWidth
-                      value={value}
-                      placeholder='code postal de travaux'
-                      label='Code Postal'
-                      onChange={onChange}
-                      id='stepper-linear-account-password'
-                      error={Boolean(accountErrors.codePostalTravaux)}
-                      {...(accountErrors.codePostalTravaux && { helperText: accountErrors.codePostalTravaux.message })}
-                    />
-                  )}
-                />
-              </Grid>
               <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Button variant='tonal' color='secondary' onClick={() => setActiveStep(activeStep - 1)}>
-                  Back
+                  Retour
                 </Button>
                 <Button type='submit' variant='contained'>
-                  Next
+                  Suivant
                 </Button>
               </Grid>
             </Grid>
@@ -524,7 +455,7 @@ const StepperLinearWithValidation = () => {
             </DatePickerWrapper>
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '2rem' }}>
               <Button variant='tonal' color='secondary' onClick={handleBack}>
-                Back
+                Retour
               </Button>
             </Grid>
           </>
@@ -553,11 +484,8 @@ const StepperLinearWithValidation = () => {
                   (accountErrors.ville ||
                     accountErrors.codePostal ||
                     accountErrors.address ||
-                    accountErrors.username ||
-                    accountErrors.adressTravaux ||
-                    accountErrors.villeTravaux ||
-                    accountErrors.codePostal) &&
-                  activeStep === 0
+                    accountErrors.username) &&
+                  activeStep === 1
                 ) {
                   labelProps.error = true
                 } else if (authType == null) {

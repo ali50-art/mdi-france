@@ -116,11 +116,11 @@ const RowOptions = ({ id }: { id: number | string }) => {
       >
         <MenuItem onClick={handleOpenEdite} sx={{ '& svg': { mr: 2 } }}>
           <Icon icon='tabler:edit' fontSize={20} />
-          Edit
+          Éditer
         </MenuItem>
         <MenuItem onClick={handleDelete} sx={{ '& svg': { mr: 2 } }}>
           <Icon icon='tabler:trash' fontSize={20} />
-          Delete
+          Supprimer
         </MenuItem>
       </Menu>
       {addUserOpen && <EditMertialDrawer open={addUserOpen} toggle={handleOpenEdite} material={material} />}
@@ -243,9 +243,8 @@ const UserList = () => {
   const toggleAddMaterialDrawer = () => setAddUserOpen(!addUserOpen)
   const item: any = {
     stats: 0,
-    title: 'Matier',
     icon: 'tabler:chart-pie-2',
-    subtitle: 'total de Matier'
+    subtitle: 'Total des matériaux'
   }
   if (store.count >= 0) {
     item.stats = store.count
@@ -267,7 +266,7 @@ const UserList = () => {
             value={value}
             handleFilter={handleFilter}
             toggle={toggleAddMaterialDrawer}
-            name='Ajouter un nouvel matrérél'
+            name='Ajouter un nouveau matrériel'
           />
           <DataGrid
             autoHeight

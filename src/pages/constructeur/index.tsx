@@ -26,10 +26,10 @@ const Constructeur = () => {
       <Grid container spacing={6}>
         <Grid item xs={12}>
           <Card>
-            <CardHeader title='Admin dashboard 🚀'></CardHeader>
+            <CardHeader title='etape récapitulatif 🚀'></CardHeader>
             <CardContent>
-              <Typography sx={{ mb: 2 }}>Tous les gestion de midi serent affiche dans cette page</Typography>
-              <Typography>cette page en train de développer merci pour votre consultation</Typography>
+              <Typography sx={{ mb: 2 }}>aucan charge pour installer </Typography>
+              <Typography>cantacter un logistique s'il vous plait</Typography>
             </CardContent>
           </Card>
         </Grid>

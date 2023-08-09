@@ -172,7 +172,7 @@ const UserList = () => {
       flex: 0.25,
       minWidth: 70,
       field: 'fullName',
-      headerName: 'Instalateur',
+      headerName: 'Installateur',
       renderCell: ({ row }: CellType) => {
         const { fullName, phone } = row.instalateurId
         console.log('chargeDetailId : ', row?.chargeDetails)
@@ -286,7 +286,7 @@ const UserList = () => {
     stats: 0,
     title: 'Retour',
     icon: 'tabler:chart-pie-2',
-    subtitle: 'contiter total de retour'
+    subtitle: 'quantité total de matériaux retourné'
   }
   if (store.data.length >= 0) {
     item.stats = counterTotaldeRetour(store.data)

@@ -7,7 +7,7 @@ import CustomTextField from 'src/@core/components/mui/text-field'
 
 // ** Types Imports
 
-import { Dialog, DialogTitle, DialogContent, Grid, DialogActions } from '@mui/material'
+import { Dialog, DialogTitle, DialogContent, Grid, DialogActions, Typography } from '@mui/material'
 
 interface SidebarAddUserType {
   open: boolean
@@ -21,6 +21,22 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
 
   const handleClose = () => {
     toggle()
+  }
+  const handleCountTotalStock = () => {
+    let nb = 0
+    data.materials?.map((el: any) => {
+      nb += el.fixedStock
+    })
+
+    return nb
+  }
+  const handleCountTotalRetour = () => {
+    let nb = 0
+    data.materials?.map((el: any) => {
+      nb += el.fixedStock - el.stock
+    })
+
+    return nb
   }
 
   return (
@@ -42,6 +58,12 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
           }}
         >
           le Retour
+          <Typography variant='body2' sx={{ marginTop: '0.5rem' }}>
+            Total de Charge : {handleCountTotalStock()}
+          </Typography>
+          <Typography variant='body2' sx={{ marginTop: '0.2rem' }}>
+            Total de retour : {handleCountTotalRetour()}
+          </Typography>
         </DialogTitle>
         <DialogContent
           sx={{

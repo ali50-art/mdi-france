@@ -145,11 +145,11 @@ const RowOptions = ({ id }: { id: number | string }) => {
       >
         <MenuItem onClick={handleOpenEdite} sx={{ '& svg': { mr: 2 } }}>
           <Icon icon='tabler:edit' fontSize={20} />
-          Edit
+          Éditer
         </MenuItem>
         <MenuItem onClick={handleDelete} sx={{ '& svg': { mr: 2 } }}>
           <Icon icon='tabler:trash' fontSize={20} />
-          Delete
+          Supprimer
         </MenuItem>
       </Menu>
       {addUserOpen && <EditOrderDrawer open={addUserOpen} toggle={handleOpenEdite} order={order} />}
@@ -287,9 +287,8 @@ const UserList = () => {
   const toggleAddOrderDrawer = () => setAddUserOpen(!addUserOpen)
   const item: any = {
     stats: 0,
-    title: 'Donner Orders',
     icon: 'tabler:chart-pie-2',
-    subtitle: 'total de order'
+    subtitle: "total des donneur d'order"
   }
   if (store.count >= 0) {
     item.stats = store.count

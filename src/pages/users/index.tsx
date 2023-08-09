@@ -60,7 +60,7 @@ interface CellType {
 const userRoleObj: UserRoleType = {
   superAdmin: { icon: 'tabler:device-laptop', color: 'secondary' },
   admin: { icon: 'tabler:device-laptop', color: 'secondary' },
-  logistique: { icon: 'tabler:truck', color: 'success' },
+  logisticien: { icon: 'tabler:truck', color: 'success' },
   instalateur: { icon: 'tabler:edit', color: 'info' },
   assistant: { icon: 'tabler:chart-pie-2', color: 'primary' }
 }
@@ -154,11 +154,11 @@ const RowOptions = ({ id }: { id: number | string }) => {
       >
         <MenuItem onClick={handleOpenEdite} sx={{ '& svg': { mr: 2 } }}>
           <Icon icon='tabler:edit' fontSize={20} />
-          Edit
+          Éditer
         </MenuItem>
         <MenuItem onClick={handleDelete} sx={{ '& svg': { mr: 2 } }}>
           <Icon icon='tabler:trash' fontSize={20} />
-          Delete
+          Supprimer
         </MenuItem>
       </Menu>
       {addUserOpen && <EditUserDrawer open={addUserOpen} toggle={handleOpenEdite} user={user} />}
@@ -326,28 +326,21 @@ const UserList = () => {
       stats: '0',
       title: 'admin',
       icon: 'tabler:user-shield',
-      subtitle: "total d'administrateurs"
+      subtitle: 'total de admin'
     },
     {
       stats: '0',
-      title: 'logistique',
+      title: 'logisticien',
       avatarColor: 'error',
       icon: 'tabler:truck',
-      subtitle: "total d'logistiques"
+      subtitle: 'total de logisticien'
     },
     {
       stats: '0',
-      title: 'instalateur',
+      title: 'instalatteur',
       avatarColor: 'success',
       icon: 'tabler:clipboard-data',
-      subtitle: "total d'instalateurs"
-    },
-    {
-      stats: '0',
-      title: 'assistant',
-      avatarColor: 'warning',
-      icon: 'tabler:report-search',
-      subtitle: "total d'assistants"
+      subtitle: "total d'instalateur"
     }
   ]
   const counter: any = store.count

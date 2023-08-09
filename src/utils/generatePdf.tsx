@@ -237,16 +237,12 @@ const PDFFile = ({ count }: any) => {
               <Text style={{ textAlign: 'center', marginBottom: '4px' }}>
                 <Text style={styles.fontSize}>au bénefice de : </Text>
               </Text>
-              <Text style={styles.fontSize}>ALPOL COSMETIQUE</Text>
+
+              <Text style={[styles.fontSize, { marginTop: '20px' }]}>{data2[0]?.username}</Text>
               <Text style={{ textAlign: 'center', marginBottom: '4px' }}>
-                <Text style={styles.fontSize}>140 rue Pasteur </Text>
+                <Text style={styles.fontSize}>{data2[0]?.address} </Text>
               </Text>
-              <Text style={styles.fontSize}>01500 CHATEAU-GAILLARD</Text>
-              <Text style={[styles.fontSize, { marginTop: '20px' }]}>{data2[0]?.villeTravaux}</Text>
-              <Text style={{ textAlign: 'center', marginBottom: '4px' }}>
-                <Text style={styles.fontSize}>{data2[0]?.adressTravaux} </Text>
-              </Text>
-              <Text style={styles.fontSize}>{data2[0]?.codePostal}</Text>
+              <Text style={styles.fontSize}>{data2[0]?.codePostal + ' ' + data2[0]?.ville}</Text>
             </View>
             <View style={{ marginTop: '16px', marginBottom: '16px' }}>
               <Text style={styles.boldStyle2}>

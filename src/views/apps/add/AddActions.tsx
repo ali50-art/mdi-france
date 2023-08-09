@@ -146,7 +146,7 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
               onClick={handleSendPdf}
             >
               <Icon fontSize='1.125rem' icon='tabler:send' />
-              Envoez PDF
+              Envoyez votre PDF
             </Button>
 
             {count >= 0 &&

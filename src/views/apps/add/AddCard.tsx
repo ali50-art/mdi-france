@@ -256,7 +256,7 @@ const AddCard = (props: Props) => {
 
       const lastData = data[index]
 
-      if (lastData.local == '' || lastData.red == '' || lastData.type == '') {
+      if (lastData.local == '' || lastData.red == '' || lastData.type == '' || lastData.dn == '') {
         toast.error('completez le premier linge stp !')
 
         return
@@ -480,7 +480,7 @@ const AddCard = (props: Props) => {
               className='col-title'
               sx={{ mb: { md: 2, xs: 0 }, color: 'text.secondary', textAlign: 'center' }}
             >
-              LNature du fluide caloporteur
+              Nature du fluide caloporteur
             </Typography>
           </Grid>
         </Grid>

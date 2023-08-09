@@ -179,8 +179,8 @@ const UserList = () => {
     {
       flex: 0.25,
       minWidth: 70,
-      field: 'fullName',
-      headerName: 'Instalateur',
+      field: 'installeur',
+      headerName: 'Installeur',
       renderCell: ({ row }: CellType) => {
         const { fullName, phone } = row.instalateurId
 
@@ -313,7 +313,7 @@ const UserList = () => {
     stats: 0,
     title: 'Charge',
     icon: 'tabler:chart-pie-2',
-    subtitle: 'contiter total de chargement'
+    subtitle: 'Nomber de matériaux fournis'
   }
   if (store.data.length >= 0) {
     item.stats = counterTotaldeRetour(store.data)

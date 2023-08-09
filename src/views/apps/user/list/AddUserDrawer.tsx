@@ -214,9 +214,8 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
             SelectProps={{ value: role, onChange: e => setRole(e.target.value as string) }}
           >
             <MenuItem value='admin'>Admin</MenuItem>
-            <MenuItem value='logistique'>Logistique</MenuItem>
-            <MenuItem value='instalateur'>Instalateur</MenuItem>
-            <MenuItem value='assistant'>assistant</MenuItem>
+            <MenuItem value='logistique'>Logisticien</MenuItem>
+            <MenuItem value='instalateur'>Instalatteur</MenuItem>
           </CustomTextField>
 
           <Box sx={{ display: 'flex', alignItems: 'center' }}>

@@ -120,7 +120,7 @@ const RowOptions = ({ id }: { id: number | string }) => {
         >
           <MenuItem sx={{ '& svg': { mr: 2 } }}>
             <Icon icon='tabler:eye' fontSize={20} />
-            Edit & Télécharger
+            Éditer & Télécharger
           </MenuItem>
         </Typography>
 
@@ -155,8 +155,8 @@ const AdminDashboard = () => {
     {
       flex: 0.15,
       minWidth: 120,
-      headerName: 'Name',
-      field: 'Nom du site',
+      headerName: 'Nom',
+      field: 'Name',
       renderCell: ({ row }: CellType) => {
         return (
           <Typography noWrap sx={{ fontWeight: 500, color: 'text.secondary', textTransform: 'capitalize' }}>
@@ -183,7 +183,7 @@ const AdminDashboard = () => {
       flex: 0.1,
       minWidth: 110,
       field: 'instalateur',
-      headerName: 'Instalateur',
+      headerName: 'Installateur',
       renderCell: ({ row }: CellType) => {
         return (
           <Typography noWrap sx={{ color: 'text.secondary' }}>
