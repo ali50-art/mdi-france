@@ -121,6 +121,7 @@ const AddCard = (props: Props) => {
         setlastId(res[res.length - 1].id)
       } else {
         setlastId(0)
+        setData([])
       }
       if (res2) {
         setData2([...res2])
@@ -256,7 +257,7 @@ const AddCard = (props: Props) => {
 
       const lastData = data[index]
 
-      if (lastData.local == '' || lastData.red == '' || lastData.type == '' || lastData.dn == '') {
+      if (lastData?.local == '' || lastData?.red == '' || lastData?.type == '' || lastData?.dn == '') {
         toast.error('completez le premier linge stp !')
 
         return

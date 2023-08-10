@@ -143,6 +143,7 @@ const AddCard = (props: Props) => {
         setlastId(res[res.length - 1].id)
       } else {
         setlastId(0)
+        setData([])
       }
       handleMaterilas(res)
       setData2([...res2])
