@@ -214,7 +214,7 @@ const PDFFile = ({ data }: any) => {
   const Pages = [
     {
       page: (
-        <Page>
+        <Page size='A3'>
           <View
             style={{
               textAlign: 'center'
@@ -354,7 +354,7 @@ const PDFFile = ({ data }: any) => {
     },
     {
       page: (
-        <Page size='A4'>
+        <Page size='A3'>
           <View>
             {/* Render the table */}
             <Table />
