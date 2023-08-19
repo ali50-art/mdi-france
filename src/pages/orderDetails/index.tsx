@@ -161,7 +161,7 @@ const columns: GridColDef[] = [
     flex: 0.25,
     minWidth: 280,
     field: 'name',
-    headerName: 'Order',
+    headerName: 'Donneur Ordre',
     renderCell: ({ row }: CellType) => {
       const { name, email } = row
 
@@ -288,7 +288,7 @@ const UserList = () => {
   const item: any = {
     stats: 0,
     icon: 'tabler:chart-pie-2',
-    subtitle: "total des donneur d'order"
+    subtitle: "total des donneur d'ordre"
   }
   if (store.count >= 0) {
     item.stats = store.count
@@ -304,7 +304,6 @@ const UserList = () => {
       <Grid item xs={12}>
         <Card>
           <CardHeader title='Filtres de recherche' />
-
           <Divider sx={{ m: '0 !important' }} />
           <TableHeader
             value={value}
@@ -326,7 +325,6 @@ const UserList = () => {
           />
         </Card>
       </Grid>
-
       <AddOrderDrawer open={addUserOpen} toggle={toggleAddOrderDrawer} />
     </Grid>
   )

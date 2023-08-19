@@ -23,7 +23,7 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'tabler:chart-pie-2'
     },
     {
-      title: "Donneur D'order",
+      title: "Donneur D'ordre",
       path: '/orderDetails',
       action: 'mange',
       subject: 'orderDetails',
