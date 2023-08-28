@@ -1,390 +1,134 @@
-import { Page, Text, Image, Document, StyleSheet, View } from '@react-pdf/renderer'
-import { initDB, getStoreData, Stores } from '../lib/db'
-import { Font } from '@react-pdf/renderer'
-import { toast } from 'react-hot-toast'
-import MyCustomFont from '../fonts/Anton-Regular.ttf'
-import { useEffect, useState } from 'react'
+import React from 'react'
+import Button from '@mui/material/Button'
+import jsPDF from 'jspdf'
 
-Font.register({
-  family: 'AntonFamily',
-  src: MyCustomFont
-})
+import 'jspdf-autotable'
 
-const styles = StyleSheet.create({
-  body: {
-    paddingTop: 35,
-    paddingBottom: 65,
-    paddingHorizontal: 35
-  },
-  title: {
-    fontSize: 24,
-    textAlign: 'center',
-    fontFamily: 'AntonFamily'
-  },
-  text: {
-    margin: 12,
-    fontSize: 14,
-    textAlign: 'justify',
-    fontFamily: 'AntonFamily'
-  },
-  image: {
-    width: '40%',
-    position: 'absolute',
-    marginTop: '150px',
-    top: '100%',
-    left: '50%',
-    transform: 'translate(-120%, -50%)'
-  },
-  header: {
-    fontSize: 12,
-    marginBottom: 20,
-    textAlign: 'center',
-    color: 'grey',
-    fontFamily: 'AntonFamily'
-  },
-  firstTitle: {
-    marginTop: '230px',
-    fontSize: '12',
-    marginBottom: '10px',
-    color: '#000',
-    textDecoration: 'underline'
-  },
-  fontSize: {
-    fontSize: '10px',
-    color: '#000',
-    marginBottom: '4px'
-  },
-  boldStyle: {
-    width: '160px',
-    marginLeft: '250px'
-  },
-  boldStyle2: {
-    marginLeft: '70px'
-  },
-  boldStyle3: {
-    marginLeft: '60px'
-  },
-  pageNumber: {
-    position: 'absolute',
-    fontSize: 12,
-    bottom: 30,
-    left: 0,
-    right: 0,
-    textAlign: 'center',
-    color: 'grey',
-    fontFamily: 'AntonFamily'
-  },
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10
-  },
-  checkbox: {
-    width: 10,
-    height: 10,
-    borderWidth: 1,
-    borderColor: '#000',
-    marginRight: 5
-  },
-  label: {
-    fontSize: 10
-  },
-  table: {
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderBottomColor: '#000',
-    alignItems: 'center',
-    height: 30,
-    textAlign: 'center',
-    fontSize: 12
-  },
-  columnHeader: {
-    width: '14.28%', // 100% divided by 7 columns
-    borderRightWidth: 1,
-    borderRightColor: '#000'
-  },
-  headerContainer: {
-    flexDirection: 'row'
-  },
-  headerText: {
-    width: '50%' // 100% divided by 2 columns
-  },
-  bodyRow: {
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderBottomColor: '#000',
-    height: 30,
-    textAlign: 'center',
-    fontSize: 12
-  }
-})
-const Table = () => (
-  <View>
-    {/* First header */}
-    <View style={[styles.table, styles.headerContainer]}>
-      <View style={[styles.columnHeader, styles.headerText]}>
-        <Text></Text>
-      </View>
-      <View style={[styles.columnHeader, styles.headerText]}>
-        <Text>Matelas isolants : </Text>
-      </View>
-      {/* Seven columns in the second header */}
-    </View>
+// const centerText = (pdf: any, title: any) => {
+//   const pageWidth = pdf.internal.pageSize.getWidth()
+//   const titleWidth = (pdf.getStringUnitWidth(title) * pdf.internal.getFontSize()) / pdf.internal.scaleFactor
 
-    {/* Example row in the body */}
-    <View style={styles.bodyRow}>
-      <View style={[styles.columnHeader, styles.headerText]}>
-        <Text>lieu d'implantation</Text>
-      </View>
-      <View style={[styles.columnHeader, styles.headerText]}>
-        <Text>Types de point singulier</Text>
-      </View>
-      {/* Seven cells in the second row */}
-      <View style={[styles.columnHeader, styles.headerText]}>
-        <Text>Référence mateles</Text>
-      </View>
-      <View style={[styles.columnHeader, styles.headerText]}>
-        <Text>Mass volumique</Text>
-      </View>
-      <View style={[styles.columnHeader, styles.headerText]}>
-        <Text>N° De repérage</Text>
-      </View>
-      <View style={styles.columnHeader}>
-        <Text>DN</Text>
-      </View>
-      <View style={[styles.columnHeader, styles.headerText]}>
-        <Text>Nature de flu ide calopor teur</Text>
-      </View>
-    </View>
-  </View>
-)
+//   // Calculate the x-coordinate to center the text
+//   const xCenter = (pageWidth - titleWidth) / 2
 
-const PDFFile = ({ count }: any) => {
-  const [data, setData] = useState<any>([])
-  const [data2, setData2] = useState<any>([])
+//   return pdf.text(title, xCenter, 20)
+// }
 
-  const [dn, setDn] = useState({
-    btwenn20And65: 0,
-    between66And100: 0,
-    morthen100: 0
+const PDFGenerator = ({ data, data2, res }: any) => {
+  // Define custom dimensions (height and width)
+
+  // Create a new jsPDF instance with swapped dimensions
+  const pdf: any = new jsPDF({
+    orientation: 'l', // Swap orientation based on dimensions
+    unit: 'mm'
   })
-  const handleInitDB = async () => {
-    await initDB()
-  }
-  const handleCountDn = async (d: any) => {
-    d.forEach((el: any) => {
-      if (el.dn >= 20 && el.dn <= 65) {
-        setDn((pre: any) => {
-          return { ...pre, btwenn20And65: pre.btwenn20And65 + 1 }
-        })
-      }
-      if (el.dn >= 66 && el.dn <= 100) {
-        setDn((pre: any) => {
-          return { ...pre, between66And100: pre.between66And100 + 1 }
-        })
-      }
-      if (el.dn > 100) {
-        setDn((pre: any) => {
-          return { ...pre, morthen100: pre.morthen100 + 1 }
-        })
+  const handleDn = () => {
+    let Between20And65 = 0
+    let Between66And100 = 0
+    let morThen100 = 0
+    res.forEach((el: any) => {
+      const dn: number = el?.dn
+      if (20 <= dn && dn <= 65) {
+        Between20And65 += 1
+      } else if (dn >= 66 && dn <= 100) {
+        Between66And100 += 1
+      } else {
+        morThen100 += 1
       }
     })
-  }
-  const handleFetchData = async () => {
-    try {
-      const res = await getStoreData(Stores.PdfData)
-      const res2 = await getStoreData(Stores.PdfInfo)
-      setData([...res])
-      setData2(res2)
-      await handleCountDn([...res])
-    } catch (err) {
-      toast.error('opps !')
-    }
-  }
-  const Pages = [
-    {
-      page: (
-        <Page size='A3'>
-          <View
-            style={{
-              textAlign: 'center'
-            }}
-            fixed
-          >
-            <View
-              style={{
-                textAlign: 'center',
-                position: 'relative'
-              }}
-              fixed
-            >
-              <Image src='/images/apple-touch-icon.png' style={styles.image} />
-            </View>
 
-            <View>
-              <Text style={styles.firstTitle}>ETAT RECAPITULATIF INDUSTERIS</Text>
-              <Text style={{ textAlign: 'center', marginBottom: '4px' }}>
-                <Text style={styles.fontSize}>je sousigné</Text>
-              </Text>
-              <Text style={styles.fontSize}>MD INDUSTRIE</Text>
-              <Text style={styles.fontSize}>23 Avenue Fréres Montgolfier</Text>
-              <Text style={styles.fontSize}>69680 CHASSIEU </Text>
-            </View>
-            <View style={{ marginTop: '16px' }}>
-              <Text style={styles.fontSize}>
-                Attest sur l'honneur avoir mis en oeuvre les travaux d'isolation de points singuliers
-              </Text>
-              <Text style={{ textAlign: 'center', marginBottom: '4px' }}>
-                <Text style={styles.fontSize}>au bénefice de : </Text>
-              </Text>
+    return [Between20And65, Between66And100, morThen100]
+  }
+  const generatePdf = () => {
+    // Add logo image
+    const [Between20And65, Between66And100, morThen100] = handleDn()
+    const imgWidth = 50 // Adjust the width of the logo
+    const imgHeight = 30 // Adjust the height of the logo
+    const xPosition = (pdf.internal.pageSize.getWidth() - imgWidth) / 2
+    pdf.addImage('../images/logo.png', '', xPosition, 10, imgWidth, imgHeight)
 
-              <Text style={[styles.fontSize, { marginTop: '20px' }]}>{data2[0]?.username}</Text>
-              <Text style={{ textAlign: 'center', marginBottom: '4px' }}>
-                <Text style={styles.fontSize}>{data2[0]?.address} </Text>
-              </Text>
-              <Text style={styles.fontSize}>{data2[0]?.codePostal + ' ' + data2[0]?.ville}</Text>
-            </View>
-            <View style={{ marginTop: '16px', marginBottom: '16px' }}>
-              <Text style={styles.boldStyle2}>
-                <Text>
-                  <Text style={{ fontSize: 12 }}>Marque : </Text>{' '}
-                  <Text style={{ fontSize: '11' }}>MDI TECHNOLOGIE</Text>
-                </Text>
-              </Text>
-              <Text style={styles.boldStyle3}>
-                <Text>
-                  <Text style={{ fontSize: 12 }}>Résistance thermique</Text>{' '}
-                  <Text style={{ fontSize: '11' }}> : 1,58 m².K/w à un tempurature moyenne de 50°c</Text>
-                </Text>
-              </Text>
-              <View style={styles.boldStyle3}>
-                <Text style={{ fontSize: '11', marginLeft: '130px' }}>
-                  {' '}
-                  : 1,27 m².K/w à un tempurature moyenne de 100°c
-                </Text>
-              </View>
-              <Text style={styles.boldStyle2}>
-                <Text>
-                  <Text style={{ fontSize: 12 }}>Isolant et référance</Text>{' '}
-                  <Text style={{ fontSize: '11' }}> : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1</Text>
-                </Text>
-              </Text>
-              <Text style={styles.boldStyle2}>
-                <Text>
-                  <Text style={{ fontSize: 12 }}>Température maximale : </Text>{' '}
-                  <Text style={{ fontSize: '11' }}>200°C</Text>
-                </Text>
-              </Text>
-            </View>
-          </View>
-          <View
-            style={{
-              textAlign: 'center'
-            }}
-            fixed
-          >
-            <Text style={{ marginTop: '10px' }}>
-              <Text>
-                <Text style={{ fontSize: 12 }}>Température fluide caloporteur : </Text>{' '}
-                <Text style={{ fontSize: '11' }}>70°C</Text>
-              </Text>
-            </Text>
-            <Text style={styles.boldStyle2}>
-              <Text>
-                <Text style={{ fontSize: 12 }}>Référance : </Text> <Text style={{ fontSize: '11' }}>ISOVAN</Text>
-              </Text>
-            </Text>
-            <Text>
-              <Text>
-                <Text style={{ fontSize: 12 }}>Lieu d'implantationdes metelas : </Text>{' '}
-                <Text style={{ fontSize: '11' }}>CHAUFFERIE</Text>
-              </Text>
-            </Text>
-            <Text style={{ marginTop: '20px' }}>
-              <Text>
-                <Text style={{ fontSize: 12 }}>Nomber de points singuliers posés : </Text>{' '}
-              </Text>
-            </Text>
-            <Text style={{ marginTop: '4px' }}>
-              <Text>
-                <Text style={{ fontSize: 11 }}>DN20 a DN65 = </Text>
-                <Text style={{ fontSize: 11 }}>{dn.btwenn20And65}</Text>
-              </Text>
-            </Text>
-            <Text style={{ marginTop: '4px' }}>
-              <Text>
-                <Text style={{ fontSize: 11 }}>DN66 a DN100 = </Text>
-                <Text style={{ fontSize: 11 }}>{dn.between66And100}</Text>
-              </Text>
-            </Text>
-            <Text style={{ marginTop: '4px' }}>
-              <Text>
-                <Text style={{ fontSize: 11 }}>{'DN > 100'} = </Text>
-                <Text style={{ fontSize: 11 }}>{dn.morthen100}</Text>
-              </Text>
-            </Text>
-            <Text style={{ marginTop: '10px' }}>
-              <Text>
-                <Text style={{ fontSize: 12 }}>Total de points singuliers = {data.length} </Text>{' '}
-              </Text>
-            </Text>
-          </View>
-          <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => `${pageNumber} / ${totalPages}`} />
-        </Page>
-      )
-    },
-    {
-      page: (
-        <Page size='A3'>
-          <View>
-            {/* Render the table */}
-            <Table />
-            {data?.map((el: any, i: number) => {
-              return (
-                <View style={styles.bodyRow} key={i}>
-                  <View style={[styles.columnHeader, styles.headerText]}>
-                    <Text>{el.local}</Text>
-                  </View>
-                  <View style={[styles.columnHeader, styles.headerText]}>
-                    <Text>{el.type}</Text>
-                  </View>
-                  {/* Seven cells in the second row */}
-                  <View style={[styles.columnHeader, styles.headerText]}>
-                    <Text>{el.red}</Text>
-                  </View>
-                  <View style={[styles.columnHeader, styles.headerText]}>
-                    <Text>{el.mass}</Text>
-                  </View>
-                  <View style={[styles.columnHeader, styles.headerText]}>
-                    <Text>{el.rep}</Text>
-                  </View>
-                  <View style={styles.columnHeader}>
-                    <Text>{el.dn}</Text>
-                  </View>
-                  <View style={[styles.columnHeader, styles.headerText]}>
-                    <Text>{el.nature}</Text>
-                  </View>
-                </View>
-              )
-            })}
-          </View>
-          <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => `${pageNumber} / ${totalPages}`} />
-        </Page>
-      )
-    }
-  ]
-  useEffect(() => {
-    handleInitDB()
-    handleFetchData()
-  }, [count])
+    pdf.setFontSize(15)
+
+    pdf.text(`ETAT RECAPITULATIF INDUSTERIS`, 150, 49, { align: 'center' })
+    pdf.setFontSize(12)
+    pdf.text(`je sousigné `, 150, 55, { align: 'center' })
+    pdf.text(`MD INDUSTRIE`, 150, 60, { align: 'center' })
+    pdf.text(`23 Avenue Fréres Montgolfier`, 150, 65, { align: 'center' })
+    pdf.text(`69680 CHASSIEU`, 150, 70, { align: 'center' })
+    pdf.text(
+      `Attest sur l'honneur avoir mis en oeuvre les travaux d'isolation de points singuliers
+    `,
+      150,
+      80,
+      { align: 'center' }
+    )
+
+    pdf.text(`je sousigné `, 150, 89, { align: 'center' })
+    pdf.text(`${data2[0].address}`, 150, 96, { align: 'center' })
+    pdf.text(`${data2[0].ville} ${data2[0].codePostal}`, 150, 101, { align: 'center' })
+    pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 115, { align: 'center' })
+    pdf.text(`Résistance thermique : 1,58 m².K/w à un tempurature moyenne de 50°c`, 150, 128, { align: 'center' })
+    pdf.text(`: 1,27 m².K/w à un tempurature moyenne de 100°c`, 172, 133, { align: 'center' })
+    pdf.text(`Isolant et référance : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1`, 150, 138, {
+      align: 'center'
+    })
+    pdf.text(`Température maximale : 200°C1`, 150, 145, {
+      align: 'center'
+    })
+    pdf.text(`Température fluide caloporteur : 70°C`, 150, 150, {
+      align: 'center'
+    })
+    pdf.text(`Référance : ISOVAN`, 150, 155, {
+      align: 'center'
+    })
+    pdf.text(`Lieu d'implantationdes metelas : CHAUFFERIE`, 150, 160, {
+      align: 'center'
+    })
+    pdf.text(`Nomber de points singuliers posés : `, 150, 165, {
+      align: 'center'
+    })
+    pdf.text(`DN20 a DN65 = ${Between20And65}`, 150, 170, {
+      align: 'center'
+    })
+    pdf.text(`DN66 a DN100 = ${Between66And100}`, 150, 175, {
+      align: 'center'
+    })
+    pdf.text(`DN > 100 = ${morThen100}`, 150, 180, {
+      align: 'center'
+    })
+
+    pdf.text(`Total de points singuliers = ${data.length}`, 150, 190, {
+      align: 'center'
+    })
+    pdf.addPage()
+
+    // Dynamic content on subsequent pages
+    pdf.setFontSize(12)
+    const tableHeader = [
+      `lieu d'implantation`,
+      `Types de point singulier`,
+      `Référence mateles`,
+      'Mass volumique',
+      'N° De repérage',
+      'dn',
+      'Nature de flu ide calopor teur'
+    ]
+    pdf.autoTable({
+      startY: 30,
+
+      head: [tableHeader],
+      body: data
+    })
+
+    // Save the PDF using save() method
+    pdf.save('example.pdf')
+  }
 
   return (
-    <Document>
-      {Pages?.map((el: any) => {
-        return el.page
-      })}
-    </Document>
+    <Button fullWidth variant='tonal' color='secondary' onClick={generatePdf}>
+      Télecharger
+    </Button>
   )
 }
 
-export default PDFFile
+export default PDFGenerator

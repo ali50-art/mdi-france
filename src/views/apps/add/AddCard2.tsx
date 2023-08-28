@@ -189,6 +189,7 @@ const AddCard = (props: Props) => {
         localStorage.setItem('rep', '0')
         toast.success('vos avez ajoutez noveux ligine')
         setCount(count + 1)
+        handleSetCount()
       } catch (err: any) {
         toast.error('opps !')
       }
@@ -213,6 +214,7 @@ const AddCard = (props: Props) => {
     await deleteData(Stores.PdfData2, id)
 
     setCount(count + 1)
+    handleSetCount()
   }
   const handleSaveItem = async (id: any) => {
     const index = data.findIndex((el: any) => el.id.toString() == id.toString())
@@ -230,6 +232,7 @@ const AddCard = (props: Props) => {
     lastData.type = d
     await updateDataById(Stores.PdfData2, id, { ...lastData })
     setCount(count + 1)
+    handleSetCount()
   }
   const hnadlesetRef = async (id: any, d: any) => {
     const index = data.findIndex((el: any) => el.id.toString() == id.toString())
@@ -238,6 +241,7 @@ const AddCard = (props: Props) => {
     lastData.red = d
     await updateDataById(Stores.PdfData2, id, { ...lastData })
     setCount(count + 1)
+    handleSetCount()
   }
   const handleChangeMood = async (id: any) => {
     const index = data.findIndex((el: any) => el.id.toString() == id.toString())
@@ -246,6 +250,7 @@ const AddCard = (props: Props) => {
     lastData.saved = false
     await updateDataById(Stores.PdfData2, id, { ...lastData })
     setCount(count + 1)
+    handleSetCount()
   }
 
   const handleSetInput = async (id: any, d: any) => {
@@ -255,6 +260,7 @@ const AddCard = (props: Props) => {
     lastData.local = d
     await updateDataById(Stores.PdfData2, id, { ...lastData })
     setCount(count + 1)
+    handleSetCount()
   }
   const formateDate = (date: any) => {
     // Format options for the date in French

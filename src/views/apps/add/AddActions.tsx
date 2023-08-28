@@ -6,7 +6,6 @@ import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
 import { deleteData, getStoreData, Stores } from '../../../lib/db'
 
-import { PDFDownloadLink } from '@react-pdf/renderer'
 import PDFFile from '../../../utils/generatePdf'
 import PDFFile2 from '../../../utils/generatePdf2'
 import CardContent from '@mui/material/CardContent'
@@ -21,26 +20,59 @@ import { AppDispatch } from 'src/store'
 const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) => {
   const [online, setIsOnline] = useState(navigator.onLine)
   const [pdfType, setPdefType] = useState('indestry')
-  const formateDate = () => {
-    // Format options for the date in French
-    const newData = new Date()
-    const options: any = {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit'
-    }
-
-    // Format the date using Intl.DateTimeFormat with the French locale
-    return new Intl.DateTimeFormat('fr-FR', options).format(newData)
-  }
+  const [data, setData] = useState<any>([])
+  const [data2, setData2] = useState<any>([])
+  const [res, setRes] = useState<any>([])
+  const [data3, setData3] = useState<any>([])
+  const [data4, setData4] = useState<any>([])
 
   const handleSetPdfType = () => {
     const type: any = localStorage.getItem('pdfType')
-
     setPdefType(type)
   }
+  const handleFetchDataPadf1 = async () => {
+    const res: any = await getStoreData(Stores.PdfData)
+    setRes([...res])
+    const newData: any = []
+    res.forEach((element: any) => {
+      const newArrayData: any = []
+      newArrayData.push(element.local)
+      newArrayData.push(element.type)
+      newArrayData.push(element.red)
+      newArrayData.push(element.mass)
+      newArrayData.push(element.rep)
+      newArrayData.push(element.dn)
+      newArrayData.push(element.nature)
+      newData.push(newArrayData)
+    })
+    setData(newData)
+    const res2: any = await getStoreData(Stores.PdfInfo)
+    setData2([...res2])
+  }
+  const handleFetchDataPadf2 = async () => {
+    const res: any = await getStoreData(Stores.PdfData2)
+
+    const newData: any = []
+    res.forEach((element: any) => {
+      const newArrayData: any = []
+      newArrayData.push(element.local)
+      newArrayData.push(element.type)
+      newArrayData.push(element.red)
+      newArrayData.push(element.rep)
+      newArrayData.push(element.nature)
+      newData.push(newArrayData)
+    })
+    setData3(newData)
+    const res2: any = await getStoreData(Stores.PdfInfo)
+    setData4([...res2])
+  }
+
+  // const handleFetchDataPadf2 = async () => {
+  //   const res: any = await getStoreData(Stores.PdfData2)
+  //   const res2 = await getStoreData(Stores.PdfInfo)
+
+  //   return [res, res2]
+  // }
   const dispatch = useDispatch<AppDispatch>()
   const handleSendPdf = async () => {
     const type = localStorage.getItem('pdfType')
@@ -123,6 +155,8 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
     function handleOnlineStatusChange() {
       setIsOnline(navigator.onLine)
     }
+    handleFetchDataPadf1()
+    handleFetchDataPadf2()
     handleSetPdfType()
     window.addEventListener('online', handleOnlineStatusChange)
     window.addEventListener('offline', handleOnlineStatusChange)
@@ -151,33 +185,11 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
 
             {count >= 0 &&
               (pdfType === 'indestry' ? (
-                <PDFDownloadLink document={<PDFFile2 count={count} />} fileName={formateDate()}>
-                  {({ loading }) =>
-                    loading ? (
-                      <Button fullWidth variant='tonal' color='secondary'>
-                        loading ...
-                      </Button>
-                    ) : (
-                      <Button fullWidth variant='tonal' color='secondary'>
-                        Télecharger
-                      </Button>
-                    )
-                  }
-                </PDFDownloadLink>
+                <PDFFile2 data={data3} data2={data4} />
               ) : (
-                <PDFDownloadLink document={<PDFFile count={count} />} fileName={formateDate()}>
-                  {({ loading }) =>
-                    loading ? (
-                      <Button fullWidth variant='tonal' color='secondary'>
-                        loading ...
-                      </Button>
-                    ) : (
-                      <Button fullWidth variant='tonal' color='secondary'>
-                        Télecharger
-                      </Button>
-                    )
-                  }
-                </PDFDownloadLink>
+                <>
+                  <PDFFile data={data} data2={data2} res={res} />
+                </>
               ))}
           </CardContent>
         </Card>

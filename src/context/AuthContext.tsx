@@ -53,8 +53,15 @@ const AuthProvider = ({ children }: Props) => {
           })
           .then(async (response: any) => {
             setLoading(false)
-            localStorage.setItem('userData', JSON.stringify(response.data.data))
-            setUser({ ...response.data.data })
+
+            if (response.data.data?.role == 'instalateur') {
+              const sortedData = response.data.data.charge.materials.sort()
+              localStorage.setItem('userData', JSON.stringify(sortedData))
+              setUser({ ...sortedData })
+            } else {
+              localStorage.setItem('userData', JSON.stringify(response.data.data))
+              setUser({ ...response.data.data })
+            }
           })
           .catch(() => {
             localStorage.removeItem('refreshToken')

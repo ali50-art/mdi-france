@@ -61,7 +61,6 @@ const StepperVerticalWithNumbers = () => {
   const handleReset = () => {
     setActiveStep(0)
   }
-  console.log()
 
   return (
     <Card>

@@ -113,9 +113,7 @@ const AddCard = (props: Props) => {
   const handleFetchData = async () => {
     try {
       const res: any = await getStoreData(Stores.PdfData)
-
       const res2 = await getStoreData(Stores.PdfInfo)
-
       if (res.length > 0) {
         setData([...res])
         setlastId(res[res.length - 1].id)
@@ -171,6 +169,7 @@ const AddCard = (props: Props) => {
         localStorage.setItem('rep', '0')
         toast.success('vos avez ajoutez noveux ligine')
         setCount(count + 1)
+        handleSetCount()
       } catch (err: any) {
         toast.error('opps !')
       }
@@ -193,7 +192,7 @@ const AddCard = (props: Props) => {
       localStorage.setItem('lastId', JSON.stringify(newID))
     }
     await deleteData(Stores.PdfData, id)
-
+    handleSetCount()
     setCount(count + 1)
   }
   const handleSaveItem = async (id: any) => {
@@ -220,6 +219,7 @@ const AddCard = (props: Props) => {
     lastData.red = d
     await updateDataById(Stores.PdfData, id, { ...lastData })
     setCount(count + 1)
+    handleSetCount()
   }
   const handleChangeMood = async (id: any) => {
     const index = data.findIndex((el: any) => el.id.toString() == id.toString())
@@ -228,6 +228,7 @@ const AddCard = (props: Props) => {
     lastData.saved = false
     await updateDataById(Stores.PdfData, id, { ...lastData })
     setCount(count + 1)
+    handleSetCount()
   }
   const hnadlesetDn = async (id: any, d: any) => {
     const index = data.findIndex((el: any) => el.id.toString() == id.toString())
@@ -236,6 +237,7 @@ const AddCard = (props: Props) => {
     lastData.dn = d
     await updateDataById(Stores.PdfData, id, { ...lastData })
     setCount(count + 1)
+    handleSetCount()
   }
   const handleSetInput = async (id: any, d: any) => {
     const index = data.findIndex((el: any) => el.id.toString() == id.toString())
@@ -244,6 +246,7 @@ const AddCard = (props: Props) => {
     lastData.local = d
     await updateDataById(Stores.PdfData, id, { ...lastData })
     setCount(count + 1)
+    handleSetCount()
   }
   const handleAddNewLine = async () => {
     if (materials.length == 0) {
@@ -272,6 +275,7 @@ const AddCard = (props: Props) => {
         setCount(count + 1)
         await addData(Stores.PdfData, { ...lastData })
         localStorage.setItem('lastId', JSON.stringify(id + 1))
+        handleSetCount()
       } catch (err) {
         toast.error('opps !')
       }
@@ -298,10 +302,15 @@ const AddCard = (props: Props) => {
         nb += 1
       }
     })
+    handleSetCount()
 
     return nb
   }
   const handleMaterilas = (data: any) => {
+    if (data.length == 0) {
+      data = []
+    }
+
     if (localStorage.getItem('userData')) {
       const x: any = localStorage.getItem('userData')
       const user: any = JSON.parse(x)
