@@ -59,9 +59,9 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
   }, [])
 
   const [init, setInit] = useState<boolean>(false)
-  const [material, setMaterail] = useState<any>([{ id: 1, model: 'B1', counter: 1 }])
+  const [material, setMaterail] = useState<any>([{ id: 1, model: '', counter: 1 }])
   const store = useSelector((state: RootState) => state.material)
-  const data = [Object.values(store.data)]
+  const [data, setData] = useState(Object.values(store.data))
   const { reset, handleSubmit } = useForm({
     defaultValues,
     mode: 'onChange',
@@ -70,8 +70,8 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
   const onSubmit = () => {
     const materials: any = []
     material.forEach((element: any) => {
-      const index = data[0].findIndex((el: any) => el?.model == element?.model)
-      const src: any = data[0][index]
+      const index = data.findIndex((el: any) => el?.model == element?.model)
+      const src: any = data[index]
       const newObj = {
         material: src._id.toString(),
         stock: Number(element?.counter),
@@ -85,7 +85,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
     const chargeId = router.query.slug
     dispatch(ReCharge({ chargeId, type, materials, instalateurId }))
     localStorage.removeItem('marerial')
-    setMaterail([{ id: 1, model: 'B1', counter: 1 }])
+    setMaterail([{ id: 1, model: '', counter: 1 }])
     dispatch(fetchOne({ id: chargeId }))
     dispatch(fetchAllByChargeId({ id: chargeId }))
     toggle()
@@ -94,14 +94,14 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
 
   const handleClose = () => {
     localStorage.removeItem('marerial')
-    setMaterail([{ id: 1, model: 'B1', counter: 1 }])
+    setMaterail([{ id: 1, model: '', counter: 1 }])
     toggle()
     reset()
   }
 
   const handleToLocalStorage = () => {
     const lastId = material[material.length - 1].id
-    const newItem = { id: lastId + 1, model: 'B1', counter: 1 }
+    const newItem = { id: lastId + 1, model: '', counter: 1 }
     setMaterail((prevState: any) => {
       return [...prevState, newItem]
     })
@@ -121,6 +121,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
     } else if (JSON.parse(materailLocalsStorage).length > material.length && init == true) {
       localStorage.setItem('marerial', JSON.stringify(material))
     }
+    handleChackExistingMAterail()
   }
   const handleDeleteItem = (id: string) => {
     setMaterail((prevState: any) => {
@@ -138,6 +139,36 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
       return prevState.map((item: any) => (item.id === id ? { ...item, counter: val } : item))
     })
     localStorage.setItem('marerial', '')
+  }
+  const handleChackExistingMAterail = () => {
+    const localStorageMaterial: any = localStorage.getItem('marerial')
+    if (localStorageMaterial) {
+      const newData: any = []
+      Object.values(store.data).forEach((el: any) => {
+        console.log('el : ', el)
+        console.log('localStorageMaterial : ', localStorageMaterial)
+
+        if (
+          JSON.parse(localStorageMaterial)?.findIndex((ele: any) => ele?.model?.toString() == el?.model?.toString()) ==
+          -1
+        ) {
+          console.log('el.model : ', el.model)
+
+          const newEl = {
+            ...el,
+            status: false
+          }
+          newData.push(newEl)
+        } else {
+          const newEl = {
+            ...el,
+            status: true
+          }
+          newData.push(newEl)
+        }
+      })
+      setData(newData)
+    }
   }
   useEffect(() => {
     initMaterial()
@@ -185,12 +216,26 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                         onChange: e => handleSetRole(e.target.value as string, el.id)
                       }}
                     >
-                      {data[0].map((ele: any) => {
-                        return (
-                          <MenuItem value={ele.model} key={ele.id}>
-                            {ele.model}
-                          </MenuItem>
-                        )
+                      {data.map((ele: any) => {
+                        if (ele?.status === false) {
+                          return (
+                            <MenuItem value={ele.model} key={ele.id}>
+                              {ele.model}
+                            </MenuItem>
+                          )
+                        } else {
+                          return (
+                            <MenuItem
+                              value={ele.model}
+                              key={ele.id}
+                              style={{
+                                display: 'none'
+                              }}
+                            >
+                              {ele.model}
+                            </MenuItem>
+                          )
+                        }
                       })}
                     </CustomTextField>
                   </Grid>
@@ -207,32 +252,65 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
 
                   <Grid item xs={3} sm={2}>
                     {index == material.length - 1 ? (
-                      <Button
-                        variant='contained'
-                        style={{
-                          height: '2.39rem',
-                          marginTop: '1.2rem',
-                          marginLeft: '2%'
-                        }}
-                        onClick={handleToLocalStorage}
-                      >
-                        <svg
-                          xmlns='http://www.w3.org/2000/svg'
-                          className='icon icon-tabler icon-tabler-plus'
-                          width='24'
-                          height='24'
-                          viewBox='0 0 24 24'
-                          stroke-width='1.5'
-                          stroke='#ffffff'
-                          fill='none'
-                          stroke-linecap='round'
-                          stroke-linejoin='round'
+                      <Grid style={{ display: 'flex' }}>
+                        <Button
+                          variant='contained'
+                          style={{
+                            height: '2.39rem',
+                            marginTop: '1.2rem',
+                            marginLeft: '2%',
+                            width: '50%'
+                          }}
+                          onClick={handleToLocalStorage}
                         >
-                          <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-                          <path d='M12 5l0 14' />
-                          <path d='M5 12l14 0' />
-                        </svg>
-                      </Button>
+                          <svg
+                            xmlns='http://www.w3.org/2000/svg'
+                            className='icon icon-tabler icon-tabler-plus'
+                            width='24'
+                            height='24'
+                            viewBox='0 0 24 24'
+                            stroke-width='1.5'
+                            stroke='#ffffff'
+                            fill='none'
+                            stroke-linecap='round'
+                            stroke-linejoin='round'
+                          >
+                            <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+                            <path d='M12 5l0 14' />
+                            <path d='M5 12l14 0' />
+                          </svg>
+                        </Button>
+                        <Button
+                          variant='contained'
+                          style={{
+                            height: '2.39rem',
+                            marginTop: '1.2rem',
+                            marginLeft: '2%',
+                            width: '50%'
+                          }}
+                          onClick={() => handleDeleteItem(el?.id)}
+                        >
+                          <svg
+                            xmlns='http://www.w3.org/2000/svg'
+                            className='icon icon-tabler icon-tabler-trash'
+                            width='24'
+                            height='24'
+                            viewBox='0 0 24 24'
+                            stroke-width='1.5'
+                            stroke='#ffffff'
+                            fill='none'
+                            stroke-linecap='round'
+                            stroke-linejoin='round'
+                          >
+                            <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+                            <path d='M4 7l16 0' />
+                            <path d='M10 11l0 6' />
+                            <path d='M14 11l0 6' />
+                            <path d='M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12' />
+                            <path d='M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3' />
+                          </svg>
+                        </Button>
+                      </Grid>
                     ) : (
                       <Button
                         variant='contained'
