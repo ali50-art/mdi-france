@@ -15,7 +15,6 @@
         "build:icons": "tsc -b src/iconify-bundle && node src/iconify-bundle/bundle-icons-react.js"
     },
     "dependencies": {
-        "@babel/runtime": "^7.22.11",
         "@casl/ability": "6.5.0",
         "@casl/react": "3.1.0",
         "@emotion/cache": "11.10.8",
