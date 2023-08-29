@@ -310,8 +310,7 @@ const AddCard = () => {
 
                           <Grid item lg={1} md={1} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
                             <CustomTextField
-                              placeholder='1'
-                              value={store?.data?.pdefDetails[i].rep}
+                              value={store?.data?.pdefDetails[i].nbRep}
                               InputProps={{ inputProps: { min: 0 } }}
                             />
                           </Grid>

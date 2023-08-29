@@ -3,35 +3,53 @@ import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
 
-import { PDFDownloadLink } from '@react-pdf/renderer'
 import PDFFile from '../../../utils/generatePdfBackend'
+
 import PDFFile2 from '../../../utils/generatePdfBackend2'
 import { RootState } from 'src/store'
 import { useSelector } from 'react-redux'
 import Link from 'next/link'
 import { Icon } from '@iconify/react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 // ** Icon Imports
 
 const AddActions = () => {
-  const formateDate = () => {
-    // Format options for the date in French
-    const newData = new Date()
-    const options: any = {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit'
-    }
-
-    // Format the date using Intl.DateTimeFormat with the French locale
-    return new Intl.DateTimeFormat('fr-FR', options).format(newData)
-  }
   const store: any = useSelector((state: RootState) => state.suiviChantierPdf)
+  const [data, setData] = useState<any>([])
+  const [data2, setData2] = useState<any>([])
+  const handleSetData = () => {
+    const dataFiltered: any = []
+    store?.data?.pdefDetails?.forEach((element: any) => {
+      const newData = []
+      newData.push(element.place)
+      newData.push(element.filterType)
+      newData.push(element.model)
+      newData.push(element.mass)
+      newData.push(element.nbRep)
+      newData.push(element.dn)
+      newData.push(element.nature)
+      dataFiltered.push(newData)
+    })
+    setData(dataFiltered)
+  }
+  const handleSetData2 = () => {
+    const dataFiltered: any = []
+    store?.data?.pdefDetails?.forEach((element: any) => {
+      const newData = []
+      newData.push(element.place)
+      newData.push(element.filterType)
+      newData.push(element.model)
+      newData.push(element.nbRep)
+      newData.push(element.nature)
+      dataFiltered.push(newData)
+    })
+    setData2(dataFiltered)
+  }
+
   useEffect(() => {
-    console.log('ojpoj')
+    handleSetData()
+    handleSetData2()
   }, [store.data])
 
   return (
@@ -39,33 +57,9 @@ const AddActions = () => {
       <Grid item xs={12}>
         <Card>
           {store.data.type === 'indestry' ? (
-            <PDFDownloadLink document={<PDFFile2 data={store} />} fileName={formateDate()}>
-              {({ loading }) =>
-                loading ? (
-                  <Button fullWidth variant='contained' sx={{ mb: 2, '& svg': { mr: 2 } }}>
-                    loading ...
-                  </Button>
-                ) : (
-                  <Button fullWidth variant='contained' sx={{ mb: 2, '& svg': { mr: 2 } }}>
-                    Télecharger
-                  </Button>
-                )
-              }
-            </PDFDownloadLink>
+            <PDFFile2 data={store.data} data2={data2} />
           ) : (
-            <PDFDownloadLink document={<PDFFile data={store} />} fileName={formateDate()}>
-              {({ loading }) =>
-                loading ? (
-                  <Button fullWidth variant='contained' sx={{ mb: 2, '& svg': { mr: 2 } }}>
-                    loading ...
-                  </Button>
-                ) : (
-                  <Button fullWidth variant='contained' sx={{ mb: 2, '& svg': { mr: 2 } }}>
-                    Télecharger
-                  </Button>
-                )
-              }
-            </PDFDownloadLink>
+            <PDFFile data={store.data} data2={data} />
           )}
           <Link href='/suivi-chantier'>
             <Button fullWidth variant='outlined' sx={{ '& svg': { mr: 2 }, marginRight: '1.5rem' }}>

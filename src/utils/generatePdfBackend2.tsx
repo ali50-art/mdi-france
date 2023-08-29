@@ -1,343 +1,131 @@
-import { Page, Text, Document, StyleSheet, View } from '@react-pdf/renderer'
-import { Font } from '@react-pdf/renderer'
-import MyCustomFont from '../fonts/Anton-Regular.ttf'
+import React from 'react'
+import Button from '@mui/material/Button'
+import jsPDF from 'jspdf'
 
-Font.register({
-  family: 'AntonFamily',
-  src: MyCustomFont
-})
+import 'jspdf-autotable'
 
-const styles = StyleSheet.create({
-  body: {
-    paddingTop: 35,
-    paddingBottom: 65,
-    paddingHorizontal: 35
-  },
-  title: {
-    fontSize: 24,
-    textAlign: 'center',
-    fontFamily: 'AntonFamily'
-  },
-  text: {
-    margin: 12,
-    fontSize: 14,
-    textAlign: 'justify',
-    fontFamily: 'AntonFamily'
-  },
-  image: {
-    width: '40%',
-    position: 'absolute',
-    top: '100%',
-    left: '50%',
-    transform: 'translate(-120%, -50%)'
-  },
-  header: {
-    fontSize: 12,
-    marginBottom: 20,
-    textAlign: 'center',
-    color: 'grey',
-    fontFamily: 'AntonFamily'
-  },
-  firstTitle: {
-    marginTop: '230px',
-    fontSize: '12',
-    marginBottom: '10px',
-    color: '#000',
-    textDecoration: 'underline'
-  },
-  fontSize: {
-    fontSize: '10px',
-    color: '#000',
-    marginBottom: '4px'
-  },
-  boldStyle: {
-    width: '160px',
-    marginLeft: '250px'
-  },
-  boldStyle2: {
-    marginLeft: '70px'
-  },
-  boldStyle3: {
-    marginLeft: '60px'
-  },
-  pageNumber: {
-    position: 'absolute',
-    fontSize: 12,
-    bottom: 30,
-    left: 0,
-    right: 0,
-    textAlign: 'center',
-    color: 'grey',
-    fontFamily: 'AntonFamily'
-  },
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10
-  },
-  checkbox: {
-    width: 10,
-    height: 10,
-    borderWidth: 1,
-    borderColor: '#000',
-    marginRight: 5
-  },
-  label: {
-    fontSize: 10
-  },
-  table: {
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderBottomColor: '#000',
-    alignItems: 'center',
-    height: 30,
-    textAlign: 'center',
-    fontSize: 12
-  },
-  columnHeader: {
-    width: '14.28%', // 100% divided by 7 columns
-    borderRightWidth: 1,
-    borderRightColor: '#000'
-  },
-  headerContainer: {
-    flexDirection: 'row'
-  },
-  headerText: {
-    width: '50%' // 100% divided by 2 columns
-  },
-  bodyRow: {
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderBottomColor: '#000',
-    height: 30,
-    textAlign: 'center',
-    fontSize: 12
-  },
-  container2: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    position: 'absolute',
-    bottom: 50,
-    width: '100%'
-  },
-  view: {
-    width: '50%',
-    textAlign: 'center',
-    padding: '0 10px'
-  },
-  text2: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    marginBottom: '2px'
-  },
-  text3: {
-    fontSize: 10,
-    marginBottom: '2px'
-  }
-})
-const Table = () => (
-  <View>
-    {/* First header */}
-    <View style={[styles.table, styles.headerContainer]}>
-      <View style={[styles.columnHeader, styles.headerText]}>
-        <Text></Text>
-      </View>
-      <View style={[styles.columnHeader, styles.headerText]}>
-        <Text>Matelas isolants : </Text>
-      </View>
-      {/* Seven columns in the second header */}
-    </View>
+// const centerText = (pdf: any, title: any) => {
+//   const pageWidth = pdf.internal.pageSize.getWidth()
+//   const titleWidth = (pdf.getStringUnitWidth(title) * pdf.internal.getFontSize()) / pdf.internal.scaleFactor
 
-    {/* Example row in the body */}
-    <View style={styles.bodyRow}>
-      <View style={[styles.columnHeader, styles.headerText]}>
-        <Text>Zone d'implantation</Text>
-      </View>
-      <View style={[styles.columnHeader, styles.headerText]}>
-        <Text>Types de point singulier</Text>
-      </View>
-      {/* Seven cells in the second row */}
-      <View style={[styles.columnHeader, styles.headerText]}>
-        <Text>Référence mateles</Text>
-      </View>
+//   // Calculate the x-coordinate to center the text
+//   const xCenter = (pageWidth - titleWidth) / 2
 
-      <View style={[styles.columnHeader, styles.headerText]}>
-        <Text>N° De repérage</Text>
-      </View>
+//   return pdf.text(title, xCenter, 20)
+// }
 
-      <View style={[styles.columnHeader, styles.headerText]}>
-        <Text>Fluid</Text>
-      </View>
-    </View>
-  </View>
-)
+const PDFGenerator = ({ data, data2 }: any) => {
+  // Define custom dimensions (height and width)
 
-const PDFFile = ({ data }: any) => {
-  const store: any = data
+  // Create a new jsPDF instance with swapped dimensions
+  const pdf: any = new jsPDF({
+    orientation: 'l', // Swap orientation based on dimensions
+    unit: 'mm'
+  })
 
-  const Pages = [
-    {
-      page: (
-        <Page size='A3'>
-          <View
-            style={{
-              textAlign: 'center'
-            }}
-            fixed
-          >
-            <View
-              style={{
-                textAlign: 'center',
-                position: 'relative'
-              }}
-              fixed
-            >
-              {/* <Image src='/images/apple-touch-icon.png' style={styles.image} /> */}
-            </View>
-
-            <View>
-              <Text style={styles.firstTitle}>ETAT RECAPITULATIF INDUSTERIS</Text>
-              <Text style={{ textAlign: 'center', marginBottom: '4px' }}>
-                <Text style={styles.fontSize}>je sousigné</Text>
-              </Text>
-              <Text style={styles.fontSize}>{store.data?.orderDetailId?.name}</Text>
-              <Text style={styles.fontSize}>{store.data?.orderDetailId?.address}</Text>
-              <Text style={styles.fontSize}>
-                {store.data?.orderDetailId?.codePost + ' ' + store.data?.orderDetailId?.ville}{' '}
-              </Text>
-            </View>
-            <View style={{ marginTop: '16px' }}>
-              <Text style={styles.fontSize}>
-                Attest sur l'honneur avoir mis en oeuvre les travaux d'isolation de points singuliers
-              </Text>
-              <Text style={{ textAlign: 'center', marginBottom: '4px' }}>
-                <Text style={styles.fontSize}>au bénefice de : </Text>
-              </Text>
-
-              <Text style={styles.fontSize}>{store.data?.clientName}</Text>
-              <Text style={{ textAlign: 'center', marginBottom: '4px' }}>
-                <Text style={styles.fontSize}>{store.data?.clientAdress}</Text>
-              </Text>
-              <Text style={styles.fontSize}>{store.data?.clientCodePostal + ' ' + store.data?.clientVille}</Text>
-            </View>
-            <View style={{ marginTop: '16px', marginBottom: '16px' }}>
-              <Text style={styles.boldStyle2}>
-                <Text>
-                  <Text style={{ fontSize: 12 }}>Marque : </Text>{' '}
-                  <Text style={{ fontSize: '11' }}>MDI TECHNOLOGIE</Text>
-                </Text>
-              </Text>
-              <Text style={styles.boldStyle3}>
-                <Text>
-                  <Text style={{ fontSize: 12 }}>Résistance thermique</Text>{' '}
-                  <Text style={{ fontSize: '11' }}>
-                    {' '}
-                    : 1,5 m².K/w sur un réseau d'au chaude et retour de condensats a température moyenne de 70°c
-                  </Text>
-                </Text>
-              </Text>
-              <View style={styles.boldStyle3}>
-                <Text style={{ fontSize: '11', marginLeft: '130px' }}>
-                  {' '}
-                  : 1,2 m².K/w sur un réseau vapeur a tempurature moyenne de 110°c
-                </Text>
-              </View>
-              <View style={styles.boldStyle3}>
-                <Text style={{ fontSize: '11', marginLeft: '130px' }}>
-                  {' '}
-                  : 1,2 m².K/w sur un réseau fluide organique a tempurature moyenne de 120°c
-                </Text>
-              </View>
-
-              <Text style={styles.boldStyle2}>
-                <Text>
-                  <Text style={{ fontSize: 12 }}>Isolant et référance</Text>{' '}
-                  <Text style={{ fontSize: '11' }}> : Laine de verre ISOVER TECH ROLL 3.0- classé au feu A1</Text>
-                </Text>
-              </Text>
-              <Text style={styles.boldStyle2}>
-                <Text>
-                  <Text style={{ fontSize: 12 }}>Température maximale : </Text>{' '}
-                  <Text style={{ fontSize: '11' }}>300°C</Text>
-                </Text>
-              </Text>
-            </View>
-          </View>
-          <View
-            style={{
-              textAlign: 'center'
-            }}
-            fixed
-          >
-            <Text style={{ marginTop: '50px' }}></Text>
-            <Text style={styles.boldStyle2}>
-              <Text>
-                <Text style={{ fontSize: 12 }}>Référance : </Text> <Text style={{ fontSize: '11' }}>ISOVAN</Text>
-              </Text>
-            </Text>
-
-            <Text style={{ marginTop: '10px' }}>
-              <Text>
-                <Text style={{ fontSize: 12 }}>Total de fuilde organique {store.data.pdefDetails.length} </Text>{' '}
-              </Text>
-            </Text>
-          </View>
-          <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => `${pageNumber} / ${totalPages}`} />
-        </Page>
+  const generatePdf = () => {
+    // Add logo image
+    const imgWidth = 50 // Adjust the width of the logo
+    const imgHeight = 30 // Adjust the height of the logo
+    const xPosition = (pdf.internal.pageSize.getWidth() - imgWidth) / 2
+    if (data.orderDetailId) {
+      pdf.addImage(
+        `${process.env.NEXT_PUBLIC_SERVER_URI}/orderDetails/${data.orderDetailId.photo}`,
+        '',
+        xPosition,
+        10,
+        imgWidth,
+        imgHeight
       )
-    },
-    {
-      page: (
-        <Page size='A3'>
-          <View>
-            {/* Render the table */}
-            <Table />
-            {store.data.pdefDetails?.map((el: any, i: number) => {
-              return (
-                <View style={styles.bodyRow} key={i}>
-                  <View style={[styles.columnHeader, styles.headerText]}>
-                    <Text>{el.place}</Text>
-                  </View>
-                  <View style={[styles.columnHeader, styles.headerText]}>
-                    <Text>{el.filterType}</Text>
-                  </View>
-                  {/* Seven cells in the second row */}
-                  <View style={[styles.columnHeader, styles.headerText]}>
-                    <Text>{el.model}</Text>
-                  </View>
-                  <View style={[styles.columnHeader, styles.headerText]}>
-                    <Text>{el.nbRep}</Text>
-                  </View>
-                  <View style={[styles.columnHeader, styles.headerText]}>
-                    <Text>{el.nature}</Text>
-                  </View>
-                </View>
-              )
-            })}
-          </View>
-          <View style={styles.container2}>
-            <View style={styles.view}>
-              <Text style={styles.text2}>Signature + Date + Cachet</Text>
-              <Text style={styles.text3}>Nom/Prénom/Fonction de réprésentation</Text>
-            </View>
-            <View style={styles.view}>
-              <Text style={styles.text2}>Signature + Date + Cachet</Text>
-              <Text style={styles.text3}>Nom/Prénom/Fonction de réprésentation</Text>
-            </View>
-          </View>
-          <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => `${pageNumber} / ${totalPages}`} />
-        </Page>
+    } else {
+      pdf.addImage(
+        `${process.env.NEXT_PUBLIC_SERVER_URI}/orderDetails/default.png`,
+        'PNG',
+        xPosition,
+        10,
+        imgWidth,
+        imgHeight
       )
     }
-  ]
+
+    pdf.setFontSize(15)
+
+    pdf.text(`ETAT RECAPITULATIF INDUSTERIS`, 150, 49, { align: 'center' })
+    pdf.setFontSize(12)
+    pdf.text(`je sousigné `, 150, 55, { align: 'center' })
+    if (data.orderDetailId) {
+      pdf.text(`${data.orderDetailId.name}`, 150, 60, { align: 'center' })
+      pdf.text(`${data.orderDetailId.address}`, 150, 65, { align: 'center' })
+      pdf.text(`${data.orderDetailId.ville} ${data.orderDetailId.codePostal}`, 150, 70, { align: 'center' })
+    } else {
+      pdf.text(`MD INDUSTRIE`, 150, 60, { align: 'center' })
+      pdf.text(`23 Avenue Fréres Montgolfier`, 150, 65, { align: 'center' })
+      pdf.text(`69680 CHASSIEU`, 150, 70, { align: 'center' })
+    }
+
+    pdf.text(
+      `Attest sur l'honneur avoir mis en oeuvre les travaux d'isolation de points singuliers
+    `,
+      150,
+      80,
+      { align: 'center' }
+    )
+
+    pdf.text(`je sousigné `, 150, 89, { align: 'center' })
+    pdf.text(`${data.clientAdress}`, 150, 96, { align: 'center' })
+    pdf.text(`${data.clientVille} ${data.clientCodePostal}`, 150, 101, { align: 'center' })
+    pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 115, { align: 'center' })
+    pdf.text(`Résistance thermique : 1,58 m².K/w à un tempurature moyenne de 50°c`, 150, 128, { align: 'center' })
+    pdf.text(`: 1,27 m².K/w à un tempurature moyenne de 100°c`, 172, 133, { align: 'center' })
+    pdf.text(`Isolant et référance : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1`, 150, 138, {
+      align: 'center'
+    })
+    pdf.text(`Température maximale : 200°C1`, 150, 145, {
+      align: 'center'
+    })
+    pdf.text(`Température fluide caloporteur : 70°C`, 150, 150, {
+      align: 'center'
+    })
+    pdf.text(`Référance : ISOVAN`, 150, 155, {
+      align: 'center'
+    })
+    pdf.text(`Lieu d'implantationdes metelas : CHAUFFERIE`, 150, 160, {
+      align: 'center'
+    })
+    pdf.text(`Nomber de points singuliers posés : `, 150, 165, {
+      align: 'center'
+    })
+
+    pdf.text(`Total de points singuliers = ${data.length}`, 150, 190, {
+      align: 'center'
+    })
+    pdf.addPage()
+
+    // Dynamic content on subsequent pages
+    pdf.setFontSize(12)
+    const tableHeader = [
+      `lieu d'implantation`,
+      `Types de point singulier`,
+      `Référence mateles`,
+      'N° De repérage',
+      'Nature de flu ide calopor teur'
+    ]
+    pdf.autoTable({
+      startY: 30,
+
+      head: [tableHeader],
+      body: data2
+    })
+
+    // Save the PDF using save() method
+    pdf.save('example.pdf')
+  }
 
   return (
-    <Document>
-      {Pages?.map((el: any) => {
-        return el.page
-      })}
-    </Document>
+    <Button fullWidth variant='tonal' color='secondary' onClick={generatePdf}>
+      Télecharger
+    </Button>
   )
 }
 
-export default PDFFile
+export default PDFGenerator
