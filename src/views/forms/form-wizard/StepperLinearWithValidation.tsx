@@ -73,7 +73,7 @@ const accountSchema = yup.object().shape({
   ville: yup.string().required(),
   codePostal: yup
     .string()
-    .matches(/^\d{2}$/, 'ce champ doit inclure deux chiffres')
+    .matches(/^[0-9]+$/, 'ce champ doit inclure deux chiffres')
     .required('ce champ est obligatoire!')
 })
 
