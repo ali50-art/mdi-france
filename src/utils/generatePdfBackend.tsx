@@ -36,7 +36,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
     const imgHeight = 30 // Adjust the height of the logo
     const xPosition = (pdf.internal.pageSize.getWidth() - imgWidth) / 2
     let imageSrc: any = '../images/logo.png'
-    if (data.orderDetailId.photo) {
+    if (data?.orderDetailId?.photo) {
       imageSrc = `${process.env.NEXT_PUBLIC_SERVER_URI}/orderDetails/${data.orderDetailId.photo}`
     }
     const extanstion = imageSrc.split('.')
