@@ -40,7 +40,8 @@ const PDFGenerator = ({ data, data2 }: any) => {
       imageSrc = `${process.env.NEXT_PUBLIC_SERVER_URI}/orderDetails/${data.orderDetailId.photo}`
     }
     const extanstion = imageSrc.split('.')
-    pdf.addImage(imageSrc, extanstion[extanstion.length - 1], xPosition, 10, imgWidth, imgHeight)
+
+    pdf.addImage(imageSrc, extanstion[extanstion.length - 1].toUpperCase(), xPosition, 10, imgWidth, imgHeight)
 
     pdf.setFontSize(15)
 
