@@ -31,7 +31,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
     if (data.orderDetailId) {
       pdf.addImage(
         `${process.env.NEXT_PUBLIC_SERVER_URI}/orderDetails/${data.orderDetailId.photo}`,
-        '',
+        'PNG',
         xPosition,
         10,
         imgWidth,
