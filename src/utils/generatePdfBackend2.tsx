@@ -37,15 +37,6 @@ const PDFGenerator = ({ data, data2 }: any) => {
         imgWidth,
         imgHeight
       )
-    } else {
-      pdf.addImage(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/orderDetails/default.png`,
-        'PNG',
-        xPosition,
-        10,
-        imgWidth,
-        imgHeight
-      )
     }
 
     pdf.setFontSize(15)

@@ -4,16 +4,6 @@ import jsPDF from 'jspdf'
 
 import 'jspdf-autotable'
 
-// const centerText = (pdf: any, title: any) => {
-//   const pageWidth = pdf.internal.pageSize.getWidth()
-//   const titleWidth = (pdf.getStringUnitWidth(title) * pdf.internal.getFontSize()) / pdf.internal.scaleFactor
-
-//   // Calculate the x-coordinate to center the text
-//   const xCenter = (pageWidth - titleWidth) / 2
-
-//   return pdf.text(title, xCenter, 20)
-// }
-
 const PDFGenerator = ({ data, data2 }: any) => {
   // Define custom dimensions (height and width)
 
@@ -54,8 +44,6 @@ const PDFGenerator = ({ data, data2 }: any) => {
         imgWidth,
         imgHeight
       )
-    } else {
-      pdf.addImage('../images/logo.png', '', xPosition, 10, imgWidth, imgHeight)
     }
 
     pdf.setFontSize(15)
