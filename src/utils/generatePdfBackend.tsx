@@ -35,16 +35,12 @@ const PDFGenerator = ({ data, data2 }: any) => {
     const imgWidth = 50 // Adjust the width of the logo
     const imgHeight = 30 // Adjust the height of the logo
     const xPosition = (pdf.internal.pageSize.getWidth() - imgWidth) / 2
-    if (data.orderDetailId) {
-      pdf.addImage(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/orderDetails/${data.orderDetailId.photo}`,
-        'PNG',
-        xPosition,
-        10,
-        imgWidth,
-        imgHeight
-      )
+    let imageSrc: any = '../images/logo.png'
+    if (data.orderDetailId.photo) {
+      imageSrc = `${process.env.NEXT_PUBLIC_SERVER_URI}/orderDetails/${data.orderDetailId.photo}`
     }
+    const extanstion = imageSrc.split('.')
+    pdf.addImage(imageSrc, extanstion[extanstion.length - 1], xPosition, 10, imgWidth, imgHeight)
 
     pdf.setFontSize(15)
 
