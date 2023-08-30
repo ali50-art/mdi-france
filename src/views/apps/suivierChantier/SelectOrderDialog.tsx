@@ -91,7 +91,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
             pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
           }}
         >
-          Selection d'un instalateur
+          Sélection le donneurs d'ordre
         </DialogTitle>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent
@@ -107,7 +107,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                   fullWidth
                   value={role}
                   sx={{ mb: 4 }}
-                  label="Sélectionnez le Donner d'order"
+                  label="les Donner d'order"
                   SelectProps={{ value: role, onChange: e => setRole(e.target.value as string) }}
                 >
                   {store.data.map((el: any) => {
@@ -129,7 +129,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
             }}
           >
             <Button type='submit' variant='contained' sx={{ mr: 3 }} onClick={handleSubmit(onSubmit)}>
-              Confirmer
+              sélectionner
             </Button>
             <Button variant='tonal' color='secondary' onClick={handleClose}>
               Annuler
