@@ -42,10 +42,6 @@ const PDFGenerator = ({ data, data2, res }: any) => {
   const generatePdf = () => {
     // Add logo image
     const [Between20And65, Between66And100, morThen100] = handleDn()
-    const imgWidth = 50 // Adjust the width of the logo
-    const imgHeight = 30 // Adjust the height of the logo
-    const xPosition = (pdf.internal.pageSize.getWidth() - imgWidth) / 2
-    pdf.addImage('../images/logo.png', '', xPosition, 10, imgWidth, imgHeight)
 
     pdf.setFontSize(15)
 
