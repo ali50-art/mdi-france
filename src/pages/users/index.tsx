@@ -386,9 +386,8 @@ const UserList = () => {
                 >
                   <MenuItem value=''>Sélectionnez un rôle</MenuItem>
                   <MenuItem value='admin'>Admin</MenuItem>
-                  <MenuItem value='logistique'>Logistique</MenuItem>
+                  <MenuItem value='logisticien'>logisticien</MenuItem>
                   <MenuItem value='instalateur'>Instalateur</MenuItem>
-                  <MenuItem value='assistant'>assistant</MenuItem>
                 </CustomTextField>
               </Grid>
 
