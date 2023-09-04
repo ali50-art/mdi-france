@@ -149,7 +149,7 @@ const RowOptions = ({ id, chargeDetailId }: { id: number | string; chargeDetailI
         </MenuItem>
         <MenuItem onClick={handleCompleteInstalteurBuiling} sx={{ '& svg': { mr: 2 } }}>
           <Icon icon='tabler:truck' fontSize={20} />
-          Terminer Chaniter
+          Fin de tournée
         </MenuItem>
       </Menu>
       {showMateral && <DecalirRetourDialg open={showMateral} toggle={handleShowMaterail} data={store.matData} />}
