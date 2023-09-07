@@ -107,7 +107,12 @@ const UserDropdown = (props: Props) => {
           horizontal: 'right'
         }}
       >
-        <Avatar alt='avatar' src='/images/avatars/1.png' onClick={handleDropdownOpen} sx={{ width: 38, height: 38 }} />
+        <Avatar
+          alt='avatar'
+          src={`${process.env.NEXT_PUBLIC_SERVER_URI}/users/default-user.png`}
+          onClick={handleDropdownOpen}
+          sx={{ width: 38, height: 38 }}
+        />
       </Badge>
       <Menu
         anchorEl={anchorEl}
@@ -127,7 +132,11 @@ const UserDropdown = (props: Props) => {
                 horizontal: 'right'
               }}
             >
-              <Avatar alt='John Doe' src='/images/avatars/1.png' sx={{ width: '2.5rem', height: '2.5rem' }} />
+              <Avatar
+                alt='John Doe'
+                src={`${process.env.NEXT_PUBLIC_SERVER_URI}/users/default-user.png`}
+                sx={{ width: '2.5rem', height: '2.5rem' }}
+              />
             </Badge>
             <Box sx={{ display: 'flex', ml: 2.5, alignItems: 'flex-start', flexDirection: 'column' }}>
               <Typography sx={{ fontWeight: 500 }}>{user?.user?.fullName}</Typography>
@@ -135,19 +144,7 @@ const UserDropdown = (props: Props) => {
             </Box>
           </Box>
         </Box>
-        <Divider sx={{ my: theme => `${theme.spacing(2)} !important` }} />
-        <MenuItemStyled sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
-          <Box sx={styles}>
-            <Icon icon='tabler:user-check' />
-            Mon profil
-          </Box>
-        </MenuItemStyled>
-        <MenuItemStyled sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
-          <Box sx={styles}>
-            <Icon icon='tabler:settings' />
-            Settings
-          </Box>
-        </MenuItemStyled>
+
         <Divider sx={{ my: theme => `${theme.spacing(2)} !important` }} />
         <MenuItemStyled sx={{ p: 0 }} onClick={handleLogout}>
           <Box sx={styles}>

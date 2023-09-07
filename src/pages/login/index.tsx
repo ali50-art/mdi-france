@@ -87,8 +87,8 @@ const schema = yup.object().shape({
 })
 
 const defaultValues = {
-  password: 'instalateur',
-  email: 'instalateur@mdi.com'
+  password: '',
+  email: ''
 }
 
 interface FormData {
