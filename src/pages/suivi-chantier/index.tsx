@@ -8,6 +8,7 @@ import Card from '@mui/material/Card'
 import Menu from '@mui/material/Menu'
 import Grid from '@mui/material/Grid'
 import Divider from '@mui/material/Divider'
+import CustomTextField from 'src/@core/components/mui/text-field'
 import MenuItem from '@mui/material/MenuItem'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
@@ -17,6 +18,8 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 import Link from 'next/link'
+
+import { SelectChangeEvent } from '@mui/material/Select'
 
 // ** Store Imports
 import { useDispatch, useSelector } from 'react-redux'
@@ -39,6 +42,7 @@ import TableHeader from 'src/views/apps/logistique/list/TableHeader'
 import AddMaterialDrawer from 'src/views/apps/material/list/AddMaterialDrawer'
 import SelectOrderDialgo from 'src/views/apps/suivierChantier/SelectOrderDialog'
 import CustomChip from 'src/@core/components/mui/chip'
+import { CardContent } from '@mui/material'
 
 // import EditUserDrawer from 'src/views/apps/user/list/EditeUserDrawer'
 
@@ -137,6 +141,7 @@ const RowOptions = ({ id }: { id: number | string }) => {
 const AdminDashboard = () => {
   // ** State
   const [value, setValue] = useState<string>('')
+  const [Type, setType] = useState<string>('')
   const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
   const [page, setPage] = useState<number>(1)
@@ -147,6 +152,9 @@ const AdminDashboard = () => {
 
     setPaginationModel({ page: params.page, pageSize: params.pageSize })
   }
+  const handleRoleChange = useCallback((e: SelectChangeEvent<unknown>) => {
+    setType(e.target.value as string)
+  }, [])
 
   // Handle Edit dialog
   // const handleEditClickOpen = () => setOpenEdit(true)
@@ -240,12 +248,13 @@ const AdminDashboard = () => {
     dispatch(
       fetchData({
         search: value,
+        status: Type,
         page,
         pageSize,
-        sort: 'createdAt'
+        sort: '-createdAt'
       })
     )
-  }, [dispatch, value, page, pageSize])
+  }, [dispatch, value, Type, page, pageSize])
 
   const handleFilter = useCallback((val: string) => {
     setValue(val)
@@ -258,7 +267,26 @@ const AdminDashboard = () => {
       <Grid item xs={12}>
         <Card>
           <CardHeader title='Filtres de recherche' />
-
+          <CardContent>
+            <Grid container spacing={6}>
+              <Grid item sm={4} xs={12}>
+                <CustomTextField
+                  select
+                  fullWidth
+                  defaultValue='filter'
+                  SelectProps={{
+                    value: Type,
+                    displayEmpty: true,
+                    onChange: e => handleRoleChange(e)
+                  }}
+                >
+                  <MenuItem value=''>Sélectionnez un statut</MenuItem>
+                  <MenuItem value='true'>Traiter</MenuItem>
+                  <MenuItem value='false'>No Traiter</MenuItem>
+                </CustomTextField>
+              </Grid>
+            </Grid>
+          </CardContent>
           <Divider sx={{ m: '0 !important' }} />
           <TableHeader
             value={value}
