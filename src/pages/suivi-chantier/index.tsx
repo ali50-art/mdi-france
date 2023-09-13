@@ -41,6 +41,7 @@ import { RootState, AppDispatch } from 'src/store'
 import TableHeader from 'src/views/apps/logistique/list/TableHeader'
 import AddMaterialDrawer from 'src/views/apps/material/list/AddMaterialDrawer'
 import SelectOrderDialgo from 'src/views/apps/suivierChantier/SelectOrderDialog'
+import TotalDialog from 'src/views/apps/suivierChantier/TotalDialog'
 import CustomChip from 'src/@core/components/mui/chip'
 import { CardContent } from '@mui/material'
 
@@ -73,7 +74,7 @@ const RowOptions = ({ id }: { id: number | string }) => {
   // ** State
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
-
+  const [openTotalModel, setOpenTotalModel] = useState<any>(false)
   const rowOptionsOpen = Boolean(anchorEl)
 
   const handleRowOptionsClick = (event: MouseEvent<HTMLElement>) => {
@@ -85,6 +86,10 @@ const RowOptions = ({ id }: { id: number | string }) => {
   const handleOpenEdite = () => {
     handleRowOptionsClose()
     setAddUserOpen(!addUserOpen)
+  }
+  const handleOpenTotal = () => {
+    handleRowOptionsClose()
+    setOpenTotalModel(!openTotalModel)
   }
 
   // const handleDelete = () => {
@@ -132,7 +137,12 @@ const RowOptions = ({ id }: { id: number | string }) => {
           <Icon icon='tabler:edit' fontSize={20} />
           traiter
         </MenuItem>
+        <MenuItem sx={{ '& svg': { mr: 2 } }} onClick={handleOpenTotal}>
+          <Icon icon='tabler:truck' fontSize={20} />
+          total
+        </MenuItem>
       </Menu>
+      {openTotalModel && <TotalDialog open={openTotalModel} toggle={handleOpenTotal} id={id} />}
       {addUserOpen && <SelectOrderDialgo open={addUserOpen} toggle={handleOpenEdite} id={id} />}
     </>
   )

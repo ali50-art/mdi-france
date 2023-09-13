@@ -67,6 +67,18 @@ export const addPdf = createAsyncThunk('appPdf/addPdf', async (data: any) => {
   return response
 })
 
+// ** Fetch Users
+export const fetchCountData = createAsyncThunk('appPdf/fetchCountData', async (params: any) => {
+  const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
+  const response = await axios.get(`${serverUri.uri}/api/pdf/countPdf/${params.id}`, {
+    headers: {
+      Authorization: storedToken
+    }
+  })
+
+  return response.data.data
+})
+
 // ** Delete User
 export const deletePdf = createAsyncThunk(
   'appPdf/deletePdf',
@@ -108,6 +120,7 @@ export const appPdfSlice = createSlice({
   name: 'appPdf',
   initialState: {
     data: [],
+    countedData: [],
     total: 1,
     isLoading: false,
     params: {},
@@ -137,6 +150,17 @@ export const appPdfSlice = createSlice({
       state.params = {}
       state.allData = action.payload.dataCoipe
     })
+    builder
+      .addCase(fetchCountData.pending, state => {
+        state.isLoading = true
+      })
+      .addCase(fetchCountData.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.countedData = action.payload
+      })
+      .addCase(fetchCountData.rejected, state => {
+        state.isLoading = false
+      })
   }
 })
 
