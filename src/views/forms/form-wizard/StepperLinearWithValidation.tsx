@@ -314,7 +314,7 @@ const StepperLinearWithValidation = () => {
             <Grid container spacing={5}>
               <Grid item xs={12}>
                 <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
-                  Information d'instalation
+                  Information d’installation
                 </Typography>
                 <Typography variant='caption' component='p'>
                   Entrer les informations d’installation

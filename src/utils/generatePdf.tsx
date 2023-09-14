@@ -69,7 +69,7 @@ const PDFGenerator = ({ data, data2, res }: any) => {
       128,
       { align: 'center' }
     )
-    pdf.text(`: 1,27 m².K/w à un tempurature moyenne de 100°c et non 1,58`, 172, 133, { align: 'center' })
+    pdf.text(`: 1,27m2.K/W à une température moyenne de 100°C et non 1,58`, 172, 133, { align: 'center' })
     pdf.text(`Isolant et référance : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1`, 150, 138, {
       align: 'center'
     })

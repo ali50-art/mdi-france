@@ -306,8 +306,8 @@ const AddCard = (props: Props) => {
 
     return nb
   }
-  console.log('uuity');
-  
+  console.log('uuity')
+
   const handleMaterilas = (data: any) => {
     if (data.length == 0) {
       data = []
@@ -386,7 +386,7 @@ const AddCard = (props: Props) => {
                     <TableRow>
                       <MUITableCell>
                         <Typography sx={{ color: 'text.secondary' }}>
-                          <strong>TEMPERATURE MAXIMALE:</strong> 300°c
+                          <strong>TEMPERATURE MAXIMALE:</strong> 200°c
                         </Typography>
                       </MUITableCell>
                     </TableRow>
@@ -426,7 +426,7 @@ const AddCard = (props: Props) => {
                     </TableRow>
                     <TableRow>
                       <Typography sx={{ color: 'text.secondary' }}>
-                        :1,58 m².K/W a une tempurature moyenne de 100 °C
+                        :1,27m2.K/W à une température moyenne de 100°C et non 1,58
                       </Typography>
                     </TableRow>
                   </TableBody>
