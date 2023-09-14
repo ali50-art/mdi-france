@@ -181,7 +181,7 @@ const AddCard = (props: Props) => {
           type: '',
           red: '',
           rep: rep,
-          nature: 'FLUID ORGANIQUE',
+          nature: '',
           categoryId: JSON.stringify(new Date()),
           saved: false
         }
@@ -230,6 +230,15 @@ const AddCard = (props: Props) => {
 
     const lastData = data[index]
     lastData.type = d
+    await updateDataById(Stores.PdfData2, id, { ...lastData })
+    setCount(count + 1)
+    handleSetCount()
+  }
+  const handleSetNature = async (id: any, d: any) => {
+    const index = data.findIndex((el: any) => el.id.toString() == id.toString())
+
+    const lastData = data[index]
+    lastData.nature = d
     await updateDataById(Stores.PdfData2, id, { ...lastData })
     setCount(count + 1)
     handleSetCount()
@@ -297,6 +306,7 @@ const AddCard = (props: Props) => {
         lastData.id += 1
         lastData.type = ''
         lastData.red = ''
+        lastData.nature = ''
         lastData.saved = false
         setCount(count + 1)
         await addData(Stores.PdfData2, { ...lastData })
@@ -568,7 +578,25 @@ const AddCard = (props: Props) => {
                       </Grid>
 
                       <Grid item lg={2.75} md={2.75} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
-                        <CustomTextField value='FUIDE ORGANIQUE' InputProps={{ inputProps: { min: 0 } }} />
+                        {data[i].saved ? (
+                          <CustomTextField value={data[i].nature} InputProps={{ inputProps: { min: 0 } }} />
+                        ) : (
+                          <CustomTextField
+                            select
+                            fullWidth
+                            value={data[i].nature}
+                            sx={{ mb: 4 }}
+                            onChange={e => handleSetNature(data[i].id, e.target.value)}
+                            SelectProps={{
+                              value: data[i].nature,
+                              onChange: e => handleSetNature(data[i].id, e.target.value)
+                            }}
+                          >
+                            <MenuItem value='vapeur'>vapeur</MenuItem>
+                            <MenuItem value='Eau surchauffée'>Eau surchauffée</MenuItem>
+                            <MenuItem value='Fluide organique'>Fluide organique</MenuItem>
+                          </CustomTextField>
+                        )}
                       </Grid>
                     </Grid>
                     <InvoiceAction>
