@@ -596,7 +596,7 @@ const AddCard = (props: Props) => {
         <Grid container sx={{ mt: 4 }}>
           <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Button variant='contained' onClick={() => handleAddNewItem()}>
-              {data.length > 0 ? 'Changement de chaufferier' : 'Ajouter'}
+              {data.length > 0 ? 'Changement de chaufferie' : 'Ajouter'}
             </Button>
             {data.length > 0 && (
               <Button variant='contained' onClick={() => handleAddNewLine()}>

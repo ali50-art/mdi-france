@@ -41,24 +41,27 @@ const PDFGenerator = ({ data, data2 }: any) => {
       128,
       { align: 'center' }
     )
-    pdf.text(`: 1,2 m².K/w sur un réseau vapeur a tempurature moyenne de 110°c`, 172, 133, { align: 'center' })
-    pdf.text(`: 1,2 m².K/w sur un réseau fluide organique a tempurature moyenne de 120°c`, 172, 138, {
+    pdf.text(`: 1,2 m².K/w sur un réseau vapeur a tempurature moyenne de 110°c`, 150, 133, { align: 'center' })
+    pdf.text(`: 1,2 m².K/w sur un réseau fluide organique a tempurature moyenne de 120°c`, 150, 138, {
+      align: 'center'
+    })
+    pdf.text(`: 1,18 m².K/W sur un réseau de fluide organique à une température moyenne de 120°C`, 150, 144, {
       align: 'center'
     })
 
-    pdf.text(`Isolant et référance : Laine de verre ISOVER TECH ROLL 3.0- classé au feu A1`, 150, 144, {
+    pdf.text(`Isolant et référance : Laine de verre ISOVER TECH ROLL 3.0- classé au feu A1`, 150, 150, {
       align: 'center'
     })
 
-    pdf.text(`Température maximale : 300°C`, 150, 150, {
+    pdf.text(`Température maximale : 300°C`, 150, 155, {
       align: 'center'
     })
 
-    pdf.text(`Référance : ISOVAN`, 150, 155, {
+    pdf.text(`Référance : ISOVAN`, 150, 165, {
       align: 'center'
     })
 
-    pdf.text(`Total de points singuliers = ${data.length}`, 150, 190, {
+    pdf.text(`Total de points singuliers = ${data.length}`, 150, 175, {
       align: 'center'
     })
     pdf.addPage()
@@ -84,7 +87,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
 
   return (
     <Button fullWidth variant='tonal' color='secondary' onClick={generatePdf}>
-      Télecharger
+      Vérifier
     </Button>
   )
 }

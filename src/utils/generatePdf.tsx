@@ -127,7 +127,7 @@ const PDFGenerator = ({ data, data2, res }: any) => {
 
   return (
     <Button fullWidth variant='tonal' color='secondary' onClick={generatePdf}>
-      Télecharger
+      Vérifier
     </Button>
   )
 }

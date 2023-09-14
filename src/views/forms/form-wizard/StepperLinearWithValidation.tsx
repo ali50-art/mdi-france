@@ -46,7 +46,7 @@ const steps = [
 
   {
     title: "Début de l'installation",
-    subtitle: 'construire voter pdf'
+    subtitle: 'construire votre pdf'
   }
 ]
 
@@ -351,7 +351,7 @@ const StepperLinearWithValidation = () => {
                       label='Adresse'
                       onChange={onChange}
                       error={Boolean(accountErrors.address)}
-                      placeholder='Address'
+                      placeholder='Adresse'
                       aria-describedby='stepper-linear-account-email'
                       {...(accountErrors.address && { helperText: accountErrors.address.message })}
                     />

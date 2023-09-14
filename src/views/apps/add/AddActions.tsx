@@ -145,7 +145,7 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
       })
       await Promise.all(promises2)
       handleSetCount()
-      toast.success('pdf envoyez avec success')
+      toast.success('pdf envoyé avec succée')
       localStorage.removeItem('pdfInfoId')
       handleActiStepTOfirstStep()
     }
@@ -180,7 +180,7 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
               onClick={handleSendPdf}
             >
               <Icon fontSize='1.125rem' icon='tabler:send' />
-              Envoyez votre PDF
+              Envoyer votre PDF
             </Button>
 
             {count >= 0 &&
