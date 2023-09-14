@@ -195,7 +195,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                       fullWidth
                       value={el.model}
                       sx={{ mb: 4 }}
-                      label='Modéle'
+                      label='type de matériaux'
                       SelectProps={{
                         value: el.model,
                         onChange: e => handleSetRole(e.target.value as string, el.id)

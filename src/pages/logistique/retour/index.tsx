@@ -24,7 +24,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 // ** Custom Components Imports
 
-import CardStatsHorizontalWithDetails from 'src/@core/components/card-statistics/card-stats-horizontal-with-details'
+// import CardStatsHorizontalWithDetails from 'src/@core/components/card-statistics/card-stats-horizontal-with-details'
 
 // ** Actions Imports
 import { fetchDataRetour } from 'src/store/apps/logistique'
@@ -254,7 +254,7 @@ const UserList = () => {
         search: value,
         page,
         pageSize,
-        sort: 'createdAt'
+        sort: '-createdAt'
       })
     )
   }, [dispatch, value, page, pageSize])
@@ -272,36 +272,28 @@ const UserList = () => {
   const toggleAddMaterialDialog = () => {
     setAddMaterial(!addMaterial)
   }
-  const counterTotaldeRetour = (arr: any) => {
-    let nb = 0
-    arr?.forEach((element: any) => {
-      element?.retourDetails[0]?.materials.forEach((el: any) => {
-        nb += el.stock
-      })
-    })
 
-    return nb
-  }
-  const item: any = {
-    stats: 0,
-    title: 'Retour',
-    icon: 'tabler:chart-pie-2',
-    subtitle: 'quantité total de matériaux retourné'
-  }
-  if (store.data.length >= 0) {
-    item.stats = counterTotaldeRetour(store.data)
-  }
+  // const counterTotaldeRetour = (arr: any) => {
+  //   let nb = 0
+  //   arr?.forEach((element: any) => {
+  //     element?.retourDetails[0]?.materials.forEach((el: any) => {
+  //       nb += el.stock
+  //     })
+  //   })
+
+  //   return nb
+  // }
 
   return (
     <Grid container spacing={6.5}>
-      <Grid item xs={12}>
+      {/* <Grid item xs={12}>
         <Grid item xs={12} md={3} sm={6}>
           <CardStatsHorizontalWithDetails {...item} />
         </Grid>
-      </Grid>
+      </Grid> */}
       <Grid item xs={12}>
         <Card>
-          <CardHeader title='e' />
+          <CardHeader title='' />
           <Divider sx={{ m: '0 !important' }} />
           <TableHeader
             value={value}
