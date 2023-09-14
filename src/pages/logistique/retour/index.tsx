@@ -42,7 +42,7 @@ import { RootState, AppDispatch } from 'src/store'
 // ** Custom Table Components Imports
 import TableHeader from 'src/views/apps/logistique/list/TableHeader'
 import CustomAvatar from 'src/@core/components/mui/avatar'
-import Dialog from 'src/views/apps/logistique/list/SelectinstallateurDialog'
+import Dialog from 'src/views/apps/logistique/list/SelectInstalateurDialog'
 import ShowAllMaterialDialog from 'src/views/apps/logistique/list/ShowRetourDialog'
 import AddMaterialDialog from 'src/views/apps/logistique/list/AddMaterialDialog'
 import { Box } from '@mui/system'
