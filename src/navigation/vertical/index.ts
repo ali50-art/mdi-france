@@ -59,10 +59,10 @@ const navigation = (): VerticalNavItemsType => {
     {
       sectionTitle: 'interface construction',
       action: 'read',
-      subject: 'instalateur-dahsboard'
+      subject: 'installateur-dahsboard'
     },
     {
-      title: 'Instalateur',
+      title: 'installateur',
       action: 'read',
       subject: 'constructeur',
       path: '/constructeur',

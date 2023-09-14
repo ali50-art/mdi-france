@@ -41,9 +41,9 @@ export const fetchData = createAsyncThunk('appUsers/fetchData', async (params: a
   return { dataCoipe, count: response2.data.data }
 })
 
-export const fetchInstalateursData = createAsyncThunk('appUsers/fetchInstaleursData', async () => {
+export const fetchinstallateursData = createAsyncThunk('appUsers/fetchInstaleursData', async () => {
   const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
-  const response = await axios.get(`${serverUri.uri}/api/admin/users?search=instalateur`, {
+  const response = await axios.get(`${serverUri.uri}/api/admin/users?search=installateur`, {
     headers: {
       Authorization: storedToken
     }
@@ -145,7 +145,7 @@ export const appUsersSlice = createSlice({
       .addCase(fetchData.rejected, state => {
         state.isLoading = false
       })
-    builder.addCase(fetchInstalateursData.fulfilled, (state, action) => {
+    builder.addCase(fetchinstallateursData.fulfilled, (state, action) => {
       state.data = action.payload.dataCoipe.docs
       state.total = action.payload.dataCoipe.meta.totalDocs
       state.params = action.payload.dataCoipe.meta

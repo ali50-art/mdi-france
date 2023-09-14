@@ -9,7 +9,7 @@ import CardWidgetsSupportTracker from 'src/views/ui/cards/widgets/CardWidgetsSup
 // ** Custom Component Import
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 
-const InstalateurDahsboard = () => {
+const installateurDahsboard = () => {
   return (
     <ApexChartWrapper>
       <Grid container spacing={6}>
@@ -24,9 +24,9 @@ const InstalateurDahsboard = () => {
   )
 }
 
-InstalateurDahsboard.acl = {
+installateurDahsboard.acl = {
   action: 'read',
-  subject: 'instalateur-dahsboard'
+  subject: 'installateur-dahsboard'
 }
 
-export default InstalateurDahsboard
+export default installateurDahsboard

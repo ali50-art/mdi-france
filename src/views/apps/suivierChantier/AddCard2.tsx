@@ -1,4 +1,5 @@
 // ** React Imports
+import { useEffect, useState } from 'react'
 
 // ** MUI Imports
 import Card from '@mui/material/Card'
@@ -15,6 +16,7 @@ import IconButton from '@mui/material/IconButton'
 import Grid, { GridProps } from '@mui/material/Grid'
 
 import TableContainer from '@mui/material/TableContainer'
+import MenuItem from '@mui/material/MenuItem'
 import { styled, useTheme } from '@mui/material/styles'
 import TableCell, { TableCellBaseProps } from '@mui/material/TableCell'
 import CardContent, { CardContentProps } from '@mui/material/CardContent'
@@ -27,6 +29,7 @@ import Icon from 'src/@core/components/icon'
 import { useDispatch } from 'react-redux'
 import { RootState, AppDispatch } from 'src/store'
 import { useSelector } from 'react-redux'
+import { fetchData } from 'src/store/apps/material'
 
 // ** Custom Component Imports
 import Repeater from 'src/@core/components/repeater'
@@ -90,9 +93,24 @@ const AddCard = () => {
   const store: any = useSelector((state: RootState) => state.suiviChantierPdf)
 
   // ** States
+  const [hasId, setHasId] = useState<any>([])
+  const [materail, setMaterail] = useState<any>('')
 
   // ** Hook
   const theme = useTheme()
+
+  const CheckExistingId = (id: any) => {
+    const index = hasId.findIndex((el: any) => el.toString() == id.toString())
+    console.log('index : ', index)
+
+    return index == -1 ? false : true
+  }
+  const handleSetHasId = (id: any) => {
+    if (hasId.length == 0) {
+      return setHasId([id])
+    }
+    setHasId([...hasId, id])
+  }
 
   // ** Deletes form
 
@@ -114,6 +132,12 @@ const AddCard = () => {
     // Format the date using Intl.DateTimeFormat with the French locale
     return new Intl.DateTimeFormat('fr-FR', options).format(newData)
   }
+  const storeMaterial: any = useSelector((state: RootState) => state.material)
+  useEffect(() => {
+    fetchData({
+      pageSize: 50
+    })
+  }, [hasId])
 
   return (
     <Card>
@@ -301,11 +325,33 @@ const AddCard = () => {
                             />
                           </Grid>
                           <Grid item lg={2.75} md={2.75} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
-                            <CustomTextField
-                              placeholder='1'
-                              value={store?.data?.pdefDetails[i].model}
-                              InputProps={{ inputProps: { min: 0 } }}
-                            />
+                            {CheckExistingId(store?.data?.pdefDetails[i]?._id) == true ? (
+                              <CustomTextField
+                                select
+                                fullWidth
+                                value={materail}
+                                sx={{ mb: 4 }}
+                                onChange={e => setMaterail(e.target.value)}
+                                SelectProps={{
+                                  value: materail,
+                                  onChange: e => setMaterail(e.target.value)
+                                }}
+                              >
+                                {storeMaterial.data.map((ele: any) => {
+                                  return (
+                                    <MenuItem value={ele.red} key={i}>
+                                      ISOVAN{ele.red}
+                                    </MenuItem>
+                                  )
+                                })}
+                              </CustomTextField>
+                            ) : (
+                              <CustomTextField
+                                placeholder='1'
+                                value={store?.data?.pdefDetails[i].model}
+                                InputProps={{ inputProps: { min: 0 } }}
+                              />
+                            )}
                           </Grid>
 
                           <Grid item lg={1} md={1} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
@@ -324,6 +370,19 @@ const AddCard = () => {
                             <Icon icon='tabler:x' fontSize='1.25rem' />
                           </IconButton>
                           <Divider />
+                          {CheckExistingId(store?.data?.pdefDetails[i]?._id) == true ? (
+                            <IconButton size='small'>
+                              <Icon icon='tabler:check' fontSize='1.25rem' />
+                            </IconButton>
+                          ) : (
+                            <IconButton size='small'>
+                              <Icon
+                                icon='tabler:edit'
+                                fontSize='1.25rem'
+                                onClick={() => handleSetHasId(store?.data?.pdefDetails[i]?._id)}
+                              />
+                            </IconButton>
+                          )}
                         </InvoiceAction>
                       </RepeatingContent>
                     </Grid>

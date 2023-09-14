@@ -10,9 +10,9 @@ const navigation = (): HorizontalNavItemsType => [
     icon: 'tabler:smart-home'
   },
   {
-    path: '/instalateur-dahsboard',
+    path: '/installateur-dahsboard',
     action: 'read',
-    subject: 'instalateur-dahsboard',
+    subject: 'installateur-dahsboard',
     title: 'Dashboard',
     icon: 'tabler:smart-home'
   },

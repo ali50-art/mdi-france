@@ -200,12 +200,12 @@ const AdminDashboard = () => {
     {
       flex: 0.1,
       minWidth: 110,
-      field: 'instalateur',
+      field: 'installateur',
       headerName: 'Installateur',
       renderCell: ({ row }: CellType) => {
         return (
           <Typography noWrap sx={{ color: 'text.secondary' }}>
-            {row?.instalateurId?.fullName}
+            {row?.installateurId?.fullName}
           </Typography>
         )
       }

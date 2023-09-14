@@ -77,8 +77,8 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
       materials.push(newObj)
     })
     const type = 'charge'
-    const instalateurId = localStorage.getItem('instalateurId')
-    dispatch(addCharge({ type, materials, instalateurId }))
+    const installateurId = localStorage.getItem('installateurId')
+    dispatch(addCharge({ type, materials, installateurId }))
     localStorage.removeItem('material')
     toggle()
     reset()

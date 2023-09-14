@@ -21,11 +21,11 @@ const users: UserDataType[] = [
   },
   {
     id: 2,
-    role: 'instalateur',
-    password: 'instalateur',
+    role: 'installateur',
+    password: 'installateur',
     fullName: 'Nabile',
     username: 'nabile@216',
-    email: 'instalateur@mdi.com'
+    email: 'installateur@mdi.com'
   }
 ]
 

@@ -15,7 +15,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 
 // ** Actions Imports
-import { fetchInstalateursData } from 'src/store/apps/user'
+import { fetchinstallateursData } from 'src/store/apps/user'
 
 // ** Types Imports
 import { AppDispatch, RootState } from 'src/store'
@@ -47,11 +47,11 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
-  const [role, setRole] = useState<string>('instalateur')
+  const [role, setRole] = useState<string>('installateur')
 
   const store = useSelector((state: RootState) => state.user)
   useEffect(() => {
-    dispatch(fetchInstalateursData())
+    dispatch(fetchinstallateursData())
   }, [dispatch, open, toggle])
 
   const { reset, handleSubmit } = useForm({
@@ -60,7 +60,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
     resolver: yupResolver(schema)
   })
   const onSubmit = () => {
-    localStorage.setItem('instalateurId', role)
+    localStorage.setItem('installateurId', role)
     toggle()
     reset()
   }
@@ -88,7 +88,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
             pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
           }}
         >
-          Selection d'un instalateur
+          Selection d'un installateur
         </DialogTitle>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent
@@ -104,7 +104,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                   fullWidth
                   value={role}
                   sx={{ mb: 4 }}
-                  label='Sélectionnez un instalateur'
+                  label='Sélectionnez un installateur'
                   SelectProps={{ value: role, onChange: e => setRole(e.target.value as string) }}
                 >
                   {store.data.map((el: any) => {

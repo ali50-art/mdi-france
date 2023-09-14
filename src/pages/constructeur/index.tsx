@@ -26,10 +26,10 @@ const Constructeur = () => {
       <Grid container spacing={6}>
         <Grid item xs={12}>
           <Card>
-            <CardHeader title='etape récapitulatif 🚀'></CardHeader>
+            <CardHeader title='état récapitulatif 🚀'></CardHeader>
             <CardContent>
-              <Typography sx={{ mb: 2 }}>aucan charge pour installer </Typography>
-              <Typography>cantacter un logistique s'il vous plait</Typography>
+              <Typography sx={{ mb: 2 }}>aucun charge pour installer </Typography>
+              <Typography>contacter un logistique s'il vous plait</Typography>
             </CardContent>
           </Card>
         </Grid>

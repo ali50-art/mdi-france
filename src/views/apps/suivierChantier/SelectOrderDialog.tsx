@@ -49,7 +49,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
-  const [role, setRole] = useState<string>('instalateur')
+  const [role, setRole] = useState<string>('installateur')
 
   const store = useSelector((state: RootState) => state.order)
   useEffect(() => {
@@ -62,7 +62,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
     resolver: yupResolver(schema)
   })
   const onSubmit = () => {
-    localStorage.setItem('instalateurId', role)
+    localStorage.setItem('installateurId', role)
     dispatch(updatePdf({ pdfId: id, orderId: role }))
     toggle()
     reset()

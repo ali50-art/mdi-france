@@ -440,7 +440,7 @@ const AddCard = (props: Props) => {
           <Grid item lg={1.6} md={1.6} xs={1.5} sx={{ my: { lg: 0, xs: 4 } }}>
             <Typography className='col-title' sx={{ mb: { xs: 0 }, color: 'text.secondary', textAlign: 'center' }}>
               Lieu
-              <br /> d'implantation
+              <br /> d’implantation
             </Typography>
           </Grid>
           <Grid item lg={2} md={2} xs={1.5} sx={{ my: { lg: 0, xs: 4 } }}>
@@ -448,8 +448,8 @@ const AddCard = (props: Props) => {
               className='col-title'
               sx={{ mb: { md: 2, xs: 0 }, color: 'text.secondary', textAlign: 'center' }}
             >
-              Type de point <br />
-              singuiler
+              type : <br />
+              mode point singulier
             </Typography>
           </Grid>
           <Grid item lg={2} md={2} xs={1.5} sx={{ my: { lg: 0, xs: 4 } }}>
@@ -457,7 +457,7 @@ const AddCard = (props: Props) => {
               className='col-title'
               sx={{ mb: { md: 2, xs: 0 }, color: 'text.secondary', textAlign: 'center' }}
             >
-              Réference metales
+              Référence matelas
             </Typography>
           </Grid>
           <Grid item lg={1.6} md={1.6} xs={1.5} sx={{ my: { lg: 0, xs: 4 } }}>
@@ -465,7 +465,7 @@ const AddCard = (props: Props) => {
               className='col-title'
               sx={{ mb: { md: 2, xs: 0 }, color: 'text.secondary', textAlign: 'center' }}
             >
-              Msse <br />
+              Masse <br />
               volumique
             </Typography>
           </Grid>

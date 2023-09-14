@@ -21,10 +21,10 @@ const cardStatsData: any = {
     },
     {
       stats: '19',
-      title: 'instalateur',
+      title: 'installateur',
       avatarColor: 'success',
       icon: 'tabler:clipboard-data',
-      subtitle: "total d'instalateurs"
+      subtitle: "total d'installateurs"
     },
     {
       stats: '2',

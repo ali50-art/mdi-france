@@ -1,4 +1,5 @@
 // ** React Imports
+import { useEffect } from 'react'
 
 // ** MUI Imports
 import Card from '@mui/material/Card'
@@ -20,6 +21,7 @@ import CardContent, { CardContentProps } from '@mui/material/CardContent'
 import { useDispatch } from 'react-redux'
 import { RootState, AppDispatch } from 'src/store'
 import { useSelector } from 'react-redux'
+import { fetchData } from 'src/store/apps/material'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -32,6 +34,7 @@ import Icon from 'src/@core/components/icon'
 import Repeater from 'src/@core/components/repeater'
 import CustomTextField from 'src/@core/components/mui/text-field'
 import { updatePdf } from 'src/store/apps/suiviChantierPdf'
+import { useState } from 'react'
 
 const MUITableCell = styled(TableCell)<TableCellBaseProps>(({ theme }) => ({
   borderBottom: 0,
@@ -83,6 +86,7 @@ const InvoiceAction = styled(Box)<BoxProps>(({ theme }) => ({
 
 const AddCard = () => {
   // ** Props
+  const [hasId, setHasId] = useState<any>(true)
   const dispatch = useDispatch<AppDispatch>()
   const store: any = useSelector((state: RootState) => state.suiviChantierPdf)
   const data = store.data
@@ -109,6 +113,23 @@ const AddCard = () => {
     // Format the date using Intl.DateTimeFormat with the French locale
     return new Intl.DateTimeFormat('fr-FR', options).format(newData)
   }
+  const CheckExistingId = (id: any) => {
+    const index = hasId.findIndex((el: any) => el.toString() == id.toString())
+    console.log('index : ', index)
+
+    return index == -1 ? false : true
+  }
+  const handleSetHasId = (id: any) => {
+    if (hasId.length == 0) {
+      return setHasId([id])
+    }
+    setHasId([...hasId, id])
+  }
+  useEffect(() => {
+    fetchData({
+      pageSize: 50
+    })
+  }, [hasId])
 
   return (
     <Card>
@@ -359,15 +380,19 @@ const AddCard = () => {
                             <Icon icon='tabler:x' fontSize='1.25rem' />
                           </IconButton>
                           <Divider />
-                          {/* {data[i].saved ? (
-                            <IconButton size='small' onClick={() => handleChangeMood(data[i].id)}>
-                              <Icon icon='tabler:edit' fontSize='1.25rem' />
-                            </IconButton>
-                          ) : (
-                            <IconButton size='small' onClick={() => handleSaveItem(data[i].id)}>
+                          {CheckExistingId(store?.data?.pdefDetails[i]?._id) == true ? (
+                            <IconButton size='small'>
                               <Icon icon='tabler:check' fontSize='1.25rem' />
                             </IconButton>
-                          )} */}
+                          ) : (
+                            <IconButton size='small'>
+                              <Icon
+                                icon='tabler:edit'
+                                fontSize='1.25rem'
+                                onClick={() => handleSetHasId(store?.data?.pdefDetails[i]?._id)}
+                              />
+                            </IconButton>
+                          )}
                         </InvoiceAction>
                       </RepeatingContent>
                     </Grid>

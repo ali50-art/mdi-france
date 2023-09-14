@@ -92,7 +92,7 @@
 //   const { open, toggle } = props
 
 //   // ** State
-//   const [role, setRole] = useState<string>('instalateur')
+//   const [role, setRole] = useState<string>('installateur')
 
 //   // ** Hooks
 //   const dispatch = useDispatch<AppDispatch>()
@@ -284,7 +284,7 @@
 //             >
 //               <MenuItem value='admin'>Admin</MenuItem>
 //               <MenuItem value='logistique'>Logistique</MenuItem>
-//               <MenuItem value='instalateur'>Instalateur</MenuItem>
+//               <MenuItem value='installateur'>installateur</MenuItem>
 //               <MenuItem value='assistant'>assistant</MenuItem>
 //             </CustomTextField>
 

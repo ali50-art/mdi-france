@@ -80,10 +80,10 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
       materials.push(newObj)
     })
     const type = 'charge'
-    const instalateurId = localStorage.getItem('instalateurId')
+    const installateurId = localStorage.getItem('installateurId')
 
     const chargeId = router.query.slug
-    dispatch(ReCharge({ chargeId, type, materials, instalateurId }))
+    dispatch(ReCharge({ chargeId, type, materials, installateurId }))
     localStorage.removeItem('marerial')
     setMaterail([{ id: 1, model: '', counter: 1 }])
     dispatch(fetchOne({ id: chargeId }))

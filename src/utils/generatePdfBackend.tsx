@@ -6,7 +6,6 @@ import 'jspdf-autotable'
 
 const PDFGenerator = ({ data, data2 }: any) => {
   // Define custom dimensions (height and width)
-  console.log('data pdf : ', data)
 
   // Create a new jsPDF instance with swapped dimensions
   const pdf: any = new jsPDF({

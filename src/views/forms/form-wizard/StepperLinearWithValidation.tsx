@@ -46,7 +46,7 @@ const steps = [
 
   {
     title: "Début de l'installation",
-    subtitle: 'consterouir voter pdf'
+    subtitle: 'construire voter pdf'
   }
 ]
 
@@ -293,7 +293,7 @@ const StepperLinearWithValidation = () => {
                       variant='h4'
                       sx={{ mb: 2, ...(authType === 'indestry' ? { color: 'primary.main' } : {}) }}
                     >
-                      Indestrie
+                      Industrie
                     </Typography>
                     <Typography sx={{ ...(authType === 'indestry' ? { color: 'primary.main' } : {}) }}></Typography>
                   </div>
@@ -317,7 +317,7 @@ const StepperLinearWithValidation = () => {
                   Information d'instalation
                 </Typography>
                 <Typography variant='caption' component='p'>
-                  entez les informations d'instalation
+                  Entrer les informations d’installation
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -348,7 +348,7 @@ const StepperLinearWithValidation = () => {
                     <CustomTextField
                       fullWidth
                       value={value}
-                      label='Addresse'
+                      label='Adresse'
                       onChange={onChange}
                       error={Boolean(accountErrors.address)}
                       placeholder='Address'

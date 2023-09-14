@@ -96,7 +96,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
 
   // ** State
   const [plan, setPlan] = useState<string>('basic')
-  const [role, setRole] = useState<string>('instalateur')
+  const [role, setRole] = useState<string>('installateur')
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
@@ -235,7 +235,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
           >
             <MenuItem value='admin'>Admin</MenuItem>
             <MenuItem value='author'>Logistique</MenuItem>
-            <MenuItem value='instalateur'>Instalateur</MenuItem>
+            <MenuItem value='installateur'>installateur</MenuItem>
             <MenuItem value='maintainer'>enseignant</MenuItem>
           </CustomTextField>
 

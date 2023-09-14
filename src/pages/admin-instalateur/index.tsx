@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
-const AdminInstalateur = () => {
+const Admininstallateur = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
@@ -21,8 +21,8 @@ const AdminInstalateur = () => {
   )
 }
 
-AdminInstalateur.acl = {
+Admininstallateur.acl = {
   action: 'mange',
-  subject: 'admin-instalateur'
+  subject: 'admin-installateur'
 }
-export default AdminInstalateur
+export default Admininstallateur

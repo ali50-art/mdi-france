@@ -77,11 +77,11 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
       }
       materials.push(newObj)
     })
-    const instalateurId = localStorage.getItem('instalateurId')
+    const installateurId = localStorage.getItem('installateurId')
 
     const chargeId = id
 
-    dispatch(Retour({ chargeId, materials, instalateurId }))
+    dispatch(Retour({ chargeId, materials, installateurId }))
     localStorage.removeItem('marerial')
     setMaterail([{ id: 1, model: 'B1', counter: 1 }])
     dispatch(fetchOne({ id: chargeId }))
