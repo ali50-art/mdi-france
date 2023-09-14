@@ -306,6 +306,8 @@ const AddCard = (props: Props) => {
 
     return nb
   }
+  console.log('uuity');
+  
   const handleMaterilas = (data: any) => {
     if (data.length == 0) {
       data = []
