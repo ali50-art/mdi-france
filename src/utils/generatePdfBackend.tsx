@@ -6,6 +6,7 @@ import 'jspdf-autotable'
 
 const PDFGenerator = ({ data, data2 }: any) => {
   // Define custom dimensions (height and width)
+  console.log('data pdf : ', data)
 
   // Create a new jsPDF instance with swapped dimensions
   const pdf: any = new jsPDF({
@@ -100,7 +101,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
       align: 'center'
     })
 
-    pdf.text(`Total de points singuliers = ${data.length}`, 150, 190, {
+    pdf.text(`Total de points singuliers = ${data.pdefDetails.length}`, 150, 190, {
       align: 'center'
     })
     pdf.addPage()
