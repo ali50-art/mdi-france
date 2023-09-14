@@ -311,9 +311,8 @@ const UserList = () => {
   }
   const item: any = {
     stats: 0,
-    title: 'Charge',
-    icon: 'tabler:chart-pie-2',
-    subtitle: 'Nombre de matériaux fournis'
+    title: 'Nombre de matériaux fournis',
+    icon: 'tabler:chart-pie-2'
   }
   if (store.data.length >= 0) {
     item.stats = counterTotaldeRetour(store.data)
@@ -328,7 +327,7 @@ const UserList = () => {
       </Grid>
       <Grid item xs={12}>
         <Card>
-          <CardHeader title='e' />
+          <CardHeader title='' />
           <Divider sx={{ m: '0 !important' }} />
           <TableHeader
             value={value}

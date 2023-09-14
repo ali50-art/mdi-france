@@ -41,7 +41,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
             pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
           }}
         >
-          le Matiére
+          matériaux
         </DialogTitle>
         <DialogContent
           sx={{
@@ -54,7 +54,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
               <Grid container spacing={6} key={index}>
                 <Grid item xs={6} sm={6}>
                   <CustomTextField
-                    label='Model'
+                    label='type de matériaux'
                     value={el.material.model}
                     id='form-props-number'
                     InputLabelProps={{ shrink: true }}
@@ -63,7 +63,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                 <Grid item xs={6} sm={6}>
                   <CustomTextField
                     type='number'
-                    label='Number'
+                    label='Quantité'
                     value={el.stock}
                     id='form-props-number'
                     InputLabelProps={{ shrink: true }}
