@@ -420,7 +420,7 @@ const AddCard = (props: Props) => {
                     <TableRow>
                       <MUITableCell>
                         <Typography sx={{ color: 'text.secondary' }}>
-                          :1,58 m².K/W a une tempurature moyenne de 50 °C
+                          :1,58 m².K/W à une température moyenne de 50 °C
                         </Typography>
                       </MUITableCell>
                     </TableRow>
