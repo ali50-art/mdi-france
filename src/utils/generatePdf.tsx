@@ -47,12 +47,12 @@ const PDFGenerator = ({ data, data2, res }: any) => {
 
     pdf.text(`ETAT RECAPITULATIF INDUSTERIS`, 150, 49, { align: 'center' })
     pdf.setFontSize(12)
-    pdf.text(`je sousigné `, 150, 55, { align: 'center' })
+    pdf.text(`Au bénéfice de : `, 150, 55, { align: 'center' })
     pdf.text(`MD INDUSTRIE`, 150, 60, { align: 'center' })
     pdf.text(`23 Avenue Fréres Montgolfier`, 150, 65, { align: 'center' })
     pdf.text(`69680 CHASSIEU`, 150, 70, { align: 'center' })
     pdf.text(
-      `Attest sur l'honneur avoir mis en oeuvre les travaux d'isolation de points singuliers
+      `Atteste sur l'honneur avoir mis en oeuvre les travaux d'isolation de points singuliers
     `,
       150,
       80,
@@ -65,19 +65,19 @@ const PDFGenerator = ({ data, data2, res }: any) => {
     pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 115, { align: 'center' })
     pdf.text(`Résistance thermique : 1,27m2.K/W à une température moyenne de 100°C`, 150, 128, { align: 'center' })
     pdf.text(`: 1,58 m².K/W à une température moyenne de 50 °C`, 172, 133, { align: 'center' })
-    pdf.text(`Isolant et référance : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1`, 150, 138, {
+    pdf.text(`Isolant et référence : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1`, 150, 138, {
       align: 'center'
     })
-    pdf.text(`Température maximale : 200°C1`, 150, 145, {
+    pdf.text(`Température maximale : 200°C`, 150, 145, {
       align: 'center'
     })
     pdf.text(`Température fluide caloporteur : 70°C`, 150, 150, {
       align: 'center'
     })
-    pdf.text(`Référance : ISOVAN`, 150, 155, {
+    pdf.text(`Référence : ISOVAN`, 150, 155, {
       align: 'center'
     })
-    pdf.text(`Lieu d'implantationdes metelas : CHAUFFERIE`, 150, 160, {
+    pdf.text(`Lieu d'implantation des matelas : CHAUFFERIE`, 150, 160, {
       align: 'center'
     })
     pdf.text(`Nomber de points singuliers posés : `, 150, 165, {
@@ -107,7 +107,7 @@ const PDFGenerator = ({ data, data2, res }: any) => {
       'Mass volumique',
       'N° De repérage',
       'dn',
-      'Nature de flu ide calopor teur'
+      'Nature de fluidecaloporteur'
     ]
     pdf.autoTable({
       startY: 30,
