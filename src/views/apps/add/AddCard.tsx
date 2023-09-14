@@ -426,7 +426,7 @@ const AddCard = (props: Props) => {
                     </TableRow>
                     <TableRow>
                       <Typography sx={{ color: 'text.secondary' }}>
-                        :1,27m2.K/W à une température moyenne de 100°C et non 1,58
+                        :1,27m2.K/W à une température moyenne de 100°C
                       </Typography>
                     </TableRow>
                   </TableBody>
