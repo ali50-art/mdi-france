@@ -243,7 +243,7 @@ const UserList = () => {
       </Grid>
       <Grid item xs={12}>
         <Card>
-          <CardHeader title='Filtres de recherche' />
+          <CardHeader title='e' />
           <Divider sx={{ m: '0 !important' }} />
           <TableHeader
             value={value}

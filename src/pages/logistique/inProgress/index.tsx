@@ -211,7 +211,7 @@ const UserList = () => {
       flex: 0.15,
       minWidth: 70,
       field: 'nbCharge',
-      headerName: 'Nomber de chrage',
+      headerName: 'Nombre de charge',
       renderCell: ({ row }: CellType) => {
         return (
           <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '3rem' }}>
@@ -313,7 +313,7 @@ const UserList = () => {
     stats: 0,
     title: 'Charge',
     icon: 'tabler:chart-pie-2',
-    subtitle: 'Nomber de matériaux fournis'
+    subtitle: 'Nombre de matériaux fournis'
   }
   if (store.data.length >= 0) {
     item.stats = counterTotaldeRetour(store.data)
@@ -328,7 +328,7 @@ const UserList = () => {
       </Grid>
       <Grid item xs={12}>
         <Card>
-          <CardHeader title='Filtres de recherche' />
+          <CardHeader title='e' />
           <Divider sx={{ m: '0 !important' }} />
           <TableHeader
             value={value}

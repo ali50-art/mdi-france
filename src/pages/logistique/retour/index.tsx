@@ -174,7 +174,7 @@ const UserList = () => {
       field: 'fullName',
       headerName: 'Installateur',
       renderCell: ({ row }: CellType) => {
-        const { fullName, phone } = row.installateurId
+        const { fullName, phone } = row.instalateurId
         console.log('chargeDetailId : ', row?.chargeDetails)
 
         return (
@@ -301,7 +301,7 @@ const UserList = () => {
       </Grid>
       <Grid item xs={12}>
         <Card>
-          <CardHeader title='Filtres de recherche' />
+          <CardHeader title='e' />
           <Divider sx={{ m: '0 !important' }} />
           <TableHeader
             value={value}

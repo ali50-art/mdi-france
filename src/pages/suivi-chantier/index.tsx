@@ -276,7 +276,7 @@ const AdminDashboard = () => {
     <Grid container spacing={6.5}>
       <Grid item xs={12}>
         <Card>
-          <CardHeader title='Filtres de recherche' />
+          <CardHeader title='e' />
           <CardContent>
             <Grid container spacing={6}>
               <Grid item sm={4} xs={12}>

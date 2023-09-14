@@ -240,9 +240,8 @@ const UserList = () => {
   }
   const item: any = {
     stats: 0,
-    title: 'Charge details',
-    icon: 'tabler:chart-pie-2',
-    subtitle: 'total de Charge'
+    title: 'Matériaux fournis',
+    icon: 'tabler:chart-pie-2'
   }
   if (store.data.length >= 0) {
     item.stats = counterTotaldeRetour(store.data)
@@ -257,13 +256,13 @@ const UserList = () => {
       </Grid>
       <Grid item xs={12}>
         <Card>
-          <CardHeader title='Filtres de recherche' />
+          <CardHeader title='e' />
           <Divider sx={{ m: '0 !important' }} />
           <TableHeader
             value={value}
             handleFilter={handleFilter}
             toggle={toggleAddMaterialDialog}
-            name='rechargez'
+            name='recharger'
             withName={true}
             url='/logistique/inProgress/'
           />
