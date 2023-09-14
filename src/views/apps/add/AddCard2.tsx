@@ -462,12 +462,12 @@ const AddCard = (props: Props) => {
           </Grid>
           <Grid item lg={2} md={2} xs={1} sx={{ my: { lg: 0, xs: 4 } }}>
             <Typography className='col-title' sx={{ mb: { md: 2, xs: 0 }, color: 'text.secondary' }}>
-              N° repérage
+              Fluide
             </Typography>
           </Grid>
           <Grid item lg={2} md={2} xs={2.75} sx={{ my: { lg: 0, xs: 4 } }}>
             <Typography className='col-title' sx={{ mb: { md: 2, xs: 0 }, color: 'text.secondary' }}>
-              Fluide
+              N° repérage
             </Typography>
           </Grid>
         </Grid>
@@ -573,10 +573,6 @@ const AddCard = (props: Props) => {
                         )}
                       </Grid>
 
-                      <Grid item lg={1} md={1} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
-                        <CustomTextField placeholder='1' value={data[i].rep} InputProps={{ inputProps: { min: 0 } }} />
-                      </Grid>
-
                       <Grid item lg={2.75} md={2.75} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
                         {data[i].saved ? (
                           <CustomTextField value={data[i].nature} InputProps={{ inputProps: { min: 0 } }} />
@@ -597,6 +593,10 @@ const AddCard = (props: Props) => {
                             <MenuItem value='Fluide organique'>Fluide organique</MenuItem>
                           </CustomTextField>
                         )}
+                      </Grid>
+
+                      <Grid item lg={1} md={1} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
+                        <CustomTextField placeholder='1' value={data[i].rep} InputProps={{ inputProps: { min: 0 } }} />
                       </Grid>
                     </Grid>
                     <InvoiceAction>

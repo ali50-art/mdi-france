@@ -58,8 +58,9 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
       newArrayData.push(element.local)
       newArrayData.push(element.type)
       newArrayData.push(element.red)
-      newArrayData.push(element.rep)
       newArrayData.push(element.nature)
+      newArrayData.push(element.rep)
+
       newData.push(newArrayData)
     })
     setData3(newData)
@@ -134,8 +135,8 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
           model: el.red || '',
           mass: undefined,
           dn: undefined,
-          nbRep: el.rep || '',
-          nature: el.nature || ''
+          nature: el.nature || '',
+          nbRep: el.rep || ''
         }
         newArr.push(newObj)
       }
