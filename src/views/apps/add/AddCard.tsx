@@ -378,7 +378,7 @@ const AddCard = (props: Props) => {
                     <TableRow>
                       <MUITableCell>
                         <Typography sx={{ color: 'text.secondary' }}>
-                          <strong>ISOLATION ET REFERANCE :</strong> Laine de verre ISOVER TECH ROLL 3.0 -classé au feu
+                          <strong>ISOLATION ET REFERENCE :</strong> Laine de verre ISOVER TECH ROLL 3.0 -classé au feu
                           A1
                         </Typography>
                       </MUITableCell>
@@ -393,7 +393,7 @@ const AddCard = (props: Props) => {
                     <TableRow>
                       <MUITableCell>
                         <Typography sx={{ color: 'text.secondary' }}>
-                          <strong>REFERANCE:</strong> ISOVAN
+                          <strong>REFERENCE:</strong> ISOVAN
                         </Typography>
                       </MUITableCell>
                     </TableRow>
@@ -477,7 +477,7 @@ const AddCard = (props: Props) => {
               className='col-title'
               sx={{ mb: { md: 2, xs: 0 }, color: 'text.secondary', textAlign: 'center' }}
             >
-              N° repérage
+              N° De repérage
             </Typography>
           </Grid>
           <Grid item lg={1} md={1} xs={1} sx={{ my: { lg: 0, xs: 4 } }}>

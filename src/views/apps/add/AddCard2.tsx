@@ -368,7 +368,7 @@ const AddCard = (props: Props) => {
                     <TableRow>
                       <MUITableCell>
                         <Typography sx={{ color: 'text.secondary', mb: '1.5rem' }}>
-                          <strong>ISOLATION ET REFERANCE :</strong> Laine de verre ISOVER TECH ROLL 3.0 -classé au feu
+                          <strong>ISOLATION ET REFERENCE :</strong> Laine de verre ISOVER TECH ROLL 3.0 -classé au feu
                           A1
                         </Typography>
                       </MUITableCell>
@@ -383,7 +383,7 @@ const AddCard = (props: Props) => {
                     <TableRow>
                       <MUITableCell>
                         <Typography sx={{ color: 'text.secondary', mb: '1.5rem' }}>
-                          <strong>REFERANCE:</strong> ISOVAN
+                          <strong>REFERENCE:</strong> ISOVAN
                         </Typography>
                       </MUITableCell>
                     </TableRow>
@@ -446,7 +446,7 @@ const AddCard = (props: Props) => {
         <Grid container sx={{ py: 4, px: 12, width: '100%', pr: { lg: 0, xs: 4 } }}>
           <Grid item lg={2.75} md={2.75} xs={1.5} sx={{ my: { lg: 0, xs: 4 } }}>
             <Typography className='col-title' sx={{ mb: { xs: 0 }, color: 'text.secondary' }}>
-              Zon d'implantation
+              Zone d'implantation
             </Typography>
           </Grid>
           <Grid item lg={2.5} md={2.5} xs={1.5} sx={{ my: { lg: 0, xs: 4 } }}>
@@ -457,7 +457,7 @@ const AddCard = (props: Props) => {
           </Grid>
           <Grid item lg={2.5} md={2.5} xs={1.5} sx={{ my: { lg: 0, xs: 4 } }}>
             <Typography className='col-title' sx={{ mb: { md: 2, xs: 0 }, color: 'text.secondary' }}>
-              Réference metales
+              Réference matelas
             </Typography>
           </Grid>
           <Grid item lg={2} md={2} xs={1} sx={{ my: { lg: 0, xs: 4 } }}>
@@ -467,7 +467,7 @@ const AddCard = (props: Props) => {
           </Grid>
           <Grid item lg={2} md={2} xs={2.75} sx={{ my: { lg: 0, xs: 4 } }}>
             <Typography className='col-title' sx={{ mb: { md: 2, xs: 0 }, color: 'text.secondary' }}>
-              N° repérage
+              N° De repérage
             </Typography>
           </Grid>
         </Grid>

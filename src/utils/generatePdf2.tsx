@@ -102,10 +102,10 @@ const PDFGenerator = ({ data, data2 }: any) => {
     // Dynamic content on subsequent pages
     pdf.setFontSize(12)
     const tableHeader = [
-      `lieu d'implantation`,
-      `Types de point singulier`,
-      `Référence mateles`,
-      'Fluid',
+      `Zone d'implantation`,
+      `Type de point singulier`,
+      `Référence matelas`,
+      'Fluide',
       'N° De repérage'
     ]
     pdf.autoTable({
