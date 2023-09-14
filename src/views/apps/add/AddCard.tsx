@@ -353,6 +353,7 @@ const AddCard = (props: Props) => {
               </div>
             </Box>
           </Grid>
+
           <Grid item xl={6} xs={12}>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: { xl: 'flex-end', xs: 'flex-start' } }}>
               <Box sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
