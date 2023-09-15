@@ -46,6 +46,7 @@ const defaultValues = {
 const SidebarAddUser = (props: SidebarAddUserType) => {
   // ** Props
   const { open, toggle, id } = props
+  const sorteMaterail: any = useSelector((state: RootState) => state.suiviChantierPdf)
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
@@ -72,6 +73,8 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
     toggle()
     reset()
   }
+
+  // const index=sorteMaterail.findIndex((el:any)=>el)
 
   return (
     <>
@@ -120,6 +123,30 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                 </CustomTextField>
               </Grid>
             </Grid>
+            {sorteMaterail.data?.type == 'indestrie' ? (
+              <Grid container spacing={6}>
+                <Grid item xs={12} sm={12}>
+                  <CustomTextField
+                    select
+                    fullWidth
+                    value={role}
+                    sx={{ mb: 4 }}
+                    label='Sélectionner'
+                    SelectProps={{ value: role, onChange: e => setRole(e.target.value as string) }}
+                  >
+                    {store.data.map((el: any) => {
+                      return (
+                        <MenuItem value={el._id} key={el.id}>
+                          {el.name}
+                        </MenuItem>
+                      )
+                    })}
+                  </CustomTextField>
+                </Grid>
+              </Grid>
+            ) : (
+              <></>
+            )}
           </DialogContent>
           <DialogActions
             sx={{
