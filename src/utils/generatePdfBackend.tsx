@@ -45,9 +45,9 @@ const PDFGenerator = ({ data, data2 }: any) => {
 
     pdf.setFontSize(15)
 
-    pdf.text(`ETAT RECAPITULATIF INDUSTERIS`, 150, 49, { align: 'center' })
+    pdf.text(`ETAT RECAPITULATIF`, 150, 49, { align: 'center' })
     pdf.setFontSize(12)
-    pdf.text(`je sousigné `, 150, 55, { align: 'center' })
+    pdf.text(`je soussigné: `, 150, 55, { align: 'center' })
     if (data.orderDetailId) {
       pdf.text(`${data.orderDetailId.name}`, 150, 60, { align: 'center' })
       pdf.text(`${data.orderDetailId.address}`, 150, 65, { align: 'center' })
@@ -59,20 +59,21 @@ const PDFGenerator = ({ data, data2 }: any) => {
     }
 
     pdf.text(
-      `Attest sur l'honneur avoir mis en oeuvre les travaux d'isolation de points singuliers
+      `Atteste sur l'honneur avoir mis en oeuvre les travaux d'isolation de points singuliers
     `,
       150,
       80,
       { align: 'center' }
     )
 
-    pdf.text(`je sousigné `, 150, 89, { align: 'center' })
+    pdf.text(`Au bénéfice de: `, 150, 89, { align: 'center' })
     pdf.text(`${data.clientAdress}`, 150, 96, { align: 'center' })
     pdf.text(`${data.clientVille} ${data.clientCodePostal}`, 150, 101, { align: 'center' })
+
     pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 115, { align: 'center' })
-    pdf.text(`Résistance thermique : 1,58 m².K/w à un tempurature moyenne de 50°c`, 150, 128, { align: 'center' })
-    pdf.text(`: 1,27 m².K/w à un tempurature moyenne de 100°c et non 1,58`, 172, 133, { align: 'center' })
-    pdf.text(`Isolant et référance : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1`, 150, 138, {
+    pdf.text(`Résistance thermique : 1,27 m².K/W à une température moyenne de 100°C`, 150, 128, { align: 'center' })
+    pdf.text(`: 1,58 m².K/W à une température moyenne de 50 °C`, 172, 133, { align: 'center' })
+    pdf.text(`Isolant et référence : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1`, 150, 138, {
       align: 'center'
     })
     pdf.text(`Température maximale : 200°C`, 150, 145, {
@@ -81,13 +82,13 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.text(`Température fluide caloporteur : 70°C`, 150, 150, {
       align: 'center'
     })
-    pdf.text(`Référance : ISOVAN`, 150, 155, {
+    pdf.text(`Référence : ISOVAN`, 150, 155, {
       align: 'center'
     })
     pdf.text(`Lieu d'implantationdes metelas : CHAUFFERIE`, 150, 160, {
       align: 'center'
     })
-    pdf.text(`Nomber de points singuliers posés : `, 150, 165, {
+    pdf.text(`Nomber des points singuliers posés : `, 150, 165, {
       align: 'center'
     })
     pdf.text(`DN20 a DN65 = ${Between20And65}`, 150, 170, {
@@ -100,7 +101,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
       align: 'center'
     })
 
-    pdf.text(`Total de points singuliers = ${data.pdefDetails.length}`, 150, 190, {
+    pdf.text(`Total des points singuliers = ${data.pdefDetails.length}`, 150, 190, {
       align: 'center'
     })
     pdf.addPage()
@@ -114,7 +115,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
       'Masse volumique',
       'N° De repérage',
       'dn',
-      'Nature de flu ide calopor teur'
+      'Nature de fluidecaloporteur'
     ]
     pdf.autoTable({
       startY: 30,
@@ -129,7 +130,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
 
   return (
     <Button fullWidth variant='tonal' color='secondary' onClick={generatePdf}>
-      Télecharger
+      Télécharger
     </Button>
   )
 }

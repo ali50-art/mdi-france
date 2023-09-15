@@ -170,19 +170,6 @@ const UserList = () => {
     {
       flex: 0.1,
       minWidth: 110,
-      field: 'type',
-      headerName: 'Type',
-      renderCell: ({ row }: CellType) => {
-        return (
-          <Typography noWrap sx={{ color: 'text.secondary' }}>
-            {row?.type}
-          </Typography>
-        )
-      }
-    },
-    {
-      flex: 0.1,
-      minWidth: 110,
       field: 'createdAt',
       headerName: 'Creé a',
       renderCell: ({ row }: CellType) => {
@@ -259,7 +246,7 @@ const UserList = () => {
       </Grid>
       <Grid item xs={12}>
         <Card>
-          <CardHeader title='e' />
+          <CardHeader title='' />
 
           <Divider sx={{ m: '0 !important' }} />
           <TableHeader

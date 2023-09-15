@@ -215,7 +215,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
           >
             <MenuItem value='admin'>Admin</MenuItem>
             <MenuItem value='logisticien'>Logisticien</MenuItem>
-            <MenuItem value='installateur'>Instalatteur</MenuItem>
+            <MenuItem value='instalateur'>Instalatteur</MenuItem>
           </CustomTextField>
 
           <Box sx={{ display: 'flex', alignItems: 'center' }}>

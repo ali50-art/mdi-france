@@ -161,7 +161,7 @@ const columns: GridColDef[] = [
     flex: 0.25,
     minWidth: 280,
     field: 'name',
-    headerName: 'Donneur Ordre',
+    headerName: "donneur d'ordre",
     renderCell: ({ row }: CellType) => {
       const { name, email } = row
 
@@ -192,7 +192,7 @@ const columns: GridColDef[] = [
     flex: 0.15,
     minWidth: 190,
     field: 'phone',
-    headerName: 'Phone',
+    headerName: 'Téléphone',
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap sx={{ color: 'text.secondary' }}>
@@ -205,7 +205,7 @@ const columns: GridColDef[] = [
     flex: 0.1,
     minWidth: 110,
     field: 'address',
-    headerName: 'Adress',
+    headerName: 'Adresse',
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap sx={{ color: 'text.secondary' }}>
@@ -268,7 +268,7 @@ const UserList = () => {
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
-  const store = useSelector((state: RootState) => state.order)
+  const store: any = useSelector((state: RootState) => state.order)
   useEffect(() => {
     dispatch(
       fetchData({
@@ -288,7 +288,7 @@ const UserList = () => {
   const item: any = {
     stats: 0,
     icon: 'tabler:chart-pie-2',
-    subtitle: "total des donneur d'ordre"
+    subtitle: "total des donneurs d'ordres"
   }
   if (store.count >= 0) {
     item.stats = store.count
@@ -303,13 +303,13 @@ const UserList = () => {
       </Grid>
       <Grid item xs={12}>
         <Card>
-          <CardHeader title='e' />
+          <CardHeader title='' />
           <Divider sx={{ m: '0 !important' }} />
           <TableHeader
             value={value}
             handleFilter={handleFilter}
             toggle={toggleAddOrderDrawer}
-            name='Ajouter un nouvel order'
+            name="Ajouter un donneur d'ordre"
           />
           <DataGrid
             autoHeight

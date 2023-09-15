@@ -41,7 +41,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
 
     pdf.setFontSize(15)
 
-    pdf.text(`ETAT RECAPITULATIF INDUSTERIS`, 150, 49, { align: 'center' })
+    pdf.text(`ETAT RECAPITULATIF`, 150, 49, { align: 'center' })
     pdf.setFontSize(12)
     pdf.text(`je sousigné `, 150, 55, { align: 'center' })
     if (data.orderDetailId) {
@@ -68,7 +68,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 115, { align: 'center' })
     pdf.text(`Résistance thermique : 1,58 m².K/w à un tempurature moyenne de 50°c`, 150, 128, { align: 'center' })
     pdf.text(`: 1,27 m².K/w à un tempurature moyenne de 100°c et non 1,58`, 172, 133, { align: 'center' })
-    pdf.text(`Isolant et référance : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1`, 150, 138, {
+    pdf.text(`Isolant et Référence : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1`, 150, 138, {
       align: 'center'
     })
     pdf.text(`Température maximale : 200°C1`, 150, 145, {
@@ -77,7 +77,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.text(`Température fluide caloporteur : 70°C`, 150, 150, {
       align: 'center'
     })
-    pdf.text(`Référance : ISOVAN`, 150, 155, {
+    pdf.text(`Référence : ISOVAN`, 150, 155, {
       align: 'center'
     })
     pdf.text(`Lieu d'implantationdes metelas : CHAUFFERIE`, 150, 160, {
@@ -114,7 +114,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
 
   return (
     <Button fullWidth variant='tonal' color='secondary' onClick={generatePdf}>
-      Télecharger
+      Télécharger
     </Button>
   )
 }

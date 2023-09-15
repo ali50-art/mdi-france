@@ -28,8 +28,10 @@ const Constructeur = () => {
           <Card>
             <CardHeader title='état récapitulatif 🚀'></CardHeader>
             <CardContent>
-              <Typography sx={{ mb: 2 }}>aucun charge pour installer </Typography>
-              <Typography>contacter un logistique s'il vous plait</Typography>
+              <Typography sx={{ mb: 2 }}>
+                Vous n’avez plus de matériaux disponibles. Veuillez contacter votre logisticien pour pouvoir
+                commencer votre chantie{' '}
+              </Typography>
             </CardContent>
           </Card>
         </Grid>
@@ -37,7 +39,7 @@ const Constructeur = () => {
     ) : (
       <Grid container spacing={6}>
         <Grid item xs={12}>
-          <Typography variant='h6'>Construction de pdf</Typography>
+          <Typography variant='h6'>état récapitulatif</Typography>
         </Grid>
         <Grid item xs={12}>
           <StepperLinearWithValidation />

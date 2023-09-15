@@ -236,23 +236,23 @@ const AddCard = ({ pdfId }: any) => {
                   <TableBody sx={{ '& .MuiTableCell-root': { py: `${theme.spacing(0.75)} !important` } }}>
                     <TableRow>
                       <MUITableCell>
-                        <Typography sx={{ color: 'text.secondary' }}>
-                          <strong>ISOLATION ET REFERANCE :</strong> Laine de verre ISOVER TECH ROLL 3.0 -classé au feu
+                        <Typography sx={{ color: 'text.secondary', mb: '1.5rem' }}>
+                          <strong>ISOLATION ET REFERENCE :</strong> Laine de verre ISOVER TECH ROLL 3.0 -classé au feu
                           A1
                         </Typography>
                       </MUITableCell>
                     </TableRow>
                     <TableRow>
                       <MUITableCell>
-                        <Typography sx={{ color: 'text.secondary' }}>
-                          <strong>TEMPERATURE MAXIMALE:</strong> 200°c
+                        <Typography sx={{ color: 'text.secondary', mb: '1.5rem' }}>
+                          <strong>TEMPERATURE MAXIMALE:</strong> 300°c
                         </Typography>
                       </MUITableCell>
                     </TableRow>
                     <TableRow>
                       <MUITableCell>
-                        <Typography sx={{ color: 'text.secondary' }}>
-                          <strong>REFERANCE:</strong> ISOVAN
+                        <Typography sx={{ color: 'text.secondary', mb: '1.5rem' }}>
+                          <strong>REFERENCE:</strong> ISOVAN
                         </Typography>
                       </MUITableCell>
                     </TableRow>
@@ -275,20 +275,34 @@ const AddCard = ({ pdfId }: any) => {
               </Typography>
               <TableContainer>
                 <Table>
-                  <TableBody sx={{ '& .MuiTableCell-root': { py: `${theme.spacing(0.75)} !important` } }}>
-                    <TableRow>
-                      <MUITableCell>
-                        <Typography sx={{ color: 'text.secondary' }}>
-                          :1,58 m².K/W a une tempurature moyenne de 50 °C
-                        </Typography>
-                      </MUITableCell>
-                    </TableRow>
-                    <TableRow>
+                  <TableRow>
+                    <MUITableCell>
                       <Typography sx={{ color: 'text.secondary' }}>
-                        :1,58 m².K/W a une tempurature moyenne de 100 °C
+                        :1,50 m².K/W sur un réseau d'eau chaude ou de retour de condensats à température moyenne de 70°C
                       </Typography>
-                    </TableRow>
-                  </TableBody>
+                    </MUITableCell>
+                  </TableRow>
+                  <TableRow>
+                    <MUITableCell>
+                      <Typography sx={{ color: 'text.secondary' }}>
+                        :1,33 m².K/W sur un réseau d'eau surchauffée à température moyenne de 90°C
+                      </Typography>
+                    </MUITableCell>
+                  </TableRow>
+                  <TableRow>
+                    <MUITableCell>
+                      <Typography sx={{ color: 'text.secondary' }}>
+                        :1,22 m².K/W sur un réseau vapeur à une température moyenne de 110°C
+                      </Typography>
+                    </MUITableCell>
+                  </TableRow>
+                  <TableRow>
+                    <MUITableCell>
+                      <Typography sx={{ color: 'text.secondary' }}>
+                        :1,18 m².K/W sur un réseau de fluide organique à une température moyenne de 120°C
+                      </Typography>
+                    </MUITableCell>
+                  </TableRow>
                 </Table>
               </TableContainer>
             </div>

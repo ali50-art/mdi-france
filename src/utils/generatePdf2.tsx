@@ -36,7 +36,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
     const [nb, nb2, nb3] = handleCount()
     pdf.setFontSize(15)
 
-    pdf.text(`ETAT RECAPITULATIF INDUSTERIS`, 150, 49, { align: 'center' })
+    pdf.text(`ETAT RECAPITULATIF`, 150, 49, { align: 'center' })
     pdf.setFontSize(12)
     pdf.text(`je soussigné : `, 150, 55, { align: 'center' })
     pdf.text(`MD INDUSTRIE`, 150, 60, { align: 'center' })

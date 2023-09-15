@@ -131,7 +131,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                 fullWidth
                 value={value}
                 sx={{ mb: 4 }}
-                label='Modéle'
+                label='Modèle'
                 onChange={onChange}
                 placeholder='exemple B1,...'
                 error={Boolean(errors.model)}
@@ -148,28 +148,11 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                 fullWidth
                 value={value}
                 sx={{ mb: 4 }}
-                label='Referance'
+                label='Référence'
                 onChange={onChange}
                 placeholder='exemple xyz,...'
                 error={Boolean(errors.ref)}
                 {...(errors.ref && { helperText: errors.ref.message })}
-              />
-            )}
-          />
-          <Controller
-            name='type'
-            control={control}
-            rules={{ required: true }}
-            render={({ field: { value, onChange } }) => (
-              <CustomTextField
-                fullWidth
-                value={value}
-                sx={{ mb: 4 }}
-                label='Type'
-                onChange={onChange}
-                placeholder='exemple xyz,...'
-                error={Boolean(errors.type)}
-                {...(errors.type && { helperText: errors.type.message })}
               />
             )}
           />

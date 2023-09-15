@@ -127,7 +127,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
       sx={{ '& .MuiDrawer-paper': { width: { xs: 300, sm: 400 } } }}
     >
       <Header>
-        <Typography variant='h5'>Modefier un Materiel</Typography>
+        <Typography variant='h5'>Modifier un Materiel</Typography>
         <IconButton
           size='small'
           onClick={handleClose}
@@ -155,7 +155,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                 fullWidth
                 value={value}
                 sx={{ mb: 4 }}
-                label='Modéle'
+                label='Modèle'
                 onChange={onChange}
                 placeholder='exemple B1,...'
                 error={Boolean(errors.model)}
@@ -172,7 +172,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                 fullWidth
                 value={value}
                 sx={{ mb: 4 }}
-                label='Referance'
+                label='Référence'
                 onChange={onChange}
                 placeholder='exemple xyz,...'
                 error={Boolean(errors.ref)}

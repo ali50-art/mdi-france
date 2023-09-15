@@ -219,7 +219,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
       sx={{ '& .MuiDrawer-paper': { width: { xs: 300, sm: 400 } } }}
     >
       <Header>
-        <Typography variant='h5'>Modefier la Donner D'order</Typography>
+        <Typography variant='h5'>modifier le donneur d'ordre</Typography>
         <IconButton
           size='small'
           onClick={handleClose}
@@ -253,7 +253,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                 />
               </ButtonStyled>
               <ResetButtonStyled color='secondary' variant='tonal' onClick={handleInputImageReset}>
-                Reset
+                supprimer
               </ResetButtonStyled>
             </Box>
           </Box>
@@ -301,7 +301,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                 fullWidth
                 value={value}
                 sx={{ mb: 4 }}
-                label='Phone'
+                label='Téléphone'
                 onChange={onChange}
                 placeholder='numero de telephone'
                 error={Boolean(errors.phone)}
@@ -318,9 +318,9 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                 fullWidth
                 value={value}
                 sx={{ mb: 4 }}
-                label='Address'
+                label='Addresse'
                 onChange={onChange}
-                placeholder='xyz,..'
+                placeholder='exemple rue'
                 error={Boolean(errors.address)}
                 {...(errors.address && { helperText: errors.address.message })}
               />

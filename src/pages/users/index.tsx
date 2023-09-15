@@ -201,7 +201,7 @@ const columns: GridColDef[] = [
   {
     flex: 0.15,
     minWidth: 120,
-    headerName: 'Phone',
+    headerName: 'Téléphone',
     field: 'phone',
     renderCell: ({ row }: CellType) => {
       return (
@@ -227,7 +227,7 @@ const columns: GridColDef[] = [
             <Icon icon={userRoleObj[row.role].icon} />
           </CustomAvatar>
           <Typography noWrap sx={{ color: 'text.secondary', textTransform: 'capitalize' }}>
-            {row.role}
+            {row.role == 'instalateur' ? 'installateur' : row.role}
           </Typography>
         </Box>
       )
@@ -326,24 +326,21 @@ const UserList = () => {
       stats: '0',
       title: 'admin',
       checkTitle: 'admin',
-      icon: 'tabler:user-shield',
-      subtitle: 'total de admin'
+      icon: 'tabler:user-shield'
     },
     {
       stats: '0',
       title: 'logisticien',
       checkTitle: 'logisticien',
       avatarColor: 'error',
-      icon: 'tabler:truck',
-      subtitle: 'total de logisticien'
+      icon: 'tabler:truck'
     },
     {
       stats: '0',
       title: 'installateur',
       checkTitle: 'instalateur',
       avatarColor: 'success',
-      icon: 'tabler:clipboard-data',
-      subtitle: "total d'installateur"
+      icon: 'tabler:clipboard-data'
     }
   ]
   const counter: any = store.count

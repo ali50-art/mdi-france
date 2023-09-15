@@ -227,7 +227,7 @@ const AddCard = ({ pdfId }: any) => {
                     <TableRow>
                       <MUITableCell>
                         <Typography sx={{ color: 'text.secondary' }}>
-                          <strong>ISOLATION ET REFERANCE :</strong> Laine de verre ISOVER TECH ROLL 3.0 -classé au feu
+                          <strong>ISOLATION ET REFERENCE :</strong> Laine de verre ISOVER TECH ROLL 3.0 -classé au feu
                           A1
                         </Typography>
                       </MUITableCell>
@@ -242,7 +242,7 @@ const AddCard = ({ pdfId }: any) => {
                     <TableRow>
                       <MUITableCell>
                         <Typography sx={{ color: 'text.secondary' }}>
-                          <strong>REFERANCE:</strong> ISOVAN
+                          <strong>REFERENCE:</strong> ISOVAN
                         </Typography>
                       </MUITableCell>
                     </TableRow>
@@ -269,13 +269,13 @@ const AddCard = ({ pdfId }: any) => {
                     <TableRow>
                       <MUITableCell>
                         <Typography sx={{ color: 'text.secondary' }}>
-                          :1,58 m².K/W a une tempurature moyenne de 50 °C
+                          :1,58 m².K/W à une température moyenne de 50 °C
                         </Typography>
                       </MUITableCell>
                     </TableRow>
                     <TableRow>
                       <Typography sx={{ color: 'text.secondary' }}>
-                        :1,58 m².K/W a une tempurature moyenne de 100 °C
+                        :1,27m2.K/W à une température moyenne de 100°C
                       </Typography>
                     </TableRow>
                   </TableBody>

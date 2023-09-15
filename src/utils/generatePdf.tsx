@@ -80,7 +80,7 @@ const PDFGenerator = ({ data, data2, res }: any) => {
     pdf.text(`Lieu d'implantation des matelas : CHAUFFERIE`, 150, 160, {
       align: 'center'
     })
-    pdf.text(`Nomber de points singuliers posés : `, 150, 165, {
+    pdf.text(`Nomber des points singuliers posés : `, 150, 165, {
       align: 'center'
     })
     pdf.text(`DN20 a DN65 = ${Between20And65}`, 150, 170, {
@@ -93,7 +93,7 @@ const PDFGenerator = ({ data, data2, res }: any) => {
       align: 'center'
     })
 
-    pdf.text(`Total de points singuliers = ${data.length}`, 150, 190, {
+    pdf.text(`Total des points singuliers = ${data.length}`, 150, 190, {
       align: 'center'
     })
     pdf.addPage()
