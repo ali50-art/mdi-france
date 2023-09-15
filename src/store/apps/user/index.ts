@@ -43,7 +43,7 @@ export const fetchData = createAsyncThunk('appUsers/fetchData', async (params: a
 
 export const fetchinstallateursData = createAsyncThunk('appUsers/fetchInstaleursData', async () => {
   const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
-  const response = await axios.get(`${serverUri.uri}/api/admin/users?search=installateur`, {
+  const response = await axios.get(`${serverUri.uri}/api/admin/users?search=instalateur`, {
     headers: {
       Authorization: storedToken
     }

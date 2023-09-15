@@ -47,7 +47,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
-  const [role, setRole] = useState<string>('installateur')
+  const [role, setRole] = useState<string>('instalateur')
 
   const store = useSelector((state: RootState) => state.user)
   useEffect(() => {

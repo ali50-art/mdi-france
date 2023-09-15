@@ -61,7 +61,7 @@ const userRoleObj: UserRoleType = {
   superAdmin: { icon: 'tabler:device-laptop', color: 'secondary' },
   admin: { icon: 'tabler:device-laptop', color: 'secondary' },
   logisticien: { icon: 'tabler:truck', color: 'success' },
-  installateur: { icon: 'tabler:edit', color: 'info' },
+  instalateur: { icon: 'tabler:edit', color: 'info' },
   assistant: { icon: 'tabler:chart-pie-2', color: 'primary' }
 }
 
@@ -325,19 +325,22 @@ const UserList = () => {
     {
       stats: '0',
       title: 'admin',
+      checkTitle: 'admin',
       icon: 'tabler:user-shield',
       subtitle: 'total de admin'
     },
     {
       stats: '0',
       title: 'logisticien',
+      checkTitle: 'logisticien',
       avatarColor: 'error',
       icon: 'tabler:truck',
       subtitle: 'total de logisticien'
     },
     {
       stats: '0',
-      title: 'instalatteur',
+      title: 'installateur',
+      checkTitle: 'instalateur',
       avatarColor: 'success',
       icon: 'tabler:clipboard-data',
       subtitle: "total d'installateur"
@@ -346,7 +349,8 @@ const UserList = () => {
   const counter: any = store.count
   if (counter.length > 0) {
     statsHorizontalWithDetails.forEach((element: any) => {
-      const foundIndex = counter.findIndex((el: any) => el._id == element.title)
+      const foundIndex = counter.findIndex((el: any) => el._id == element.checkTitle)
+
       if (foundIndex >= 0) {
         element.stats = counter[foundIndex]?.count
       }
@@ -370,7 +374,7 @@ const UserList = () => {
       </Grid>
       <Grid item xs={12}>
         <Card>
-          <CardHeader title='e' />
+          <CardHeader title='' />
           <CardContent>
             <Grid container spacing={6}>
               <Grid item sm={4} xs={12}>
@@ -387,7 +391,7 @@ const UserList = () => {
                   <MenuItem value=''>Sélectionnez un rôle</MenuItem>
                   <MenuItem value='admin'>Admin</MenuItem>
                   <MenuItem value='logisticien'>logisticien</MenuItem>
-                  <MenuItem value='installateur'>installateur</MenuItem>
+                  <MenuItem value='instalateur'>installateur</MenuItem>
                 </CustomTextField>
               </Grid>
 
