@@ -56,7 +56,7 @@ const AddActions = () => {
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <Card>
-          {store.data.type === 'indestry' ? (
+          {store.data.type === 'indestrie' ? (
             <PDFFile2 data={store.data} data2={data2} />
           ) : (
             <PDFFile data={store.data} data2={data} />

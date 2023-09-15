@@ -22,8 +22,26 @@ const PDFGenerator = ({ data, data2 }: any) => {
     orientation: 'l', // Swap orientation based on dimensions
     unit: 'mm'
   })
+  const handleCount = () => {
+    let nb = 0
+    let nb2 = 0
+    let nb3 = 0
 
+    data2.forEach((el: any) => {
+      if (el[3] == 'vapeur') {
+        nb += 1
+      } else if (el[3] == 'Eau surchauffée') {
+        nb2 += 1
+      } else {
+        nb3 += 1
+      }
+    })
+
+    return [nb, nb2, nb3]
+  }
   const generatePdf = () => {
+    const [nb, nb2, nb3] = handleCount()
+
     // Add logo image
     const imgWidth = 50 // Adjust the width of the logo
     const imgHeight = 30 // Adjust the height of the logo
@@ -66,28 +84,45 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.text(`${data.clientAdress}`, 150, 96, { align: 'center' })
     pdf.text(`${data.clientVille} ${data.clientCodePostal}`, 150, 101, { align: 'center' })
     pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 115, { align: 'center' })
-    pdf.text(`Résistance thermique : 1,58 m².K/w à un tempurature moyenne de 50°c`, 150, 128, { align: 'center' })
-    pdf.text(`: 1,27 m².K/w à un tempurature moyenne de 100°c et non 1,58`, 172, 133, { align: 'center' })
-    pdf.text(`Isolant et Référence : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1`, 150, 138, {
+    pdf.text(
+      `Résistance thermique : 1,50 m².K/W sur un réseau d'eau chaude ou de retour de condensats à température moyenne de 70°C`,
+      150,
+      128,
+      { align: 'center' }
+    )
+    pdf.text(`: 1,33 m².K/W sur un réseau d'eau surchauffée à température moyenne de 90°C`, 150, 133, {
       align: 'center'
     })
-    pdf.text(`Température maximale : 200°C1`, 150, 145, {
+    pdf.text(`: 1,22 m².K/W sur un réseau vapeur à une température moyenne de 110°C`, 150, 138, {
       align: 'center'
     })
-    pdf.text(`Température fluide caloporteur : 70°C`, 150, 150, {
+    pdf.text(`: 1,18 m².K/W sur un réseau de fluide organique à une température moyenne de 120°C`, 150, 145, {
       align: 'center'
     })
-    pdf.text(`Référence : ISOVAN`, 150, 155, {
+    pdf.text(`Isolant et Référence : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1`, 150, 155, {
       align: 'center'
     })
-    pdf.text(`Lieu d'implantationdes metelas : CHAUFFERIE`, 150, 160, {
+    pdf.text(`Température maximale : 200°C1`, 150, 160, {
       align: 'center'
     })
-    pdf.text(`Nomber de points singuliers posés : `, 150, 165, {
+    pdf.text(`Température fluide caloporteur : 70°C`, 150, 165, {
+      align: 'center'
+    })
+    pdf.text(`points en eau chaude au retour de condensats en circuit fermé`, 150, 170, {
       align: 'center'
     })
 
-    pdf.text(`Total de points singuliers = ${data?.pdefDetails.length}`, 150, 190, {
+    pdf.text(`vapeur = ${nb}`, 150, 180, {
+      align: 'center'
+    })
+    pdf.text(`Eau surchauffée = ${nb2}`, 150, 185, {
+      align: 'center'
+    })
+    pdf.text(`Fluide organique = ${nb3}`, 150, 190, {
+      align: 'center'
+    })
+
+    pdf.text(`Total de points singuliers = ${data2.length}`, 150, 195, {
       align: 'center'
     })
     pdf.addPage()
@@ -95,11 +130,11 @@ const PDFGenerator = ({ data, data2 }: any) => {
     // Dynamic content on subsequent pages
     pdf.setFontSize(12)
     const tableHeader = [
-      `lieu d'implantation`,
+      `Zone d'implantation`,
       `Type de point singulier`,
       `Référence matelas`,
       'N° De repérage',
-      'Nature de flu ide calopor teur'
+      'Fluide'
     ]
     pdf.autoTable({
       startY: 30,

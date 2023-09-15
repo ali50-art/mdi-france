@@ -12,6 +12,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 
 // ** Store Imports
+import FormControlLabel from '@mui/material/FormControlLabel'
 import { useDispatch, useSelector } from 'react-redux'
 
 // ** Actions Imports
@@ -19,6 +20,7 @@ import { fetchData } from 'src/store/apps/order'
 import { updatePdf } from 'src/store/apps/suiveChantier'
 
 // ** Types Imports
+import MuiRadio, { RadioProps } from '@mui/material/Radio'
 import { AppDispatch, RootState } from 'src/store'
 import { Dialog, DialogTitle, DialogContent, Grid, DialogActions } from '@mui/material'
 import { useState, useEffect } from 'react'
@@ -42,7 +44,28 @@ const defaultValues = {
   username: '',
   phone: Number('')
 }
-
+const Radio = (props: RadioProps) => {
+  return (
+    <MuiRadio
+      {...props}
+      disableRipple={true}
+      sx={{ '& svg': { height: 18, width: 18 } }}
+      checkedIcon={
+        <svg width='24' height='24' viewBox='0 0 24 24'>
+          <path fill='currentColor' d='M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z' />
+        </svg>
+      }
+      icon={
+        <svg width='24' height='24' viewBox='0 0 24 24'>
+          <path
+            fill='currentColor'
+            d='M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z'
+          />
+        </svg>
+      }
+    />
+  )
+}
 const SidebarAddUser = (props: SidebarAddUserType) => {
   // ** Props
   const { open, toggle, id } = props
@@ -75,6 +98,9 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
   }
 
   // const index=sorteMaterail.findIndex((el:any)=>el)
+  const handleSetIndetryProgress = (e: any) => {
+    localStorage.setItem('indestryProgess', JSON.stringify(e))
+  }
 
   return (
     <>
@@ -126,22 +152,24 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
             {sorteMaterail.data?.type == 'indestrie' ? (
               <Grid container spacing={6}>
                 <Grid item xs={12} sm={12}>
-                  <CustomTextField
-                    select
-                    fullWidth
-                    value={role}
-                    sx={{ mb: 4 }}
-                    label='Sélectionner'
-                    SelectProps={{ value: role, onChange: e => setRole(e.target.value as string) }}
-                  >
-                    {store.data.map((el: any) => {
-                      return (
-                        <MenuItem value={el._id} key={el.id}>
-                          {el.name}
-                        </MenuItem>
-                      )
-                    })}
-                  </CustomTextField>
+                  <FormControlLabel
+                    value='1'
+                    control={<Radio />}
+                    label='2x8'
+                    onChange={(e: any) => handleSetIndetryProgress(e.target.value)}
+                  />
+                  <FormControlLabel
+                    value='2'
+                    control={<Radio />}
+                    label='3x8 avec arrêt le week-end'
+                    onChange={(e: any) => handleSetIndetryProgress(e.target.value)}
+                  />
+                  <FormControlLabel
+                    value='3x8 sans arrêt le week-end'
+                    control={<Radio />}
+                    label='3x8 sans arrêt le week-end'
+                    onChange={(e: any) => handleSetIndetryProgress(e.target.value)}
+                  />
                 </Grid>
               </Grid>
             ) : (
