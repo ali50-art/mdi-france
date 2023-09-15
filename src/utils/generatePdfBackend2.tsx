@@ -62,7 +62,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
       { align: 'center' }
     )
 
-    pdf.text(`je sousigné `, 150, 89, { align: 'center' })
+    pdf.text(`à l'adresse de travaux :`, 150, 89, { align: 'center' })
     pdf.text(`${data.clientAdress}`, 150, 96, { align: 'center' })
     pdf.text(`${data.clientVille} ${data.clientCodePostal}`, 150, 101, { align: 'center' })
     pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 115, { align: 'center' })
@@ -96,8 +96,8 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.setFontSize(12)
     const tableHeader = [
       `lieu d'implantation`,
-      `Types de point singulier`,
-      `Référence mateles`,
+      `Type de point singulier`,
+      `Référence matelas`,
       'N° De repérage',
       'Nature de flu ide calopor teur'
     ]

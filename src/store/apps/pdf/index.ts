@@ -80,22 +80,19 @@ export const fetchCountData = createAsyncThunk('appPdf/fetchCountData', async (p
 })
 
 // ** Delete User
-export const deletePdf = createAsyncThunk(
-  'appPdf/deletePdf',
-  async (id: number | string, { getState, dispatch }: Redux) => {
-    const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
-    const config = {
-      headers: {
-        'Content-Type': 'application/json', // Example: JSON data
-        Authorization: storedToken
-      }
+export const deletePdf = createAsyncThunk('appPdf/deletePdf', async (id: any, { getState, dispatch }: Redux) => {
+  const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
+  const config = {
+    headers: {
+      'Content-Type': 'application/json', // Example: JSON data
+      Authorization: storedToken
     }
-    const response = await axios.delete(`${serverUri.uri}/api/Pdf/${id}`, config)
-    dispatch(fetchData(getState().user.params))
-
-    return response.data
   }
-)
+  const response = await axios.delete(`${serverUri.uri}/api/Pdf/${id}`, config)
+  dispatch(fetchData(getState().user.params))
+
+  return response.data
+})
 
 // ** Update User
 export const updatePdf = createAsyncThunk(

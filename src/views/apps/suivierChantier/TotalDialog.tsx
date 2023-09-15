@@ -85,7 +85,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
             pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
           }}
         >
-          Total de donneur d'order
+          Total de matériaux utilisés
         </DialogTitle>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent
@@ -100,7 +100,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                   <>
                     <Grid item xs={6} sm={6}>
                       <CustomTextField
-                        label='Model'
+                        label='Matériel utilisé'
                         value={el.model}
                         id='form-props-number'
                         InputLabelProps={{ shrink: true }}
@@ -109,7 +109,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                     <Grid item xs={3} sm={4}>
                       <CustomTextField
                         type='number'
-                        label='Number'
+                        label='Quantité'
                         value={el.count}
                         id='form-props-number'
                         InputLabelProps={{ shrink: true }}
@@ -128,11 +128,8 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
               pb: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
             }}
           >
-            <Button type='submit' variant='contained' sx={{ mr: 3 }} onClick={handleSubmit(onSubmit)}>
-              sélectionner
-            </Button>
             <Button variant='tonal' color='secondary' onClick={handleClose}>
-              Annuler
+              Fermer
             </Button>
           </DialogActions>
         </form>

@@ -28,6 +28,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 // ** Actions Imports
 import { fetchData } from 'src/store/apps/suiveChantier'
+import { deletePdf } from 'src/store/apps/pdf'
 
 // import authConfig from 'src/configs/auth'
 // import { serverUri } from 'src/configs/auth'
@@ -67,88 +68,100 @@ const formateDate = (date: any) => {
 
 // ** renders client column
 
-const RowOptions = ({ id }: { id: number | string }) => {
-  // ** Hooks
-  // const dispatch = useDispatch<AppDispatch>()
-
-  // ** State
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-  const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
-  const [openTotalModel, setOpenTotalModel] = useState<any>(false)
-  const rowOptionsOpen = Boolean(anchorEl)
-
-  const handleRowOptionsClick = (event: MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget)
-  }
-  const handleRowOptionsClose = () => {
-    setAnchorEl(null)
-  }
-  const handleOpenEdite = () => {
-    handleRowOptionsClose()
-    setAddUserOpen(!addUserOpen)
-  }
-  const handleOpenTotal = () => {
-    handleRowOptionsClose()
-    setOpenTotalModel(!openTotalModel)
-  }
-
-  // const handleDelete = () => {
-  //   dispatch(deleteMaterial(id))
-  //   handleRowOptionsClose()
-  // }
-
-  return (
-    <>
-      <IconButton size='small' onClick={handleRowOptionsClick}>
-        <Icon icon='tabler:dots-vertical' />
-      </IconButton>
-      <Menu
-        keepMounted
-        anchorEl={anchorEl}
-        open={rowOptionsOpen}
-        onClose={handleRowOptionsClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right'
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right'
-        }}
-        PaperProps={{ style: { minWidth: '8rem' } }}
-      >
-        <Typography
-          noWrap
-          href={`/suivi-chantier/${id}`}
-          component={Link}
-          sx={{
-            fontWeight: 500,
-            textDecoration: 'none',
-            color: 'text.secondary'
-          }}
-        >
-          <MenuItem sx={{ '& svg': { mr: 2 } }}>
-            <Icon icon='tabler:eye' fontSize={20} />
-            Éditer & Télécharger
-          </MenuItem>
-        </Typography>
-
-        <MenuItem sx={{ '& svg': { mr: 2 } }} onClick={handleOpenEdite}>
-          <Icon icon='tabler:edit' fontSize={20} />
-          traiter
-        </MenuItem>
-        <MenuItem sx={{ '& svg': { mr: 2 } }} onClick={handleOpenTotal}>
-          <Icon icon='tabler:truck' fontSize={20} />
-          total
-        </MenuItem>
-      </Menu>
-      {openTotalModel && <TotalDialog open={openTotalModel} toggle={handleOpenTotal} id={id} />}
-      {addUserOpen && <SelectOrderDialgo open={addUserOpen} toggle={handleOpenEdite} id={id} />}
-    </>
-  )
-}
-
 const AdminDashboard = () => {
+  const [count, setCount] = useState<any>(0)
+  const RowOptions = ({ id }: { id: number | string }) => {
+    // ** Hooks
+    // const dispatch = useDispatch<AppDispatch>()
+
+    // ** State
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+    const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
+    const [openTotalModel, setOpenTotalModel] = useState<any>(false)
+
+    const rowOptionsOpen = Boolean(anchorEl)
+    const dispatch = useDispatch<AppDispatch>()
+
+    const handleRowOptionsClick = (event: MouseEvent<HTMLElement>) => {
+      setAnchorEl(event.currentTarget)
+    }
+    const handleRowOptionsClose = () => {
+      setAnchorEl(null)
+    }
+    const handleOpenEdite = () => {
+      handleRowOptionsClose()
+      setAddUserOpen(!addUserOpen)
+    }
+    const handleOpenTotal = () => {
+      handleRowOptionsClose()
+      setOpenTotalModel(!openTotalModel)
+    }
+    const handleDeleteItem = (id: any) => {
+      dispatch(deletePdf(id))
+      handleRowOptionsClose()
+      setCount(1)
+    }
+
+    // const handleDelete = () => {
+    //   dispatch(deleteMaterial(id))
+    //   handleRowOptionsClose()
+    // }
+
+    return (
+      <>
+        <IconButton size='small' onClick={handleRowOptionsClick}>
+          <Icon icon='tabler:dots-vertical' />
+        </IconButton>
+        <Menu
+          keepMounted
+          anchorEl={anchorEl}
+          open={rowOptionsOpen}
+          onClose={handleRowOptionsClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right'
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right'
+          }}
+          PaperProps={{ style: { minWidth: '8rem' } }}
+        >
+          <Typography
+            noWrap
+            href={`/suivi-chantier/${id}`}
+            component={Link}
+            sx={{
+              fontWeight: 500,
+              textDecoration: 'none',
+              color: 'text.secondary'
+            }}
+          >
+            <MenuItem sx={{ '& svg': { mr: 2 } }}>
+              <Icon icon='tabler:eye' fontSize={20} />
+              Éditer & Télécharger
+            </MenuItem>
+          </Typography>
+
+          <MenuItem sx={{ '& svg': { mr: 2 } }} onClick={handleOpenEdite}>
+            <Icon icon='tabler:edit' fontSize={20} />
+            traité
+          </MenuItem>
+          <MenuItem sx={{ '& svg': { mr: 2 } }} onClick={handleOpenTotal}>
+            <Icon icon='tabler:truck' fontSize={20} />
+            total
+          </MenuItem>
+          <MenuItem sx={{ '& svg': { mr: 2 } }} onClick={() => handleDeleteItem(id)}>
+            <Icon icon='tabler:eraser' fontSize={20} />
+            supprimer
+          </MenuItem>
+        </Menu>
+        {openTotalModel && <TotalDialog open={openTotalModel} toggle={handleOpenTotal} id={id} />}
+        {addUserOpen && <SelectOrderDialgo open={addUserOpen} toggle={handleOpenEdite} id={id} />}
+      </>
+    )
+  }
+
   // ** State
   const [value, setValue] = useState<string>('')
   const [Type, setType] = useState<string>('')
@@ -234,7 +247,7 @@ const AdminDashboard = () => {
             rounded
             skin='light'
             size='small'
-            label={row?.orderDetailId?.length > 0 ? 'traiter' : 'no traiter'}
+            label={row?.orderDetailId?.length > 0 ? 'traité' : 'non traité'}
             color={row?.orderDetailId?.length > 0 ? 'success' : 'error'}
             sx={{ textTransform: 'capitalize' }}
           />
@@ -264,7 +277,7 @@ const AdminDashboard = () => {
         sort: '-createdAt'
       })
     )
-  }, [dispatch, value, Type, page, pageSize])
+  }, [dispatch, value, Type, page, pageSize, count])
 
   const handleFilter = useCallback((val: string) => {
     setValue(val)
@@ -276,7 +289,7 @@ const AdminDashboard = () => {
     <Grid container spacing={6.5}>
       <Grid item xs={12}>
         <Card>
-          <CardHeader title='e' />
+          <CardHeader title='' />
           <CardContent>
             <Grid container spacing={6}>
               <Grid item sm={4} xs={12}>
@@ -291,8 +304,8 @@ const AdminDashboard = () => {
                   }}
                 >
                   <MenuItem value=''>Sélectionnez un statut</MenuItem>
-                  <MenuItem value='true'>Traiter</MenuItem>
-                  <MenuItem value='false'>No Traiter</MenuItem>
+                  <MenuItem value='true'>traité</MenuItem>
+                  <MenuItem value='false'>Non traité</MenuItem>
                 </CustomTextField>
               </Grid>
             </Grid>

@@ -122,7 +122,7 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
         const el: any = res[i]
         const newObj: any = {
           firstPdf: i === 0 ? true : false,
-          type: 'indestry',
+          type: 'indestrie',
           clientName: res2[0]?.username || '',
           clientAdress: res2[0]?.address || '',
           clientVille: res2[0]?.ville || '',

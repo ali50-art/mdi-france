@@ -45,6 +45,23 @@ export const updatePdf = createAsyncThunk('appSuiveChantier/updatePdf', async (d
 
   return response.data
 })
+export const updatePdfDetails = createAsyncThunk(
+  'appSuiveChantier/updatePdfDetails',
+  async ({ data, pdfId }: any, { dispatch }: Redux) => {
+    const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
+    const config = {
+      headers: {
+        'Content-Type': 'application/json', // Example: JSON data
+        Authorization: storedToken
+      }
+    }
+
+    const response = await axios.put(`${serverUri.uri}/api/pdfDetails/${data.id}`, { data }, config)
+    dispatch(fetchData({ id: pdfId }))
+
+    return response.data
+  }
+)
 
 export const appSuiveChantierSlice = createSlice({
   name: 'appSuiveChantierPdf',

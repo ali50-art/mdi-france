@@ -29,7 +29,7 @@ import Icon from 'src/@core/components/icon'
 import { useDispatch } from 'react-redux'
 import { RootState, AppDispatch } from 'src/store'
 import { useSelector } from 'react-redux'
-import { fetchData } from 'src/store/apps/material'
+import { updatePdfDetails } from 'src/store/apps/suiviChantierPdf'
 
 // ** Custom Component Imports
 import Repeater from 'src/@core/components/repeater'
@@ -87,29 +87,27 @@ const InvoiceAction = styled(Box)<BoxProps>(({ theme }) => ({
   borderLeft: `1px solid ${theme.palette.divider}`
 }))
 
-const AddCard = () => {
+const AddCard = ({ pdfId }: any) => {
   // ** Props
   const dispatch = useDispatch<AppDispatch>()
   const store: any = useSelector((state: RootState) => state.suiviChantierPdf)
 
   // ** States
   const [hasId, setHasId] = useState<any>([])
-  const [materail, setMaterail] = useState<any>('')
 
   // ** Hook
   const theme = useTheme()
 
   const CheckExistingId = (id: any) => {
-    const index = hasId.findIndex((el: any) => el.toString() == id.toString())
-    console.log('index : ', index)
+    const index = hasId.findIndex((el: any) => el.id.toString() == id.toString())
 
     return index == -1 ? false : true
   }
   const handleSetHasId = (id: any) => {
     if (hasId.length == 0) {
-      return setHasId([id])
+      return setHasId([{ id }])
     }
-    setHasId([...hasId, id])
+    setHasId([...hasId, { id }])
   }
 
   // ** Deletes form
@@ -133,10 +131,56 @@ const AddCard = () => {
     return new Intl.DateTimeFormat('fr-FR', options).format(newData)
   }
   const storeMaterial: any = useSelector((state: RootState) => state.material)
+
+  // const handleUpdateArray = () => {
+  //   setHasId((prevState: any) => {
+  //     return
+  //   })
+  // }
+  const fetchNature = (id: any) => {
+    const index = hasId.findIndex((el: any) => el.id.toString() == id.toString())
+
+    return hasId[index].nature ? hasId[index].nature : ''
+  }
+  const handlesetNature = (e: any, id: any) => {
+    const index = hasId.findIndex((el: any) => el.id.toString() == id.toString())
+    const newHaseId = hasId
+    newHaseId[index].nature = e
+    setHasId([...newHaseId])
+  }
+  const handlesetModel = (e: any, id: any) => {
+    const index = hasId.findIndex((el: any) => el.id.toString() == id.toString())
+    const newHaseId = hasId
+    newHaseId[index].model = e
+    setHasId([...newHaseId])
+  }
+  const fetchModel = (id: any) => {
+    const index = hasId.findIndex((el: any) => el.id.toString() == id.toString())
+
+    return hasId[index].model ? hasId[index].model : ''
+  }
+  const handlesetType = (e: any, id: any) => {
+    const index = hasId.findIndex((el: any) => el.id.toString() == id.toString())
+    const newHaseId = hasId
+    newHaseId[index].filterType = e
+    setHasId([...newHaseId])
+  }
+  const fetchType = (id: any) => {
+    const index = hasId.findIndex((el: any) => el.id.toString() == id.toString())
+
+    return hasId[index].filterType ? hasId[index].filterType : ''
+  }
+
+  const handleUpdatePdf = (id: any) => {
+    const index = hasId.findIndex((el: any) => el.id.toString() == id.toString())
+    dispatch(updatePdfDetails({ data: hasId[index], pdfId: pdfId }))
+
+    const newHaseId = hasId
+    newHaseId.splice(index, 1)
+    setHasId([...newHaseId])
+  }
   useEffect(() => {
-    fetchData({
-      pageSize: 50
-    })
+    console.log()
   }, [hasId])
 
   return (
@@ -313,41 +357,67 @@ const AddCard = () => {
                         <Grid container sx={{ py: 4, width: '100%', pr: { lg: 0, xs: 4 } }}>
                           <Grid item lg={2.75} md={2.75} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
                             <CustomTextField
-                              placeholder="Zone d'implantation"
                               defaultValue={store?.data?.pdefDetails[i].place}
                               InputProps={{ inputProps: { min: 0 } }}
                             />
                           </Grid>
                           <Grid item lg={2.75} md={2.75} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
-                            <CustomTextField
-                              value={store?.data?.pdefDetails[i].filterType}
-                              InputProps={{ inputProps: { min: 0 } }}
-                            />
+                            {CheckExistingId(store?.data?.pdefDetails[i]?._id) == false ? (
+                              <CustomTextField
+                                value={store?.data?.pdefDetails[i].filterType}
+                                InputProps={{ inputProps: { min: 0 } }}
+                              />
+                            ) : (
+                              <CustomTextField
+                                select
+                                fullWidth
+                                value={fetchType(store?.data?.pdefDetails[i]?._id)}
+                                sx={{ mb: 4 }}
+                                onChange={e => handlesetType(e.target.value, store?.data?.pdefDetails[i]?._id)}
+                                SelectProps={{
+                                  value: fetchType(store?.data?.pdefDetails[i]?._id),
+                                  onChange: e => handlesetType(e.target.value, store?.data?.pdefDetails[i]?._id)
+                                }}
+                              >
+                                <MenuItem value='Bride'>Bride</MenuItem>
+                                <MenuItem value='Vanne papillon'>Vanne papillon</MenuItem>
+                                <MenuItem value='Robinet volant fileté'>Robinet volant fileté</MenuItem>
+                                <MenuItem value="Manchette d'ecartement">Manchette d'ecartement</MenuItem>
+                                <MenuItem value='Clapet fileté'>Clapet fileté</MenuItem>
+                                <MenuItem value='Circulateur fileté'>Circulateur fileté</MenuItem>
+                                <MenuItem value="Purgeur d'air fileté">Purgeur d'air fileté</MenuItem>
+                                <MenuItem value="Purgeur d'eau fileté">Purgeur d'eau fileté</MenuItem>
+                                <MenuItem value='Compteur'>Compteur</MenuItem>
+                                <MenuItem value='Vanne volante bride'>Vanne volante bride</MenuItem>
+                                <MenuItem value='Vanne TA'>Vanne TA</MenuItem>
+                                <MenuItem value='EAP'>EAP</MenuItem>
+                              </CustomTextField>
+                            )}
                           </Grid>
                           <Grid item lg={2.75} md={2.75} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
                             {CheckExistingId(store?.data?.pdefDetails[i]?._id) == true ? (
                               <CustomTextField
                                 select
                                 fullWidth
-                                value={materail}
+                                value={fetchModel(store?.data?.pdefDetails[i]?._id)}
                                 sx={{ mb: 4 }}
-                                onChange={e => setMaterail(e.target.value)}
+                                onChange={e => handlesetModel(e.target.value, store?.data?.pdefDetails[i]?._id)}
                                 SelectProps={{
-                                  value: materail,
-                                  onChange: e => setMaterail(e.target.value)
+                                  value: fetchModel(store?.data?.pdefDetails[i]?._id),
+                                  onChange: e => handlesetModel(e.target.value, store?.data?.pdefDetails[i]?._id)
                                 }}
                               >
                                 {storeMaterial.data.map((ele: any) => {
                                   return (
-                                    <MenuItem value={ele.red} key={i}>
-                                      ISOVAN{ele.red}
+                                    <MenuItem value={ele.model} key={i}>
+                                      ISOVAN{ele.model}
                                     </MenuItem>
                                   )
                                 })}
                               </CustomTextField>
                             ) : (
                               <CustomTextField
-                                placeholder='1'
+                                placeholder=''
                                 value={store?.data?.pdefDetails[i].model}
                                 InputProps={{ inputProps: { min: 0 } }}
                               />
@@ -360,9 +430,29 @@ const AddCard = () => {
                               InputProps={{ inputProps: { min: 0 } }}
                             />
                           </Grid>
-
                           <Grid item lg={2.75} md={2.75} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
-                            <CustomTextField value='FUIDE ORGANIQUE' InputProps={{ inputProps: { min: 0 } }} />
+                            {CheckExistingId(store?.data?.pdefDetails[i]?._id) == false ? (
+                              <CustomTextField
+                                value={store?.data?.pdefDetails[i].nature}
+                                InputProps={{ inputProps: { min: 0 } }}
+                              />
+                            ) : (
+                              <CustomTextField
+                                select
+                                fullWidth
+                                value={fetchNature(store?.data?.pdefDetails[i]?._id)}
+                                sx={{ mb: 4 }}
+                                onChange={e => handlesetNature(e.target.value, store?.data?.pdefDetails[i]?._id)}
+                                SelectProps={{
+                                  value: fetchNature(store?.data?.pdefDetails[i]?._id),
+                                  onChange: e => handlesetNature(e.target.value, store?.data?.pdefDetails[i]?._id)
+                                }}
+                              >
+                                <MenuItem value='vapeur'>Vapeur</MenuItem>
+                                <MenuItem value='Eau surchauffée'>Eau surchauffée</MenuItem>
+                                <MenuItem value='Fluide organique'>Fluide organique</MenuItem>
+                              </CustomTextField>
+                            )}
                           </Grid>
                         </Grid>
                         <InvoiceAction>
@@ -372,7 +462,11 @@ const AddCard = () => {
                           <Divider />
                           {CheckExistingId(store?.data?.pdefDetails[i]?._id) == true ? (
                             <IconButton size='small'>
-                              <Icon icon='tabler:check' fontSize='1.25rem' />
+                              <Icon
+                                icon='tabler:check'
+                                fontSize='1.25rem'
+                                onClick={() => handleUpdatePdf(store?.data?.pdefDetails[i]?._id)}
+                              />
                             </IconButton>
                           ) : (
                             <IconButton size='small'>

@@ -109,9 +109,9 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.setFontSize(12)
     const tableHeader = [
       `lieu d'implantation`,
-      `Types de point singulier`,
-      `Référence mateles`,
-      'Mass volumique',
+      `Type de point singulier`,
+      `Référence matelas`,
+      'Masse volumique',
       'N° De repérage',
       'dn',
       'Nature de flu ide calopor teur'
