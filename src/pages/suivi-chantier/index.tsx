@@ -175,6 +175,8 @@ const AdminDashboard = () => {
   const [page, setPage] = useState<number>(1)
   const [pageSize, setpageSize] = useState<number>(10)
   const handlePageSizeChange = (params: any) => {
+    console.log('params: ', params)
+
     setPage(params.page + 1)
     setpageSize(params.pageSize)
 
@@ -272,6 +274,7 @@ const AdminDashboard = () => {
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
   const store = useSelector((state: RootState) => state.suiveChantier)
+
   useEffect(() => {
     dispatch(
       fetchData({
@@ -325,9 +328,9 @@ const AdminDashboard = () => {
           <DataGrid
             autoHeight
             rowHeight={62}
-            rows={store?.data}
-            loading={store?.isLoading}
-            rowCount={store?.total}
+            rows={store.data}
+            loading={store.isLoading}
+            rowCount={store.total}
             columns={columns}
             disableRowSelectionOnClick
             pageSizeOptions={[10, 25, 50]}
