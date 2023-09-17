@@ -134,7 +134,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
   } else {
     defaultStatus = 'true'
   }
-  console.log('default status : ', defaultStatus)
+  'default status : ', defaultStatus
 
   const [role, setRole] = useState<string>(defaultRole)
   const [status, setStatus] = useState<string>(defaultStatus)

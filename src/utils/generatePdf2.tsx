@@ -17,8 +17,6 @@ const PDFGenerator = ({ data, data2 }: any) => {
     let nb2 = 0
     let nb3 = 0
     data.forEach((el: any) => {
-      console.log('el : ', el)
-
       if (el[3] == 'vapeur') {
         nb += 1
       } else if (el[3] == 'Eau surchauffée') {
@@ -54,18 +52,21 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.text(`${data2[0].ville} ${data2[0].codePostal}`, 150, 101, { align: 'center' })
     pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 115, { align: 'center' })
     pdf.text(
-      `Résistance thermique : 1,50 m².K/W sur un réseau d'eau chaude ou de retour de condensats à température moyenne de 70°C`,
+      `Résistance thermique : 1,2 m².K/W sur un réseau d'eau surchauffée à température moyenne de 90°C`,
       150,
       128,
       { align: 'center' }
     )
-    pdf.text(`: 1,33 m².K/W sur un réseau d'eau surchauffée à température moyenne de 90°C`, 150, 133, {
-      align: 'center'
-    })
-    pdf.text(`: 1,22 m².K/W sur un réseau vapeur à une température moyenne de 110°C`, 150, 138, {
-      align: 'center'
-    })
-    pdf.text(`: 1,18 m².K/W sur un réseau de fluide organique à une température moyenne de 120°C`, 150, 150, {
+    pdf.text(
+      `: 1 m².K/W sur un réseau vapeur à température moyenne de 110°C
+    `,
+      150,
+      133,
+      {
+        align: 'center'
+      }
+    )
+    pdf.text(`: 1 m².K/W sur un réseau de fluide organique à température moyenne de 120°C`, 150, 138, {
       align: 'center'
     })
 

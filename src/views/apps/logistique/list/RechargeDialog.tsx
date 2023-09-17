@@ -145,15 +145,10 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
     if (localStorageMaterial) {
       const newData: any = []
       Object.values(store.data).forEach((el: any) => {
-        console.log('el : ', el)
-        console.log('localStorageMaterial : ', localStorageMaterial)
-
         if (
           JSON.parse(localStorageMaterial)?.findIndex((ele: any) => ele?.model?.toString() == el?.model?.toString()) ==
           -1
         ) {
-          console.log('el.model : ', el.model)
-
           const newEl = {
             ...el,
             status: false

@@ -227,7 +227,7 @@ const AddCard = ({ pdfId }: any) => {
                     <TableRow>
                       <MUITableCell>
                         <Typography sx={{ color: 'text.secondary' }}>
-                          <strong>ISOLATION ET REFERENCE :</strong> Laine de verre ISOVER TECH ROLL 3.0 -classé au feu
+                          <strong>ISOLATION ET RÉFÉRENCE :</strong> Laine de verre ISOVER TECH ROLL 3.0 -classé au feu
                           A1
                         </Typography>
                       </MUITableCell>
@@ -242,7 +242,7 @@ const AddCard = ({ pdfId }: any) => {
                     <TableRow>
                       <MUITableCell>
                         <Typography sx={{ color: 'text.secondary' }}>
-                          <strong>REFERENCE:</strong> ISOVAN
+                          <strong>RÉFÉRENCE:</strong> ISOVAN
                         </Typography>
                       </MUITableCell>
                     </TableRow>

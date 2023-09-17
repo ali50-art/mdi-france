@@ -14,6 +14,9 @@ import { useForm } from 'react-hook-form'
 // ** Store Imports
 import FormControlLabel from '@mui/material/FormControlLabel'
 import { useDispatch, useSelector } from 'react-redux'
+import FormControl from '@mui/material/FormControl'
+import FormLabel from '@mui/material/FormLabel'
+import RadioGroup from '@mui/material/RadioGroup'
 
 // ** Actions Imports
 import { fetchData } from 'src/store/apps/order'
@@ -69,6 +72,7 @@ const Radio = (props: RadioProps) => {
 const SidebarAddUser = (props: SidebarAddUserType) => {
   // ** Props
   const { open, toggle, id } = props
+
   const sorteMaterail: any = useSelector((state: RootState) => state.suiviChantierPdf)
 
   // ** Hooks
@@ -86,8 +90,9 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
     resolver: yupResolver(schema)
   })
   const onSubmit = () => {
-    localStorage.setItem('installateurId', role)
-    dispatch(updatePdf({ pdfId: id, orderId: role }))
+    const typeOfFunction: any = localStorage.getItem('indestryProgess')
+
+    dispatch(updatePdf({ pdfId: id, orderId: role, typeOfFunction: JSON.parse(typeOfFunction) }))
     toggle()
     reset()
   }
@@ -136,7 +141,6 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                   fullWidth
                   value={role}
                   sx={{ mb: 4 }}
-                  label="les Donner d'order"
                   SelectProps={{ value: role, onChange: e => setRole(e.target.value as string) }}
                 >
                   {store.data.map((el: any) => {
@@ -152,24 +156,34 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
             {sorteMaterail.data?.type == 'indestrie' ? (
               <Grid container spacing={6}>
                 <Grid item xs={12} sm={12}>
-                  <FormControlLabel
-                    value='1'
-                    control={<Radio />}
-                    label='2x8'
-                    onChange={(e: any) => handleSetIndetryProgress(e.target.value)}
-                  />
-                  <FormControlLabel
-                    value='2'
-                    control={<Radio />}
-                    label='3x8 avec arrêt le week-end'
-                    onChange={(e: any) => handleSetIndetryProgress(e.target.value)}
-                  />
-                  <FormControlLabel
-                    value='3x8 sans arrêt le week-end'
-                    control={<Radio />}
-                    label='3x8 sans arrêt le week-end'
-                    onChange={(e: any) => handleSetIndetryProgress(e.target.value)}
-                  />
+                  <FormControl>
+                    <FormLabel component='legend'></FormLabel>
+                    <RadioGroup
+                      row
+                      defaultValue={sorteMaterail.data?.typeOfFunction}
+                      aria-label='Type de fonctionnement'
+                      name='customized-radios'
+                    >
+                      <FormControlLabel
+                        value='1'
+                        control={<Radio />}
+                        label='2x8'
+                        onChange={(e: any) => handleSetIndetryProgress(e.target.value)}
+                      />
+                      <FormControlLabel
+                        value='2'
+                        control={<Radio />}
+                        label='3x8 avec arrêt le week-end '
+                        onChange={(e: any) => handleSetIndetryProgress(e.target.value)}
+                      />
+                      <FormControlLabel
+                        value='3'
+                        control={<Radio />}
+                        label='3x8 sans arrêt le week-end'
+                        onChange={(e: any) => handleSetIndetryProgress(e.target.value)}
+                      />
+                    </RadioGroup>
+                  </FormControl>
                 </Grid>
               </Grid>
             ) : (

@@ -77,9 +77,7 @@ const PDFGenerator = ({ data, data2, res }: any) => {
     pdf.text(`Référence : ISOVAN`, 150, 155, {
       align: 'center'
     })
-    pdf.text(`Lieu d'implantation des matelas : CHAUFFERIE`, 150, 160, {
-      align: 'center'
-    })
+
     pdf.text(`Nomber des points singuliers posés : `, 150, 165, {
       align: 'center'
     })

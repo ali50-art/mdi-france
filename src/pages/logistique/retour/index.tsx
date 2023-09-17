@@ -28,6 +28,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 // ** Actions Imports
 import { fetchDataRetour } from 'src/store/apps/logistique'
+import DeleteItemDialog from 'src/views/apps/logistique/list/DeleteItemDialgo'
 
 // import authConfig from 'src/configs/auth'
 // import { serverUri } from 'src/configs/auth'
@@ -75,79 +76,6 @@ const formateDate = (date: any) => {
 const renderClient = (row: any) => {
   return <CustomAvatar src={row.avatar} sx={{ mr: 2.5, width: 38, height: 38 }} />
 }
-const RowOptions = ({ id, chargeDetailId }: { id: number | string; chargeDetailId: any }) => {
-  // ** Hooks
-  console.log('row?.chargeDetails.length : ', chargeDetailId)
-  const dispatch = useDispatch<AppDispatch>()
-
-  // ** State
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-
-  const store: any = useSelector((state: RootState) => state.chargeDetails)
-  const [showMateral, setShowMaterail] = useState<any>(false)
-
-  const rowOptionsOpen = Boolean(anchorEl)
-
-  const handleRowOptionsClick = (event: MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget)
-  }
-  const handleRowOptionsClose = () => {
-    setAnchorEl(null)
-  }
-
-  const handleShowMaterail = () => {
-    handleRowOptionsClose()
-    const handleFetch = async () => {
-      await dispatch(fetchOne({ id: chargeDetailId }))
-      setShowMaterail(!showMateral)
-    }
-    handleFetch()
-  }
-
-  return (
-    <>
-      <IconButton size='small' onClick={handleRowOptionsClick}>
-        <Icon icon='tabler:dots-vertical' />
-      </IconButton>
-      <Menu
-        keepMounted
-        anchorEl={anchorEl}
-        open={rowOptionsOpen}
-        onClose={handleRowOptionsClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right'
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right'
-        }}
-        PaperProps={{ style: { minWidth: '8rem' } }}
-      >
-        <MenuItem onClick={handleShowMaterail} sx={{ '& svg': { mr: 2 } }}>
-          <Icon icon='tabler:eye' fontSize={20} />
-          Retour Details
-        </MenuItem>
-        <Typography
-          noWrap
-          href={`/logistique/retour/${id}`}
-          component={Link}
-          sx={{
-            fontWeight: 500,
-            textDecoration: 'none',
-            color: 'text.secondary'
-          }}
-        >
-          <MenuItem sx={{ '& svg': { mr: 2 } }}>
-            <Icon icon='tabler:file-analytics' fontSize={20} />
-            Charge Details
-          </MenuItem>
-        </Typography>
-      </Menu>
-      {showMateral && <ShowAllMaterialDialog open={showMateral} toggle={handleShowMaterail} data={store.matData} />}
-    </>
-  )
-}
 
 const UserList = () => {
   // ** State
@@ -157,6 +85,7 @@ const UserList = () => {
   const [addMaterial, setAddMaterial] = useState<boolean>(false)
   const [page, setPage] = useState<number>(1)
   const [pageSize, setpageSize] = useState<number>(10)
+  const [count, setCount] = useState<any>(0)
   const handlePageSizeChange = (params: any) => {
     setPage(params.page + 1)
     setpageSize(params.pageSize)
@@ -166,7 +95,91 @@ const UserList = () => {
 
   // Handle Edit dialog
   // const handleEditClickOpen = () => setOpenEdit(true)
+  const RowOptions = ({ id, chargeDetailId }: { id: number | string; chargeDetailId: any }) => {
+    // ** Hooks
 
+    const dispatch = useDispatch<AppDispatch>()
+
+    // ** State
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+    const [openDeleteTogel, setOpenDeleteTogel] = useState<any>(false)
+    const store: any = useSelector((state: RootState) => state.chargeDetails)
+    const [showMateral, setShowMaterail] = useState<any>(false)
+
+    const rowOptionsOpen = Boolean(anchorEl)
+
+    const handleRowOptionsClick = (event: MouseEvent<HTMLElement>) => {
+      setAnchorEl(event.currentTarget)
+    }
+    const handleRowOptionsClose = () => {
+      setAnchorEl(null)
+    }
+
+    const handleOpenDeleteTogel = () => {
+      setOpenDeleteTogel(!openDeleteTogel)
+      handleRowOptionsClose()
+    }
+
+    const handleShowMaterail = () => {
+      handleRowOptionsClose()
+      const handleFetch = async () => {
+        await dispatch(fetchOne({ id: chargeDetailId }))
+        setShowMaterail(!showMateral)
+      }
+      handleFetch()
+    }
+
+    return (
+      <>
+        <IconButton size='small' onClick={handleRowOptionsClick}>
+          <Icon icon='tabler:dots-vertical' />
+        </IconButton>
+        <Menu
+          keepMounted
+          anchorEl={anchorEl}
+          open={rowOptionsOpen}
+          onClose={handleRowOptionsClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right'
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right'
+          }}
+          PaperProps={{ style: { minWidth: '8rem' } }}
+        >
+          <MenuItem onClick={handleShowMaterail} sx={{ '& svg': { mr: 2 } }}>
+            <Icon icon='tabler:eye' fontSize={20} />
+            Retour Details
+          </MenuItem>
+          <Typography
+            noWrap
+            href={`/logistique/retour/${id}`}
+            component={Link}
+            sx={{
+              fontWeight: 500,
+              textDecoration: 'none',
+              color: 'text.secondary'
+            }}
+          >
+            <MenuItem sx={{ '& svg': { mr: 2 } }}>
+              <Icon icon='tabler:file-analytics' fontSize={20} />
+              Charge Details
+            </MenuItem>
+          </Typography>
+          <MenuItem sx={{ '& svg': { mr: 2 } }} onClick={handleOpenDeleteTogel}>
+            <Icon icon='tabler:eraser' fontSize={20} />
+            supprimer
+          </MenuItem>
+        </Menu>
+        {showMateral && <ShowAllMaterialDialog open={showMateral} toggle={handleShowMaterail} data={store.matData} />}
+        {openDeleteTogel && (
+          <DeleteItemDialog open={openDeleteTogel} toggle={handleOpenDeleteTogel} id={id} setCount={setCount} />
+        )}
+      </>
+    )
+  }
   const columns: GridColDef[] = [
     {
       flex: 0.25,
@@ -175,7 +188,6 @@ const UserList = () => {
       headerName: 'Installateur',
       renderCell: ({ row }: CellType) => {
         const { fullName, phone } = row.instalateurId
-        console.log('chargeDetailId : ', row?.chargeDetails)
 
         return (
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -257,7 +269,7 @@ const UserList = () => {
         sort: '-createdAt'
       })
     )
-  }, [dispatch, value, page, pageSize])
+  }, [dispatch, value, page, pageSize, count])
 
   const handleFilter = useCallback((val: string) => {
     setValue(val)

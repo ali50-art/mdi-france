@@ -88,7 +88,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
             pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
           }}
         >
-          Selection d'un installateur
+          Sélection d'un installateu
         </DialogTitle>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent
@@ -104,7 +104,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                   fullWidth
                   value={role}
                   sx={{ mb: 4 }}
-                  label='Sélectionnez un installateur'
+                  label='Sélectionner un installateur'
                   SelectProps={{ value: role, onChange: e => setRole(e.target.value as string) }}
                 >
                   {store.data.map((el: any) => {

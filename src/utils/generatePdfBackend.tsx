@@ -51,7 +51,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
     if (data.orderDetailId) {
       pdf.text(`${data.orderDetailId.name}`, 150, 60, { align: 'center' })
       pdf.text(`${data.orderDetailId.address}`, 150, 65, { align: 'center' })
-      pdf.text(`${data.orderDetailId.ville} ${data.orderDetailId.codePostal}`, 150, 70, { align: 'center' })
+      pdf.text(`${data.orderDetailId.ville} ${data.orderDetailId.codePost}`, 150, 70, { align: 'center' })
     } else {
       pdf.text(`MD INDUSTRIE`, 150, 60, { align: 'center' })
       pdf.text(`23 Avenue Fréres Montgolfier`, 150, 65, { align: 'center' })

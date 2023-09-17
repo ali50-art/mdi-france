@@ -237,7 +237,7 @@ const AddCard = ({ pdfId }: any) => {
                     <TableRow>
                       <MUITableCell>
                         <Typography sx={{ color: 'text.secondary', mb: '1.5rem' }}>
-                          <strong>ISOLATION ET REFERENCE :</strong> Laine de verre ISOVER TECH ROLL 3.0 -classé au feu
+                          <strong>ISOLATION ET RÉFÉRENCE :</strong> Laine de verre ISOVER TECH ROLL 3.0 -classé au feu
                           A1
                         </Typography>
                       </MUITableCell>
@@ -252,7 +252,7 @@ const AddCard = ({ pdfId }: any) => {
                     <TableRow>
                       <MUITableCell>
                         <Typography sx={{ color: 'text.secondary', mb: '1.5rem' }}>
-                          <strong>REFERENCE:</strong> ISOVAN
+                          <strong>RÉFÉRENCE:</strong> ISOVAN
                         </Typography>
                       </MUITableCell>
                     </TableRow>
@@ -278,28 +278,21 @@ const AddCard = ({ pdfId }: any) => {
                   <TableRow>
                     <MUITableCell>
                       <Typography sx={{ color: 'text.secondary' }}>
-                        :1,50 m².K/W sur un réseau d'eau chaude ou de retour de condensats à température moyenne de 70°C
+                        :1,2 m².K/W sur un réseau d'eau surchauffée à température moyenne de 90°C
                       </Typography>
                     </MUITableCell>
                   </TableRow>
                   <TableRow>
                     <MUITableCell>
                       <Typography sx={{ color: 'text.secondary' }}>
-                        :1,33 m².K/W sur un réseau d'eau surchauffée à température moyenne de 90°C
+                        :1 m².K/W sur un réseau vapeur à température moyenne de 110°C
                       </Typography>
                     </MUITableCell>
                   </TableRow>
                   <TableRow>
                     <MUITableCell>
                       <Typography sx={{ color: 'text.secondary' }}>
-                        :1,22 m².K/W sur un réseau vapeur à une température moyenne de 110°C
-                      </Typography>
-                    </MUITableCell>
-                  </TableRow>
-                  <TableRow>
-                    <MUITableCell>
-                      <Typography sx={{ color: 'text.secondary' }}>
-                        :1,18 m².K/W sur un réseau de fluide organique à une température moyenne de 120°C
+                        :1 m².K/W sur un réseau de fluide organique à température moyenne de 120°C
                       </Typography>
                     </MUITableCell>
                   </TableRow>

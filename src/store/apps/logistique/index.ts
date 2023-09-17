@@ -126,15 +126,6 @@ export const getAllRetourMaterail = createAsyncThunk('appLogistique/getAllRetour
     }
   })
 
-  //   const response2 = await axios.get(`${serverUri.uri}/api/charge/count`, {
-  //     headers: {
-  //       Authorization: storedToken
-  //     },
-  //     params
-  //   })
-
-  console.log('response.data.data : ', response.data.data)
-
   return response.data.data
 })
 
@@ -151,6 +142,21 @@ export const desarge = createAsyncThunk('appLogistique/desarge', async (data: { 
 
   return response.data
 })
+export const removeCharge = createAsyncThunk(
+  'appLogistique/removeCharge',
+  async (data: { [key: string]: number | string }) => {
+    const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
+    const config = {
+      headers: {
+        'Content-Type': 'application/json', // Example: JSON data
+        Authorization: storedToken
+      }
+    }
+    const response = await axios.delete(`${serverUri.uri}/api/charge/${data.id}`, config)
+
+    return response.data
+  }
+)
 
 // ** Update User
 export const updateCharge = createAsyncThunk(

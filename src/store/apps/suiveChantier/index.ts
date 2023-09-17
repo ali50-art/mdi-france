@@ -29,7 +29,6 @@ export const fetchData = createAsyncThunk('appSuiveChantier/fetchData', async (p
   })
 
   const dataCoipe = { ...response.data.data }
-  console.log('dataCoipe : ', dataCoipe)
 
   dataCoipe.docs.forEach((element: any) => (element.id = element._id))
 
@@ -42,7 +41,6 @@ export const fetchOne = createAsyncThunk('appSuiveChantier/fetchOne', async (dat
       Authorization: storedToken
     }
   })
-  console.log('response.data.data : ', response.data.data)
 
   return response.data.data
 })
@@ -58,7 +56,6 @@ export const addPdf = createAsyncThunk('appSuiveChantier/addPdf', async (data: a
   }
 
   const response = await axios.post(`${serverUri.uri}/api/pdf`, data, config)
-  console.log('response.data.data : ', response.data.data)
 
   return response.data.data
 })
@@ -92,8 +89,11 @@ export const updatePdf = createAsyncThunk(
         Authorization: storedToken
       }
     }
-
-    const response = await axios.put(`${serverUri.uri}/api/pdf/trainter/${data.pdfId}/${data.orderId}`, {}, config)
+    const response = await axios.put(
+      `${serverUri.uri}/api/pdf/trainter/${data.pdfId}/${data.orderId}`,
+      { typeOfFunction: data.typeOfFunction },
+      config
+    )
     dispatch(fetchData(getState().user.params))
 
     return response.data

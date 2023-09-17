@@ -22,22 +22,23 @@ export const initDB = (): Promise<boolean> => {
     request = indexedDB.open('myDB')
 
     request.onupgradeneeded = () => {
-      db = request.result
-
-      // if the data object store doesn't exist, create it
-      console.log('db.objectStoreNames.contains(Stores.PdfInfo) : ', db.objectStoreNames.contains(Stores.PdfInfo))
+      db = request.result(
+        // if the data object store doesn't exist, create it
+        'db.objectStoreNames.contains(Stores.PdfInfo) : ',
+        db.objectStoreNames.contains(Stores.PdfInfo)
+      )
 
       if (!db.objectStoreNames.contains(Stores.PdfInfo)) {
-        console.log('Creating PdfInfo store')
+        ;('Creating PdfInfo store')
         db.createObjectStore(Stores.PdfInfo, { keyPath: 'id' })
       }
 
       if (!db.objectStoreNames.contains(Stores.PdfData)) {
-        console.log('Creating PdfData store')
+        ;('Creating PdfData store')
         db.createObjectStore(Stores.PdfData, { keyPath: 'id' })
       }
       if (!db.objectStoreNames.contains(Stores.PdfData2)) {
-        console.log('Creating PdfData store')
+        ;('Creating PdfData store')
         db.createObjectStore(Stores.PdfData2, { keyPath: 'id' })
       }
 
@@ -45,7 +46,7 @@ export const initDB = (): Promise<boolean> => {
     }
 
     request.onsuccess = (event: any) => {
-      console.log('request.onsuccess - initDB', version)
+      'request.onsuccess - initDB', version
       db = event.target.result
       version = db.version
       resolve(true)
@@ -61,7 +62,7 @@ export const addData = <T>(storeName: string, data: T): Promise<T | string | nul
     request = indexedDB.open('myDB', version)
 
     request.onsuccess = (event: any) => {
-      console.log('request.onsuccess - addData', data)
+      'request.onsuccess - addData', data
       db = event.target.result
       const tx = db.transaction(storeName, 'readwrite')
       const store = tx.objectStore(storeName)
@@ -85,7 +86,7 @@ export const getStoreData = <T>(storeName: Stores): Promise<T[]> => {
     request = indexedDB.open('myDB')
 
     request.onsuccess = (event: any) => {
-      console.log('request.onsuccess - getAllData')
+      ;('request.onsuccess - getAllData')
       db = event.target.result
       const tx = db.transaction(storeName, 'readonly')
       const store = tx.objectStore(storeName)
@@ -101,7 +102,7 @@ export const deleteData = (storeName: string, key: string): Promise<boolean> => 
     // again open the connection
     request = indexedDB.open('myDB', version)
     request.onsuccess = (event: any) => {
-      console.log('request.onsuccess - deleteData', key)
+      'request.onsuccess - deleteData', key
       db = event.target.result
       const tx = db.transaction(storeName, 'readwrite')
       const store = tx.objectStore(storeName)
@@ -127,7 +128,7 @@ export const updateDataById = (storeName: string, key: number, data: any) => {
     const updateRequest = objectStore.put(data)
 
     updateRequest.onsuccess = () => {
-      console.log(`Estudent updated, email: ${updateRequest.result}`)
+      ;`Estudent updated, email: ${updateRequest.result}`
     }
   }
 }

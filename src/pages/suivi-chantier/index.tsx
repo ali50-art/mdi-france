@@ -18,7 +18,7 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 import Link from 'next/link'
-
+import { fetchData as fetchData2 } from 'src/store/apps/suiviChantierPdf'
 import { SelectChangeEvent } from '@mui/material/Select'
 
 // ** Store Imports
@@ -28,7 +28,6 @@ import { useDispatch, useSelector } from 'react-redux'
 
 // ** Actions Imports
 import { fetchData } from 'src/store/apps/suiveChantier'
-import { deletePdf } from 'src/store/apps/pdf'
 
 // import authConfig from 'src/configs/auth'
 // import { serverUri } from 'src/configs/auth'
@@ -44,6 +43,7 @@ import AddMaterialDrawer from 'src/views/apps/material/list/AddMaterialDrawer'
 import SelectOrderDialgo from 'src/views/apps/suivierChantier/SelectOrderDialog'
 import TotalDialog from 'src/views/apps/suivierChantier/TotalDialog'
 import CustomChip from 'src/@core/components/mui/chip'
+import DeleteItemDialog from 'src/views/apps/suivierChantier/DeletePdfConfermation'
 import { CardContent } from '@mui/material'
 
 // import EditUserDrawer from 'src/views/apps/user/list/EditeUserDrawer'
@@ -78,7 +78,7 @@ const AdminDashboard = () => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
     const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
     const [openTotalModel, setOpenTotalModel] = useState<any>(false)
-
+    const [openDeleteTogel, setOpenDeleteTogel] = useState<any>(false)
     const rowOptionsOpen = Boolean(anchorEl)
     const dispatch = useDispatch<AppDispatch>()
 
@@ -89,17 +89,19 @@ const AdminDashboard = () => {
       setAnchorEl(null)
     }
     const handleOpenEdite = () => {
+      dispatch(fetchData2({ id }))
       handleRowOptionsClose()
+
       setAddUserOpen(!addUserOpen)
     }
     const handleOpenTotal = () => {
       handleRowOptionsClose()
       setOpenTotalModel(!openTotalModel)
     }
-    const handleDeleteItem = (id: any) => {
-      dispatch(deletePdf(id))
+
+    const handleOpenDeleteTogel = () => {
+      setOpenDeleteTogel(!openDeleteTogel)
       handleRowOptionsClose()
-      setCount(1)
     }
 
     // const handleDelete = () => {
@@ -151,13 +153,16 @@ const AdminDashboard = () => {
             <Icon icon='tabler:truck' fontSize={20} />
             total
           </MenuItem>
-          <MenuItem sx={{ '& svg': { mr: 2 } }} onClick={() => handleDeleteItem(id)}>
+          <MenuItem sx={{ '& svg': { mr: 2 } }} onClick={handleOpenDeleteTogel}>
             <Icon icon='tabler:eraser' fontSize={20} />
             supprimer
           </MenuItem>
         </Menu>
         {openTotalModel && <TotalDialog open={openTotalModel} toggle={handleOpenTotal} id={id} />}
         {addUserOpen && <SelectOrderDialgo open={addUserOpen} toggle={handleOpenEdite} id={id} />}
+        {openDeleteTogel && (
+          <DeleteItemDialog open={openDeleteTogel} toggle={handleOpenDeleteTogel} id={id} setCount={setCount} />
+        )}
       </>
     )
   }
