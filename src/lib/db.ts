@@ -22,23 +22,16 @@ export const initDB = (): Promise<boolean> => {
     request = indexedDB.open('myDB')
 
     request.onupgradeneeded = () => {
-      db = request.result(
-        // if the data object store doesn't exist, create it
-        'db.objectStoreNames.contains(Stores.PdfInfo) : ',
-        db.objectStoreNames.contains(Stores.PdfInfo)
-      )
+      db = request.result
 
       if (!db.objectStoreNames.contains(Stores.PdfInfo)) {
-        ;('Creating PdfInfo store')
         db.createObjectStore(Stores.PdfInfo, { keyPath: 'id' })
       }
 
       if (!db.objectStoreNames.contains(Stores.PdfData)) {
-        ;('Creating PdfData store')
         db.createObjectStore(Stores.PdfData, { keyPath: 'id' })
       }
       if (!db.objectStoreNames.contains(Stores.PdfData2)) {
-        ;('Creating PdfData store')
         db.createObjectStore(Stores.PdfData2, { keyPath: 'id' })
       }
 
@@ -46,7 +39,6 @@ export const initDB = (): Promise<boolean> => {
     }
 
     request.onsuccess = (event: any) => {
-      'request.onsuccess - initDB', version
       db = event.target.result
       version = db.version
       resolve(true)
@@ -62,7 +54,6 @@ export const addData = <T>(storeName: string, data: T): Promise<T | string | nul
     request = indexedDB.open('myDB', version)
 
     request.onsuccess = (event: any) => {
-      'request.onsuccess - addData', data
       db = event.target.result
       const tx = db.transaction(storeName, 'readwrite')
       const store = tx.objectStore(storeName)
@@ -86,7 +77,6 @@ export const getStoreData = <T>(storeName: Stores): Promise<T[]> => {
     request = indexedDB.open('myDB')
 
     request.onsuccess = (event: any) => {
-      ;('request.onsuccess - getAllData')
       db = event.target.result
       const tx = db.transaction(storeName, 'readonly')
       const store = tx.objectStore(storeName)
@@ -102,7 +92,6 @@ export const deleteData = (storeName: string, key: string): Promise<boolean> => 
     // again open the connection
     request = indexedDB.open('myDB', version)
     request.onsuccess = (event: any) => {
-      'request.onsuccess - deleteData', key
       db = event.target.result
       const tx = db.transaction(storeName, 'readwrite')
       const store = tx.objectStore(storeName)
@@ -128,7 +117,7 @@ export const updateDataById = (storeName: string, key: number, data: any) => {
     const updateRequest = objectStore.put(data)
 
     updateRequest.onsuccess = () => {
-      ;`Estudent updated, email: ${updateRequest.result}`
+      console.log()
     }
   }
 }
