@@ -30,7 +30,7 @@ const Constructeur = () => {
             <CardContent>
               <Typography sx={{ mb: 2 }}>
                 Vous n’avez plus de matériaux disponibles. Veuillez contacter votre logisticien pour pouvoir
-                commencer votre chantie{' '}
+                commencer votre chantier{' '}
               </Typography>
             </CardContent>
           </Card>

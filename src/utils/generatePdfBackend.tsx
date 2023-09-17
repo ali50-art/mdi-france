@@ -71,8 +71,8 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.text(`${data.clientVille} ${data.clientCodePostal}`, 150, 101, { align: 'center' })
 
     pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 115, { align: 'center' })
-    pdf.text(`Résistance thermique : 1,27 m².K/W à une température moyenne de 100°C`, 150, 128, { align: 'center' })
-    pdf.text(`: 1,58 m².K/W à une température moyenne de 50 °C`, 172, 133, { align: 'center' })
+    pdf.text(`Résistance thermique : 1,58 m².K/W à une température moyenne de 50 °C `, 150, 128, { align: 'center' })
+    pdf.text(`: 1,27 m².K/W à une température moyenne de 100°C`, 172, 133, { align: 'center' })
     pdf.text(`Isolant et référence : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1`, 150, 138, {
       align: 'center'
     })

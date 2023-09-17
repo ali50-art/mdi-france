@@ -47,6 +47,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
       80,
       { align: 'center' }
     )
+
     pdf.text(`à l'adresse de travaux : :`, 150, 89, { align: 'center' })
     pdf.text(`${data2[0].address}`, 150, 96, { align: 'center' })
     pdf.text(`${data2[0].ville} ${data2[0].codePostal}`, 150, 101, { align: 'center' })
