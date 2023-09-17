@@ -223,7 +223,7 @@ const AdminDashboard = () => {
       renderCell: ({ row }: CellType) => {
         return (
           <Typography noWrap sx={{ color: 'text.secondary' }}>
-            {row?.installateurId?.fullName}
+            {row?.instalateurId?.fullName}
           </Typography>
         )
       }
