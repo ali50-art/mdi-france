@@ -59,7 +59,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
 
     pdf.setFontSize(15)
 
-    pdf.text(`ETAT RECAPITULATIF`, 150, 49, { align: 'center' })
+    pdf.text(`ETAT RECAPITULATIF INDUSTRIE`, 150, 49, { align: 'center' })
     pdf.setFontSize(12)
     pdf.text(`je sousigné `, 150, 55, { align: 'center' })
     if (data.orderDetailId) {
@@ -84,14 +84,14 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.text(`${data.clientVille} ${data.clientCodePostal}`, 150, 101, { align: 'center' })
     pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 115, { align: 'center' })
     pdf.text(
-      `Résistance thermique : 1,2 m².K/W sur un réseau d'eau surchauffée à température moyenne de 90°C
-      `,
+      `Résistance thermique : 1,50 m².K/W sur un réseau d'eau chaude ou de retour de condensats à température moyenne de 70°C`,
       150,
       128,
       { align: 'center' }
     )
+
     pdf.text(
-      `: 1 m².K/W sur un réseau vapeur à température moyenne de 110°C
+      `: 1,2 m².K/W sur un réseau d'eau surchauffée à température moyenne de 90°C
     `,
       150,
       133,
@@ -99,15 +99,13 @@ const PDFGenerator = ({ data, data2 }: any) => {
         align: 'center'
       }
     )
-    pdf.text(
-      `: 1 m².K/W sur un réseau de fluide organique à température moyenne de 120°C
-    `,
-      150,
-      138,
-      {
-        align: 'center'
-      }
-    )
+
+    pdf.text(`: 1 m².K/W sur un réseau vapeur à température moyenne de 110°C`, 150, 138, {
+      align: 'center'
+    })
+    pdf.text(`: 1 m².K/W sur un réseau de fluide organique à température moyenne de 120°C`, 150, 143, {
+      align: 'center'
+    })
     pdf.text(`Isolant et Référence : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1`, 150, 155, {
       align: 'center'
     })

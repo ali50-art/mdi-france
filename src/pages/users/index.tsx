@@ -279,7 +279,8 @@ const UserList = () => {
   // ** State
   const [role, setRole] = useState<string>('')
   const [value, setValue] = useState<string>('')
-  const [status, setStatus] = useState<string>('')
+
+  // const [status, setStatus] = useState<string>('')
   const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
   const [page, setPage] = useState<number>(1)
@@ -314,11 +315,11 @@ const UserList = () => {
     setValue(e.target.value as string)
   }, [])
 
-  const handleStatusChange = useCallback((e: SelectChangeEvent<unknown>) => {
-    setStatus(e.target.value as string)
+  // const handleStatusChange = useCallback((e: SelectChangeEvent<unknown>) => {
+  //   setStatus(e.target.value as string)
 
-    setValue(e.target.value as string)
-  }, [])
+  //   setValue(e.target.value as string)
+  // }, [])
 
   const toggleAddUserDrawer = () => setAddUserOpen(!addUserOpen)
   const statsHorizontalWithDetails: any = [
@@ -392,7 +393,7 @@ const UserList = () => {
                 </CustomTextField>
               </Grid>
 
-              <Grid item sm={4} xs={12}>
+              {/* <Grid item sm={4} xs={12}>
                 <CustomTextField
                   select
                   fullWidth
@@ -407,7 +408,7 @@ const UserList = () => {
                   <MenuItem value='true'>Actif</MenuItem>
                   <MenuItem value='fasle'>Inactif</MenuItem>
                 </CustomTextField>
-              </Grid>
+              </Grid> */}
             </Grid>
           </CardContent>
           <Divider sx={{ m: '0 !important' }} />

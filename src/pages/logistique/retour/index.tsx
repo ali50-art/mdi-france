@@ -151,7 +151,7 @@ const UserList = () => {
         >
           <MenuItem onClick={handleShowMaterail} sx={{ '& svg': { mr: 2 } }}>
             <Icon icon='tabler:eye' fontSize={20} />
-            Retour Details
+            Detail de retour
           </MenuItem>
           <Typography
             noWrap
@@ -165,7 +165,7 @@ const UserList = () => {
           >
             <MenuItem sx={{ '& svg': { mr: 2 } }}>
               <Icon icon='tabler:file-analytics' fontSize={20} />
-              Charge Details
+              Detail de chargement
             </MenuItem>
           </Typography>
           <MenuItem sx={{ '& svg': { mr: 2 } }} onClick={handleOpenDeleteTogel}>
