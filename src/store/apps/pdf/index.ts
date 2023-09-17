@@ -61,7 +61,7 @@ export const addPdf = createAsyncThunk('appPdf/addPdf', async (data: any) => {
     }
   }
 
-  const response = await axios.post(`${serverUri.uri}/api/pdf`, data, config)('response.data.data : ', response)
+  const response = await axios.post(`${serverUri.uri}/api/pdf`, data, config)
 
   return response
 })
