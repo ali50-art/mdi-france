@@ -88,7 +88,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
             pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
           }}
         >
-          Sélection d'un installateu
+          Sélection d'un installateur
         </DialogTitle>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent

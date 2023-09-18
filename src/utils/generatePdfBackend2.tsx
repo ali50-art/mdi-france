@@ -61,7 +61,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
 
     pdf.text(`ETAT RECAPITULATIF INDUSTRIE`, 150, 49, { align: 'center' })
     pdf.setFontSize(12)
-    pdf.text(`je sousigné `, 150, 55, { align: 'center' })
+    pdf.text(`JE SOUSSIGNÉ `, 150, 55, { align: 'center' })
     if (data.orderDetailId) {
       pdf.text(`${data.orderDetailId.name}`, 150, 60, { align: 'center' })
       pdf.text(`${data.orderDetailId.address}`, 150, 65, { align: 'center' })
@@ -84,14 +84,14 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.text(`${data.clientVille} ${data.clientCodePostal}`, 150, 101, { align: 'center' })
     pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 115, { align: 'center' })
     pdf.text(
-      `Résistance thermique : 1,50 m².K/W sur un réseau d'eau chaude ou de retour de condensats à température moyenne de 70°C`,
+      `Résistance thermique : 1,50 m².K/W sur un réseau d'eau chaude ou de retour de condensats à température moyenne de 70°C      `,
       150,
       128,
       { align: 'center' }
     )
 
     pdf.text(
-      `: 1,2 m².K/W sur un réseau d'eau surchauffée à température moyenne de 90°C
+      `: 1,33 m².K/W sur un réseau d'eau surchauffée à température moyenne de 90°C
     `,
       150,
       133,
@@ -100,16 +100,16 @@ const PDFGenerator = ({ data, data2 }: any) => {
       }
     )
 
-    pdf.text(`: 1 m².K/W sur un réseau vapeur à température moyenne de 110°C`, 150, 138, {
+    pdf.text(`: 1,22 m².K/W sur un réseau vapeur à une température moyenne de 110°C    `, 150, 138, {
       align: 'center'
     })
-    pdf.text(`: 1 m².K/W sur un réseau de fluide organique à température moyenne de 120°C`, 150, 143, {
+    pdf.text(`: 1,18 m².K/W sur un réseau de fluide organique à une température moyenne de 120°C`, 150, 143, {
       align: 'center'
     })
     pdf.text(`Isolant et Référence : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1`, 150, 155, {
       align: 'center'
     })
-    pdf.text(`Température maximale : 200°C1`, 150, 160, {
+    pdf.text(`Température maximale : 300°`, 150, 160, {
       align: 'center'
     })
 

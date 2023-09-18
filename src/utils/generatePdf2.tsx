@@ -36,7 +36,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
 
     pdf.text(`ETAT RECAPITULATIF INDUSTRIE`, 150, 49, { align: 'center' })
     pdf.setFontSize(12)
-    pdf.text(`je soussigné : `, 150, 55, { align: 'center' })
+    pdf.text(`JE SOUSSIGNÉ : `, 150, 55, { align: 'center' })
     pdf.text(`MD INDUSTRIE`, 150, 60, { align: 'center' })
     pdf.text(`23 Avenue Fréres Montgolfier`, 150, 65, { align: 'center' })
     pdf.text(`69680 CHASSIEU`, 150, 70, { align: 'center' })
@@ -54,14 +54,15 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 115, { align: 'center' })
 
     pdf.text(
-      `Résistance thermique : 1,50 m².K/W sur un réseau d'eau chaude ou de retour de condensats à température moyenne de 70°C`,
+      `Résistance thermique : 1,50 m².K/W sur un réseau d'eau chaude ou de retour de condensats à température moyenne de 70°C
+      `,
       150,
       128,
       { align: 'center' }
     )
 
     pdf.text(
-      `: 1,2 m².K/W sur un réseau d'eau surchauffée à température moyenne de 90°C
+      `: 1,33 m².K/W sur un réseau d'eau surchauffée à température moyenne de 90°C
     `,
       150,
       133,
@@ -70,10 +71,10 @@ const PDFGenerator = ({ data, data2 }: any) => {
       }
     )
 
-    pdf.text(`: 1 m².K/W sur un réseau vapeur à température moyenne de 110°C`, 150, 138, {
+    pdf.text(`: 1,22 m².K/W sur un réseau vapeur à une température moyenne de 110°C`, 150, 138, {
       align: 'center'
     })
-    pdf.text(`: 1 m².K/W sur un réseau de fluide organique à température moyenne de 120°C`, 150, 143, {
+    pdf.text(`: 1,18 m².K/W sur un réseau de fluide organique à une température moyenne de 120°C`, 150, 143, {
       align: 'center'
     })
 

@@ -47,7 +47,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
 
     pdf.text(`ETAT RECAPITULATIF`, 150, 49, { align: 'center' })
     pdf.setFontSize(12)
-    pdf.text(`je soussigné: `, 150, 55, { align: 'center' })
+    pdf.text(`JE SOUSSIGNÉ : `, 150, 55, { align: 'center' })
     if (data.orderDetailId) {
       pdf.text(`${data.orderDetailId.name}`, 150, 60, { align: 'center' })
       pdf.text(`${data.orderDetailId.address}`, 150, 65, { align: 'center' })

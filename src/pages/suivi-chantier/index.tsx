@@ -188,7 +188,13 @@ const AdminDashboard = () => {
 
   // Handle Edit dialog
   // const handleEditClickOpen = () => setOpenEdit(true)
-
+  const returnedType = (row: any) => {
+    if (row?.type == 'indestrie') {
+      return 'industrie'
+    } else {
+      return 'RES/TERT'
+    }
+  }
   const columns: GridColDef[] = [
     {
       flex: 0.15,
@@ -238,7 +244,7 @@ const AdminDashboard = () => {
       renderCell: ({ row }: CellType) => {
         return (
           <Typography noWrap sx={{ color: 'text.secondary' }}>
-            {row?.type == 'indestrie' ? 'industrie' : row?.type}
+            {returnedType(row)}
           </Typography>
         )
       }
