@@ -78,7 +78,7 @@ const PDFGenerator = ({ data, data2, res }: any) => {
       align: 'center'
     })
 
-    pdf.text(`Nomber des points singuliers posés : `, 150, 165, {
+    pdf.text(`Nombre des points singuliers posés : `, 150, 165, {
       align: 'center'
     })
     pdf.text(`DN20 a DN65 = ${Between20And65}`, 150, 170, {

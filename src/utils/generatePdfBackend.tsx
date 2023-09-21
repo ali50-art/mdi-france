@@ -88,7 +88,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.text(`Lieu d'implantationdes metelas : CHAUFFERIE`, 150, 160, {
       align: 'center'
     })
-    pdf.text(`Nomber des points singuliers posés : `, 150, 165, {
+    pdf.text(`Nombre des points singuliers posés : `, 150, 165, {
       align: 'center'
     })
     pdf.text(`DN20 a DN65 = ${Between20And65}`, 150, 170, {

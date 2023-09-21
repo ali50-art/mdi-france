@@ -62,31 +62,36 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.text(`ETAT RECAPITULATIF INDUSTRIE`, 150, 49, { align: 'center' })
     pdf.setFontSize(12)
     pdf.text(`JE SOUSSIGNÉ `, 150, 55, { align: 'center' })
-    if (data.orderDetailId) {
-      pdf.text(`${data.orderDetailId.name}`, 150, 60, { align: 'center' })
-      pdf.text(`${data.orderDetailId.address}`, 150, 65, { align: 'center' })
-      pdf.text(`${data.orderDetailId.ville} ${data.orderDetailId.codePost}`, 150, 70, { align: 'center' })
-    } else {
-      pdf.text(`MD INDUSTRIE`, 150, 60, { align: 'center' })
-      pdf.text(`23 Avenue Fréres Montgolfier`, 150, 65, { align: 'center' })
-      pdf.text(`69680 CHASSIEU`, 150, 70, { align: 'center' })
-    }
+    pdf.text(`MD INDUSTRIE`, 150, 65, { align: 'center' })
+    pdf.text(`23 Avenue des Frères  Montgolfier`, 150, 70, { align: 'center' })
+    pdf.text(`69680 CHASSIEU`, 150, 75, { align: 'center' })
 
     pdf.text(
       `Attest sur l'honneur avoir mis en oeuvre les travaux d'isolation de points singuliers
     `,
       150,
-      80,
+      82,
       { align: 'center' }
     )
-    pdf.text(`à l'adresse de travaux :`, 150, 89, { align: 'center' })
-    pdf.text(`${data.clientAdress}`, 150, 96, { align: 'center' })
-    pdf.text(`${data.clientVille} ${data.clientCodePostal}`, 150, 101, { align: 'center' })
-    pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 115, { align: 'center' })
+    pdf.text(`au bénéfice de  :`, 150, 89, { align: 'center' })
+    if (data.orderDetailId) {
+      pdf.text(`${data.orderDetailId.name}`, 150, 96, { align: 'center' })
+      pdf.text(`${data.orderDetailId.address}`, 150, 101, { align: 'center' })
+      pdf.text(`${data.orderDetailId.ville} ${data.orderDetailId.codePost}`, 150, 115, { align: 'center' })
+    } else {
+      pdf.text(`MD INDUSTRIE`, 150, 96, { align: 'center' })
+      pdf.text(`23 Avenue Fréres Montgolfier`, 150, 101, { align: 'center' })
+      pdf.text(`69680 CHASSIEU`, 150, 115, { align: 'center' })
+    }
+
+    pdf.text(`a l'adresse de travaux  :`, 150, 120, { align: 'center' })
+    pdf.text(`${data.clientAdress}`, 150, 125, { align: 'center' })
+    pdf.text(`${data.clientVille} ${data.clientCodePostal}`, 150, 130, { align: 'center' })
+    pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 140, { align: 'center' })
     pdf.text(
       `Résistance thermique : 1,50 m².K/W sur un réseau d'eau chaude ou de retour de condensats à température moyenne de 70°C      `,
       150,
-      128,
+      145,
       { align: 'center' }
     )
 
@@ -94,26 +99,22 @@ const PDFGenerator = ({ data, data2 }: any) => {
       `: 1,33 m².K/W sur un réseau d'eau surchauffée à température moyenne de 90°C
     `,
       150,
-      133,
+      150,
       {
         align: 'center'
       }
     )
 
-    pdf.text(`: 1,22 m².K/W sur un réseau vapeur à une température moyenne de 110°C    `, 150, 138, {
+    pdf.text(`: 1,22 m².K/W sur un réseau vapeur à une température moyenne de 110°C    `, 150, 155, {
       align: 'center'
     })
-    pdf.text(`: 1,18 m².K/W sur un réseau de fluide organique à une température moyenne de 120°C`, 150, 143, {
+    pdf.text(`: 1,18 m².K/W sur un réseau de fluide organique à une température moyenne de 120°C`, 150, 160, {
       align: 'center'
     })
-    pdf.text(`Isolant et Référence : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1`, 150, 155, {
+    pdf.text(`Isolant et Référence : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1`, 150, 165, {
       align: 'center'
     })
-    pdf.text(`Température maximale : 300°`, 150, 160, {
-      align: 'center'
-    })
-
-    pdf.text(`points en eau chaude au retour de condensats en circuit fermé`, 150, 170, {
+    pdf.text(`Température maximale : 300°`, 150, 170, {
       align: 'center'
     })
 
@@ -122,7 +123,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
       align: 'center'
     })
     const checkboxX = 150
-    const checkboxY = 180
+    const checkboxY = 185
     const checkboxSize = 4
 
     // Set the line width for a bold appearance
@@ -137,11 +138,11 @@ const PDFGenerator = ({ data, data2 }: any) => {
       pdf.line(checkboxX, checkboxY + checkboxSize, checkboxX + checkboxSize, checkboxY)
     }
 
-    pdf.text(`2x8`, 160, 184, {
+    pdf.text(`2x8`, 160, 189, {
       align: 'center'
     })
     const checkboxX2 = 150
-    const checkboxY2 = 185
+    const checkboxY2 = 190
     const checkboxSize2 = 4
 
     // Set the line width for a bold appearance
@@ -160,7 +161,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
       align: 'center'
     })
     const checkboxX3 = 150
-    const checkboxY3 = 190
+    const checkboxY3 = 195
     const checkboxSize3 = 4
 
     // Set the line width for a bold appearance
@@ -175,7 +176,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
       pdf.line(checkboxX3, checkboxY3 + checkboxSize3, checkboxX3 + checkboxSize3, checkboxY3)
     }
 
-    pdf.text(`3x8 sans arrêt le week-end`, 183, 194, {
+    pdf.text(`3x8 sans arrêt le week-end`, 183, 189, {
       align: 'center'
     })
     pdf.addPage()
