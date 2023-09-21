@@ -39,7 +39,6 @@ interface SidebarAddUserType {
 interface MaterialData {
   model: string
   ref: string
-  type: string
 }
 
 const Header = styled(Box)<BoxProps>(({ theme }) => ({
