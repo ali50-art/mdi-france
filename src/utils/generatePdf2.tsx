@@ -36,12 +36,12 @@ const PDFGenerator = ({ data, data2 }: any) => {
 
     pdf.text(`ETAT RECAPITULATIF INDUSTRIE`, 150, 49, { align: 'center' })
     pdf.setFontSize(12)
-    pdf.text(`JE SOUSSIGNÉ : `, 150, 55, { align: 'center' })
+    pdf.text(`js soussigné : `, 150, 55, { align: 'center' })
     pdf.text(`MD INDUSTRIE`, 150, 60, { align: 'center' })
     pdf.text(`23 Avenue Fréres Montgolfier`, 150, 65, { align: 'center' })
     pdf.text(`69680 CHASSIEU`, 150, 70, { align: 'center' })
     pdf.text(
-      `Attest sur l'honneur avoir mis en oeuvre les travaux d'isolation de points singuliers
+      `Atteste sur l'honneur avoir mis en oeuvre les travaux d'isolation de points singuliers
     `,
       150,
       80,

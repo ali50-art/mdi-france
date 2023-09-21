@@ -61,30 +61,35 @@ const PDFGenerator = ({ data, data2 }: any) => {
 
     pdf.text(`ETAT RECAPITULATIF INDUSTRIE`, 150, 49, { align: 'center' })
     pdf.setFontSize(12)
-    pdf.text(`JE SOUSSIGNÉ `, 150, 55, { align: 'center' })
+    pdf.text(`js soussigné `, 150, 55, { align: 'center' })
     pdf.text(`MD INDUSTRIE`, 150, 65, { align: 'center' })
     pdf.text(`23 Avenue des Frères  Montgolfier`, 150, 70, { align: 'center' })
     pdf.text(`69680 CHASSIEU`, 150, 75, { align: 'center' })
 
     pdf.text(
-      `Attest sur l'honneur avoir mis en oeuvre les travaux d'isolation de points singuliers
+      `Atteste sur l'honneur avoir mis en oeuvre les travaux d'isolation de points singuliers
     `,
       150,
       82,
       { align: 'center' }
     )
+    pdf.setFontSize(15)
     pdf.text(`au bénéfice de  :`, 150, 89, { align: 'center' })
     if (data.orderDetailId) {
+      pdf.setFontSize(12)
       pdf.text(`${data.orderDetailId.name}`, 150, 96, { align: 'center' })
       pdf.text(`${data.orderDetailId.address}`, 150, 101, { align: 'center' })
-      pdf.text(`${data.orderDetailId.ville} ${data.orderDetailId.codePost}`, 150, 115, { align: 'center' })
+      pdf.text(`${data.orderDetailId.ville} ${data.orderDetailId.codePost}`, 150, 107, { align: 'center' })
     } else {
+      pdf.setFontSize(12)
       pdf.text(`MD INDUSTRIE`, 150, 96, { align: 'center' })
       pdf.text(`23 Avenue Fréres Montgolfier`, 150, 101, { align: 'center' })
-      pdf.text(`69680 CHASSIEU`, 150, 115, { align: 'center' })
+      pdf.text(`69680 CHASSIEU`, 150, 107, { align: 'center' })
     }
 
+    pdf.setFontSize(15)
     pdf.text(`a l'adresse de travaux  :`, 150, 120, { align: 'center' })
+    pdf.setFontSize(12)
     pdf.text(`${data.clientAdress}`, 150, 125, { align: 'center' })
     pdf.text(`${data.clientVille} ${data.clientCodePostal}`, 150, 130, { align: 'center' })
     pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 140, { align: 'center' })
@@ -157,7 +162,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
       pdf.line(checkboxX2, checkboxY2 + checkboxSize2, checkboxX2 + checkboxSize2, checkboxY2)
     }
 
-    pdf.text(`3x8 avec arrêt le week-end`, 182, 189, {
+    pdf.text(`3x8 avec arrêt le week-end`, 182, 194, {
       align: 'center'
     })
     const checkboxX3 = 150
@@ -176,7 +181,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
       pdf.line(checkboxX3, checkboxY3 + checkboxSize3, checkboxX3 + checkboxSize3, checkboxY3)
     }
 
-    pdf.text(`3x8 sans arrêt le week-end`, 183, 189, {
+    pdf.text(`3x8 sans arrêt le week-end`, 183, 199, {
       align: 'center'
     })
     pdf.addPage()

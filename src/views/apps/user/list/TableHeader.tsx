@@ -37,7 +37,7 @@ const TableHeader = (props: TableHeaderProps) => {
         <CustomTextField
           value={value}
           sx={{ mr: 4 }}
-          placeholder="Rechercher un donneur d'ordre"
+          placeholder='recherche un utilitaire'
           onChange={e => handleFilter(e.target.value)}
         />
 
