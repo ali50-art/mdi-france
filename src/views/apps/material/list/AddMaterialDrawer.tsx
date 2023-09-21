@@ -51,14 +51,12 @@ const Header = styled(Box)<BoxProps>(({ theme }) => ({
 
 const schema = yup.object().shape({
   model: yup.string().required(),
-  ref: yup.string().required(),
-  type: yup.string().required()
+  ref: yup.string().required()
 })
 
 const defaultValues = {
   model: '',
-  ref: '',
-  type: ''
+  ref: ''
 }
 
 const SidebarAddUser = (props: SidebarAddUserType) => {

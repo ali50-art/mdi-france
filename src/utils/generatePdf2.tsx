@@ -41,7 +41,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.text(`23 Avenue Fréres Montgolfier`, 150, 65, { align: 'center' })
     pdf.text(`69680 CHASSIEU`, 150, 70, { align: 'center' })
     pdf.text(
-      `Atteste sur l'honneur avoir mis en oeuvre les travaux d'isolation de points singuliers
+      `Attest sur l'honneur avoir mis en oeuvre les travaux d'isolation de points singuliers
     `,
       150,
       80,
@@ -87,9 +87,6 @@ const PDFGenerator = ({ data, data2 }: any) => {
     })
 
     pdf.text(`Référence : ISOVAN`, 150, 165, {
-      align: 'center'
-    })
-    pdf.text(`points en eau chaude au retour de condensats en circuit fermé`, 150, 170, {
       align: 'center'
     })
 
