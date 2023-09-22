@@ -49,9 +49,12 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.setFontSize(13)
     pdf.text(`js soussigné: `, 150, 55, { align: 'center' })
     pdf.setFontSize(12)
-    pdf.text(`MD INDUSTRIE`, 150, 65, { align: 'center' })
-    pdf.text(`23 Avenue des Frères  Montgolfier`, 150, 70, { align: 'center' })
-    pdf.text(`69680 CHASSIEU`, 150, 75, { align: 'center' })
+    if (data.orderDetailId) {
+      pdf.setFontSize(12)
+      pdf.text(`${data.orderDetailId.name}`, 150, 65, { align: 'center' })
+      pdf.text(`${data.orderDetailId.address}`, 150, 70, { align: 'center' })
+      pdf.text(`${data.orderDetailId.ville} ${data.orderDetailId.codePost}`, 150, 75, { align: 'center' })
+    }
 
     pdf.text(
       `Atteste sur l'honneur avoir mis en oeuvre les travaux d'isolation de points singuliers
@@ -62,18 +65,16 @@ const PDFGenerator = ({ data, data2 }: any) => {
     )
     pdf.setFontSize(13)
     pdf.text(`au bénéfice de  :`, 150, 89, { align: 'center' })
-    if (data.orderDetailId) {
-      pdf.setFontSize(12)
-      pdf.text(`${data.orderDetailId.name}`, 150, 96, { align: 'center' })
-      pdf.text(`${data.orderDetailId.address}`, 150, 101, { align: 'center' })
-      pdf.text(`${data.orderDetailId.ville} ${data.orderDetailId.codePost}`, 150, 107, { align: 'center' })
-    }
+
+    pdf.setFontSize(12)
+    pdf.text(`${data?.travauxAdress}`, 150, 101, { align: 'center' })
+    pdf.text(`${data?.travauxVille} ${data?.travauxCodePostal}`, 150, 107, { align: 'center' })
 
     pdf.setFontSize(13)
     pdf.text(`a l'adresse de travaux  :`, 150, 120, { align: 'center' })
     pdf.setFontSize(12)
-    pdf.text(`${data.clientAdress}`, 150, 125, { align: 'center' })
-    pdf.text(`${data.clientVille} ${data.clientCodePostal}`, 150, 130, { align: 'center' })
+    pdf.text(`${data?.clientAdress}`, 150, 125, { align: 'center' })
+    pdf.text(`${data?.clientVille} ${data?.clientCodePostal}`, 150, 130, { align: 'center' })
 
     pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 140, { align: 'center' })
     pdf.text(`Résistance thermique : 1,58 m².K/W à une température moyenne de 50 °C `, 150, 145, { align: 'center' })

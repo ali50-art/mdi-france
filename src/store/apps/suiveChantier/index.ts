@@ -100,6 +100,27 @@ export const updatePdf = createAsyncThunk(
   }
 )
 
+// ** Edit pdf
+export const editPdf = createAsyncThunk(
+  'appSuiveChantier/editPdf',
+  async (data: any, { getState, dispatch }: Redux) => {
+    const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
+    const config = {
+      headers: {
+        'Content-Type': 'application/json', // Example: JSON data
+        Authorization: storedToken
+      }
+    }
+    const { pdfId, ...filterData } = data
+    console.log('filterData : ', filterData)
+
+    const response = await axios.patch(`${serverUri.uri}/api/pdf/${pdfId}`, { ...filterData }, config)
+    dispatch(fetchData(getState().user.params))
+
+    return response.data
+  }
+)
+
 export const appSuiveChantierSlice = createSlice({
   name: 'appSuiveChantier',
   initialState: {

@@ -62,9 +62,12 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.text(`ETAT RECAPITULATIF INDUSTRIE`, 150, 49, { align: 'center' })
     pdf.setFontSize(12)
     pdf.text(`js soussigné `, 150, 55, { align: 'center' })
-    pdf.text(`MD INDUSTRIE`, 150, 65, { align: 'center' })
-    pdf.text(`23 Avenue des Frères  Montgolfier`, 150, 70, { align: 'center' })
-    pdf.text(`69680 CHASSIEU`, 150, 75, { align: 'center' })
+    if (data.orderDetailId) {
+      pdf.setFontSize(12)
+      pdf.text(`${data.orderDetailId.name}`, 150, 65, { align: 'center' })
+      pdf.text(`${data.orderDetailId.address}`, 150, 70, { align: 'center' })
+      pdf.text(`${data.orderDetailId.ville} ${data.orderDetailId.codePost}`, 150, 75, { align: 'center' })
+    }
 
     pdf.text(
       `Atteste sur l'honneur avoir mis en oeuvre les travaux d'isolation de points singuliers
@@ -75,17 +78,11 @@ const PDFGenerator = ({ data, data2 }: any) => {
     )
     pdf.setFontSize(15)
     pdf.text(`au bénéfice de  :`, 150, 89, { align: 'center' })
-    if (data.orderDetailId) {
-      pdf.setFontSize(12)
-      pdf.text(`${data.orderDetailId.name}`, 150, 96, { align: 'center' })
-      pdf.text(`${data.orderDetailId.address}`, 150, 101, { align: 'center' })
-      pdf.text(`${data.orderDetailId.ville} ${data.orderDetailId.codePost}`, 150, 107, { align: 'center' })
-    } else {
-      pdf.setFontSize(12)
-      pdf.text(`MD INDUSTRIE`, 150, 96, { align: 'center' })
-      pdf.text(`23 Avenue Fréres Montgolfier`, 150, 101, { align: 'center' })
-      pdf.text(`69680 CHASSIEU`, 150, 107, { align: 'center' })
-    }
+
+    pdf.setFontSize(12)
+
+    pdf.text(`${data?.travauxAdress}`, 150, 101, { align: 'center' })
+    pdf.text(`${data?.travauxVille} ${data?.travauxCodePostal}`, 150, 107, { align: 'center' })
 
     pdf.setFontSize(15)
     pdf.text(`a l'adresse de travaux  :`, 150, 120, { align: 'center' })

@@ -44,6 +44,8 @@ import SelectOrderDialgo from 'src/views/apps/suivierChantier/SelectOrderDialog'
 import TotalDialog from 'src/views/apps/suivierChantier/TotalDialog'
 import CustomChip from 'src/@core/components/mui/chip'
 import DeleteItemDialog from 'src/views/apps/suivierChantier/DeletePdfConfermation'
+import AddBenificaire from 'src/views/apps/suivierChantier/AddBenificaire'
+
 import { CardContent } from '@mui/material'
 
 // import EditUserDrawer from 'src/views/apps/user/list/EditeUserDrawer'
@@ -79,6 +81,7 @@ const AdminDashboard = () => {
     const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
     const [openTotalModel, setOpenTotalModel] = useState<any>(false)
     const [openDeleteTogel, setOpenDeleteTogel] = useState<any>(false)
+    const [addBenificaire, setAddBenificaire] = useState<any>(false)
     const rowOptionsOpen = Boolean(anchorEl)
     const dispatch = useDispatch<AppDispatch>()
 
@@ -101,6 +104,10 @@ const AdminDashboard = () => {
 
     const handleOpenDeleteTogel = () => {
       setOpenDeleteTogel(!openDeleteTogel)
+      handleRowOptionsClose()
+    }
+    const handleOpenAddBeneficaire = () => {
+      setAddBenificaire(!addBenificaire)
       handleRowOptionsClose()
     }
 
@@ -149,6 +156,10 @@ const AdminDashboard = () => {
             <Icon icon='tabler:edit' fontSize={20} />
             traité
           </MenuItem>
+          <MenuItem sx={{ '& svg': { mr: 2 } }} onClick={handleOpenAddBeneficaire}>
+            <Icon icon='tabler:clipboard' fontSize={20} />
+            ajouter bénéficiaire
+          </MenuItem>
           <MenuItem sx={{ '& svg': { mr: 2 } }} onClick={handleOpenTotal}>
             <Icon icon='tabler:truck' fontSize={20} />
             total
@@ -163,6 +174,7 @@ const AdminDashboard = () => {
         {openDeleteTogel && (
           <DeleteItemDialog open={openDeleteTogel} toggle={handleOpenDeleteTogel} id={id} setCount={setCount} />
         )}
+        {addBenificaire && <AddBenificaire open={addBenificaire} toggle={handleOpenAddBeneficaire} id={id} />}
       </>
     )
   }
