@@ -237,7 +237,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                   <Grid item xs={3} sm={4}>
                     <CustomTextField
                       type='number'
-                      label='Number'
+                      label='Nombre'
                       value={el.counter}
                       id='form-props-number'
                       onChange={e => handleInputChange(e.target.value, el.id)}
