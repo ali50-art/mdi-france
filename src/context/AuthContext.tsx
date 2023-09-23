@@ -20,6 +20,7 @@ const defaultProvider: AuthValuesType = {
   loading: true,
   setUser: () => null,
   setLoading: () => Boolean,
+  getProfile: () => Promise.resolve(),
   login: () => Promise.resolve(),
   logout: () => Promise.resolve()
 }
@@ -116,6 +117,39 @@ const AuthProvider = ({ children }: Props) => {
     window.localStorage.removeItem(authConfig.storageTokenKeyName)
     router.push('/login')
   }
+  const handleGetProfile = async (): Promise<void> => {
+    const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
+
+    if (storedToken && online == true) {
+      setLoading(true)
+      await axios
+        .get(`${serverUri.uri}/api/profile`, {
+          headers: {
+            Authorization: storedToken
+          }
+        })
+        .then(async (response: any) => {
+          setLoading(false)
+          localStorage.setItem('userData', JSON.stringify(response.data.data))
+          setUser({ ...response.data.data })
+        })
+        .catch(() => {
+          localStorage.removeItem('refreshToken')
+          localStorage.removeItem('accessToken')
+          localStorage.removeItem('userData')
+          setUser(null)
+          setLoading(false)
+
+          router.replace('/login')
+        })
+    } else if (storedToken && online == false) {
+      const x: any = localStorage.getItem('userData')
+      setUser(JSON.parse(x))
+      setLoading(false)
+    } else {
+      setLoading(false)
+    }
+  }
 
   const values = {
     user,
@@ -123,6 +157,7 @@ const AuthProvider = ({ children }: Props) => {
     setUser,
     setLoading,
     login: handleLogin,
+    getProfile: handleGetProfile,
     logout: handleLogout
   }
 

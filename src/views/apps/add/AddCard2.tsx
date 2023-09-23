@@ -560,14 +560,14 @@ const AddCard = (props: Props) => {
                             {data[i].red != '' ? (
                               ceckTheList(materials, data[i].red) == false ? (
                                 <MenuItem value={data[i].red} key={i}>
-                                  ISOVAN{data[i].red}
+                                  {data[i].red}
                                 </MenuItem>
                               ) : null
                             ) : null}
                             {materials?.map((el: any, i: number) => {
                               return (
                                 <MenuItem value={el?.material?.model} key={i}>
-                                  ISOVAN{el?.material?.model}
+                                  {el?.material?.model}
                                 </MenuItem>
                               )
                             })}

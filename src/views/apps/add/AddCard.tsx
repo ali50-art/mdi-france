@@ -566,7 +566,7 @@ const AddCard = (props: Props) => {
                         {data[i].saved ? (
                           <CustomTextField
                             placeholder='1'
-                            value={'ISOVAN' + data[i].red}
+                            value={data[i].red}
                             InputProps={{ inputProps: { min: 0 } }}
                           />
                         ) : (
@@ -584,7 +584,7 @@ const AddCard = (props: Props) => {
                             {data[i].red != '' ? (
                               ceckTheList(materials, data[i].red) == false ? (
                                 <MenuItem value={data[i].red} key={i}>
-                                  ISOVAN{data[i].red}
+                                  {data[i].red}
                                 </MenuItem>
                               ) : null
                             ) : null}
@@ -592,7 +592,7 @@ const AddCard = (props: Props) => {
                             {materials?.map((el: any, i: number) => {
                               return (
                                 <MenuItem value={el?.material?.model} key={i}>
-                                  ISOVAN{el?.material?.model}
+                                  {el?.material?.model}
                                 </MenuItem>
                               )
                             })}

@@ -426,7 +426,7 @@ const AddCard = ({ pdfId }: any) => {
                                 {storeMaterial.data.map((ele: any) => {
                                   return (
                                     <MenuItem value={ele.model} key={i}>
-                                      ISOVAN{ele.model}
+                                      {ele.model}
                                     </MenuItem>
                                   )
                                 })}

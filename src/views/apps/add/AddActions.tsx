@@ -12,12 +12,16 @@ import CardContent from '@mui/material/CardContent'
 import { useDispatch } from 'react-redux'
 import toast from 'react-hot-toast'
 
+// ** Hooks
+import { useAuth } from 'src/hooks/useAuth'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 import { addPdf } from '../../../store/apps/pdf'
 import { AppDispatch } from 'src/store'
 
 const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) => {
+  const auth = useAuth()
   const [online, setIsOnline] = useState(navigator.onLine)
   const [pdfType, setPdefType] = useState('indestry')
   const [data, setData] = useState<any>([])
@@ -79,6 +83,7 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
     const type = localStorage.getItem('pdfType')
     if (type == 'residentiel') {
       const res = await getStoreData(Stores.PdfData)
+
       const res2: any = await getStoreData(Stores.PdfInfo)
       const newArr: any = []
       for (let i = 0; i < res.length; i++) {
@@ -116,6 +121,7 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
       handleActiStepTOfirstStep()
     } else {
       const res = await getStoreData(Stores.PdfData2)
+
       const res2: any = await getStoreData(Stores.PdfInfo)
       const newArr: any = []
       for (let i = 0; i < res.length; i++) {
@@ -139,7 +145,9 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
           nbRep: el.rep || ''
         }
         newArr.push(newObj)
+        console.log('newObj : ', newObj)
       }
+
       await dispatch(addPdf(newArr))
       const promises2 = res.map(async (el: any) => {
         return await deleteData(Stores.PdfData2, el.id)
@@ -149,6 +157,7 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
       toast.success('pdf envoyé avec succée')
       localStorage.removeItem('pdfInfoId')
       handleActiStepTOfirstStep()
+      auth.getProfile()
     }
   }
 

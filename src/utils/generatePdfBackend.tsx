@@ -91,9 +91,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.text(`Référence : ISOVAN`, 150, 170, {
       align: 'center'
     })
-    pdf.text(`Lieu d'implantationdes metelas : CHAUFFERIE`, 150, 175, {
-      align: 'center'
-    })
+
     pdf.text(`Nombre des points singuliers posés : `, 150, 180, {
       align: 'center'
     })
@@ -106,11 +104,10 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.text(`DN > 100 = ${morThen100}`, 150, 195, {
       align: 'center'
     })
-
-    pdf.addPage()
-    pdf.text(`Total des points singuliers = ${data.pdefDetails.length}`, 150, 10, {
+    pdf.text(`Total des points singuliers = ${data.pdefDetails.length}`, 198, 10, {
       align: 'center'
     })
+    pdf.addPage()
 
     // Dynamic content on subsequent pages
     pdf.setFontSize(12)
@@ -132,9 +129,9 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.setFontSize(10)
     pdf.text('Les éléments déclarés ci-dessus sont a titre indicatif', 30, pdf.autoTable.previous.finalY + 10)
     pdf.setFontSize(13)
-    pdf.text('Signature + Date + Cachet ', 40, pdf.autoTable.previous.finalY + 18)
-    pdf.text('Signature + Date + Cachet ', 200, pdf.autoTable.previous.finalY + 18)
-    pdf.text('Nom/Prénom/Fonction du représentant : ', 40, pdf.autoTable.previous.finalY + 25)
+    pdf.text('Signature + Date + Cachet ', 42, pdf.autoTable.previous.finalY + 18)
+    pdf.text('Signature + Date + Cachet ', 210, pdf.autoTable.previous.finalY + 18)
+    pdf.text('Nom/Prénom/Fonction du représentant : ', 30, pdf.autoTable.previous.finalY + 25)
     pdf.text('Nom/Prénom/Fonction du bénéficiare : ', 200, pdf.autoTable.previous.finalY + 25)
 
     // Save the PDF using save() method
