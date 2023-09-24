@@ -187,7 +187,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
             pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
           }}
         >
-          Ajouter le Matiére
+          Rechargement
         </DialogTitle>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogContent
@@ -237,7 +237,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                   <Grid item xs={3} sm={4}>
                     <CustomTextField
                       type='number'
-                      label='Nombre'
+                      label='Quantité'
                       value={el.counter}
                       id='form-props-number'
                       onChange={e => handleInputChange(e.target.value, el.id)}
