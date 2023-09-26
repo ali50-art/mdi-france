@@ -104,7 +104,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.text(`DN > 100 = ${morThen100}`, 150, 195, {
       align: 'center'
     })
-    pdf.text(`Total des points singuliers = ${data.pdefDetails.length}`, 198, 10, {
+    pdf.text(`Total des points singuliers = ${data.pdefDetails.length}`, 150, 200, {
       align: 'center'
     })
     pdf.addPage()

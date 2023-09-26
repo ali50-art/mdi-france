@@ -100,7 +100,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
       align: 'center'
     })
 
-    pdf.text(`Total de points singuliers = ${data.length}`, 150, 195, {
+    pdf.text(`Total de points singuliers = ${data.length}`, 150, 194, {
       align: 'center'
     })
     pdf.addPage()
