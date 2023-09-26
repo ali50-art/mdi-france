@@ -400,7 +400,7 @@ const AddCard = (props: Props) => {
                     <TableRow>
                       <MUITableCell>
                         <Typography sx={{ color: 'text.secondary' }}>
-                          <strong>MARQUE:</strong> MDI-TECHNOLOGE
+                          <strong>MARQUE:</strong> MDI-TECHNOLOGIE
                         </Typography>
                       </MUITableCell>
                     </TableRow>

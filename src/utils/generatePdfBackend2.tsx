@@ -80,7 +80,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.text(`au bénéfice de  :`, 150, 89, { align: 'center' })
 
     pdf.setFontSize(12)
-
+    pdf.text(`${data?.traveauxName}`, 150, 94, { align: 'center' })
     pdf.text(`${data?.travauxAdress}`, 150, 101, { align: 'center' })
     pdf.text(`${data?.travauxVille} ${data?.travauxCodePostal}`, 150, 107, { align: 'center' })
 

@@ -25,6 +25,7 @@ import { Card, CardContent, CardHeader, Dialog, Grid } from '@mui/material'
 // import { UsersType } from 'src/types/apps/userTypes'
 
 const defaultValues = {
+  name: '',
   Ville: '',
   adresse: '',
   codePostal: ''
@@ -45,6 +46,10 @@ const showErrors = (field: string, valueLen: number, min: number) => {
 }
 
 const schema = yup.object().shape({
+  name: yup
+    .string()
+    .min(3, obj => showErrors('nom de bénéficiaire', obj.value.length, obj.min))
+    .required(),
   Ville: yup
     .string()
     .min(3, obj => showErrors('ville', obj.value.length, obj.min))
@@ -78,8 +83,16 @@ const FormValidationSchema = (props: SidebarAddUserType) => {
   })
 
   const onSubmit = (data: any) => {
+    console.log('data.name : ', data.name)
+
     dispatch(
-      editPdf({ pdfId: id, travauxVille: data.Ville, travauxCodePostal: data.codePostal, travauxAdress: data.adresse })
+      editPdf({
+        pdfId: id,
+        travauxVille: data.Ville,
+        travauxCodePostal: data.codePostal,
+        travauxAdress: data.adresse,
+        traveauxName: data.name
+      })
     )
     toggle()
     toast.success('Bénéficiaire ajouté avec succès.')
@@ -99,6 +112,25 @@ const FormValidationSchema = (props: SidebarAddUserType) => {
           <CardContent>
             <form onSubmit={handleSubmit(onSubmit)}>
               <Grid container spacing={5}>
+                <Grid item xs={12}>
+                  <Controller
+                    name='name'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <CustomTextField
+                        fullWidth
+                        value={value}
+                        label='Nom'
+                        onChange={onChange}
+                        placeholder='nom de bénéficiaire'
+                        error={Boolean(errors.Ville)}
+                        aria-describedby='validation-schema-first-name'
+                        {...(errors.name && { helperText: errors.name.message })}
+                      />
+                    )}
+                  />
+                </Grid>
                 <Grid item xs={12}>
                   <Controller
                     name='Ville'

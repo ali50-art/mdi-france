@@ -242,14 +242,14 @@ const AddCard = ({ pdfId }: any) => {
                     <TableRow>
                       <MUITableCell>
                         <Typography sx={{ color: 'text.secondary' }}>
-                          <strong>RÉFÉRENCE:</strong> ISOVAN
+                          <strong>RÉFÉRENCE:</strong> Matelas
                         </Typography>
                       </MUITableCell>
                     </TableRow>
                     <TableRow>
                       <MUITableCell>
                         <Typography sx={{ color: 'text.secondary' }}>
-                          <strong>MARQUE:</strong> MDI-TECHNOLOGE
+                          <strong>MARQUE:</strong> MDI-TECHNOLOGIE
                         </Typography>
                       </MUITableCell>
                     </TableRow>
@@ -275,7 +275,7 @@ const AddCard = ({ pdfId }: any) => {
                     </TableRow>
                     <TableRow>
                       <Typography sx={{ color: 'text.secondary' }}>
-                        :1,27m2.K/W à une température moyenne de 100°C
+                        :1,27 m².K/W à une température moyenne de 100°C
                       </Typography>
                     </TableRow>
                   </TableBody>
@@ -307,7 +307,7 @@ const AddCard = ({ pdfId }: any) => {
                   sx={{ mb: { md: 2, xs: 0 }, color: 'text.secondary', textAlign: 'center' }}
                 >
                   Type de point <br />
-                  singuiler
+                  singulier
                 </Typography>
               </Grid>
               <Grid item lg={2} md={2} xs={1.5} sx={{ my: { lg: 0, xs: 4 } }}>
@@ -315,7 +315,7 @@ const AddCard = ({ pdfId }: any) => {
                   className='col-title'
                   sx={{ mb: { md: 2, xs: 0 }, color: 'text.secondary', textAlign: 'center' }}
                 >
-                  Réference metales
+                  Référence metelas
                 </Typography>
               </Grid>
               <Grid item lg={1.6} md={1.6} xs={1.5} sx={{ my: { lg: 0, xs: 4 } }}>
@@ -323,7 +323,7 @@ const AddCard = ({ pdfId }: any) => {
                   className='col-title'
                   sx={{ mb: { md: 2, xs: 0 }, color: 'text.secondary', textAlign: 'center' }}
                 >
-                  Msse <br />
+                  Masse <br />
                   volumique
                 </Typography>
               </Grid>

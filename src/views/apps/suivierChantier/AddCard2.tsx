@@ -259,7 +259,7 @@ const AddCard = ({ pdfId }: any) => {
                     <TableRow>
                       <MUITableCell>
                         <Typography sx={{ color: 'text.secondary' }}>
-                          <strong>MARQUE:</strong> MDI-TECHNOLOGE
+                          <strong>MARQUE:</strong> MDI-TECHNOLOGIE
                         </Typography>
                       </MUITableCell>
                     </TableRow>
@@ -300,8 +300,7 @@ const AddCard = ({ pdfId }: any) => {
                   <TableRow>
                     <MUITableCell>
                       <Typography sx={{ color: 'text.secondary' }}>
-                        : 1,18 m².K/W sur un réseau de fluide organique à une température moyenne de 120° Pareil pDF
-                        INDUSTRIE mettre celle ci
+                        : 1,18 m².K/W sur un réseau de fluide organique à une température moyenne de 120°C
                       </Typography>
                     </MUITableCell>
                   </TableRow>
@@ -329,12 +328,12 @@ const AddCard = ({ pdfId }: any) => {
               <Grid item lg={2.5} md={2.5} xs={1.5} sx={{ my: { lg: 0, xs: 4 } }}>
                 <Typography className='col-title' sx={{ mb: { md: 2, xs: 0 }, color: 'text.secondary' }}>
                   Type de point <br />
-                  singuiler
+                  singulier
                 </Typography>
               </Grid>
               <Grid item lg={2.5} md={2.5} xs={1.5} sx={{ my: { lg: 0, xs: 4 } }}>
                 <Typography className='col-title' sx={{ mb: { md: 2, xs: 0 }, color: 'text.secondary' }}>
-                  Réference metales
+                  Réference metelas
                 </Typography>
               </Grid>
               <Grid item lg={2} md={2} xs={1} sx={{ my: { lg: 0, xs: 4 } }}>
