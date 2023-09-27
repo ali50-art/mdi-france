@@ -219,7 +219,8 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.text('Nom/Prénom/Fonction du bénéficiare : ', 200, pdf.autoTable.previous.finalY + 25)
 
     // Save the PDF using save() method
-    pdf.save('example.pdf')
+
+    pdf.save('INDUSTRIE.pdf')
   }
 
   return (

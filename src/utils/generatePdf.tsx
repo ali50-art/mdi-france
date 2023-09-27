@@ -115,7 +115,7 @@ const PDFGenerator = ({ data, data2, res }: any) => {
     })
 
     // Save the PDF using save() method
-    pdf.save('example.pdf')
+    pdf.save('RES/TER.pdf')
   }
 
   return (

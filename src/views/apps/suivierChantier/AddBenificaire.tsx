@@ -123,7 +123,7 @@ const FormValidationSchema = (props: SidebarAddUserType) => {
                         value={value}
                         label='Nom'
                         onChange={onChange}
-                        placeholder='nom de bénéficiaire'
+                        placeholder='nom du bénéficiaire'
                         error={Boolean(errors.Ville)}
                         aria-describedby='validation-schema-first-name'
                         {...(errors.name && { helperText: errors.name.message })}

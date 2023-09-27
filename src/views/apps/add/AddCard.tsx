@@ -452,7 +452,7 @@ const AddCard = (props: Props) => {
               sx={{ mb: { md: 2, xs: 0 }, color: 'text.secondary', textAlign: 'center' }}
             >
               type <br />
-              mode point singulier
+              point singulier
             </Typography>
           </Grid>
           <Grid item lg={2} md={2} xs={1.5} sx={{ my: { lg: 0, xs: 4 } }}>

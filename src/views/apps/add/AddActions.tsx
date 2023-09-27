@@ -114,6 +114,7 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
       })
 
       await Promise.all(promises2)
+
       handleSetCount()
       toast.success('pdf envoyez avec success')
       await deleteData(Stores.PdfInfo, res2[0].id)
@@ -145,7 +146,6 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
           nbRep: el.rep || ''
         }
         newArr.push(newObj)
-        console.log('newObj : ', newObj)
       }
 
       await dispatch(addPdf(newArr))

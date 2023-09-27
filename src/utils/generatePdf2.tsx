@@ -121,7 +121,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
     })
 
     // Save the PDF using save() method
-    pdf.save('example.pdf')
+    pdf.save('INDUSTRIE.pdf')
   }
 
   return (
