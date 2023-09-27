@@ -68,7 +68,7 @@ const PDFGenerator = ({ data, data2, res }: any) => {
     pdf.text(`Isolant et référence : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1`, 150, 138, {
       align: 'center'
     })
-    pdf.text(`Température maximale : 200°C`, 150, 145, {
+    pdf.text(`Température maximale : 250°C`, 150, 145, {
       align: 'center'
     })
     pdf.text(`Température fluide caloporteur : 70°C`, 150, 150, {
