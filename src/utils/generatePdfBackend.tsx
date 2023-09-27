@@ -47,7 +47,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
 
     pdf.text(`ETAT RECAPITULATIF`, 150, 49, { align: 'center' })
     pdf.setFontSize(13)
-    pdf.text(`js soussigné: `, 150, 55, { align: 'center' })
+    pdf.text(`je soussigné: `, 150, 55, { align: 'center' })
     pdf.setFontSize(12)
     if (data.orderDetailId) {
       pdf.setFontSize(12)
@@ -72,7 +72,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.text(`${data?.travauxVille} ${data?.travauxCodePostal}`, 150, 107, { align: 'center' })
 
     pdf.setFontSize(13)
-    pdf.text(`a l'adresse de travaux  :`, 150, 120, { align: 'center' })
+    pdf.text(`à l'adresse de travaux  :`, 150, 120, { align: 'center' })
     pdf.setFontSize(12)
     pdf.text(`${data?.clientAdress}`, 150, 125, { align: 'center' })
     pdf.text(`${data?.clientVille} ${data?.clientCodePostal}`, 150, 130, { align: 'center' })
@@ -128,7 +128,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
       body: data2
     })
     pdf.setFontSize(10)
-    pdf.text('Les éléments déclarés ci-dessus sont a titre indicatif', 30, pdf.autoTable.previous.finalY + 10)
+    pdf.text('Les éléments déclarés ci-dessus sont à titre indicatif', 30, pdf.autoTable.previous.finalY + 10)
     pdf.setFontSize(13)
     pdf.text('Signature + Date + Cachet ', 42, pdf.autoTable.previous.finalY + 18)
     pdf.text('Signature + Date + Cachet ', 210, pdf.autoTable.previous.finalY + 18)
