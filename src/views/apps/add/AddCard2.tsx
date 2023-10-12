@@ -6,10 +6,11 @@ import Card from '@mui/material/Card'
 import Table from '@mui/material/Table'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
-import { initDB, getStoreData, addData, updateDataById, Stores, deleteData } from '../../../lib/db'
-
+import { getStoreData, addData, updateDataById, Stores, deleteData } from '../../../lib/db'
+import { VariableSizeList as List } from 'react-window'
 import TableRow from '@mui/material/TableRow'
-import Collapse from '@mui/material/Collapse'
+
+// import AutoSizer from 'react-virtualized-auto-sizer'
 import TableBody from '@mui/material/TableBody'
 import Typography from '@mui/material/Typography'
 import Box, { BoxProps } from '@mui/material/Box'
@@ -19,7 +20,7 @@ import Grid, { GridProps } from '@mui/material/Grid'
 import TableContainer from '@mui/material/TableContainer'
 import { styled, useTheme } from '@mui/material/styles'
 import TableCell, { TableCellBaseProps } from '@mui/material/TableCell'
-import CardContent, { CardContentProps } from '@mui/material/CardContent'
+import CardContent from '@mui/material/CardContent'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -29,7 +30,6 @@ import MenuItem from '@mui/material/MenuItem'
 // ** Types
 
 // ** Custom Component Imports
-import Repeater from 'src/@core/components/repeater'
 import CustomTextField from 'src/@core/components/mui/text-field'
 import { toast } from 'react-hot-toast'
 
@@ -70,19 +70,6 @@ const RepeatingContent = styled(Grid)<GridProps>(({ theme }) => ({
   }
 }))
 
-const RepeaterWrapper = styled(CardContent)<CardContentProps>(({ theme }) => ({
-  padding: theme.spacing(16, 10, 10),
-  '& .repeater-wrapper + .repeater-wrapper': {
-    marginTop: theme.spacing(16)
-  },
-  [theme.breakpoints.down('md')]: {
-    paddingTop: theme.spacing(10)
-  },
-  [theme.breakpoints.down('sm')]: {
-    padding: theme.spacing(6)
-  }
-}))
-
 const InvoiceAction = styled(Box)<BoxProps>(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -93,13 +80,14 @@ const InvoiceAction = styled(Box)<BoxProps>(({ theme }) => ({
 
 const AddCard = (props: Props) => {
   // ** Props
-  const { handleSetCount, count2 } = props
+  const listArr = new Array(300).fill(0).map((v, idx) => idx)
+  const { handleSetCount } = props
   const [materials, setMaterial] = useState<any>([])
 
   // ** States
   const [count, setCount] = useState<number>(0)
 
-  const [data, setData] = useState<any[]>([])
+  const [data, setData] = useState<any[]>(listArr)
   const [data2, setData2] = useState<any[]>([])
   const [lastId, setlastId] = useState<any>(null)
 
@@ -117,7 +105,7 @@ const AddCard = (props: Props) => {
 
     return nb
   }
-  const handleMaterilas = (data: any) => {
+  const handleMaterilas = async (data: any) => {
     if (localStorage.getItem('userData')) {
       const x: any = localStorage.getItem('userData')
       const user: any = JSON.parse(x)
@@ -135,26 +123,26 @@ const AddCard = (props: Props) => {
   const handleFetchData = async () => {
     try {
       const res: any = await getStoreData(Stores.PdfData2)
+      console.log('res.length : ', res.length)
+
       const res2 = await getStoreData(Stores.PdfInfo)
 
       if (res.length > 0) {
-        setData([...res])
-        setlastId(res[res.length - 1].id)
+        setData(res)
+        console.log('data : ', data)
         setlastId(res[res.length - 1].id)
       } else {
         setlastId(0)
         setData([])
       }
-      handleMaterilas(res)
-      setData2([...res2])
+
+      await handleMaterilas(res)
+      setData2(res2)
     } catch (err) {
       toast.error('opps !')
     }
   }
 
-  const handleInitDB = async () => {
-    await initDB()
-  }
   const handleAddNewItem = async () => {
     if (materials.length == 0) {
       toast.error('voter stock est terminer !')
@@ -176,7 +164,7 @@ const AddCard = (props: Props) => {
         } else {
           rep = 1
         }
-        const data = {
+        const newData = {
           local: '',
           type: '',
           red: '',
@@ -185,11 +173,12 @@ const AddCard = (props: Props) => {
           categoryId: JSON.stringify(new Date()),
           saved: false
         }
-        await addData(Stores.PdfData2, { ...data, id })
+        await addData(Stores.PdfData2, { ...newData, id })
         localStorage.setItem('rep', '0')
         toast.success('vos avez ajoutez noveux ligine')
         setCount(count + 1)
         handleSetCount()
+        handleFetchData()
       } catch (err: any) {
         toast.error('opps !')
       }
@@ -262,14 +251,16 @@ const AddCard = (props: Props) => {
     handleSetCount()
   }
 
-  const handleSetInput = async (id: any, d: any) => {
+  const handleSetInput = async (e: any, id: any, d: any) => {
     const index = data.findIndex((el: any) => el.id.toString() == id.toString())
 
     const lastData = data[index]
     lastData.local = d
     await updateDataById(Stores.PdfData2, id, { ...lastData })
-    setCount(count + 1)
-    handleSetCount()
+    const updatedArray: any = [...data]
+    updatedArray[index].updatedArray = d
+    setData(updatedArray)
+    e.preventDefault()
   }
   const formateDate = (date: any) => {
     // Format options for the date in French
@@ -308,9 +299,11 @@ const AddCard = (props: Props) => {
         lastData.red = ''
         lastData.nature = ''
         lastData.saved = false
-        setCount(count + 1)
         await addData(Stores.PdfData2, { ...lastData })
         localStorage.setItem('lastId', JSON.stringify(id + 1))
+        setCount(count + 1)
+        handleSetCount()
+        handleFetchData()
       } catch (err) {
         toast.error('opps !')
       }
@@ -321,12 +314,144 @@ const AddCard = (props: Props) => {
 
     return index > -1
   }
+  const Row = ({ index, style, data }: any) => {
+    const i = index
+
+    return (
+      <>
+        <Grid container>
+          <RepeatingContent item xs={12} style={style}>
+            <Grid container sx={{ py: 4, width: '100%', pr: { lg: 0, xs: 4 } }}>
+              <Grid item lg={2.75} md={2.75} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
+                <CustomTextField
+                  placeholder="Zone d'implantation"
+                  onChange={e => handleSetInput(e, data[i].id, e.target.value)}
+                  defaultValue={data[i].local}
+                  InputProps={{ inputProps: { min: 0 } }}
+                />
+              </Grid>
+              <Grid item lg={2.75} md={2.75} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
+                {data[i].saved ? (
+                  <CustomTextField placeholder='1' value={data[i].type} InputProps={{ inputProps: { min: 0 } }} />
+                ) : (
+                  <CustomTextField
+                    select
+                    fullWidth
+                    value={data[i].type}
+                    sx={{ mb: 4 }}
+                    onChange={e => handleSetFilter(data[i].id, e.target.value)}
+                    SelectProps={{
+                      value: data[i].type,
+                      onChange: e => handleSetFilter(data[i].id, e.target.value)
+                    }}
+                  >
+                    <MenuItem value='Vanne Bs'>Vanne Bs</MenuItem>
+                    <MenuItem value='Vanne TA filetée'>Vanne TA filetée</MenuItem>
+                    <MenuItem value='Robinet volant fileté'>Robinet volant fileté</MenuItem>
+                    <MenuItem value='Manchette de dilatation filetée'>Manchette de dilatation filetée</MenuItem>
+                    <MenuItem value='Clapet fileté'>Clapet fileté</MenuItem>
+                    <MenuItem value='Filter fileté'>Filter fileté</MenuItem>
+                    <MenuItem value='Circulateur fileté'>Circulateur fileté</MenuItem>
+                    <MenuItem value="Purgeur d'air fileté">Purgeur d'air fileté</MenuItem>
+                    <MenuItem value="Purgeur d'eau fileté">Purgeur d'eau fileté</MenuItem>
+                    <MenuItem value='Compteur fileté'>Compteur fileté</MenuItem>
+                    <MenuItem value='Vanne papillon'>Vanne papillon</MenuItem>
+                    <MenuItem value='Vanne PAP Elec.motorisée'>Vanne PAP Elec.motorisée</MenuItem>
+                    <MenuItem value='Vanne volant large bride'>Vanne volant large bride</MenuItem>
+                    <MenuItem value='Vanne volante étroite bride'>Vanne volante étroite bride</MenuItem>
+                    <MenuItem value='Jeux de brides'>Jeux de brides</MenuItem>
+                    <MenuItem value="Manchette d'écartement bride">Manchette d'écartement bride</MenuItem>
+                    <MenuItem value='Circulateur simple bride'>Circulateur simple bride</MenuItem>
+                    <MenuItem value='Vanne TA bride'>Vanne TA bride</MenuItem>
+                    <MenuItem value='Filtre bride'>Filtre bride </MenuItem>
+                    <MenuItem value='Compteur bride'>Compteur bride </MenuItem>
+                  </CustomTextField>
+                )}
+              </Grid>
+              <Grid item lg={2.75} md={2.75} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
+                {data[i].saved ? (
+                  <CustomTextField placeholder='1' value={data[i].red} InputProps={{ inputProps: { min: 0 } }} />
+                ) : (
+                  <CustomTextField
+                    select
+                    fullWidth
+                    value={data[i].red}
+                    sx={{ mb: 4 }}
+                    onChange={e => hnadlesetRef(data[i].id, e.target.value)}
+                    SelectProps={{
+                      value: data[i].red,
+                      onChange: e => hnadlesetRef(data[i].id, e.target.value)
+                    }}
+                  >
+                    {data[i].red != '' ? (
+                      ceckTheList(materials, data[i].red) == false ? (
+                        <MenuItem value={data[i].red} key={i}>
+                          {data[i].red}
+                        </MenuItem>
+                      ) : null
+                    ) : null}
+                    {materials?.map((el: any, i: number) => {
+                      return (
+                        <MenuItem value={el?.material?.model} key={i}>
+                          {el?.material?.model}
+                        </MenuItem>
+                      )
+                    })}
+                  </CustomTextField>
+                )}
+              </Grid>
+
+              <Grid item lg={2.75} md={2.75} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
+                {data[i].saved ? (
+                  <CustomTextField value={data[i].nature} InputProps={{ inputProps: { min: 0 } }} />
+                ) : (
+                  <CustomTextField
+                    select
+                    fullWidth
+                    value={data[i].nature}
+                    sx={{ mb: 4 }}
+                    onChange={e => handleSetNature(data[i].id, e.target.value)}
+                    SelectProps={{
+                      value: data[i].nature,
+                      onChange: e => handleSetNature(data[i].id, e.target.value)
+                    }}
+                  >
+                    <MenuItem value='vapeur'>vapeur</MenuItem>
+                    <MenuItem value='Eau surchauffée'>Eau surchauffée</MenuItem>
+                    <MenuItem value='Fluide organique'>Fluide organique</MenuItem>
+                  </CustomTextField>
+                )}
+              </Grid>
+
+              <Grid item lg={1} md={1} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
+                <CustomTextField placeholder='1' value={data[i].rep} InputProps={{ inputProps: { min: 0 } }} />
+              </Grid>
+            </Grid>
+            <InvoiceAction>
+              <IconButton size='small' onClick={() => handleDeleteItem(data[i].id, data[i].categoryId)}>
+                <Icon icon='tabler:x' fontSize='1.25rem' />
+              </IconButton>
+              <Divider />
+              {data[i].saved ? (
+                <IconButton size='small' onClick={() => handleChangeMood(data[i].id)}>
+                  <Icon icon='tabler:edit' fontSize='1.25rem' />
+                </IconButton>
+              ) : (
+                <IconButton size='small' onClick={() => handleSaveItem(data[i].id)}>
+                  <Icon icon='tabler:check' fontSize='1.25rem' />
+                </IconButton>
+              )}
+            </InvoiceAction>
+          </RepeatingContent>
+        </Grid>
+      </>
+    )
+  }
   useEffect(() => {
-    handleInitDB()
     handleFetchData()
 
     localStorage.setItem('lastId', lastId)
-  }, [, count2, getStoreData, addData, count, lastId, materials])
+  }, [, count, getStoreData, addData])
 
   return (
     <Card>
@@ -474,167 +599,32 @@ const AddCard = (props: Props) => {
         </Grid>
       </Grid>
 
-      <RepeaterWrapper
+      <List
+        className='List'
         style={{
-          paddingTop: '0'
+          border: 'none'
         }}
+        height={500}
+        width='100%'
+        itemData={data}
+        itemSize={() => 60}
+        itemCount={data.length}
       >
-        <Repeater count={data.length}>
-          {(i: number) => {
-            const Tag = i === 0 ? Box : Collapse
+        {Row}
+      </List>
 
-            return (
-              <Tag
-                key={i}
-                className='repeater-wrapper'
-                {...(i !== 0 ? { in: true } : {})}
-                style={{
-                  marginTop: '0'
-                }}
-              >
-                <Grid container>
-                  <RepeatingContent item xs={12}>
-                    <Grid container sx={{ py: 4, width: '100%', pr: { lg: 0, xs: 4 } }}>
-                      <Grid item lg={2.75} md={2.75} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
-                        <CustomTextField
-                          placeholder="Zone d'implantation"
-                          onChange={e => handleSetInput(data[i].id, e.target.value)}
-                          defaultValue={data[i].local}
-                          InputProps={{ inputProps: { min: 0 } }}
-                        />
-                      </Grid>
-                      <Grid item lg={2.75} md={2.75} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
-                        {data[i].saved ? (
-                          <CustomTextField
-                            placeholder='1'
-                            value={data[i].type}
-                            InputProps={{ inputProps: { min: 0 } }}
-                          />
-                        ) : (
-                          <CustomTextField
-                            select
-                            fullWidth
-                            value={data[i].type}
-                            sx={{ mb: 4 }}
-                            onChange={e => handleSetFilter(data[i].id, e.target.value)}
-                            SelectProps={{
-                              value: data[i].type,
-                              onChange: e => handleSetFilter(data[i].id, e.target.value)
-                            }}
-                          >
-                            <MenuItem value='Bride'>Bride</MenuItem>
-                            <MenuItem value='Vanne papillon'>Vanne papillon</MenuItem>
-                            <MenuItem value='Robinet volant fileté'>Robinet volant fileté</MenuItem>
-                            <MenuItem value="Manchette d'ecartement">Manchette d'ecartement</MenuItem>
-                            <MenuItem value='Clapet fileté'>Clapet fileté</MenuItem>
-                            <MenuItem value='Circulateur fileté'>Circulateur fileté</MenuItem>
-                            <MenuItem value="Purgeur d'air fileté">Purgeur d'air fileté</MenuItem>
-                            <MenuItem value="Purgeur d'eau fileté">Purgeur d'eau fileté</MenuItem>
-                            <MenuItem value='Compteur'>Compteur</MenuItem>
-                            <MenuItem value='Vanne volante bride'>Vanne volante bride</MenuItem>
-                            <MenuItem value='Vanne TA'>Vanne TA</MenuItem>
-                            <MenuItem value='EAP'>EAP</MenuItem>
-                          </CustomTextField>
-                        )}
-                      </Grid>
-                      <Grid item lg={2.75} md={2.75} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
-                        {data[i].saved ? (
-                          <CustomTextField
-                            placeholder='1'
-                            value={data[i].red}
-                            InputProps={{ inputProps: { min: 0 } }}
-                          />
-                        ) : (
-                          <CustomTextField
-                            select
-                            fullWidth
-                            value={data[i].red}
-                            sx={{ mb: 4 }}
-                            onChange={e => hnadlesetRef(data[i].id, e.target.value)}
-                            SelectProps={{
-                              value: data[i].red,
-                              onChange: e => hnadlesetRef(data[i].id, e.target.value)
-                            }}
-                          >
-                            {data[i].red != '' ? (
-                              ceckTheList(materials, data[i].red) == false ? (
-                                <MenuItem value={data[i].red} key={i}>
-                                  {data[i].red}
-                                </MenuItem>
-                              ) : null
-                            ) : null}
-                            {materials?.map((el: any, i: number) => {
-                              return (
-                                <MenuItem value={el?.material?.model} key={i}>
-                                  {el?.material?.model}
-                                </MenuItem>
-                              )
-                            })}
-                          </CustomTextField>
-                        )}
-                      </Grid>
-
-                      <Grid item lg={2.75} md={2.75} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
-                        {data[i].saved ? (
-                          <CustomTextField value={data[i].nature} InputProps={{ inputProps: { min: 0 } }} />
-                        ) : (
-                          <CustomTextField
-                            select
-                            fullWidth
-                            value={data[i].nature}
-                            sx={{ mb: 4 }}
-                            onChange={e => handleSetNature(data[i].id, e.target.value)}
-                            SelectProps={{
-                              value: data[i].nature,
-                              onChange: e => handleSetNature(data[i].id, e.target.value)
-                            }}
-                          >
-                            <MenuItem value='vapeur'>vapeur</MenuItem>
-                            <MenuItem value='Eau surchauffée'>Eau surchauffée</MenuItem>
-                            <MenuItem value='Fluide organique'>Fluide organique</MenuItem>
-                          </CustomTextField>
-                        )}
-                      </Grid>
-
-                      <Grid item lg={1} md={1} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
-                        <CustomTextField placeholder='1' value={data[i].rep} InputProps={{ inputProps: { min: 0 } }} />
-                      </Grid>
-                    </Grid>
-                    <InvoiceAction>
-                      <IconButton size='small' onClick={() => handleDeleteItem(data[i].id, data[i].categoryId)}>
-                        <Icon icon='tabler:x' fontSize='1.25rem' />
-                      </IconButton>
-                      <Divider />
-                      {data[i].saved ? (
-                        <IconButton size='small' onClick={() => handleChangeMood(data[i].id)}>
-                          <Icon icon='tabler:edit' fontSize='1.25rem' />
-                        </IconButton>
-                      ) : (
-                        <IconButton size='small' onClick={() => handleSaveItem(data[i].id)}>
-                          <Icon icon='tabler:check' fontSize='1.25rem' />
-                        </IconButton>
-                      )}
-                    </InvoiceAction>
-                  </RepeatingContent>
-                </Grid>
-              </Tag>
-            )
-          }}
-        </Repeater>
-
-        <Grid container sx={{ mt: 4 }}>
-          <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Button variant='contained' onClick={() => handleAddNewItem()}>
-              {data.length > 0 ? 'Changement de chaufferie' : 'Ajouter'}
+      <Grid container sx={{ mt: 4 }}>
+        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Button variant='contained' onClick={() => handleAddNewItem()}>
+            {data.length > 0 ? 'Changement de chaufferie' : 'Ajouter'}
+          </Button>
+          {data.length > 0 && (
+            <Button variant='contained' onClick={() => handleAddNewLine()}>
+              Ajouter un ligne
             </Button>
-            {data.length > 0 && (
-              <Button variant='contained' onClick={() => handleAddNewLine()}>
-                Ajouter un ligne
-              </Button>
-            )}
-          </Grid>
+          )}
         </Grid>
-      </RepeaterWrapper>
+      </Grid>
     </Card>
   )
 }

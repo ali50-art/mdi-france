@@ -394,18 +394,28 @@ const AddCard = ({ pdfId }: any) => {
                                   onChange: e => handlesetType(e.target.value, store?.data?.pdefDetails[i]?._id)
                                 }}
                               >
-                                <MenuItem value='Bride'>Bride</MenuItem>
-                                <MenuItem value='Vanne papillon'>Vanne papillon</MenuItem>
+                                <MenuItem value='Vanne Bs'>Vanne Bs</MenuItem>
+                                <MenuItem value='Vanne TA filetée'>Vanne TA filetée</MenuItem>
                                 <MenuItem value='Robinet volant fileté'>Robinet volant fileté</MenuItem>
-                                <MenuItem value="Manchette d'ecartement">Manchette d'ecartement</MenuItem>
+                                <MenuItem value='Manchette de dilatation filetée'>
+                                  Manchette de dilatation filetée
+                                </MenuItem>
                                 <MenuItem value='Clapet fileté'>Clapet fileté</MenuItem>
+                                <MenuItem value='Filter fileté'>Filter fileté</MenuItem>
                                 <MenuItem value='Circulateur fileté'>Circulateur fileté</MenuItem>
                                 <MenuItem value="Purgeur d'air fileté">Purgeur d'air fileté</MenuItem>
                                 <MenuItem value="Purgeur d'eau fileté">Purgeur d'eau fileté</MenuItem>
-                                <MenuItem value='Compteur'>Compteur</MenuItem>
-                                <MenuItem value='Vanne volante bride'>Vanne volante bride</MenuItem>
-                                <MenuItem value='Vanne TA'>Vanne TA</MenuItem>
-                                <MenuItem value='EAP'>EAP</MenuItem>
+                                <MenuItem value='Compteur fileté'>Compteur fileté</MenuItem>
+                                <MenuItem value='Vanne papillon'>Vanne papillon</MenuItem>
+                                <MenuItem value='Vanne PAP Elec.motorisée'>Vanne PAP Elec.motorisée</MenuItem>
+                                <MenuItem value='Vanne volant large bride'>Vanne volant large bride</MenuItem>
+                                <MenuItem value='Vanne volante étroite bride'>Vanne volante étroite bride</MenuItem>
+                                <MenuItem value='Jeux de brides'>Jeux de brides</MenuItem>
+                                <MenuItem value="Manchette d'écartement bride">Manchette d'écartement bride</MenuItem>
+                                <MenuItem value='Circulateur simple bride'>Circulateur simple bride</MenuItem>
+                                <MenuItem value='Vanne TA bride'>Vanne TA bride</MenuItem>
+                                <MenuItem value='Filtre bride'>Filtre bride </MenuItem>
+                                <MenuItem value='Compteur bride'>Compteur bride </MenuItem>
                               </CustomTextField>
                             )}
                           </Grid>

@@ -65,8 +65,21 @@ const navigation = (): VerticalNavItemsType => {
       title: 'installateur',
       action: 'read',
       subject: 'constructeur',
-      path: '/constructeur',
-      icon: 'tabler:truck'
+      icon: 'tabler:truck',
+      children: [
+        {
+          title: 'construction',
+          path: '/instalateur/constructeur',
+          action: 'read',
+          subject: 'constructeur'
+        },
+        {
+          title: 'historique',
+          path: '/instalateur/instalateur-history',
+          action: 'read',
+          subject: 'constructeur'
+        }
+      ]
     }
   ]
 }
