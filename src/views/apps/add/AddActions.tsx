@@ -29,7 +29,7 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
   const [res, setRes] = useState<any>([])
   const [data3, setData3] = useState<any>([])
   const [data4, setData4] = useState<any>([])
-
+  const [loading, setLoading] = useState<any>(false)
   const handleSetPdfType = () => {
     const type: any = localStorage.getItem('pdfType')
     setPdefType(type)
@@ -80,6 +80,7 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
   // }
   const dispatch = useDispatch<AppDispatch>()
   const handleSendPdf = async () => {
+    setLoading(true)
     const type = localStorage.getItem('pdfType')
     if (type == 'residentiel') {
       const res = await getStoreData(Stores.PdfData)
@@ -120,6 +121,7 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
       await deleteData(Stores.PdfInfo, res2[0].id)
       localStorage.removeItem('pdfInfoId')
       handleActiStepTOfirstStep()
+      setLoading(false)
     } else {
       const res = await getStoreData(Stores.PdfData2)
 
@@ -158,6 +160,7 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
       localStorage.removeItem('pdfInfoId')
       handleActiStepTOfirstStep()
       auth.getProfile()
+      setLoading(false)
     }
   }
 
@@ -182,16 +185,29 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
       <Grid item xs={12}>
         <Card>
           <CardContent>
-            <Button
-              fullWidth
-              variant='contained'
-              sx={{ mb: 2, '& svg': { mr: 2 } }}
-              disabled={!online}
-              onClick={handleSendPdf}
-            >
-              <Icon fontSize='1.125rem' icon='tabler:send' />
-              Envoyer votre PDF
-            </Button>
+            {loading ? (
+              <Button
+                fullWidth
+                variant='contained'
+                sx={{ mb: 2, '& svg': { mr: 2 } }}
+                disabled={true}
+                onClick={handleSendPdf}
+              >
+                <Icon fontSize='1.125rem' icon='tabler:send' />
+                Loading...
+              </Button>
+            ) : (
+              <Button
+                fullWidth
+                variant='contained'
+                sx={{ mb: 2, '& svg': { mr: 2 } }}
+                disabled={!online}
+                onClick={handleSendPdf}
+              >
+                <Icon fontSize='1.125rem' icon='tabler:send' />
+                Envoyer votre PDF
+              </Button>
+            )}
 
             {count >= 0 &&
               (pdfType === 'indestry' ? (
