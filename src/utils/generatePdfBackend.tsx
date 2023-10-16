@@ -74,6 +74,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.setFontSize(13)
     pdf.text(`à l'adresse de travaux  :`, 150, 120, { align: 'center' })
     pdf.setFontSize(12)
+    pdf.text(`${data?.clientName}`, 150, 123, { align: 'center' })
     pdf.text(`${data?.clientAdress}`, 150, 125, { align: 'center' })
     pdf.text(`${data?.clientVille} ${data?.clientCodePostal}`, 150, 130, { align: 'center' })
 
