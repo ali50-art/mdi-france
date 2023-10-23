@@ -66,6 +66,7 @@ const formateDate = (date: any) => {
 
 const AdminDashboard = () => {
   const [count, setCount] = useState<any>(0)
+  setCount(0)
   const RowOptions = ({ id }: { id: number | string }) => {
     // ** Hooks
     // const dispatch = useDispatch<AppDispatch>()
