@@ -45,6 +45,7 @@ import TotalDialog from 'src/views/apps/suivierChantier/TotalDialog'
 import CustomChip from 'src/@core/components/mui/chip'
 import DeleteItemDialog from 'src/views/apps/suivierChantier/DeletePdfConfermation'
 import AddBenificaire from 'src/views/apps/suivierChantier/AddBenificaire'
+import AddName from 'src/views/apps/suivierChantier/AddName'
 
 import { CardContent } from '@mui/material'
 
@@ -82,6 +83,7 @@ const AdminDashboard = () => {
     const [openTotalModel, setOpenTotalModel] = useState<any>(false)
     const [openDeleteTogel, setOpenDeleteTogel] = useState<any>(false)
     const [addBenificaire, setAddBenificaire] = useState<any>(false)
+    const [addSiteName, setAddSiteName] = useState<any>(false)
     const rowOptionsOpen = Boolean(anchorEl)
     const dispatch = useDispatch<AppDispatch>()
 
@@ -108,6 +110,10 @@ const AdminDashboard = () => {
     }
     const handleOpenAddBeneficaire = () => {
       setAddBenificaire(!addBenificaire)
+      handleRowOptionsClose()
+    }
+    const handleOpenAddName = () => {
+      setAddSiteName(!addSiteName)
       handleRowOptionsClose()
     }
 
@@ -160,6 +166,10 @@ const AdminDashboard = () => {
             <Icon icon='tabler:clipboard' fontSize={20} />
             ajouter bénéficiaire
           </MenuItem>
+          <MenuItem sx={{ '& svg': { mr: 2 } }} onClick={handleOpenAddBeneficaire}>
+            <Icon icon='tabler:clipboard' fontSize={20} />
+            ajouter nom de site
+          </MenuItem>
           <MenuItem sx={{ '& svg': { mr: 2 } }} onClick={handleOpenTotal}>
             <Icon icon='tabler:truck' fontSize={20} />
             total
@@ -175,6 +185,7 @@ const AdminDashboard = () => {
           <DeleteItemDialog open={openDeleteTogel} toggle={handleOpenDeleteTogel} id={id} setCount={setCount} />
         )}
         {addBenificaire && <AddBenificaire open={addBenificaire} toggle={handleOpenAddBeneficaire} id={id} />}
+        {addSiteName && <AddName open={addSiteName} toggle={handleOpenAddName} id={id} />}
       </>
     )
   }
