@@ -85,12 +85,14 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.text(`${data?.travauxVille} ${data?.travauxCodePostal}`, 150, 107, { align: 'center' })
 
     pdf.setFontSize(15)
-    pdf.text(`à l'adresse de travaux  :`, 150, 120, { align: 'center' })
+    pdf.text(`à l'adresse de travaux  :`, 150, 115, { align: 'center' })
     pdf.setFontSize(12)
-    pdf.text(`${data.clientName}`, 150, 123, { align: 'center' })
+    pdf.text(`${data.clientName}`, 150, 120, { align: 'center' })
     pdf.text(`${data.clientAdress}`, 150, 125, { align: 'center' })
     pdf.text(`${data.clientVille} ${data.clientCodePostal}`, 150, 130, { align: 'center' })
-    pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 140, { align: 'center' })
+    pdf.setFontSize(15)
+    pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 138, { align: 'center' })
+    pdf.setFontSize(12)
     pdf.text(
       `Résistance thermique : 1,50 m².K/W sur un réseau d'eau chaude ou de retour de condensats à température moyenne de 70°C      `,
       150,
