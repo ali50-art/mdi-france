@@ -198,8 +198,6 @@ const AdminDashboard = () => {
   const [page, setPage] = useState<number>(1)
   const [pageSize, setpageSize] = useState<number>(10)
   const handlePageSizeChange = (params: any) => {
-    console.log('params: ', params)
-
     setPage(params.page + 1)
     setpageSize(params.pageSize)
 

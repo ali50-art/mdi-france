@@ -78,6 +78,22 @@ export const fetchCountData = createAsyncThunk('appPdf/fetchCountData', async (p
   return response.data.data
 })
 
+// ** Fetch Instalateur Data
+export const fetchInstalteurData = createAsyncThunk('appPdf/fetchInstalteurData', async (params: any) => {
+  const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
+  const response = await axios.get(`${serverUri.uri}/api/pdf-on-instaleur/all`, {
+    headers: {
+      Authorization: storedToken
+    },
+    params
+  })
+
+  const dataCoipe = { ...response.data.data }
+  dataCoipe.docs.forEach((element: any) => (element.id = element._id))
+
+  return { dataCoipe }
+})
+
 // ** Delete User
 export const deletePdf = createAsyncThunk('appPdf/deletePdf', async (id: any, { getState, dispatch }: Redux) => {
   const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
@@ -156,6 +172,12 @@ export const appPdfSlice = createSlice({
       })
       .addCase(fetchCountData.rejected, state => {
         state.isLoading = false
+      })
+      .addCase(fetchInstalteurData.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.data = action.payload.dataCoipe.docs
+        state.total = action.payload.dataCoipe.meta.totalDocs
+        state.params = action.payload.dataCoipe.meta
       })
   }
 })
