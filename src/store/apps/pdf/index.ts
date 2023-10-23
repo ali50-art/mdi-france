@@ -74,6 +74,7 @@ export const fetchCountData = createAsyncThunk('appPdf/fetchCountData', async (p
       Authorization: storedToken
     }
   })
+  console.log('hello 1')
 
   return response.data.data
 })
@@ -87,6 +88,7 @@ export const fetchInstalteurData = createAsyncThunk('appPdf/fetchInstalteurData'
     },
     params
   })
+  console.log('k,lkx')
 
   const dataCoipe = { ...response.data.data }
   dataCoipe.docs.forEach((element: any) => (element.id = element._id))
@@ -162,23 +164,17 @@ export const appPdfSlice = createSlice({
       state.params = {}
       state.allData = action.payload.dataCoipe
     })
-    builder
-      .addCase(fetchCountData.pending, state => {
-        state.isLoading = true
-      })
-      .addCase(fetchCountData.fulfilled, (state, action) => {
-        state.isLoading = false
-        state.countedData = action.payload
-      })
-      .addCase(fetchCountData.rejected, state => {
-        state.isLoading = false
-      })
-      .addCase(fetchInstalteurData.fulfilled, (state, action) => {
-        state.isLoading = false
-        state.data = action.payload.dataCoipe.docs
-        state.total = action.payload.dataCoipe.meta.totalDocs
-        state.params = action.payload.dataCoipe.meta
-      })
+
+    builder.addCase(fetchInstalteurData.fulfilled, (state, action) => {
+      state.isLoading = false
+      state.data = action.payload.dataCoipe.docs
+      state.total = action.payload.dataCoipe.meta.totalDocs
+      state.params = action.payload.dataCoipe.meta
+    })
+    builder.addCase(fetchCountData.fulfilled, (state, action) => {
+      state.isLoading = false
+      state.countedData = action.payload
+    })
   }
 })
 

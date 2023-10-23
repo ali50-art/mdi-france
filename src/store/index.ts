@@ -11,6 +11,7 @@ import chargeDetails from './apps/ChargeDetails'
 import pdf from './apps/pdf'
 import suiveChantier from './apps/suiveChantier'
 import suiviChantierPdf from './apps/suiviChantierPdf'
+import instalateurHistorique from './apps/instalateur-historique'
 
 export const store = configureStore({
   reducer: {
@@ -19,6 +20,7 @@ export const store = configureStore({
     order,
     logistique,
     chargeDetails,
+    instalateurHistorique,
     pdf,
     suiveChantier,
     suiviChantierPdf

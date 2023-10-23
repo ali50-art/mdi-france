@@ -2,11 +2,6 @@
 
 import Button from '@mui/material/Button'
 
-// ** Third Party Imports
-import * as yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { useForm } from 'react-hook-form'
-
 // ** Store Imports
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -27,18 +22,6 @@ interface SidebarAddUserType {
   id: any
 }
 
-const schema = yup.object().shape({})
-
-const defaultValues = {
-  email: '',
-  company: '',
-  country: '',
-  billing: '',
-  fullName: '',
-  username: '',
-  phone: Number('')
-}
-
 const SidebarAddUser = (props: SidebarAddUserType) => {
   // ** Props
   const { open, toggle, id } = props
@@ -46,25 +29,13 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
 
-  const store = useSelector((state: RootState) => state.pdf)
   useEffect(() => {
     dispatch(fetchCountData({ id }))
-  }, [dispatch, open, toggle])
-
-  const { reset, handleSubmit } = useForm({
-    defaultValues,
-    mode: 'onChange',
-    resolver: yupResolver(schema)
-  })
-  const onSubmit = () => {
-    // dispatch(updatePdf({ pdfId: id }))
-    toggle()
-    reset()
-  }
+  }, [dispatch, id])
+  const store = useSelector((state: RootState) => state.pdf)
 
   const handleClose = () => {
     toggle()
-    reset()
   }
 
   return (
@@ -87,7 +58,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
         >
           Total de matériaux utilisés
         </DialogTitle>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form>
           <DialogContent
             sx={{
               pb: theme => `${theme.spacing(8)} !important`,

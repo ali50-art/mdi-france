@@ -8,7 +8,6 @@ import Card from '@mui/material/Card'
 import Menu from '@mui/material/Menu'
 import Grid from '@mui/material/Grid'
 import Divider from '@mui/material/Divider'
-import CustomTextField from 'src/@core/components/mui/text-field'
 import MenuItem from '@mui/material/MenuItem'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
@@ -17,7 +16,6 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-import { SelectChangeEvent } from '@mui/material/Select'
 
 // ** Store Imports
 import { useDispatch, useSelector } from 'react-redux'
@@ -25,7 +23,7 @@ import { useDispatch, useSelector } from 'react-redux'
 // ** Custom Components Imports
 
 // ** Actions Imports
-import { fetchInstalteurData } from 'src/store/apps/pdf'
+import { fetchInstalteurData } from 'src/store/apps/instalateur-historique'
 
 // import authConfig from 'src/configs/auth'
 // import { serverUri } from 'src/configs/auth'
@@ -65,8 +63,6 @@ const formateDate = (date: any) => {
 // ** renders client column
 
 const AdminDashboard = () => {
-  const [count, setCount] = useState<any>(0)
-  setCount(0)
   const RowOptions = ({ id }: { id: number | string }) => {
     // ** Hooks
     // const dispatch = useDispatch<AppDispatch>()
@@ -74,10 +70,7 @@ const AdminDashboard = () => {
     // ** State
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
     const [openTotalModel, setOpenTotalModel] = useState<any>(false)
-    const [addBenificaire, setAddBenificaire] = useState<any>(false)
-
     const rowOptionsOpen = Boolean(anchorEl)
-
     const handleRowOptionsClick = (event: MouseEvent<HTMLElement>) => {
       setAnchorEl(event.currentTarget)
     }
@@ -86,13 +79,9 @@ const AdminDashboard = () => {
     }
 
     const handleOpenTotal = () => {
+      //dispatch(fetchCountData({ id }))
       handleRowOptionsClose()
       setOpenTotalModel(!openTotalModel)
-    }
-
-    const handleOpenAddBeneficaire = () => {
-      setAddBenificaire(!addBenificaire)
-      handleRowOptionsClose()
     }
 
     // const handleDelete = () => {
@@ -120,9 +109,9 @@ const AdminDashboard = () => {
           }}
           PaperProps={{ style: { minWidth: '8rem' } }}
         >
-          <MenuItem sx={{ '& svg': { mr: 2 } }} onClick={handleOpenAddBeneficaire}>
-            <Icon icon='tabler:clipboard' fontSize={20} />
-            détails
+          <MenuItem sx={{ '& svg': { mr: 2 } }} onClick={handleOpenTotal}>
+            <Icon icon='tabler:truck' fontSize={20} />
+            total
           </MenuItem>
         </Menu>
         {openTotalModel && <TotalDialog open={openTotalModel} toggle={handleOpenTotal} id={id} />}
@@ -132,22 +121,16 @@ const AdminDashboard = () => {
 
   // ** State
   const [value, setValue] = useState<string>('')
-  const [Type, setType] = useState<string>('')
   const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
   const [page, setPage] = useState<number>(1)
   const [pageSize, setpageSize] = useState<number>(10)
   const handlePageSizeChange = (params: any) => {
-    console.log('params: ', params)
-
     setPage(params.page + 1)
     setpageSize(params.pageSize)
 
     setPaginationModel({ page: params.page, pageSize: params.pageSize })
   }
-  const handleRoleChange = useCallback((e: SelectChangeEvent<unknown>) => {
-    setType(e.target.value as string)
-  }, [])
 
   // Handle Edit dialog
   // const handleEditClickOpen = () => setOpenEdit(true)
@@ -178,7 +161,6 @@ const AdminDashboard = () => {
         )
       }
     },
-
     {
       flex: 0.15,
       minWidth: 190,
@@ -204,19 +186,18 @@ const AdminDashboard = () => {
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
-  const store = useSelector((state: RootState) => state.pdf)
+  const store = useSelector((state: RootState) => state.instalateurHistorique)
 
   useEffect(() => {
     dispatch(
       fetchInstalteurData({
         search: value,
-        status: Type,
         page,
         pageSize,
         sort: '-createdAt'
       })
     )
-  }, [dispatch, value, Type, page, pageSize, count])
+  }, [dispatch, value, page, pageSize])
 
   const handleFilter = useCallback((val: string) => {
     setValue(val)
@@ -231,31 +212,11 @@ const AdminDashboard = () => {
           <CardHeader title='' />
           <CardContent>
             <Grid container spacing={6}>
-              <Grid item sm={4} xs={12}>
-                <CustomTextField
-                  select
-                  fullWidth
-                  defaultValue='filter'
-                  SelectProps={{
-                    value: Type,
-                    displayEmpty: true,
-                    onChange: e => handleRoleChange(e)
-                  }}
-                >
-                  <MenuItem value=''>Sélectionnez un statut</MenuItem>
-                  <MenuItem value='true'>traité</MenuItem>
-                  <MenuItem value='false'>Non traité</MenuItem>
-                </CustomTextField>
-              </Grid>
+              <Grid item sm={4} xs={12}></Grid>
             </Grid>
           </CardContent>
           <Divider sx={{ m: '0 !important' }} />
-          <TableHeader
-            value={value}
-            handleFilter={handleFilter}
-            toggle={toggleAddMaterialDrawer}
-            name='Ajouter un nouvel matrérél'
-          />
+          <TableHeader value={value} handleFilter={handleFilter} toggle={toggleAddMaterialDrawer} name='' />
           <DataGrid
             autoHeight
             rowHeight={62}
