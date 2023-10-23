@@ -166,7 +166,7 @@ const AdminDashboard = () => {
             <Icon icon='tabler:clipboard' fontSize={20} />
             ajouter bénéficiaire
           </MenuItem>
-          <MenuItem sx={{ '& svg': { mr: 2 } }} onClick={handleOpenAddBeneficaire}>
+          <MenuItem sx={{ '& svg': { mr: 2 } }} onClick={handleOpenAddName}>
             <Icon icon='tabler:clipboard' fontSize={20} />
             ajouter nom de site
           </MenuItem>
