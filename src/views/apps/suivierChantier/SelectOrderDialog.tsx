@@ -81,7 +81,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
 
   const store = useSelector((state: RootState) => state.order)
   useEffect(() => {
-    dispatch(fetchData({}))
+    dispatch(fetchData({ pageSize: 1000 }))
   }, [dispatch, open, toggle])
 
   const { reset, handleSubmit } = useForm({
