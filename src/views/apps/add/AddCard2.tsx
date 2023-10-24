@@ -253,13 +253,12 @@ const AddCard = (props: Props) => {
 
   const handleSetInput = async (e: any, id: any, d: any) => {
     const index = data.findIndex((el: any) => el.id.toString() == id.toString())
+    console.log('index : ', index)
 
     const lastData = data[index]
     lastData.local = d
     await updateDataById(Stores.PdfData2, id, { ...lastData })
-    const updatedArray: any = [...data]
-    updatedArray[index].updatedArray = d
-    setData(updatedArray)
+
     e.preventDefault()
   }
   const formateDate = (date: any) => {
@@ -314,6 +313,7 @@ const AddCard = (props: Props) => {
 
     return index > -1
   }
+
   const Row = ({ index, style, data }: any) => {
     const i = index
 

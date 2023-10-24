@@ -74,7 +74,6 @@ export const fetchCountData = createAsyncThunk('appPdf/fetchCountData', async (p
       Authorization: storedToken
     }
   })
-  console.log('hello 1')
 
   return response.data.data
 })

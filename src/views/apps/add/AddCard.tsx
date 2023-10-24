@@ -101,7 +101,6 @@ const AddCard = (props: Props) => {
   const handleFetchData = async () => {
     try {
       const res: any = await getStoreData(Stores.PdfData)
-      console.log('hi')
       const res2 = await getStoreData(Stores.PdfInfo)
       if (res.length > 0) {
         setData([...res])
@@ -232,8 +231,6 @@ const AddCard = (props: Props) => {
     const lastData = data[index]
     lastData.local = d
     await updateDataById(Stores.PdfData, id, { ...lastData })
-    setCount(count + 1)
-    handleSetCount()
   }
   const handleAddNewLine = async () => {
     if (materials.length == 0) {
@@ -319,6 +316,7 @@ const AddCard = (props: Props) => {
 
     return index > -1
   }
+
   const Row = ({ index, style, data }: any) => {
     const i = index
 
