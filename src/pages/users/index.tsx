@@ -260,7 +260,7 @@ const columns: GridColDef[] = [
           rounded
           skin='light'
           size='small'
-          label={row.status ? 'Active' : 'Inactive'}
+          label={row.status ? 'Disponible' : 'En tournée'}
           color={userStatusObj[row.status]}
           sx={{ textTransform: 'capitalize' }}
         />
