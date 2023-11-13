@@ -62,7 +62,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
             Total de Charge : {handleCountTotalStock()}
           </Typography>
           <Typography variant='body2' sx={{ marginTop: '0.2rem' }}>
-            total de coussin placé : {handleCountTotalRetour()}
+            total de coussin installé : {handleCountTotalRetour()}
           </Typography>
         </DialogTitle>
         <DialogContent
