@@ -274,6 +274,7 @@ const UserList = () => {
             rowCount={store?.total}
             columns={columns}
             disableRowSelectionOnClick
+            paginationMode='server'
             pageSizeOptions={[10, 25, 50]}
             paginationModel={paginationModel}
             onPaginationModelChange={handlePageSizeChange}

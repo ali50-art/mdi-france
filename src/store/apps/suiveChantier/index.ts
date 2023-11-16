@@ -112,7 +112,6 @@ export const editPdf = createAsyncThunk(
       }
     }
     const { pdfId, ...filterData } = data
-    console.log('filterData : ', filterData)
 
     const response = await axios.patch(`${serverUri.uri}/api/pdf/${pdfId}`, { ...filterData }, config)
     dispatch(fetchData(getState().user.params))

@@ -350,7 +350,7 @@ const AdminDashboard = () => {
             value={value}
             handleFilter={handleFilter}
             toggle={toggleAddMaterialDrawer}
-            name='Ajouter un nouvel matrérél'
+            name='Ajouter un nouvel z'
           />
           <DataGrid
             autoHeight
@@ -360,6 +360,7 @@ const AdminDashboard = () => {
             rowCount={store.total}
             columns={columns}
             disableRowSelectionOnClick
+            paginationMode='server'
             pageSizeOptions={[10, 25, 50]}
             paginationModel={paginationModel}
             onPaginationModelChange={handlePageSizeChange}

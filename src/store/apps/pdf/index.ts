@@ -87,7 +87,6 @@ export const fetchInstalteurData = createAsyncThunk('appPdf/fetchInstalteurData'
     },
     params
   })
-  console.log('k,lkx')
 
   const dataCoipe = { ...response.data.data }
   dataCoipe.docs.forEach((element: any) => (element.id = element._id))

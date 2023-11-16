@@ -83,8 +83,6 @@ const FormValidationSchema = (props: SidebarAddUserType) => {
   })
 
   const onSubmit = (data: any) => {
-    console.log('data.name : ', data.name)
-
     dispatch(
       editPdf({
         pdfId: id,

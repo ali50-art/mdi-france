@@ -123,13 +123,11 @@ const AddCard = (props: Props) => {
   const handleFetchData = async () => {
     try {
       const res: any = await getStoreData(Stores.PdfData2)
-      console.log('res.length : ', res.length)
 
       const res2 = await getStoreData(Stores.PdfInfo)
 
       if (res.length > 0) {
         setData(res)
-        console.log('data : ', data)
         setlastId(res[res.length - 1].id)
       } else {
         setlastId(0)
@@ -253,8 +251,6 @@ const AddCard = (props: Props) => {
 
   const handleSetInput = async (e: any, id: any, d: any) => {
     const index = data.findIndex((el: any) => el.id.toString() == id.toString())
-    console.log('index : ', index)
-
     const lastData = data[index]
     lastData.local = d
     await updateDataById(Stores.PdfData2, id, { ...lastData })

@@ -135,6 +135,7 @@ export const appUsersSlice = createSlice({
         state.isLoading = true
       })
       .addCase(fetchData.fulfilled, (state, action) => {
+        
         state.isLoading = false
         state.data = action.payload.dataCoipe.docs
         state.total = action.payload.dataCoipe.meta.totalDocs

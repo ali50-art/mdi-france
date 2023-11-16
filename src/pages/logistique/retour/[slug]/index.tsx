@@ -261,6 +261,7 @@ const UserList = () => {
             columns={columns}
             disableRowSelectionOnClick
             pageSizeOptions={[10, 25, 50]}
+            paginationMode='server'
             paginationModel={paginationModel}
             onPaginationModelChange={handlePageSizeChange}
           />

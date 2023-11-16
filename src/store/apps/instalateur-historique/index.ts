@@ -74,7 +74,6 @@ export const fetchCountData = createAsyncThunk('appPdfHistorique/fetchCountData'
       Authorization: storedToken
     }
   })
-  console.log('hello 1')
 
   return response.data.data
 })
@@ -88,7 +87,6 @@ export const fetchInstalteurData = createAsyncThunk('appPdfHistorique/fetchInsta
     },
     params
   })
-  console.log('k,lkx')
 
   const dataCoipe = { ...response.data.data }
   dataCoipe.docs.forEach((element: any) => (element.id = element._id))

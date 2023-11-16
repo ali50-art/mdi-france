@@ -173,8 +173,6 @@ const columns: GridColDef[] = [
     field: 'fullName',
     headerName: 'Nom & Prenom',
     renderCell: ({ row }: CellType) => {
-      console.log('row : ', row)
-
       const { fullName, email } = row
 
       return (
@@ -290,13 +288,13 @@ const UserList = () => {
   const handlePageSizeChange = (params: any) => {
     setPage(params.page + 1)
     setpageSize(params.pageSize)
-
     setPaginationModel({ page: params.page, pageSize: params.pageSize })
   }
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
   const store = useSelector((state: RootState) => state.user)
+
   useEffect(() => {
     dispatch(
       fetchData({
@@ -306,7 +304,7 @@ const UserList = () => {
         sort: 'createdAt'
       })
     )
-  }, [dispatch, role, status, value, page, pageSize])
+  }, [dispatch, role, value, page, pageSize])
 
   const handleFilter = useCallback((val: string) => {
     setValue(val)
@@ -316,12 +314,6 @@ const UserList = () => {
     setRole(e.target.value as string)
     setValue(e.target.value as string)
   }, [])
-
-  // const handleStatusChange = useCallback((e: SelectChangeEvent<unknown>) => {
-  //   setStatus(e.target.value as string)
-
-  //   setValue(e.target.value as string)
-  // }, [])
 
   const toggleAddUserDrawer = () => setAddUserOpen(!addUserOpen)
   const statsHorizontalWithDetails: any = [
@@ -374,7 +366,7 @@ const UserList = () => {
       </Grid>
       <Grid item xs={12}>
         <Card>
-          <CardHeader title='' />
+          <CardHeader />
           <CardContent>
             <Grid container spacing={6}>
               <Grid item sm={4} xs={12}>
@@ -394,23 +386,6 @@ const UserList = () => {
                   <MenuItem value='instalateur'>installateur</MenuItem>
                 </CustomTextField>
               </Grid>
-
-              {/* <Grid item sm={4} xs={12}>
-                <CustomTextField
-                  select
-                  fullWidth
-                  defaultValue='Sélectionnez le statut'
-                  SelectProps={{
-                    value: status,
-                    displayEmpty: true,
-                    onChange: e => handleStatusChange(e)
-                  }}
-                >
-                  <MenuItem value=''>Sélectionnez le statut</MenuItem>
-                  <MenuItem value='true'>Actif</MenuItem>
-                  <MenuItem value='fasle'>Inactif</MenuItem>
-                </CustomTextField>
-              </Grid> */}
             </Grid>
           </CardContent>
           <Divider sx={{ m: '0 !important' }} />
@@ -430,6 +405,7 @@ const UserList = () => {
             disableRowSelectionOnClick
             pageSizeOptions={[10, 25, 50]}
             paginationModel={paginationModel}
+            paginationMode='server'
             onPaginationModelChange={handlePageSizeChange}
           />
         </Card>
