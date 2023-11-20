@@ -195,23 +195,10 @@ const AddCard = ({ pdfId }: any) => {
                 </Typography>
               </Box>
               <div>
-                {store?.data?.orderDetailId ? (
-                  <>
-                    <Typography sx={{ mb: 2, color: 'text.secondary' }}>{store?.data?.orderDetailId?.name}</Typography>
-                    <Typography sx={{ mb: 2, color: 'text.secondary' }}>
-                      {store?.data?.orderDetailId?.address}
-                    </Typography>
-                    <Typography sx={{ color: 'text.secondary' }}>{store?.data?.orderDetailId?.ville}</Typography>
-                    <Typography sx={{ color: 'text.secondary' }}>{store?.data?.orderDetailId?.codePost}</Typography>
-                  </>
-                ) : (
-                  <>
-                    <Typography sx={{ mb: 2, color: 'text.secondary' }}>{store?.data?.clientName}</Typography>
-                    <Typography sx={{ mb: 2, color: 'text.secondary' }}>{store?.data?.clientAdress}</Typography>
-                    <Typography sx={{ color: 'text.secondary' }}>{store?.data?.clientVille}</Typography>
-                    <Typography sx={{ color: 'text.secondary' }}>{store?.data?.clientCodePostal}</Typography>
-                  </>
-                )}
+                <Typography sx={{ mb: 2, color: 'text.secondary' }}>{store?.data?.clientName}</Typography>
+                <Typography sx={{ mb: 2, color: 'text.secondary' }}>{store?.data?.clientAdress}</Typography>
+                <Typography sx={{ color: 'text.secondary' }}>{store?.data?.clientVille}</Typography>
+                <Typography sx={{ color: 'text.secondary' }}>{store?.data?.clientCodePostal}</Typography>
               </div>
             </Box>
           </Grid>

@@ -194,9 +194,9 @@ const AdminDashboard = () => {
   const [value, setValue] = useState<string>('')
   const [Type, setType] = useState<string>('')
   const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
-  const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
+  const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 50 })
   const [page, setPage] = useState<number>(1)
-  const [pageSize, setpageSize] = useState<number>(10)
+  const [pageSize, setpageSize] = useState<number>(50)
   const handlePageSizeChange = (params: any) => {
     setPage(params.page + 1)
     setpageSize(params.pageSize)
@@ -273,6 +273,19 @@ const AdminDashboard = () => {
     {
       flex: 0.1,
       minWidth: 110,
+      field: 'Code Postal',
+      headerName: 'Code Postal',
+      renderCell: ({ row }: CellType) => {
+        return (
+          <Typography noWrap sx={{ color: 'text.secondary' }}>
+            {row.clientCodePostal}
+          </Typography>
+        )
+      }
+    },
+    {
+      flex: 0.1,
+      minWidth: 110,
       field: 'status',
       headerName: 'Statut',
       renderCell: ({ row }: CellType) => {
@@ -288,6 +301,7 @@ const AdminDashboard = () => {
         )
       }
     },
+
     {
       flex: 0.1,
       minWidth: 100,
@@ -361,7 +375,7 @@ const AdminDashboard = () => {
             columns={columns}
             disableRowSelectionOnClick
             paginationMode='server'
-            pageSizeOptions={[10, 25, 50]}
+            pageSizeOptions={[50, 100, 150]}
             paginationModel={paginationModel}
             onPaginationModelChange={handlePageSizeChange}
           />
