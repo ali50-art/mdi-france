@@ -11,6 +11,13 @@ const navigation = (): VerticalNavItemsType => {
       icon: 'tabler:smart-home'
     },
     {
+      title: 'Statistique',
+      path: '/admin-statestique',
+      action: 'manage',
+      subject: 'admin-statestique',
+      icon: 'tabler:chart-dots-2'
+    },
+    {
       sectionTitle: 'manipulation & configuration',
       action: 'magne',
       subject: 'users'

@@ -77,6 +77,17 @@ export const fetchCountData = createAsyncThunk('appPdf/fetchCountData', async (p
 
   return response.data.data
 })
+export const getSepcifiqueStat = createAsyncThunk('appPdf/getSepcifiqueStat', async (data: any) => {
+  const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
+  const results = await axios.post(`${serverUri.uri}/api/statistique/specifique`, data, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: storedToken
+    }
+  })
+
+  return results.data.data
+})
 
 // ** Fetch Instalateur Data
 export const fetchInstalteurData = createAsyncThunk('appPdf/fetchInstalteurData', async (params: any) => {
@@ -132,6 +143,7 @@ export const appPdfSlice = createSlice({
   name: 'appPdf',
   initialState: {
     data: [],
+    stat: [],
     countedData: [],
     total: 1,
     isLoading: false,
@@ -172,6 +184,9 @@ export const appPdfSlice = createSlice({
     builder.addCase(fetchCountData.fulfilled, (state, action) => {
       state.isLoading = false
       state.countedData = action.payload
+    })
+    builder.addCase(getSepcifiqueStat.fulfilled, (state, action) => {
+      state.stat = action.payload
     })
   }
 })
