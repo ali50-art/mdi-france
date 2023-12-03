@@ -250,8 +250,6 @@ const columns: GridColDef[] = [
 ]
 
 const AdminStat = () => {
-  // ** State
-
   // const [status, setStatus] = useState<string>('')
   const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
