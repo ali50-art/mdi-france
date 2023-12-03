@@ -270,6 +270,7 @@ const AdminStat = () => {
       fetchData({
         search: 'instalateur',
         page,
+        all: true,
         pageSize,
         sort: 'createdAt'
       })
