@@ -44,6 +44,7 @@ import { getSepcifiqueStat } from 'src/store/apps/pdf'
 
 // ** Styled Components
 import StepperWrapper from 'src/@core/styles/mui/stepper'
+import { fr } from 'date-fns/locale'
 
 const steps = [
   {
@@ -241,7 +242,8 @@ const StepperLinearWithValidation = ({ id }: any) => {
                     selected={values.startDate as any}
                     startDate={values.startDate as any}
                     showTimeSelect={true}
-                    dateFormat={'yyyy-MM-dd hh:mm'}
+                    locale={fr}
+                    dateFormat={'dd/MM/yyyy HH:mm'}
                     customInput={<PickersComponent label='date de début' registername='startDate' />}
                     onChange={(date: Date) => setValues({ ...values, startDate: new Date(date) })}
                     onSelect={handleStartDate}
@@ -256,7 +258,8 @@ const StepperLinearWithValidation = ({ id }: any) => {
                     minDate={values.startDate as any}
                     startDate={values.startDate as any}
                     showTimeSelect={true}
-                    dateFormat={'yyyy-MM-dd hh:mm'}
+                    locale={fr}
+                    dateFormat={'dd/MM/yyyy HH:mm'}
                     customInput={<PickersComponent label='date de fin' registername='endDate' />}
                     onChange={(date: Date) => setValues({ ...values, endDate: new Date(date) })}
                   />
@@ -317,31 +320,42 @@ const StepperLinearWithValidation = ({ id }: any) => {
       case 2:
         return (
           <Grid container spacing={5} style={{ justifyContent: 'center!important', marginTop: '1rem' }}>
-            {store2.stat.map((el: any, index: number) => {
-              return (
-                <>
-                  <Grid item xs={6} sm={6} key={index}>
-                    <CustomTextField
-                      fullWidth
-                      label='type de matériaux'
-                      value={el._id}
-                      id='form-props-number'
-                      InputLabelProps={{ shrink: true }}
-                    />
-                  </Grid>
-                  <Grid item xs={6} sm={6}>
-                    <CustomTextField
-                      type='number'
-                      fullWidth
-                      label='Quantité'
-                      value={el.count}
-                      id='form-props-number'
-                      InputLabelProps={{ shrink: true }}
-                    />
-                  </Grid>
-                </>
-              )
-            })}
+            {store2.stat.length > 0 ? (
+              store2.stat.map((el: any, index: number) => {
+                return (
+                  <>
+                    <Grid item xs={6} sm={6} key={index}>
+                      <CustomTextField
+                        fullWidth
+                        label='type de matériaux'
+                        value={el._id}
+                        id='form-props-number'
+                        InputLabelProps={{ shrink: true }}
+                      />
+                    </Grid>
+                    <Grid item xs={6} sm={6}>
+                      <CustomTextField
+                        type='number'
+                        fullWidth
+                        label='Quantité'
+                        value={el.count}
+                        id='form-props-number'
+                        InputLabelProps={{ shrink: true }}
+                      />
+                    </Grid>
+                  </>
+                )
+              })
+            ) : (
+              <>
+                <Grid item xs={12}>
+                  <Typography sx={{ mb: 2 }}>
+                    Oops ! Aucun résultat trouvé pour votre recherche. Veuillez réessayer, ou s'il y a un problème,
+                    veuillez contacter le support technique.
+                  </Typography>
+                </Grid>
+              </>
+            )}
             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
               <Button variant='tonal' color='secondary' onClick={handleBack}>
                 Retour
