@@ -149,7 +149,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
       <Dialog
         fullWidth
         open={open}
-        maxWidth='lg'
+        maxWidth={false}
         scroll='body'
         onClose={toggle}
         aria-labelledby='user-view-edit'
