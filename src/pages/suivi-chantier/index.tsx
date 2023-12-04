@@ -341,12 +341,11 @@ const AdminDashboard = () => {
         search: 'instalateur',
         page,
         all: true,
-
         pageSize,
         sort: 'createdAt'
       })
     )
-  }, [pageSize, dispatch])
+  }, [pageSize, dispatch, page])
   const handleFilter = useCallback((val: string) => {
     setValue(val)
   }, [])
