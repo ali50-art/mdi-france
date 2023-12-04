@@ -24,16 +24,16 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
   }
   const handleCountTotalStock = () => {
     let nb = 0
-    data.materials?.map((el: any) => {
-      nb += el.fixedStock
+    data.map((el: any) => {
+      nb += el.charged
     })
 
     return nb
   }
   const handleCountTotalRetour = () => {
     let nb = 0
-    data.materials?.map((el: any) => {
-      nb += el.fixedStock - el.stock
+    data.map((el: any) => {
+      nb += el.used
     })
 
     return nb
@@ -71,13 +71,13 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
             px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`]
           }}
         >
-          {data.materials?.map((el: any, index: number) => {
+          {data.map((el: any, index: number) => {
             return (
               <Grid container spacing={6} key={index}>
                 <Grid item xs={4} sm={4}>
                   <CustomTextField
                     label='Model'
-                    value={el.material.model}
+                    value={el.model}
                     id='form-props-number'
                     InputLabelProps={{ shrink: true }}
                   />
@@ -86,7 +86,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                   <CustomTextField
                     type='number'
                     label='charger'
-                    value={el.fixedStock}
+                    value={el.charged}
                     id='form-props-number'
                     InputLabelProps={{ shrink: true }}
                   />
@@ -95,7 +95,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                   <CustomTextField
                     type='number'
                     label='utilisation'
-                    value={el.fixedStock - el.stock}
+                    value={el.used}
                     id='form-props-number'
                     InputLabelProps={{ shrink: true }}
                   />

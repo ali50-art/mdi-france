@@ -167,7 +167,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
         >
           Générez vos statistiques
         </DialogTitle>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} style={{ overflowY: 'scroll', height: '88%' }}>
           <DialogContent
             sx={{
               pb: theme => `${theme.spacing(8)} !important`,

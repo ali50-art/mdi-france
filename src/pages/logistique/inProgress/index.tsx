@@ -271,9 +271,7 @@ const UserList = () => {
       sortable: false,
       field: 'actions',
       headerName: 'Actions',
-      renderCell: ({ row }: CellType) => (
-        <RowOptions id={row._id} chargeDetailId={row?.chargeDetails[row?.chargeDetails.length - 1]?._id} />
-      )
+      renderCell: ({ row }: CellType) => <RowOptions id={row._id} chargeDetailId={row?._id} />
     }
   ]
 

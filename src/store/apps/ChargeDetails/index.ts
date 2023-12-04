@@ -116,7 +116,7 @@ export const fetchAllByChargeId = createAsyncThunk('appLogistique/fetchAllByChar
 export const fetchOne = createAsyncThunk('appLogistique/fetchOne', async (data: any) => {
   const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
 
-  const response = await axios.get(`${serverUri.uri}/api/chargeDetails/${data.id}`, {
+  const response = await axios.get(`${serverUri.uri}/api/retour/${data.id}`, {
     headers: {
       Authorization: storedToken
     }

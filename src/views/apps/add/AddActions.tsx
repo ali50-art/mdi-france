@@ -162,6 +162,7 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
       auth.getProfile()
       setLoading(false)
     }
+    localStorage.removeItem('pdfType')
   }
 
   useEffect(() => {

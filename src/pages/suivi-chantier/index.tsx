@@ -46,6 +46,8 @@ import CustomChip from 'src/@core/components/mui/chip'
 import DeleteItemDialog from 'src/views/apps/suivierChantier/DeletePdfConfermation'
 import AddBenificaire from 'src/views/apps/suivierChantier/AddBenificaire'
 import AddName from 'src/views/apps/suivierChantier/AddName'
+// ** Actions Imports
+import { fetchData as AllUsers } from 'src/store/apps/user'
 
 import { CardContent } from '@mui/material'
 
@@ -193,6 +195,7 @@ const AdminDashboard = () => {
   // ** State
   const [value, setValue] = useState<string>('')
   const [Type, setType] = useState<string>('')
+  const [instalateur, setInstalateur] = useState<any>('')
   const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 50 })
   const [page, setPage] = useState<number>(1)
@@ -205,6 +208,9 @@ const AdminDashboard = () => {
   }
   const handleRoleChange = useCallback((e: SelectChangeEvent<unknown>) => {
     setType(e.target.value as string)
+  }, [])
+  const handleInstalateurChange = useCallback((e: SelectChangeEvent<unknown>) => {
+    setInstalateur(e.target.value as string)
   }, [])
 
   // Handle Edit dialog
@@ -315,19 +321,31 @@ const AdminDashboard = () => {
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
   const store = useSelector((state: RootState) => state.suiveChantier)
+  const store2 = useSelector((state: RootState) => state.user)
 
   useEffect(() => {
     dispatch(
       fetchData({
         search: value,
         status: Type,
+        instalateur,
         page,
         pageSize,
         sort: '-createdAt'
       })
     )
-  }, [dispatch, value, Type, page, pageSize, count])
-
+  }, [dispatch, value, Type, instalateur, page, pageSize, count])
+  useEffect(() => {
+    dispatch(
+      AllUsers({
+        search: 'instalateur',
+        page,
+        all: true,
+        pageSize,
+        sort: 'createdAt'
+      })
+    )
+  }, [])
   const handleFilter = useCallback((val: string) => {
     setValue(val)
   }, [])
@@ -355,6 +373,27 @@ const AdminDashboard = () => {
                   <MenuItem value=''>Sélectionnez un statut</MenuItem>
                   <MenuItem value='true'>traité</MenuItem>
                   <MenuItem value='false'>Non traité</MenuItem>
+                </CustomTextField>
+              </Grid>
+              <Grid item sm={4} xs={12}>
+                <CustomTextField
+                  select
+                  fullWidth
+                  defaultValue=''
+                  SelectProps={{
+                    value: instalateur,
+                    displayEmpty: true,
+                    onChange: e => handleInstalateurChange(e)
+                  }}
+                >
+                  <MenuItem value=''>Sélectionnez un installateur</MenuItem>
+                  {store2.data.map((el: any, i: number) => {
+                    return (
+                      <MenuItem value={el._id} key={el._id}>
+                        {el.fullName}
+                      </MenuItem>
+                    )
+                  })}
                 </CustomTextField>
               </Grid>
             </Grid>

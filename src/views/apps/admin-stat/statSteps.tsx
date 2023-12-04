@@ -182,8 +182,16 @@ const StepperLinearWithValidation = ({ id }: any) => {
         sort: 'createdAt'
       })
     )
-  }, [dispatch])
+  }, [dispatch, activeStep])
 
+  const genereTotal = () => {
+    let nb = 0
+    store2.stat.forEach((el: any) => {
+      nb += el.count
+    })
+
+    return nb
+  }
   const getStepContent = (step: number) => {
     localStorage.setItem('statType', selected)
     switch (step) {
@@ -319,33 +327,48 @@ const StepperLinearWithValidation = ({ id }: any) => {
         )
       case 2:
         return (
-          <Grid container spacing={5} style={{ justifyContent: 'center!important', marginTop: '1rem' }}>
+          <Grid container spacing={5} style={{ justifyContent: 'center!important' }}>
             {store2.stat.length > 0 ? (
-              store2.stat.map((el: any, index: number) => {
-                return (
-                  <>
-                    <Grid item xs={6} sm={6} key={index}>
-                      <CustomTextField
-                        fullWidth
-                        label='type de matériaux'
-                        value={el._id}
-                        id='form-props-number'
-                        InputLabelProps={{ shrink: true }}
-                      />
-                    </Grid>
-                    <Grid item xs={6} sm={6}>
-                      <CustomTextField
-                        type='number'
-                        fullWidth
-                        label='Quantité'
-                        value={el.count}
-                        id='form-props-number'
-                        InputLabelProps={{ shrink: true }}
-                      />
-                    </Grid>
-                  </>
-                )
-              })
+              <>
+                <Grid item xs={12} sm={12}>
+                  <Typography
+                    sx={{
+                      textAlign: 'center',
+                      fontSize: '1.5rem !important',
+                      px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+                      pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+                    }}
+                  >
+                    Total : {genereTotal()}
+                  </Typography>
+                </Grid>
+
+                {store2?.stat?.map((el: any, index: number) => {
+                  return (
+                    <>
+                      <Grid item xs={6} sm={6} key={index}>
+                        <CustomTextField
+                          fullWidth
+                          label='type de matériaux'
+                          value={el._id}
+                          id='form-props-number'
+                          InputLabelProps={{ shrink: true }}
+                        />
+                      </Grid>
+                      <Grid item xs={6} sm={6}>
+                        <CustomTextField
+                          type='number'
+                          fullWidth
+                          label='Quantité'
+                          value={el.count}
+                          id='form-props-number'
+                          InputLabelProps={{ shrink: true }}
+                        />
+                      </Grid>
+                    </>
+                  )
+                })}
+              </>
             ) : (
               <>
                 <Grid item xs={12}>

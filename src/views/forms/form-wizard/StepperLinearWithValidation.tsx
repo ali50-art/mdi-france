@@ -183,8 +183,6 @@ const StepperLinearWithValidation = () => {
         villeTravaux: data.villeTravaux,
         codePostalTravaux: data.codePostalTravaux
       })
-
-      setActiveStep(1)
     } else {
       setActiveStep(0)
 
@@ -192,7 +190,14 @@ const StepperLinearWithValidation = () => {
     }
     const type = localStorage.getItem('pdfType')
     if (type) {
-      setActiveStep(activeStep + 2)
+      const res = await getStoreData(Stores.PdfData2)
+
+      const res2 = await getStoreData(Stores.PdfData)
+      if (type == 'indestry' && res.length > 0) {
+        setActiveStep(activeStep + 2)
+      } else if (type == 'residentiel' && res2.length > 0) {
+        setActiveStep(activeStep + 2)
+      }
     }
   }
 
