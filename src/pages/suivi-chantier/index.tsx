@@ -334,8 +334,6 @@ const AdminDashboard = () => {
         sort: '-createdAt'
       })
     )
-  }, [dispatch, value, Type, instalateur, page, pageSize, count])
-  useEffect(() => {
     dispatch(
       AllUsers({
         search: 'instalateur',
@@ -345,7 +343,8 @@ const AdminDashboard = () => {
         sort: 'createdAt'
       })
     )
-  }, [pageSize, dispatch, page])
+  }, [dispatch, value, Type, instalateur, page, pageSize, count])
+
   const handleFilter = useCallback((val: string) => {
     setValue(val)
   }, [])
