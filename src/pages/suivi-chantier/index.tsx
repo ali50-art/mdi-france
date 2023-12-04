@@ -345,7 +345,7 @@ const AdminDashboard = () => {
         sort: 'createdAt'
       })
     )
-  }, [])
+  }, [page])
   const handleFilter = useCallback((val: string) => {
     setValue(val)
   }, [])
