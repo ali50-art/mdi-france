@@ -387,7 +387,7 @@ const AdminDashboard = () => {
                   }}
                 >
                   <MenuItem value=''>Sélectionnez un installateur</MenuItem>
-                  {store2.data.map((el: any, i: number) => {
+                  {store2.data.map((el: any) => {
                     return (
                       <MenuItem value={el._id} key={el._id}>
                         {el.fullName}
