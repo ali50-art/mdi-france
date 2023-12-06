@@ -94,7 +94,19 @@ export const updatePdf = createAsyncThunk(
       { typeOfFunction: data.typeOfFunction },
       config
     )
-    dispatch(fetchData(getState().user.params))
+
+    const item = getState().user.params
+
+    const params = {
+      pageSize: item.limit,
+      page: item.page,
+      sort: '-createdAt',
+      search: '',
+      status: '',
+      instalateur: ''
+    }
+
+    dispatch(fetchData(params))
 
     return response.data
   }
