@@ -24,7 +24,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
   }
   const handleCountTotalStock = () => {
     let nb = 0
-    data.map((el: any) => {
+    data?.map((el: any) => {
       nb += el.charged
     })
 
@@ -32,7 +32,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
   }
   const handleCountTotalRetour = () => {
     let nb = 0
-    data.map((el: any) => {
+    data?.map((el: any) => {
       nb += el.used
     })
 
@@ -71,7 +71,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
             px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`]
           }}
         >
-          {data.map((el: any, index: number) => {
+          {data?.map((el: any, index: number) => {
             return (
               <Grid container spacing={6} key={index}>
                 <Grid item xs={4} sm={4}>

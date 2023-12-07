@@ -29,7 +29,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import CardStatsHorizontalWithDetails from 'src/@core/components/card-statistics/card-stats-horizontal-with-details'
 
 // ** Actions Imports
-import { fetchAllByChargeId, fetchOne } from 'src/store/apps/ChargeDetails'
+import { fetchAllByChargeId, fetchRetourOfOneCharge } from 'src/store/apps/ChargeDetails'
 import { desarge } from 'src/store/apps/logistique'
 
 // import authConfig from 'src/configs/auth'
@@ -94,7 +94,7 @@ const RowOptions = ({ id }: { id: number | string }) => {
 
   const handleShowMaterail = () => {
     handleRowOptionsClose()
-    dispatch(fetchOne({ id: id }))
+    dispatch(fetchRetourOfOneCharge({ id: id }))
     setShowMaterail(!showMateral)
   }
   const handleDelete = () => {
@@ -134,7 +134,9 @@ const RowOptions = ({ id }: { id: number | string }) => {
           supprimer
         </MenuItem>
       </Menu>
-      {showMateral && <ShowAllMaterialDialog open={showMateral} toggle={handleShowMaterail} data={store.matData} />}
+      {showMateral && (
+        <ShowAllMaterialDialog open={showMateral} toggle={handleShowMaterail} data={store.matDataOneCharge} />
+      )}
     </>
   )
 }
@@ -209,6 +211,9 @@ const UserList = () => {
   const dispatch = useDispatch<AppDispatch>()
   const store: any = useSelector((state: RootState) => state.chargeDetails)
   const id = router.query.slug
+  if (store?.data?.length > 0) {
+    localStorage.setItem('installateurId', store.data[0]?.chargeId?.instalateurId)
+  }
 
   useEffect(() => {
     const params = {

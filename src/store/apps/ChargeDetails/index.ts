@@ -131,6 +131,24 @@ export const fetchOne = createAsyncThunk('appLogistique/fetchOne', async (data: 
 
   return response.data.data
 })
+export const fetchRetourOfOneCharge = createAsyncThunk('appLogistique/fetchRetourOfOneCharge', async (data: any) => {
+  const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
+
+  const response = await axios.get(`${serverUri.uri}/api/retour/one/${data.id}`, {
+    headers: {
+      Authorization: storedToken
+    }
+  })
+
+  //   const response2 = await axios.get(`${serverUri.uri}/api/charge/count`, {
+  //     headers: {
+  //       Authorization: storedToken
+  //     },
+  //     params
+  //   })
+
+  return response.data.data
+})
 
 // ** Update User
 export const updateMateriel = createAsyncThunk(
@@ -156,6 +174,7 @@ export const appMaterialSlice = createSlice({
   initialState: {
     data: [],
     matData: [],
+    matDataOneCharge: [],
     total: 1,
     isLoading: false,
     params: {},
@@ -181,6 +200,9 @@ export const appMaterialSlice = createSlice({
       })
     builder.addCase(fetchOne.fulfilled, (state, action) => {
       state.matData = action.payload
+    })
+    builder.addCase(fetchRetourOfOneCharge.fulfilled, (state, action) => {
+      state.matDataOneCharge = action.payload
     })
   }
 })
