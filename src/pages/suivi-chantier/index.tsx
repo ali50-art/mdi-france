@@ -403,7 +403,7 @@ const AdminDashboard = () => {
             value={value}
             handleFilter={handleFilter}
             toggle={toggleAddMaterialDrawer}
-            name='Ajouter un nouvel z'
+            name='Ajouter un nouvel'
           />
           <DataGrid
             autoHeight

@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux'
 import Link from 'next/link'
 import { Icon } from '@iconify/react'
 import { useEffect, useState } from 'react'
+import * as XLSX from 'xlsx'
 
 // ** Icon Imports
 
@@ -51,6 +52,36 @@ const AddActions = () => {
     handleSetData()
     handleSetData2()
   }, [store.data])
+  const handleDownloadXl = (d: any) => {
+    const xldata: any = []
+    if (d.type == 'indestrie') {
+      d.pdefDetails.forEach((element: any) => {
+        xldata.push({
+          "Zon d'implantation": element.place,
+          'Type de point singulier': element.filterType,
+          'Réference metelas': element.model,
+          'N° repérage': element.nbRep,
+          Fluide: element.nature
+        })
+      })
+    } else {
+      d.pdefDetails.forEach((element: any) => {
+        xldata.push({
+          "Zon d'implantation": element.place,
+          'Type de point singulier': element.filterType,
+          'Réference metelas': element.model,
+          'N° repérage': element.nbRep,
+          dn: element.dn,
+          'Nature du fluide caloporteur': element.nature
+        })
+      })
+    }
+
+    const wb = XLSX.utils.book_new(),
+      ws = XLSX.utils.json_to_sheet(xldata)
+    XLSX.utils.book_append_sheet(wb, ws, 'mdiExcel')
+    XLSX.writeFile(wb, `${d.clientName}.xlsx`)
+  }
 
   return (
     <Grid container spacing={6}>
@@ -60,6 +91,27 @@ const AddActions = () => {
             <PDFFile2 data={store.data} data2={data2} />
           ) : (
             <PDFFile data={store.data} data2={data} />
+          )}
+          {store.data.type === 'indestrie' ? (
+            <Button
+              style={{ marginBottom: '0.5rem' }}
+              fullWidth
+              variant='contained'
+              onClick={() => handleDownloadXl(store?.data)}
+              sx={{ '& svg': { mr: 2 }, marginRight: '1.5rem' }}
+            >
+              Télécharger Excel
+            </Button>
+          ) : (
+            <Button
+              fullWidth
+              style={{ marginBottom: '0.5rem' }}
+              variant='contained'
+              onClick={() => handleDownloadXl(store?.data)}
+              sx={{ '& svg': { mr: 2 }, marginRight: '1.5rem' }}
+            >
+              Télécharger Excel
+            </Button>
           )}
           <Link href='/suivi-chantier'>
             <Button fullWidth variant='outlined' sx={{ '& svg': { mr: 2 }, marginRight: '1.5rem' }}>

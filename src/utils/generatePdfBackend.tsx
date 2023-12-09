@@ -142,8 +142,14 @@ const PDFGenerator = ({ data, data2 }: any) => {
   }
 
   return (
-    <Button fullWidth variant='tonal' color='secondary' onClick={generatePdf}>
-      Télécharger
+    <Button
+      fullWidth
+      style={{ marginBottom: '0.5rem' }}
+      variant='contained'
+      sx={{ '& svg': { mr: 2 }, marginRight: '1.5rem' }}
+      onClick={generatePdf}
+    >
+      Télécharger PDF
     </Button>
   )
 }
