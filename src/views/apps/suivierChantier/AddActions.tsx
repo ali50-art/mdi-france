@@ -11,7 +11,11 @@ import { useSelector } from 'react-redux'
 import Link from 'next/link'
 import { Icon } from '@iconify/react'
 import { useEffect, useState } from 'react'
+
 import * as XLSX from 'xlsx'
+
+// import ExcelJS from 'exceljs'
+// import base64Img from 'base64-img'
 
 // ** Icon Imports
 
@@ -52,7 +56,66 @@ const AddActions = () => {
     handleSetData()
     handleSetData2()
   }, [store.data])
-  const handleDownloadXl = (d: any) => {
+  const handleDownloadXl = async (d: any) => {
+    // const workbook = new ExcelJS.Workbook()
+    // const worksheet = workbook.addWorksheet('Sheet 1')
+    // if (d.orderDetailId) {
+    //   // let base = ''
+    //   // Sample URL, replace it with your actual image URL
+    //   const imageUrl = `${process.env.NEXT_PUBLIC_SERVER_URI}/orderDetails/${d.orderDetailId.photo}`
+    //   // Add logo and text
+    //   const x= {
+    //     url: imageUrl,
+    //     type: 'picture'
+    //   },
+    //   const logoImage = workbook.addImage({
+    //     url: imageUrl,
+    //     type: 'picture'
+    //   });
+    //   worksheet.addImage(x,'oneCellAnchor)
+    //   // base64Img.base64(
+    //   //   `${process.env.NEXT_PUBLIC_SERVER_URI}/orderDetails/${d.orderDetailId.photo}`,
+    //   //   (err: any, data: any) => {
+    //   //     if (err) {
+    //   //       console.error(err)
+    //   //     } else {
+    //   //       base = data
+    //   //     }
+    //   //   }
+    //   // )
+    //   // console.log('base : ', base)
+    //   // // const logoImage = workbook.addImage({
+    //   // //   base64: base,
+    //   // //   extension: 'png'
+    //   // // })
+    //   // // worksheet.addImage(logoImage, {
+    //   // //   tl: { col: 1, row: 1 },
+    //   // //   ext: { width: 100, height: 50 }
+    //   // // })
+    // }
+    // worksheet.addRow(['Your Text Here']).font = { size: 16 }
+    // // Add your table data
+    // const tableHeaders = ['Header 1', 'Header 2', 'Header 3']
+    // worksheet.addRow(tableHeaders)
+    // const tableData = [
+    //   ['Data 1-1', 'Data 1-2', 'Data 1-3'],
+    //   ['Data 2-1', 'Data 2-2', 'Data 2-3']
+    //   // Add more rows as needed
+    // ]
+    // tableData.forEach(row => {
+    //   worksheet.addRow(row)
+    // })
+    // // Save the workbook to a file
+    // const buffer = await workbook.xlsx.writeBuffer()
+    // const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })
+    // const url = window.URL.createObjectURL(blob)
+    // const a = document.createElement('a')
+    // a.href = url
+    // a.download = 'your_excel_file.xlsx'
+    // document.body.appendChild(a)
+    // a.click()
+    // document.body.removeChild(a)
+    // window.URL.revokeObjectURL(url)
     const xldata: any = []
     if (d.type == 'indestrie') {
       d.pdefDetails.forEach((element: any) => {
@@ -76,7 +139,6 @@ const AddActions = () => {
         })
       })
     }
-
     const wb = XLSX.utils.book_new(),
       ws = XLSX.utils.json_to_sheet(xldata)
     XLSX.utils.book_append_sheet(wb, ws, 'mdiExcel')

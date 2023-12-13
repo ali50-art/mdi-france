@@ -80,7 +80,7 @@ const InvoiceAction = styled(Box)<BoxProps>(({ theme }) => ({
 
 const AddCard = (props: Props) => {
   // ** Props
-  const listArr = new Array(300).fill(0).map((v, idx) => idx)
+  const listArr = new Array(1200).fill(0).map((v, idx) => idx)
   const { handleSetCount } = props
   const [materials, setMaterial] = useState<any>([])
 
