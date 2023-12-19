@@ -321,7 +321,7 @@ const AddActions = () => {
           right: { style: 'thick', color: { argb: '0000' } }
         }
         cell.font = {
-          size: 16,
+          size: 14,
           bold: true
         }
         cell.alignment = { vertical: 'middle', horizontal: 'center' }
@@ -479,7 +479,7 @@ const AddActions = () => {
           right: { style: 'thick', color: { argb: '0000' } }
         }
         cell.font = {
-          size: 16,
+          size: 14,
           bold: true
         }
         cell.alignment = { vertical: 'middle', horizontal: 'center' }
