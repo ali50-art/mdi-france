@@ -180,19 +180,19 @@ const AddActions = () => {
       horizontal: 'center'
     }
     worksheet.getCell(`${String.fromCharCode(64 + 6)}${17}`).value = `${d.traveauxName}`
-    worksheet.getCell(`${String.fromCharCode(64 + 7)}${17}`).font = { size: 13 }
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${17}`).font = { size: 13 }
     worksheet.getCell(`${String.fromCharCode(64 + 6)}${17}`).alignment = {
       vertical: 'middle',
       horizontal: 'center'
     }
-    worksheet.getCell(`${String.fromCharCode(64 + 7)}${18}`).value = `${d.travauxAdress}`
-    worksheet.getCell(`${String.fromCharCode(64 + 7)}${18}`).font = { size: 13 }
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${18}`).value = `${d.travauxAdress}`
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${18}`).font = { size: 13 }
     worksheet.getCell(`${String.fromCharCode(64 + 6)}${18}`).alignment = {
       vertical: 'middle',
       horizontal: 'center'
     }
-    worksheet.getCell(`${String.fromCharCode(64 + 7)}${19}`).value = `${d.travauxVille}`
-    worksheet.getCell(`${String.fromCharCode(64 + 7)}${19}`).font = { size: 13 }
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${19}`).value = `${d.travauxVille}`
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${19}`).font = { size: 13 }
     worksheet.getCell(`${String.fromCharCode(64 + 6)}${19}`).alignment = {
       vertical: 'middle',
       horizontal: 'center'
@@ -215,7 +215,7 @@ const AddActions = () => {
       vertical: 'middle',
       horizontal: 'center'
     }
-    worksheet.getCell(`${String.fromCharCode(64 + 6)}${24}`).value = `${data.clientVille} ${data.clientCodePostal}`
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${24}`).value = `${d?.clientVille} ${d?.clientCodePostal}`
     worksheet.getCell(`${String.fromCharCode(64 + 6)}${24}`).font = { size: 13 }
     worksheet.getCell(`${String.fromCharCode(64 + 6)}${24}`).alignment = {
       vertical: 'middle',
@@ -379,7 +379,22 @@ const AddActions = () => {
         tableData.push(arr)
       })
       tableData.forEach((row: any) => {
-        worksheet.addRow([...Array(3), ...row])
+        const bodyRow = worksheet.addRow([...Array(3), ...row])
+        bodyRow.eachCell((cell: any) => {
+          cell.border = {
+            top: { style: 'thick', color: { argb: '0000' } },
+            left: { style: 'thick', color: { argb: '0000' } },
+            bottom: { style: 'thick', color: { argb: '0000' } },
+            right: { style: 'thick', color: { argb: '0000' } }
+          }
+          cell.font = {
+            size: 14
+          }
+          cell.alignment = { vertical: 'middle', horizontal: 'center' }
+
+          // Customize the height of the header row
+          headerRow.height = 20
+        })
       })
     } else {
       const [Between20And65, Between66And100, morThen100] = handleDn(d.pdefDetails)
@@ -535,7 +550,22 @@ const AddActions = () => {
         tableData.push(arr)
       })
       tableData.forEach((row: any) => {
-        worksheet.addRow([...Array(3), ...row])
+        const bodyRow = worksheet.addRow([...Array(3), ...row])
+        bodyRow.eachCell((cell: any) => {
+          cell.border = {
+            top: { style: 'thick', color: { argb: '0000' } },
+            left: { style: 'thick', color: { argb: '0000' } },
+            bottom: { style: 'thick', color: { argb: '0000' } },
+            right: { style: 'thick', color: { argb: '0000' } }
+          }
+          cell.font = {
+            size: 14
+          }
+          cell.alignment = { vertical: 'middle', horizontal: 'center' }
+
+          // Customize the height of the header row
+          headerRow.height = 20
+        })
       })
     }
 
