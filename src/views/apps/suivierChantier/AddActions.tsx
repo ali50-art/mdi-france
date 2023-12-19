@@ -132,73 +132,141 @@ const AddActions = () => {
       })
 
       worksheet.addImage(imageId2, {
-        tl: { col: 6, row: 1 },
-        ext: { width: 100, height: 100 }
+        tl: { col: 5, row: 1 },
+        ext: { width: 200, height: 100 }
       })
     }
 
     // Add the text to the specified row and column
     worksheet.getCell(`${String.fromCharCode(64 + 6)}${8}`).value = 'ETAT RECAPITULATIF INDUSTRIE'
     worksheet.getCell(`${String.fromCharCode(64 + 6)}${8}`).font = { size: 14 }
-    worksheet.getCell(`${String.fromCharCode(64 + 7)}${9}`).value = 'je soussigné : '
-    worksheet.getCell(`${String.fromCharCode(64 + 7)}${9}`).font = { size: 13 }
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${9}`).value = 'je soussigné : '
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${9}`).font = { size: 13 }
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${9}`).alignment = { vertical: 'middle', horizontal: 'center' }
     if (d.orderDetailId) {
-      worksheet.getCell(`${String.fromCharCode(64 + 7)}${10}`).value = `${d.orderDetailId.name}`
-      worksheet.getCell(`${String.fromCharCode(64 + 7)}${10}`).font = { size: 13 }
-      worksheet.getCell(`${String.fromCharCode(64 + 7)}${11}`).value = `${d.orderDetailId.address}`
-      worksheet.getCell(`${String.fromCharCode(64 + 7)}${11}`).font = { size: 13 }
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${10}`).value = `${d.orderDetailId.name}`
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${10}`).font = { size: 13 }
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${10}`).alignment = {
+        vertical: 'middle',
+        horizontal: 'center'
+      }
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${11}`).value = `${d.orderDetailId.address}`
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${11}`).font = { size: 13 }
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${11}`).alignment = {
+        vertical: 'middle',
+        horizontal: 'center'
+      }
       worksheet.getCell(
-        `${String.fromCharCode(64 + 7)}${12}`
+        `${String.fromCharCode(64 + 6)}${12}`
       ).value = `${d.orderDetailId.ville} ${d.orderDetailId.codePost}`
-      worksheet.getCell(`${String.fromCharCode(64 + 7)}${12}`).font = { size: 13 }
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${12}`).font = { size: 13 }
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${12}`).alignment = {
+        vertical: 'middle',
+        horizontal: 'center'
+      }
     }
     worksheet.getCell(
-      `${String.fromCharCode(64 + 4)}${14}`
+      `${String.fromCharCode(64 + 6)}${14}`
     ).value = `Atteste sur l'honneur avoir mis en oeuvre les travaux d'isolation de points singuliers`
-    worksheet.getCell(`${String.fromCharCode(64 + 4)}${14}`).font = { size: 13 }
-    worksheet.getCell(`${String.fromCharCode(64 + 7)}${16}`).value = 'au bénéfice de : '
-    worksheet.getCell(`${String.fromCharCode(64 + 7)}${16}`).font = { size: 13 }
-    worksheet.getCell(`${String.fromCharCode(64 + 7)}${17}`).value = `${d.traveauxName}`
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${14}`).alignment = {
+      vertical: 'middle',
+      horizontal: 'center'
+    }
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${14}`).font = { size: 13 }
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${16}`).value = 'au bénéfice de : '
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${16}`).font = { size: 13 }
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${16}`).alignment = {
+      vertical: 'middle',
+      horizontal: 'center'
+    }
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${17}`).value = `${d.traveauxName}`
     worksheet.getCell(`${String.fromCharCode(64 + 7)}${17}`).font = { size: 13 }
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${17}`).alignment = {
+      vertical: 'middle',
+      horizontal: 'center'
+    }
     worksheet.getCell(`${String.fromCharCode(64 + 7)}${18}`).value = `${d.travauxAdress}`
     worksheet.getCell(`${String.fromCharCode(64 + 7)}${18}`).font = { size: 13 }
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${18}`).alignment = {
+      vertical: 'middle',
+      horizontal: 'center'
+    }
     worksheet.getCell(`${String.fromCharCode(64 + 7)}${19}`).value = `${d.travauxVille}`
     worksheet.getCell(`${String.fromCharCode(64 + 7)}${19}`).font = { size: 13 }
-    worksheet.getCell(`${String.fromCharCode(64 + 7)}${21}`).value = ` à l'adresse de travaux  :`
-    worksheet.getCell(`${String.fromCharCode(64 + 7)}${22}`).value = `${d.clientName}`
-    worksheet.getCell(`${String.fromCharCode(64 + 7)}${22}`).font = { size: 13 }
-    worksheet.getCell(`${String.fromCharCode(64 + 7)}${23}`).value = `${d.clientAdress}`
-    worksheet.getCell(`${String.fromCharCode(64 + 7)}${23}`).font = { size: 13 }
-    worksheet.getCell(`${String.fromCharCode(64 + 7)}${24}`).value = `${data.clientVille} ${data.clientCodePostal}`
-    worksheet.getCell(`${String.fromCharCode(64 + 7)}${24}`).font = { size: 13 }
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${19}`).alignment = {
+      vertical: 'middle',
+      horizontal: 'center'
+    }
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${21}`).value = ` à l'adresse de travaux  :`
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${21}`).alignment = {
+      vertical: 'middle',
+      horizontal: 'center'
+    }
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${22}`).value = `${d.clientName}`
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${22}`).font = { size: 13 }
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${22}`).alignment = {
+      vertical: 'middle',
+      horizontal: 'center'
+    }
 
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${23}`).value = `${d.clientAdress}`
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${23}`).font = { size: 13 }
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${23}`).alignment = {
+      vertical: 'middle',
+      horizontal: 'center'
+    }
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${24}`).value = `${data.clientVille} ${data.clientCodePostal}`
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${24}`).font = { size: 13 }
+    worksheet.getCell(`${String.fromCharCode(64 + 6)}${24}`).alignment = {
+      vertical: 'middle',
+      horizontal: 'center'
+    }
     worksheet.getCell(`${String.fromCharCode(64 + 6)}${26}`).value = `Marque : MDI TECHNOLOGIE`
     worksheet.getCell(`${String.fromCharCode(64 + 6)}${26}`).font = { size: 13 }
     if (d.type == 'indestrie') {
       const [nb, nb2, nb3] = handleCount(d.pdefDetails)
       worksheet.getCell(
-        `${String.fromCharCode(64 + 4)}${28}`
+        `${String.fromCharCode(64 + 6)}${28}`
       ).value = `Résistance thermique : 1,50 m².K/W sur un réseau d'eau chaude ou de retour de condensats à température moyenne de 70°C`
-      worksheet.getCell(`${String.fromCharCode(64 + 4)}${28}`).font = { size: 13 }
-
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${28}`).font = { size: 13 }
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${28}`).alignment = {
+        vertical: 'middle',
+        horizontal: 'center'
+      }
       worksheet.getCell(
-        `${String.fromCharCode(64 + 7)}${29}`
-      ).value = `1,33 m².K/W sur un réseau d'eau surchauffée à température moyenne de 90°C`
-      worksheet.getCell(`${String.fromCharCode(64 + 7)}${39}`).font = { size: 13 }
+        `${String.fromCharCode(64 + 6)}${29}`
+      ).value = `:1,33 m².K/W sur un réseau d'eau surchauffée à température moyenne de 90°C    `
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${29}`).font = { size: 13 }
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${29}`).alignment = {
+        vertical: 'middle',
+        horizontal: 'center'
+      }
       worksheet.getCell(
-        `${String.fromCharCode(64 + 7)}${30}`
-      ).value = `: 1,22 m².K/W sur un réseau vapeur à une température moyenne de 110°C `
-      worksheet.getCell(`${String.fromCharCode(64 + 7)}${30}`).font = { size: 13 }
+        `${String.fromCharCode(64 + 6)}${30}`
+      ).value = `: 1,22 m².K/W sur un réseau vapeur à une température moyenne de 110°C             `
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${30}`).font = { size: 13 }
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${30}`).alignment = {
+        vertical: 'middle',
+        horizontal: 'center'
+      }
       worksheet.getCell(
-        `${String.fromCharCode(64 + 7)}${31}`
-      ).value = `: 1,18 m².K/W sur un réseau de fluide organique à une température moyenne de 120°C`
-      worksheet.getCell(`${String.fromCharCode(64 + 8)}${31}`).font = { size: 13 }
+        `${String.fromCharCode(64 + 6)}${31}`
+      ).value = `        : 1,18 m².K/W sur un réseau de fluide organique à une température moyenne de 120°C`
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${31}`).font = { size: 13 }
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${31}`).alignment = {
+        vertical: 'middle',
+        horizontal: 'center'
+      }
       worksheet.getCell(
-        `${String.fromCharCode(64 + 7)}${32}`
-      ).value = `: Isolant et Référence : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1`
-      worksheet.getCell(`${String.fromCharCode(64 + 7)}${32}`).font = { size: 13 }
-      worksheet.getCell(`${String.fromCharCode(64 + 7)}${33}`).value = `Température maximale : 300°`
-      worksheet.getCell(`${String.fromCharCode(64 + 7)}${33}`).font = { size: 13 }
+        `${String.fromCharCode(64 + 6)}${32}`
+      ).value = `Isolant et Référence : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1`
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${32}`).font = { size: 13 }
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${32}`).alignment = {
+        vertical: 'middle',
+        horizontal: 'center'
+      }
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${33}`).value = `Température maximale : 300°`
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${33}`).font = { size: 13 }
       worksheet.getCell(`${String.fromCharCode(64 + 6)}${35}`).value = `Type de fonctionnement :`
       worksheet.getCell(`${String.fromCharCode(64 + 6)}${35}`).font = { size: 13 }
       const data: any = [
@@ -212,10 +280,14 @@ const AddActions = () => {
         const i = index + 1
 
         // Add 2 because we have a header in the first row
-        worksheet.getCell(`${String.fromCharCode(64 + 7)}${35 + i}`).value = `${getCheckboxSymbol(
+        worksheet.getCell(`${String.fromCharCode(64 + 6)}${35 + i}`).value = `${getCheckboxSymbol(
           item.typeOfFunction,
           d.typeOfFunction
         )} ${item.description}`
+        worksheet.getCell(`${String.fromCharCode(64 + 6)}${35 + i}`).alignment = {
+          vertical: 'middle',
+          horizontal: 'left'
+        }
       })
       worksheet.getCell(`${String.fromCharCode(64 + 6)}${40}`).value = `vapeur = ${nb}`
       worksheet.getCell(`${String.fromCharCode(64 + 6)}${40}`).font = { size: 13 }
@@ -238,49 +310,136 @@ const AddActions = () => {
         'N° De repérage',
         'Fluide'
       ]
-      worksheet.addRow([...Array(5), ...tableHeaders])
+
+      // Add table headers to the worksheet with borders and custom styles
+      const headerRow = worksheet.addRow([...Array(3), ...tableHeaders])
+      headerRow.eachCell((cell: any) => {
+        cell.border = {
+          top: { style: 'thick', color: { argb: '0000' } },
+          left: { style: 'thick', color: { argb: '0000' } },
+          bottom: { style: 'thick', color: { argb: '0000' } },
+          right: { style: 'thick', color: { argb: '0000' } }
+        }
+        cell.font = {
+          size: 16,
+          bold: true
+        }
+        cell.alignment = { vertical: 'middle', horizontal: 'center' }
+
+        // Customize the height of the header row
+        headerRow.height = 30
+      })
+
+      worksheet.columns = [
+        { header: '', key: '', width: 25 },
+        {
+          header: '',
+          key: '',
+          width: 15
+        },
+        {
+          header: '',
+          key: '',
+          width: 35
+        },
+        {
+          header: '',
+          key: '',
+          width: 35
+        },
+        {
+          header: '',
+          key: '',
+          width: 30
+        },
+        {
+          header: '',
+          key: '',
+          width: 30
+        },
+        {
+          header: '',
+          key: '',
+          width: 20
+        },
+        {
+          header: '',
+          key: '',
+          width: 10
+        },
+        {
+          header: '',
+          key: '',
+          width: 40
+        }
+      ]
       const tableData: any = []
       d.pdefDetails.forEach((element: any) => {
         const arr = [element.place, element.filterType, element.model, element.nbRep, element.nature]
         tableData.push(arr)
       })
-
       tableData.forEach((row: any) => {
-        worksheet.addRow([...Array(5), ...row])
+        worksheet.addRow([...Array(3), ...row])
       })
     } else {
       const [Between20And65, Between66And100, morThen100] = handleDn(d.pdefDetails)
       worksheet.getCell(
-        `${String.fromCharCode(64 + 4)}${28}`
-      ).value = `Résistance thermique : 1,58 m².K/W à une température moyenne de 50 °C`
-      worksheet.getCell(`${String.fromCharCode(64 + 4)}${28}`).font = { size: 13 }
-
+        `${String.fromCharCode(64 + 6)}${28}`
+      ).value = `Résistance thermique : 1,58 m².K/W à une température moyenne de 50 °C                    `
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${28}`).font = { size: 13 }
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${28}`).alignment = {
+        vertical: 'middle',
+        horizontal: 'center'
+      }
       worksheet.getCell(
-        `${String.fromCharCode(64 + 7)}${29}`
-      ).value = `: 1,27 m².K/W à une température moyenne de 100°C`
-      worksheet.getCell(`${String.fromCharCode(64 + 7)}${39}`).font = { size: 13 }
+        `${String.fromCharCode(64 + 6)}${29}`
+      ).value = `                     : 1,27 m².K/W à une température moyenne de 100°C`
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${29}`).font = { size: 13 }
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${29}`).alignment = {
+        vertical: 'middle',
+        horizontal: 'center'
+      }
       worksheet.getCell(
-        `${String.fromCharCode(64 + 7)}${30}`
-      ).value = `Isolant et référence : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1`
-      worksheet.getCell(`${String.fromCharCode(64 + 6)}${30}`).font = { size: 13 }
-      worksheet.getCell(`${String.fromCharCode(64 + 6)}${31}`).value = `Température maximale : 250°C`
+        `${String.fromCharCode(64 + 6)}${31}`
+      ).value = `Isolant et référence : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1                 `
       worksheet.getCell(`${String.fromCharCode(64 + 6)}${31}`).font = { size: 13 }
-      worksheet.getCell(`${String.fromCharCode(64 + 6)}${32}`).value = `Température fluide caloporteur : 70°C`
-      worksheet.getCell(`${String.fromCharCode(64 + 6)}${32}`).font = { size: 13 }
-      worksheet.getCell(`${String.fromCharCode(64 + 6)}${33}`).value = `Référence : ISOVAN`
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${31}`).alignment = {
+        vertical: 'middle',
+        horizontal: 'center'
+      }
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${33}`).value = `Température maximale : 250°C`
       worksheet.getCell(`${String.fromCharCode(64 + 6)}${33}`).font = { size: 13 }
-      worksheet.getCell(`${String.fromCharCode(64 + 6)}${35}`).value = `Nombre de points singuliers posés :`
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${33}`).alignment = {
+        vertical: 'middle',
+        horizontal: 'center'
+      }
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${34}`).value = `Température fluide caloporteur : 70°C`
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${34}`).font = { size: 13 }
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${34}`).alignment = {
+        vertical: 'middle',
+        horizontal: 'left'
+      }
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${35}`).value = `Référence : ISOVAN`
       worksheet.getCell(`${String.fromCharCode(64 + 6)}${35}`).font = { size: 13 }
-      worksheet.getCell(`${String.fromCharCode(64 + 7)}${36}`).value = `DN20 a DN65 = ${Between20And65}`
-      worksheet.getCell(`${String.fromCharCode(64 + 7)}${36}`).font = { size: 13 }
-      worksheet.getCell(`${String.fromCharCode(64 + 7)}${37}`).value = `DN66 a DN100 = ${Between66And100}`
-      worksheet.getCell(`${String.fromCharCode(64 + 7)}${37}`).font = { size: 13 }
-      worksheet.getCell(`${String.fromCharCode(64 + 7)}${38}`).value = `DN > 100 = ${morThen100}`
-      worksheet.getCell(`${String.fromCharCode(64 + 7)}${38}`).font = { size: 13 }
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${37}`).value = `Nombre de points singuliers posés :`
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${37}`).font = { size: 13 }
+
+      // Set values for the specified cells
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${38}`).value = `DN20 a DN65 = ${Between20And65}`
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${39}`).value = `DN66 a DN100 = ${Between66And100}`
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${40}`).value = `DN > 100 = ${morThen100}`
+
+      // Center the text vertically and set font size for the specified cells
+      const arr = [38, 39, 40]
+      arr.forEach(row => {
+        const cell = worksheet.getCell(`${String.fromCharCode(64 + 6)}${row}`)
+        cell.font = { size: 13 }
+        cell.alignment = { vertical: 'middle', horizontal: 'left' }
+      })
       worksheet.getCell(
-        `${String.fromCharCode(64 + 6)}${40}`
+        `${String.fromCharCode(64 + 6)}${42}`
       ).value = `Total des points singuliers =${d.pdefDetails.length}`
-      worksheet.getCell(`${String.fromCharCode(64 + 6)}${40}`).font = { size: 13 }
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${42}`).font = { size: 13 }
 
       // // Add your table data
       worksheet.addRow([])
@@ -294,7 +453,74 @@ const AddActions = () => {
         'dn',
         'Nature de fluidecaloporteur'
       ]
-      worksheet.addRow([...Array(4), ...tableHeaders])
+
+      // Add table headers to the worksheet with borders and custom styles
+      const headerRow = worksheet.addRow([...Array(3), ...tableHeaders])
+      headerRow.eachCell((cell: any) => {
+        cell.border = {
+          top: { style: 'thick', color: { argb: '0000' } },
+          left: { style: 'thick', color: { argb: '0000' } },
+          bottom: { style: 'thick', color: { argb: '0000' } },
+          right: { style: 'thick', color: { argb: '0000' } }
+        }
+        cell.font = {
+          size: 16,
+          bold: true
+        }
+        cell.alignment = { vertical: 'middle', horizontal: 'center' }
+
+        // Customize the height of the header row
+        headerRow.height = 30
+      })
+
+      worksheet.columns = [
+        {
+          header: '',
+          key: '',
+          width: 20
+        },
+        { header: '', key: '', width: 25 },
+        {
+          header: '',
+          key: '',
+          width: 15
+        },
+        {
+          header: '',
+          key: '',
+          width: 35
+        },
+        {
+          header: '',
+          key: '',
+          width: 35
+        },
+        {
+          header: '',
+          key: '',
+          width: 30
+        },
+        {
+          header: '',
+          key: '',
+          width: 30
+        },
+        {
+          header: '',
+          key: '',
+          width: 20
+        },
+        {
+          header: '',
+          key: '',
+          width: 10
+        },
+        {
+          header: '',
+          key: '',
+          width: 40
+        }
+      ]
       const tableData: any = []
       d.pdefDetails.forEach((element: any) => {
         const arr = [
@@ -308,9 +534,8 @@ const AddActions = () => {
         ]
         tableData.push(arr)
       })
-
       tableData.forEach((row: any) => {
-        worksheet.addRow([...Array(4), ...row])
+        worksheet.addRow([...Array(3), ...row])
       })
     }
 
