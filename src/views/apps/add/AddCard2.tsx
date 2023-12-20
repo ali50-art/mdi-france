@@ -271,6 +271,22 @@ const AddCard = (props: Props) => {
     // Format the date using Intl.DateTimeFormat with the French locale
     return new Intl.DateTimeFormat('fr-FR', options).format(newData)
   }
+
+  // const handleSet1000Item = async () => {
+  //   for (let i = 5; i < 950; i++) {
+  //     const item = {
+  //       categoryId: '"2023-12-20T09:27:18.101Z"',
+  //       id: i,
+  //       local: 'test',
+  //       nature: 'Fuild',
+  //       red: 'B2',
+  //       rep: i,
+  //       saved: false,
+  //       type: 'Filtre bride '
+  //     }
+  //     await addData(Stores.PdfData2, { ...item })
+  //   }
+  // }
   const handleAddNewLine = async () => {
     if (materials.length == 0) {
       toast.error('voter stock est terminer !')

@@ -86,8 +86,9 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
       const res = await getStoreData(Stores.PdfData)
 
       const res2: any = await getStoreData(Stores.PdfInfo)
-      const newArr: any = []
+
       for (let i = 0; i < res.length; i++) {
+        const newArr: any = []
         const el: any = res[i]
         const newObj: any = {
           firstPdf: i === 0 ? true : false,
@@ -108,10 +109,13 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
           nature: el.nature || ''
         }
         newArr.push(newObj)
+        await dispatch(addPdf(newArr))
       }
-      await dispatch(addPdf(newArr))
+
       const promises2 = res.map(async (el: any) => {
-        return await deleteData(Stores.PdfData, el.id)
+        const res = await deleteData(Stores.PdfData, el.id)
+
+        return res
       })
 
       await Promise.all(promises2)
@@ -126,8 +130,9 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
       const res = await getStoreData(Stores.PdfData2)
 
       const res2: any = await getStoreData(Stores.PdfInfo)
-      const newArr: any = []
+
       for (let i = 0; i < res.length; i++) {
+        const newArr: any = []
         const el: any = res[i]
         const newObj: any = {
           firstPdf: i === 0 ? true : false,
@@ -148,9 +153,9 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
           nbRep: el.rep || ''
         }
         newArr.push(newObj)
+        await dispatch(addPdf(newArr))
       }
 
-      await dispatch(addPdf(newArr))
       const promises2 = res.map(async (el: any) => {
         return await deleteData(Stores.PdfData2, el.id)
       })
