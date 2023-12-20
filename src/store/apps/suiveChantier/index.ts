@@ -126,7 +126,18 @@ export const editPdf = createAsyncThunk(
     const { pdfId, ...filterData } = data
 
     const response = await axios.patch(`${serverUri.uri}/api/pdf/${pdfId}`, { ...filterData }, config)
-    dispatch(fetchData(getState().user.params))
+    const item = getState().user.params
+
+    const params = {
+      pageSize: item.limit,
+      page: item.page,
+      sort: '-createdAt',
+      search: '',
+      status: '',
+      instalateur: ''
+    }
+
+    dispatch(fetchData(params))
 
     return response.data
   }
