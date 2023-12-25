@@ -44,7 +44,7 @@ import { RootState, AppDispatch } from 'src/store'
 import TableHeader from 'src/views/apps/logistique/list/TableHeader'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 import Dialog from 'src/views/apps/logistique/list/SelectInstalateurDialog'
-import ShowAllMaterialDialog from 'src/views/apps/logistique/list/ShowRetourDialog'
+import DecalirRetourDialg from 'src/views/apps/logistique/list/ShowRetourDialog'
 import AddMaterialDialog from 'src/views/apps/logistique/list/AddMaterialDialog'
 import { Box } from '@mui/system'
 import Link from 'next/link'
@@ -173,7 +173,7 @@ const UserList = () => {
             supprimer
           </MenuItem>
         </Menu>
-        {showMateral && <ShowAllMaterialDialog open={showMateral} toggle={handleShowMaterail} data={store.matData} />}
+        {showMateral && <DecalirRetourDialg open={showMateral} toggle={handleShowMaterail} data={store.matData} />}
         {openDeleteTogel && (
           <DeleteItemDialog open={openDeleteTogel} toggle={handleOpenDeleteTogel} id={id} setCount={setCount} />
         )}
@@ -255,9 +255,7 @@ const UserList = () => {
       sortable: false,
       field: 'actions',
       headerName: 'Actions',
-      renderCell: ({ row }: CellType) => (
-        <RowOptions id={row._id} chargeDetailId={row?.chargeDetails[row?.chargeDetails.length - 1]} />
-      )
+      renderCell: ({ row }: CellType) => <RowOptions id={row._id} chargeDetailId={row?._id} />
     }
   ]
 
