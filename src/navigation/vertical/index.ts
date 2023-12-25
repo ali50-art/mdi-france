@@ -52,13 +52,13 @@ const navigation = (): VerticalNavItemsType => {
         {
           title: 'En cours',
           path: '/logistique/inProgress',
-          action: 'mange',
+          action: 'manage',
           subject: 'logistique'
         },
         {
           title: 'Terminé',
           path: '/logistique/retour',
-          action: 'mange',
+          action: 'manage',
           subject: 'logistique'
         }
       ]

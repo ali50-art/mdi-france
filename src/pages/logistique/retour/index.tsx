@@ -187,7 +187,12 @@ const UserList = () => {
       field: 'fullName',
       headerName: 'Installateur',
       renderCell: ({ row }: CellType) => {
-        const { fullName, phone } = row.instalateurId
+        let fullName = ''
+        let phone = ''
+        if (row?.instalateurId) {
+          fullName = row?.instalateurId?.fullName
+          phone = row?.instalateurId?.phone
+        }
 
         return (
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -336,7 +341,7 @@ const UserList = () => {
 }
 
 UserList.acl = {
-  action: 'mange',
+  action: 'manage',
   subject: 'logistique'
 }
 export default UserList

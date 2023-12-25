@@ -18,7 +18,7 @@ export type ACLObj = {
  */
 const defineRulesFor = (role: string, subject: string) => {
   const { can, rules } = new AbilityBuilder(AppAbility)
-  if (role === 'superAdmin') {
+  if (role === 'superAdmin' || role === 'logisticien') {
     can('manage', ['logistique'])
   }
   if (role === 'admin' || role === 'superAdmin') {
@@ -32,7 +32,7 @@ const defineRulesFor = (role: string, subject: string) => {
       'material'
     ])
   } else if (role === 'logisticien') {
-    can('manage', ['logistique', 'suivi-chantier'])
+    can('manage', ['suivi-chantier'])
   } else if (role === 'installateur') {
     can('manage', ['installateur-dahsboard', 'constructeur', 'save-files'])
   } else if (role === 'assistante') {
