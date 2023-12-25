@@ -135,7 +135,12 @@ const RowOptions = ({ id }: { id: number | string }) => {
         </MenuItem>
       </Menu>
       {showMateral && (
-        <ShowAllMaterialDialog open={showMateral} toggle={handleShowMaterail} data={store.matDataOneCharge} />
+        <ShowAllMaterialDialog
+          open={showMateral}
+          toggle={handleShowMaterail}
+          data={store.matDataOneCharge}
+          isRetour={false}
+        />
       )}
     </>
   )

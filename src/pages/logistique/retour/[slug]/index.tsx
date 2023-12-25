@@ -29,7 +29,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import CardStatsHorizontalWithDetails from 'src/@core/components/card-statistics/card-stats-horizontal-with-details'
 
 // ** Actions Imports
-import { fetchAllByChargeId, fetchOne } from 'src/store/apps/ChargeDetails'
+import { fetchAllByChargeId, fetchRetourOfOneCharge } from 'src/store/apps/ChargeDetails'
 
 // import authConfig from 'src/configs/auth'
 // import { serverUri } from 'src/configs/auth'
@@ -91,7 +91,7 @@ const RowOptions = ({ id }: { id: number | string }) => {
 
   const handleShowMaterail = () => {
     handleRowOptionsClose()
-    dispatch(fetchOne({ id: id }))
+    dispatch(fetchRetourOfOneCharge({ id: id }))
     setShowMaterail(!showMateral)
   }
 
@@ -121,7 +121,12 @@ const RowOptions = ({ id }: { id: number | string }) => {
         </MenuItem>
       </Menu>
       {showMateral && (
-        <ShowAllMaterialDialog open={showMateral} toggle={handleShowMaterail} data={store.matDataOneCharge} />
+        <ShowAllMaterialDialog
+          open={showMateral}
+          toggle={handleShowMaterail}
+          data={store.matDataOneCharge}
+          isRetour={true}
+        />
       )}
     </>
   )
@@ -146,7 +151,7 @@ const UserList = () => {
   const handleCountTotal = (materials: any) => {
     let nb = 0
     materials?.forEach((el: any) => {
-      nb += el.stock
+      nb += el.fixedStock
     })
 
     return nb

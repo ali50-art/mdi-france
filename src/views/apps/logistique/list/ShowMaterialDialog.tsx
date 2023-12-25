@@ -13,11 +13,12 @@ interface SidebarAddUserType {
   open: boolean
   toggle: () => void
   data: any
+  isRetour: any
 }
 
 const SidebarAddUser = (props: SidebarAddUserType) => {
   // ** Props
-  const { open, toggle, data } = props
+  const { open, toggle, data, isRetour } = props
 
   const handleClose = () => {
     toggle()
@@ -60,15 +61,27 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                     InputLabelProps={{ shrink: true }}
                   />
                 </Grid>
-                <Grid item xs={6} sm={6}>
-                  <CustomTextField
-                    type='number'
-                    label='Quantité'
-                    value={el.stock}
-                    id='form-props-number'
-                    InputLabelProps={{ shrink: true }}
-                  />
-                </Grid>
+                {isRetour ? (
+                  <Grid item xs={6} sm={6}>
+                    <CustomTextField
+                      type='number'
+                      label='Quantité'
+                      value={el.fixedStock}
+                      id='form-props-number'
+                      InputLabelProps={{ shrink: true }}
+                    />
+                  </Grid>
+                ) : (
+                  <Grid item xs={6} sm={6}>
+                    <CustomTextField
+                      type='number'
+                      label='Quantité'
+                      value={el.stock}
+                      id='form-props-number'
+                      InputLabelProps={{ shrink: true }}
+                    />
+                  </Grid>
+                )}
               </Grid>
             )
           })}
