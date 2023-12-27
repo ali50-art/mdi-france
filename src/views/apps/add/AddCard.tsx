@@ -252,9 +252,9 @@ const AddCard = (props: Props) => {
       try {
         lastData.rep += 1
         lastData.id += 1
-        lastData.type = ''
-        lastData.red = ''
-        lastData.dn = ''
+        lastData.type = lastData.type
+        lastData.red = lastData.red
+        lastData.dn = lastData.dn
         lastData.saved = false
         await addData(Stores.PdfData, { ...lastData })
         localStorage.setItem('lastId', JSON.stringify(id + 1))
