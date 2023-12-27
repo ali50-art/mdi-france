@@ -226,7 +226,7 @@ const AdminDashboard = () => {
   const columns: GridColDef[] = [
     {
       flex: 0.15,
-      minWidth: 120,
+      minWidth: 90,
       headerName: 'Nom',
       field: 'Name',
       renderCell: ({ row }: CellType) => {
@@ -245,7 +245,7 @@ const AdminDashboard = () => {
       renderCell: ({ row }: CellType) => {
         return (
           <Typography noWrap sx={{ fontWeight: 500, color: 'text.secondary', textTransform: 'capitalize' }}>
-            {row.clientVille},{row.clientAdress}
+            {row.clientAdress}
           </Typography>
         )
       }
