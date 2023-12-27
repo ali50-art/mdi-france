@@ -237,6 +237,19 @@ const AdminDashboard = () => {
         )
       }
     },
+    {
+      flex: 0.15,
+      minWidth: 160,
+      headerName: 'adresse',
+      field: 'adresse',
+      renderCell: ({ row }: CellType) => {
+        return (
+          <Typography noWrap sx={{ fontWeight: 500, color: 'text.secondary', textTransform: 'capitalize' }}>
+            {row.clientVille},{row.clientAdress}
+          </Typography>
+        )
+      }
+    },
 
     {
       flex: 0.15,
