@@ -54,8 +54,7 @@ const Header = styled(Box)<BoxProps>(({ theme }) => ({
 
 const schema = yup.object().shape({
   model: yup.string().required(),
-  ref: yup.string().required(),
-  type: yup.string().required()
+  ref: yup.string().required()
 })
 
 const SidebarAddUser = (props: SidebarAddUserType) => {
@@ -74,21 +73,14 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
     } else {
       ref = ''
     }
-    let type
-    if (material?.type) {
-      type = material?.type
-    } else {
-      type = ''
-    }
 
-    return { model, ref, type }
+    return { model, ref }
   }
-  const { model, ref, type } = handleDefaultValue()
+  const { model, ref } = handleDefaultValue()
 
   const defaultValues = {
     model,
-    ref,
-    type
+    ref
   }
 
   // ** Hooks
@@ -177,23 +169,6 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                 placeholder='exemple xyz,...'
                 error={Boolean(errors.ref)}
                 {...(errors.ref && { helperText: errors.ref.message })}
-              />
-            )}
-          />
-          <Controller
-            name='type'
-            control={control}
-            rules={{ required: true }}
-            render={({ field: { value, onChange } }) => (
-              <CustomTextField
-                fullWidth
-                value={value}
-                sx={{ mb: 4 }}
-                label='Type'
-                onChange={onChange}
-                placeholder='exemple xyz,...'
-                error={Boolean(errors.type)}
-                {...(errors.type && { helperText: errors.type.message })}
               />
             )}
           />
