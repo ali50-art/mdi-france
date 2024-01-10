@@ -181,15 +181,6 @@ const AddCard = (props: Props) => {
     handleSetCount()
     setCount(count + 1)
   }
-  const handleSaveItem = async (id: any) => {
-    const index = data.findIndex((el: any) => el.id.toString() == id.toString())
-
-    const lastData = data[index]
-    lastData.saved = true
-    await updateDataById(Stores.PdfData, id, { ...lastData })
-    setCount(count + 1)
-    handleSetCount()
-  }
   const handleSetFilter = async (id: any, d: any) => {
     const index = data.findIndex((el: any) => el.id.toString() == id.toString())
 
@@ -207,15 +198,7 @@ const AddCard = (props: Props) => {
     setCount(count + 1)
     handleSetCount()
   }
-  const handleChangeMood = async (id: any) => {
-    const index = data.findIndex((el: any) => el.id.toString() == id.toString())
 
-    const lastData = data[index]
-    lastData.saved = false
-    await updateDataById(Stores.PdfData, id, { ...lastData })
-    setCount(count + 1)
-    handleSetCount()
-  }
   const hnadlesetDn = async (id: any, d: any) => {
     const index = data.findIndex((el: any) => el.id.toString() == id.toString())
 
@@ -252,9 +235,10 @@ const AddCard = (props: Props) => {
       try {
         lastData.rep += 1
         lastData.id += 1
-        lastData.type = lastData.type
-        lastData.red = lastData.red
-        lastData.dn = lastData.dn
+        lastData.type = ''
+        lastData.red = ''
+        lastData.nature = ''
+        lastData.dn = ''
         lastData.saved = false
         await addData(Stores.PdfData, { ...lastData })
         localStorage.setItem('lastId', JSON.stringify(id + 1))
@@ -299,10 +283,11 @@ const AddCard = (props: Props) => {
 
     if (localStorage.getItem('userData')) {
       const x: any = localStorage.getItem('userData')
+
       const user: any = JSON.parse(x)
       const newMaterial: any = []
-      user.charge.materials.forEach((element: any) => {
-        const stockNb = countStock(data, element.material.model)
+      user.charge.forEach((element: any) => {
+        const stockNb = countStock(data, element.model)
 
         if (stockNb < element.stock) {
           newMaterial.push(element)
@@ -312,7 +297,7 @@ const AddCard = (props: Props) => {
     }
   }
   const ceckTheList = (arr: any, model: any) => {
-    const index = arr.findIndex((el: any) => el.material.model == model)
+    const index = arr.findIndex((el: any) => el.model == model)
 
     return index > -1
   }
@@ -396,8 +381,8 @@ const AddCard = (props: Props) => {
 
                     {materials?.map((el: any, i: number) => {
                       return (
-                        <MenuItem value={el?.material?.model} key={i}>
-                          {el?.material?.model}
+                        <MenuItem value={el?.model} key={i}>
+                          {el?.model}
                         </MenuItem>
                       )
                     })}
@@ -439,24 +424,15 @@ const AddCard = (props: Props) => {
                   </CustomTextField>
                 )}
               </Grid>
+
               <Grid item lg={2} md={2} xs={12} sx={{ px: 1, my: { lg: 0, xs: 4 } }}>
                 <CustomTextField value='Réseau Chaud' InputProps={{ inputProps: { min: 0 } }} />
               </Grid>
             </Grid>
-            <InvoiceAction>
+            <InvoiceAction style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <IconButton size='small' onClick={() => handleDeleteItem(data[i].id, data[i].categoryId)}>
                 <Icon icon='tabler:x' fontSize='1.25rem' />
               </IconButton>
-              <Divider />
-              {data[i].saved ? (
-                <IconButton size='small' onClick={() => handleChangeMood(data[i].id)}>
-                  <Icon icon='tabler:edit' fontSize='1.25rem' />
-                </IconButton>
-              ) : (
-                <IconButton size='small' onClick={() => handleSaveItem(data[i].id)}>
-                  <Icon icon='tabler:check' fontSize='1.25rem' />
-                </IconButton>
-              )}
             </InvoiceAction>
           </RepeatingContent>
         </Grid>
@@ -644,7 +620,17 @@ const AddCard = (props: Props) => {
         {Row}
       </List>
       <Grid container sx={{ mt: 4 }}>
-        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Grid
+          item
+          xs={12}
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            paddingLeft: '1rem',
+            paddingRight: '1rem',
+            paddingBottom: '1rem'
+          }}
+        >
           <Button variant='contained' onClick={() => handleAddNewItem()}>
             {data.length > 0 ? 'Changement de chaufferie' : 'Ajouter'}
           </Button>

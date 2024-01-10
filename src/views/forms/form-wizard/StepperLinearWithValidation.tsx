@@ -217,7 +217,6 @@ const StepperLinearWithValidation = () => {
   }
   useEffect(() => {
     handleInitDB()
-    localStorage.setItem('pdfType', 'indestry')
   }, [, isDBReady])
 
   const getStepContent = (step: number) => {

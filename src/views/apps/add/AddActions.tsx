@@ -123,7 +123,6 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
       handleSetCount()
       toast.success('pdf envoyez avec success')
       await deleteData(Stores.PdfInfo, res2[0].id)
-      localStorage.removeItem('pdfInfoId')
       handleActiStepTOfirstStep()
       setLoading(false)
     } else {
@@ -167,7 +166,6 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
       auth.getProfile()
       setLoading(false)
     }
-    localStorage.removeItem('pdfType')
   }
 
   useEffect(() => {
