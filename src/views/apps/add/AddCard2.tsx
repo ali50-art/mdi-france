@@ -256,47 +256,47 @@ const AddCard = (props: Props) => {
     return new Intl.DateTimeFormat('fr-FR', options).format(newData)
   }
 
-  // const handleSet1000Item = async () => {
-  //   for (let i = 5; i < 300; i++) {
-  //     const item = {
-  //       categoryId: '"2023-12-20T09:27:18.101Z"',
-  //       id: i,
-  //       local: 'test',
-  //       nature: 'Fuild',
-  //       red: 'B2',
-  //       rep: i,
-  //       saved: false,
-  //       type: 'Filtre bride '
-  //     }
-  //     await addData(Stores.PdfData2, { ...item })
-  //   }
-  //   for (let i = 300; i < 600; i++) {
-  //     const item = {
-  //       categoryId: '"2023-12-20T09:27:18.101Z"',
-  //       id: i,
-  //       local: 'test',
-  //       nature: 'Fuild',
-  //       red: 'B1',
-  //       rep: i,
-  //       saved: false,
-  //       type: 'Filtre bride '
-  //     }
-  //     await addData(Stores.PdfData2, { ...item })
-  //   }
-  //   for (let i = 600; i < 900; i++) {
-  //     const item = {
-  //       categoryId: '"2023-12-20T09:27:18.101Z"',
-  //       id: i,
-  //       local: 'test',
-  //       nature: 'Fuild',
-  //       red: 'B3',
-  //       rep: i,
-  //       saved: false,
-  //       type: 'Filtre bride '
-  //     }
-  //     await addData(Stores.PdfData2, { ...item })
-  //   }
-  // }
+  const handleSet1000Item = async () => {
+    for (let i = 5; i < 300; i++) {
+      const item = {
+        categoryId: '"2023-12-20T09:27:18.101Z"',
+        id: i,
+        local: 'test',
+        nature: 'Fuild',
+        red: 'B2',
+        rep: i,
+        saved: false,
+        type: 'Filtre bride '
+      }
+      await addData(Stores.PdfData2, { ...item })
+    }
+    for (let i = 300; i < 600; i++) {
+      const item = {
+        categoryId: '"2023-12-20T09:27:18.101Z"',
+        id: i,
+        local: 'test',
+        nature: 'Fuild',
+        red: 'B2',
+        rep: i,
+        saved: false,
+        type: 'Filtre bride '
+      }
+      await addData(Stores.PdfData2, { ...item })
+    }
+    for (let i = 600; i < 900; i++) {
+      const item = {
+        categoryId: '"2023-12-20T09:27:18.101Z"',
+        id: i,
+        local: 'test',
+        nature: 'Fuild',
+        red: 'B3',
+        rep: i,
+        saved: false,
+        type: 'Filtre bride '
+      }
+      await addData(Stores.PdfData2, { ...item })
+    }
+  }
   const handleAddNewLine = async () => {
     if (materials.length == 0) {
       toast.error('voter stock est terminer !')
@@ -640,9 +640,9 @@ const AddCard = (props: Props) => {
           <Button variant='contained' onClick={() => handleAddNewItem()}>
             {data.length > 0 ? 'Changement de chaufferie' : 'Ajouter'}
           </Button>
-          {/* <Button variant='contained' onClick={() => handleSet1000Item()}>
+          <Button variant='contained' onClick={() => handleSet1000Item()}>
             handleSet1000Item
-          </Button> */}
+          </Button>
 
           {data.length > 0 && (
             <Button variant='contained' onClick={() => handleAddNewLine()}>
