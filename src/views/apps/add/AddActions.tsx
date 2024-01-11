@@ -84,11 +84,11 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
     const type = localStorage.getItem('pdfType')
     if (type == 'residentiel') {
       const res = await getStoreData(Stores.PdfData)
+      console.log('res : ', res)
 
       const res2: any = await getStoreData(Stores.PdfInfo)
-
+      const newArr: any = []
       for (let i = 0; i < res.length; i++) {
-        const newArr: any = []
         const el: any = res[i]
         const newObj: any = {
           firstPdf: i === 0 ? true : false,
@@ -109,8 +109,8 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
           nature: el.nature || ''
         }
         newArr.push(newObj)
-        await dispatch(addPdf(newArr))
       }
+      await dispatch(addPdf(newArr))
 
       const promises2 = res.map(async (el: any) => {
         const res = await deleteData(Stores.PdfData, el.id)
@@ -127,11 +127,10 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
       setLoading(false)
     } else {
       const res = await getStoreData(Stores.PdfData2)
-
+      console.log('res : ', res)
       const res2: any = await getStoreData(Stores.PdfInfo)
-
+      const newArr: any = []
       for (let i = 0; i < res.length; i++) {
-        const newArr: any = []
         const el: any = res[i]
         const newObj: any = {
           firstPdf: i === 0 ? true : false,
@@ -152,8 +151,8 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
           nbRep: el.rep || ''
         }
         newArr.push(newObj)
-        await dispatch(addPdf(newArr))
       }
+      await dispatch(addPdf(newArr))
 
       const promises2 = res.map(async (el: any) => {
         return await deleteData(Stores.PdfData2, el.id)
