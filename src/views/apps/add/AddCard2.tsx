@@ -257,7 +257,33 @@ const AddCard = (props: Props) => {
   }
 
   const handleSet1000Item = async () => {
-    for (let i = 5; i < 300; i++) {
+    for (let i = 1; i < 100; i++) {
+      const item = {
+        categoryId: '"2023-12-20T09:27:18.101Z"',
+        id: i,
+        local: 'test',
+        nature: 'Fuild',
+        red: 'B0',
+        rep: i,
+        saved: false,
+        type: 'Filtre bride '
+      }
+      await addData(Stores.PdfData2, { ...item })
+    }
+    for (let i = 101; i < 200; i++) {
+      const item = {
+        categoryId: '"2023-12-20T09:27:18.101Z"',
+        id: i,
+        local: 'test',
+        nature: 'Fuild',
+        red: 'B1',
+        rep: i,
+        saved: false,
+        type: 'Filtre bride '
+      }
+      await addData(Stores.PdfData2, { ...item })
+    }
+    for (let i = 201; i < 300; i++) {
       const item = {
         categoryId: '"2023-12-20T09:27:18.101Z"',
         id: i,
@@ -270,26 +296,118 @@ const AddCard = (props: Props) => {
       }
       await addData(Stores.PdfData2, { ...item })
     }
-    for (let i = 300; i < 600; i++) {
-      const item = {
-        categoryId: '"2023-12-20T09:27:18.101Z"',
-        id: i,
-        local: 'test',
-        nature: 'Fuild',
-        red: 'B2',
-        rep: i,
-        saved: false,
-        type: 'Filtre bride '
-      }
-      await addData(Stores.PdfData2, { ...item })
-    }
-    for (let i = 600; i < 900; i++) {
+    for (let i = 301; i < 400; i++) {
       const item = {
         categoryId: '"2023-12-20T09:27:18.101Z"',
         id: i,
         local: 'test',
         nature: 'Fuild',
         red: 'B3',
+        rep: i,
+        saved: false,
+        type: 'Filtre bride '
+      }
+      await addData(Stores.PdfData2, { ...item })
+    }
+    for (let i = 401; i < 500; i++) {
+      const item = {
+        categoryId: '"2023-12-20T09:27:18.101Z"',
+        id: i,
+        local: 'test',
+        nature: 'Fuild',
+        red: 'B4',
+        rep: i,
+        saved: false,
+        type: 'Filtre bride '
+      }
+      await addData(Stores.PdfData2, { ...item })
+    }
+    for (let i = 501; i < 600; i++) {
+      const item = {
+        categoryId: '"2023-12-20T09:27:18.101Z"',
+        id: i,
+        local: 'test',
+        nature: 'Fuild',
+        red: 'B5',
+        rep: i,
+        saved: false,
+        type: 'Filtre bride '
+      }
+      await addData(Stores.PdfData2, { ...item })
+    }
+    for (let i = 601; i < 700; i++) {
+      const item = {
+        categoryId: '"2023-12-20T09:27:18.101Z"',
+        id: i,
+        local: 'test',
+        nature: 'Fuild',
+        red: 'B6',
+        rep: i,
+        saved: false,
+        type: 'Filtre bride '
+      }
+      await addData(Stores.PdfData2, { ...item })
+    }
+    for (let i = 701; i < 800; i++) {
+      const item = {
+        categoryId: '"2023-12-20T09:27:18.101Z"',
+        id: i,
+        local: 'test',
+        nature: 'Fuild',
+        red: 'B7',
+        rep: i,
+        saved: false,
+        type: 'Filtre bride '
+      }
+      await addData(Stores.PdfData2, { ...item })
+    }
+    for (let i = 801; i < 900; i++) {
+      const item = {
+        categoryId: '"2023-12-20T09:27:18.101Z"',
+        id: i,
+        local: 'test',
+        nature: 'Fuild',
+        red: 'T0',
+        rep: i,
+        saved: false,
+        type: 'Filtre bride '
+      }
+      await addData(Stores.PdfData2, { ...item })
+    }
+    for (let i = 901; i < 1000; i++) {
+      const item = {
+        categoryId: '"2023-12-20T09:27:18.101Z"',
+        id: i,
+        local: 'test',
+        nature: 'Fuild',
+        red: 'T1',
+        rep: i,
+        saved: false,
+        type: 'Filtre bride '
+      }
+      await addData(Stores.PdfData2, { ...item })
+    }
+    for (let i = 1001; i < 1100; i++) {
+      const item = {
+        categoryId: '"2023-12-20T09:27:18.101Z"',
+        id: i,
+        local: 'test',
+        nature: 'Fuild',
+        red: 'T2',
+        rep: i,
+        saved: false,
+        type: 'Filtre bride '
+      }
+
+      await addData(Stores.PdfData2, { ...item })
+    }
+    for (let i = 11001; i < 1200; i++) {
+      const item = {
+        categoryId: '"2023-12-20T09:27:18.101Z"',
+        id: i,
+        local: 'test',
+        nature: 'Fuild',
+        red: 'T3',
         rep: i,
         saved: false,
         type: 'Filtre bride '
