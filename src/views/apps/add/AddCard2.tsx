@@ -256,165 +256,165 @@ const AddCard = (props: Props) => {
     return new Intl.DateTimeFormat('fr-FR', options).format(newData)
   }
 
-  const handleSet1000Item = async () => {
-    for (let i = 1; i < 100; i++) {
-      const item = {
-        categoryId: '"2023-12-20T09:27:18.101Z"',
-        id: i,
-        local: 'test',
-        nature: 'Fuild',
-        red: 'B0',
-        rep: i,
-        saved: false,
-        type: 'Filtre bride '
-      }
-      await addData(Stores.PdfData2, { ...item })
-    }
-    for (let i = 101; i < 200; i++) {
-      const item = {
-        categoryId: '"2023-12-20T09:27:18.101Z"',
-        id: i,
-        local: 'test',
-        nature: 'Fuild',
-        red: 'B1',
-        rep: i,
-        saved: false,
-        type: 'Filtre bride '
-      }
-      await addData(Stores.PdfData2, { ...item })
-    }
-    for (let i = 201; i < 300; i++) {
-      const item = {
-        categoryId: '"2023-12-20T09:27:18.101Z"',
-        id: i,
-        local: 'test',
-        nature: 'Fuild',
-        red: 'B2',
-        rep: i,
-        saved: false,
-        type: 'Filtre bride '
-      }
-      await addData(Stores.PdfData2, { ...item })
-    }
-    for (let i = 301; i < 400; i++) {
-      const item = {
-        categoryId: '"2023-12-20T09:27:18.101Z"',
-        id: i,
-        local: 'test',
-        nature: 'Fuild',
-        red: 'B3',
-        rep: i,
-        saved: false,
-        type: 'Filtre bride '
-      }
-      await addData(Stores.PdfData2, { ...item })
-    }
-    for (let i = 401; i < 500; i++) {
-      const item = {
-        categoryId: '"2023-12-20T09:27:18.101Z"',
-        id: i,
-        local: 'test',
-        nature: 'Fuild',
-        red: 'B4',
-        rep: i,
-        saved: false,
-        type: 'Filtre bride '
-      }
-      await addData(Stores.PdfData2, { ...item })
-    }
-    for (let i = 501; i < 600; i++) {
-      const item = {
-        categoryId: '"2023-12-20T09:27:18.101Z"',
-        id: i,
-        local: 'test',
-        nature: 'Fuild',
-        red: 'B5',
-        rep: i,
-        saved: false,
-        type: 'Filtre bride '
-      }
-      await addData(Stores.PdfData2, { ...item })
-    }
-    for (let i = 601; i < 700; i++) {
-      const item = {
-        categoryId: '"2023-12-20T09:27:18.101Z"',
-        id: i,
-        local: 'test',
-        nature: 'Fuild',
-        red: 'B6',
-        rep: i,
-        saved: false,
-        type: 'Filtre bride '
-      }
-      await addData(Stores.PdfData2, { ...item })
-    }
-    for (let i = 701; i < 800; i++) {
-      const item = {
-        categoryId: '"2023-12-20T09:27:18.101Z"',
-        id: i,
-        local: 'test',
-        nature: 'Fuild',
-        red: 'B7',
-        rep: i,
-        saved: false,
-        type: 'Filtre bride '
-      }
-      await addData(Stores.PdfData2, { ...item })
-    }
-    for (let i = 801; i < 900; i++) {
-      const item = {
-        categoryId: '"2023-12-20T09:27:18.101Z"',
-        id: i,
-        local: 'test',
-        nature: 'Fuild',
-        red: 'T0',
-        rep: i,
-        saved: false,
-        type: 'Filtre bride '
-      }
-      await addData(Stores.PdfData2, { ...item })
-    }
-    for (let i = 901; i < 1000; i++) {
-      const item = {
-        categoryId: '"2023-12-20T09:27:18.101Z"',
-        id: i,
-        local: 'test',
-        nature: 'Fuild',
-        red: 'T1',
-        rep: i,
-        saved: false,
-        type: 'Filtre bride '
-      }
-      await addData(Stores.PdfData2, { ...item })
-    }
-    for (let i = 1001; i < 1100; i++) {
-      const item = {
-        categoryId: '"2023-12-20T09:27:18.101Z"',
-        id: i,
-        local: 'test',
-        nature: 'Fuild',
-        red: 'T2',
-        rep: i,
-        saved: false,
-        type: 'Filtre bride '
-      }
+  // const handleSet1000Item = async () => {
+  //   for (let i = 1; i < 100; i++) {
+  //     const item = {
+  //       categoryId: '"2023-12-20T09:27:18.101Z"',
+  //       id: i,
+  //       local: 'test',
+  //       nature: 'Fuild',
+  //       red: 'B0',
+  //       rep: i,
+  //       saved: false,
+  //       type: 'Filtre bride '
+  //     }
+  //     await addData(Stores.PdfData2, { ...item })
+  //   }
+  //   for (let i = 101; i < 200; i++) {
+  //     const item = {
+  //       categoryId: '"2023-12-20T09:27:18.101Z"',
+  //       id: i,
+  //       local: 'test',
+  //       nature: 'Fuild',
+  //       red: 'B1',
+  //       rep: i,
+  //       saved: false,
+  //       type: 'Filtre bride '
+  //     }
+  //     await addData(Stores.PdfData2, { ...item })
+  //   }
+  //   for (let i = 201; i < 300; i++) {
+  //     const item = {
+  //       categoryId: '"2023-12-20T09:27:18.101Z"',
+  //       id: i,
+  //       local: 'test',
+  //       nature: 'Fuild',
+  //       red: 'B2',
+  //       rep: i,
+  //       saved: false,
+  //       type: 'Filtre bride '
+  //     }
+  //     await addData(Stores.PdfData2, { ...item })
+  //   }
+  //   for (let i = 301; i < 400; i++) {
+  //     const item = {
+  //       categoryId: '"2023-12-20T09:27:18.101Z"',
+  //       id: i,
+  //       local: 'test',
+  //       nature: 'Fuild',
+  //       red: 'B3',
+  //       rep: i,
+  //       saved: false,
+  //       type: 'Filtre bride '
+  //     }
+  //     await addData(Stores.PdfData2, { ...item })
+  //   }
+  //   for (let i = 401; i < 500; i++) {
+  //     const item = {
+  //       categoryId: '"2023-12-20T09:27:18.101Z"',
+  //       id: i,
+  //       local: 'test',
+  //       nature: 'Fuild',
+  //       red: 'B4',
+  //       rep: i,
+  //       saved: false,
+  //       type: 'Filtre bride '
+  //     }
+  //     await addData(Stores.PdfData2, { ...item })
+  //   }
+  //   for (let i = 501; i < 600; i++) {
+  //     const item = {
+  //       categoryId: '"2023-12-20T09:27:18.101Z"',
+  //       id: i,
+  //       local: 'test',
+  //       nature: 'Fuild',
+  //       red: 'B5',
+  //       rep: i,
+  //       saved: false,
+  //       type: 'Filtre bride '
+  //     }
+  //     await addData(Stores.PdfData2, { ...item })
+  //   }
+  //   for (let i = 601; i < 700; i++) {
+  //     const item = {
+  //       categoryId: '"2023-12-20T09:27:18.101Z"',
+  //       id: i,
+  //       local: 'test',
+  //       nature: 'Fuild',
+  //       red: 'B6',
+  //       rep: i,
+  //       saved: false,
+  //       type: 'Filtre bride '
+  //     }
+  //     await addData(Stores.PdfData2, { ...item })
+  //   }
+  //   for (let i = 701; i < 800; i++) {
+  //     const item = {
+  //       categoryId: '"2023-12-20T09:27:18.101Z"',
+  //       id: i,
+  //       local: 'test',
+  //       nature: 'Fuild',
+  //       red: 'B7',
+  //       rep: i,
+  //       saved: false,
+  //       type: 'Filtre bride '
+  //     }
+  //     await addData(Stores.PdfData2, { ...item })
+  //   }
+  //   for (let i = 801; i < 900; i++) {
+  //     const item = {
+  //       categoryId: '"2023-12-20T09:27:18.101Z"',
+  //       id: i,
+  //       local: 'test',
+  //       nature: 'Fuild',
+  //       red: 'T0',
+  //       rep: i,
+  //       saved: false,
+  //       type: 'Filtre bride '
+  //     }
+  //     await addData(Stores.PdfData2, { ...item })
+  //   }
+  //   for (let i = 901; i < 1000; i++) {
+  //     const item = {
+  //       categoryId: '"2023-12-20T09:27:18.101Z"',
+  //       id: i,
+  //       local: 'test',
+  //       nature: 'Fuild',
+  //       red: 'T1',
+  //       rep: i,
+  //       saved: false,
+  //       type: 'Filtre bride '
+  //     }
+  //     await addData(Stores.PdfData2, { ...item })
+  //   }
+  //   for (let i = 1001; i < 1100; i++) {
+  //     const item = {
+  //       categoryId: '"2023-12-20T09:27:18.101Z"',
+  //       id: i,
+  //       local: 'test',
+  //       nature: 'Fuild',
+  //       red: 'T2',
+  //       rep: i,
+  //       saved: false,
+  //       type: 'Filtre bride '
+  //     }
 
-      await addData(Stores.PdfData2, { ...item })
-    }
-    for (let i = 11001; i < 1200; i++) {
-      const item = {
-        categoryId: '"2023-12-20T09:27:18.101Z"',
-        id: i,
-        local: 'test',
-        nature: 'Fuild',
-        red: 'T3',
-        rep: i,
-        saved: false,
-        type: 'Filtre bride '
-      }
-      await addData(Stores.PdfData2, { ...item })
-    }
-  }
+  //     await addData(Stores.PdfData2, { ...item })
+  //   }
+  //   for (let i = 11001; i < 1200; i++) {
+  //     const item = {
+  //       categoryId: '"2023-12-20T09:27:18.101Z"',
+  //       id: i,
+  //       local: 'test',
+  //       nature: 'Fuild',
+  //       red: 'T3',
+  //       rep: i,
+  //       saved: false,
+  //       type: 'Filtre bride '
+  //     }
+  //     await addData(Stores.PdfData2, { ...item })
+  //   }
+  // }
   const handleAddNewLine = async () => {
     if (materials.length == 0) {
       toast.error('voter stock est terminer !')
@@ -437,6 +437,36 @@ const AddCard = (props: Props) => {
         lastData.type = ''
         lastData.red = ''
         lastData.nature = ''
+        lastData.saved = false
+        await addData(Stores.PdfData2, { ...lastData })
+        localStorage.setItem('lastId', JSON.stringify(id + 1))
+        setCount(count + 1)
+        handleSetCount()
+        handleFetchData()
+      } catch (err) {
+        toast.error('opps !')
+      }
+    }
+  }
+  const copierline = async () => {
+    if (materials.length == 0) {
+      toast.error('voter stock est terminer !')
+
+      return
+    } else {
+      const id = Number(localStorage.getItem('lastId'))
+
+      const index = data.findIndex((el: any) => el.id.toString() == id.toString())
+
+      const lastData = data[index]
+      if (lastData?.local == '' || lastData?.red == '' || lastData?.type == '') {
+        toast.error('completez le premier linge stp !')
+
+        return
+      }
+      try {
+        lastData.rep += 1
+        lastData.id += 1
         lastData.saved = false
         await addData(Stores.PdfData2, { ...lastData })
         localStorage.setItem('lastId', JSON.stringify(id + 1))
@@ -758,14 +788,16 @@ const AddCard = (props: Props) => {
           <Button variant='contained' onClick={() => handleAddNewItem()}>
             {data.length > 0 ? 'Changement de chaufferie' : 'Ajouter'}
           </Button>
-          <Button variant='contained' onClick={() => handleSet1000Item()}>
-            handleSet1000Item
-          </Button>
 
           {data.length > 0 && (
-            <Button variant='contained' onClick={() => handleAddNewLine()}>
-              Ajouter un ligne
-            </Button>
+            <>
+              <Button variant='contained' onClick={() => copierline()}>
+                copier un ligne
+              </Button>
+              <Button variant='contained' onClick={() => handleAddNewLine()}>
+                Ajouter un ligne
+              </Button>
+            </>
           )}
         </Grid>
       </Grid>

@@ -250,6 +250,36 @@ const AddCard = (props: Props) => {
       }
     }
   }
+  const copierline = async () => {
+    if (materials.length == 0) {
+      toast.error('voter stock est terminer !')
+
+      return
+    } else {
+      const id = Number(localStorage.getItem('lastId'))
+
+      const index = data.findIndex((el: any) => el.id.toString() == id.toString())
+
+      const lastData = data[index]
+      if (lastData?.local == '' || lastData?.red == '' || lastData?.type == '') {
+        toast.error('completez le premier linge stp !')
+
+        return
+      }
+      try {
+        lastData.rep += 1
+        lastData.id += 1
+        lastData.saved = false
+        await addData(Stores.PdfData2, { ...lastData })
+        localStorage.setItem('lastId', JSON.stringify(id + 1))
+        setCount(count + 1)
+        handleSetCount()
+        handleFetchData()
+      } catch (err) {
+        toast.error('opps !')
+      }
+    }
+  }
   const formateDate = (date: any) => {
     // Format options for the date in French
     const newData = new Date(date)
@@ -635,9 +665,14 @@ const AddCard = (props: Props) => {
             {data.length > 0 ? 'Changement de chaufferie' : 'Ajouter'}
           </Button>
           {data.length > 0 && (
-            <Button variant='contained' onClick={() => handleAddNewLine()}>
-              Ajouter un ligne
-            </Button>
+            <>
+              <Button variant='contained' onClick={() => copierline()}>
+                copier un ligne
+              </Button>
+              <Button variant='contained' onClick={() => handleAddNewLine()}>
+                Ajouter un ligne
+              </Button>
+            </>
           )}
         </Grid>
       </Grid>
