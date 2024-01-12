@@ -261,7 +261,8 @@ const AddCard = (props: Props) => {
       const index = data.findIndex((el: any) => el.id.toString() == id.toString())
 
       const lastData = data[index]
-      if (lastData?.local == '' || lastData?.red == '' || lastData?.type == '') {
+
+      if (lastData?.local == '' || lastData?.red == '' || lastData?.type == '' || lastData?.dn == '') {
         toast.error('completez le premier linge stp !')
 
         return
@@ -269,8 +270,12 @@ const AddCard = (props: Props) => {
       try {
         lastData.rep += 1
         lastData.id += 1
+        lastData.type = ''
+        lastData.red = ''
+        lastData.nature = ''
+        lastData.dn = ''
         lastData.saved = false
-        await addData(Stores.PdfData2, { ...lastData })
+        await addData(Stores.PdfData, { ...lastData })
         localStorage.setItem('lastId', JSON.stringify(id + 1))
         setCount(count + 1)
         handleSetCount()
