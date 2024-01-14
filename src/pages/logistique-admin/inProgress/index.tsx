@@ -193,7 +193,8 @@ const UserList = () => {
       field: 'installeur',
       headerName: 'Installeur',
       renderCell: ({ row }: CellType) => {
-        const { fullName, phone } = row.instalateurId
+        const phone = row?.instalateurId?.phone
+        const fullName = row?.instalateurId?.fullName
 
         return (
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
