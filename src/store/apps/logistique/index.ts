@@ -88,7 +88,7 @@ export const fetchDataRetour = createAsyncThunk('appLogistique/fetchDataRetour',
 })
 export const fetchDataRetourAdmin = createAsyncThunk('appLogistique/fetchDataRetourAdmin', async (params: any) => {
   const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
-  const response = await axios.get(`${serverUri.uri}/api/charge/admin/retour`, {
+  const response = await axios.get(`${serverUri.uri}/api/admin/retour`, {
     headers: {
       Authorization: storedToken
     },
