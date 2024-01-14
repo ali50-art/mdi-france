@@ -201,6 +201,18 @@ const AdminDashboard = () => {
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 50 })
   const [page, setPage] = useState<number>(1)
   const [pageSize, setpageSize] = useState<number>(50)
+  const handleAdress = (address: any) => {
+    let end = 0
+    let start = 0
+    const arr = []
+    while (end < address.length) {
+      end += 10
+      arr.push(address.slice(start, end))
+      start = end + 1
+    }
+
+    return arr
+  }
   const handlePageSizeChange = (params: any) => {
     setPage(params.page + 1)
     setpageSize(params.pageSize)
@@ -245,7 +257,13 @@ const AdminDashboard = () => {
       renderCell: ({ row }: CellType) => {
         return (
           <Typography noWrap sx={{ fontWeight: 500, color: 'text.secondary', textTransform: 'capitalize' }}>
-            {row.clientAdress}
+            {handleAdress(row.clientAdress).map(el => {
+              return (
+                <>
+                  {el} <br />
+                </>
+              )
+            })}
           </Typography>
         )
       }

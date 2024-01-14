@@ -84,7 +84,6 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
     const type = localStorage.getItem('pdfType')
     if (type == 'residentiel') {
       const res = await getStoreData(Stores.PdfData)
-      console.log('res : ', res)
 
       const res2: any = await getStoreData(Stores.PdfInfo)
       const newArr: any = []
@@ -110,7 +109,6 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
         }
         newArr.push(newObj)
       }
-      await dispatch(addPdf(newArr))
 
       const promises2 = res.map(async (el: any) => {
         const res = await deleteData(Stores.PdfData, el.id)
@@ -125,6 +123,8 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
       await deleteData(Stores.PdfInfo, res2[0].id)
       handleActiStepTOfirstStep()
       setLoading(false)
+      await dispatch(addPdf(newArr))
+      auth.getProfile()
     } else {
       const res = await getStoreData(Stores.PdfData2)
       console.log('res : ', res)
@@ -152,8 +152,6 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
         }
         newArr.push(newObj)
       }
-      await dispatch(addPdf(newArr))
-
       const promises2 = res.map(async (el: any) => {
         return await deleteData(Stores.PdfData2, el.id)
       })
@@ -162,8 +160,9 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
       toast.success('pdf envoyé avec succée')
       localStorage.removeItem('pdfInfoId')
       handleActiStepTOfirstStep()
-      auth.getProfile()
       setLoading(false)
+      await dispatch(addPdf(newArr))
+      auth.getProfile()
     }
   }
 

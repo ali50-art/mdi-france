@@ -129,6 +129,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
       head: [tableHeader],
       body: data2
     })
+    pdf.addPage()
     pdf.setFontSize(10)
     pdf.text('Les éléments déclarés ci-dessus sont à titre indicatif', 30, pdf.autoTable.previous.finalY + 40)
     pdf.setFontSize(13)
