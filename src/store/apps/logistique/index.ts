@@ -42,9 +42,53 @@ export const fetchData = createAsyncThunk('appLogistique/fetchData', async (para
 })
 
 // ** Fetch Users
+export const fetchDataAdmin = createAsyncThunk('appLogistique/fetchDataAdmin', async (params: any) => {
+  const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
+  const response = await axios.get(`${serverUri.uri}/api/admin/charge`, {
+    headers: {
+      Authorization: storedToken
+    },
+    params
+  })
+
+  //   const response2 = await axios.get(`${serverUri.uri}/api/charge/count`, {
+  //     headers: {
+  //       Authorization: storedToken
+  //     },
+  //     params
+  //   })
+
+  const dataCoipe = { ...response.data.data }
+  dataCoipe.docs.forEach((element: any) => (element.id = element._id))
+
+  return { dataCoipe, count: 0 }
+})
+
+// ** Fetch Users
 export const fetchDataRetour = createAsyncThunk('appLogistique/fetchDataRetour', async (params: any) => {
   const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
   const response = await axios.get(`${serverUri.uri}/api/charge/retour`, {
+    headers: {
+      Authorization: storedToken
+    },
+    params
+  })
+
+  //   const response2 = await axios.get(`${serverUri.uri}/api/charge/count`, {
+  //     headers: {
+  //       Authorization: storedToken
+  //     },
+  //     params
+  //   })
+
+  const dataCoipe = { ...response.data.data }
+  dataCoipe.docs.forEach((element: any) => (element.id = element._id))
+
+  return { dataCoipe, count: 0 }
+})
+export const fetchDataRetourAdmin = createAsyncThunk('appLogistique/fetchDataRetourAdmin', async (params: any) => {
+  const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
+  const response = await axios.get(`${serverUri.uri}/api/charge/admin/retour`, {
     headers: {
       Authorization: storedToken
     },
@@ -208,6 +252,23 @@ export const appLogistiqueSlice: any = createSlice({
         state.isLoading = false
       })
     builder
+      .addCase(fetchDataAdmin.pending, state => {
+        state.isLoading = true
+      })
+      .addCase(fetchDataAdmin.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.data = action.payload.dataCoipe.docs
+        state.total = action.payload.dataCoipe.meta.totalDocs
+        state.params = state.allData = action.payload.dataCoipe
+        state.page = action.payload.dataCoipe.meta.page
+
+        state.count = action.payload.count
+      })
+      .addCase(fetchDataAdmin.rejected, state => {
+        state.isLoading = false
+      })
+
+    builder
       .addCase(fetchDataRetour.pending, state => {
         state.isLoading = true
       })
@@ -223,6 +284,23 @@ export const appLogistiqueSlice: any = createSlice({
       .addCase(fetchDataRetour.rejected, state => {
         state.isLoading = false
       })
+    builder
+      .addCase(fetchDataRetourAdmin.pending, state => {
+        state.isLoading = true
+      })
+      .addCase(fetchDataRetourAdmin.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.data = action.payload.dataCoipe.docs
+        state.total = action.payload.dataCoipe.meta.totalDocs
+        state.params = state.allData = action.payload.dataCoipe
+        state.page = action.payload.dataCoipe.meta.page
+
+        state.count = action.payload.count
+      })
+      .addCase(fetchDataRetourAdmin.rejected, state => {
+        state.isLoading = false
+      })
+
     builder.addCase(getAllRetourMaterail.fulfilled, (state, action) => {
       state.matData = action.payload
     })

@@ -64,6 +64,26 @@ const navigation = (): VerticalNavItemsType => {
       ]
     },
     {
+      title: 'Logistique',
+      action: 'manage',
+      subject: 'logistique-admin',
+      icon: 'tabler:truck',
+      children: [
+        {
+          title: 'En cours',
+          path: '/logistique-admin/inProgress',
+          action: 'manage',
+          subject: 'logistique-admin'
+        },
+        {
+          title: 'Terminé',
+          path: '/logistique-admin/retour',
+          action: 'manage',
+          subject: 'logistique-admin'
+        }
+      ]
+    },
+    {
       sectionTitle: 'interface construction',
       action: 'read',
       subject: 'installateur-dahsboard'
