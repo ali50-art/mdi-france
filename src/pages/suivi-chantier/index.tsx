@@ -202,16 +202,23 @@ const AdminDashboard = () => {
   const [page, setPage] = useState<number>(1)
   const [pageSize, setpageSize] = useState<number>(50)
   const handleAdress = (address: any) => {
-    let end = 0
+    const arr = address.split(' ')
+    console.log('address : ', address)
+
     let start = 0
-    const arr = []
-    while (end < address.length) {
-      end += 10
-      arr.push(address.slice(start, end))
-      start = end + 1
+    let i = 1
+    const finalArr: any = []
+    while (i < arr.length) {
+      const element = `${arr[start]} ${arr[i]}`
+      finalArr.push(element)
+      start = i + 1
+      if (start == arr.length - 1) {
+        finalArr.push(arr[start])
+      }
+      i += 2
     }
 
-    return arr
+    return finalArr
   }
   const handlePageSizeChange = (params: any) => {
     setPage(params.page + 1)
@@ -257,7 +264,7 @@ const AdminDashboard = () => {
       renderCell: ({ row }: CellType) => {
         return (
           <Typography noWrap sx={{ fontWeight: 500, color: 'text.secondary', textTransform: 'capitalize' }}>
-            {handleAdress(row.clientAdress).map(el => {
+            {handleAdress(row.clientAdress).map((el: any) => {
               return (
                 <>
                   {el} <br />
