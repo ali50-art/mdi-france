@@ -257,7 +257,7 @@ const UserList = () => {
             handleFilter={handleFilter}
             toggle={toggleAddMaterialDialog}
             withName={false}
-            url='/logistique/retour/'
+            url='/logistique-admin/retour/'
           />
           <DataGrid
             autoHeight

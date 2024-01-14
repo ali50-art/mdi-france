@@ -152,7 +152,7 @@ const UserList = () => {
         >
           <Typography
             noWrap
-            href={`/logistique/inProgress/${id}`}
+            href={`/logistique-admin/inProgress/${id}`}
             component={Link}
             sx={{
               fontWeight: 500,

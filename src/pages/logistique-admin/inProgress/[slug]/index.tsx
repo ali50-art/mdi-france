@@ -274,7 +274,7 @@ const UserList = () => {
             toggle={toggleAddMaterialDialog}
             name='recharger'
             withName={true}
-            url='/logistique/inProgress/'
+            url='/logistique-admin/inProgress/'
           />
           <DataGrid
             autoHeight
