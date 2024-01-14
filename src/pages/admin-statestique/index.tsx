@@ -5,8 +5,14 @@ import { Grid } from '@mui/material'
 const AdminStat = () => {
   return (
     <Grid container spacing={6.5}>
-      <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '20rem' }}>
-        <img src='/images/inWork.jpg' alt='' />
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '4rem' }}>
+        <img
+          src='/images/inWork.jpg'
+          alt=''
+          style={{
+            width: '50%'
+          }}
+        />
       </div>
     </Grid>
   )
