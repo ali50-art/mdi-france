@@ -131,14 +131,12 @@ const PDFGenerator = ({ data, data2 }: any) => {
     })
     pdf.addPage()
     pdf.setFontSize(10)
-    const remainingSpace = pdf.internal.pageSize.height - pdf.autoTable.previous.finalY
-
-    pdf.text('Les éléments déclarés ci-dessus sont à titre indicatif', 30, remainingSpace + 5)
+    pdf.text('Les éléments déclarés ci-dessus sont à titre indicatif', 30, 5)
     pdf.setFontSize(13)
-    pdf.text('Signature + Date + Cachet ', 42, remainingSpace + 14)
-    pdf.text('Signature + Date + Cachet ', 210, remainingSpace + 14)
-    pdf.text('Nom/Prénom/Fonction du représentant : ', 30, remainingSpace + 20)
-    pdf.text('Nom/Prénom/Fonction du bénéficiare : ', 200, remainingSpace + 20)
+    pdf.text('Signature + Date + Cachet ', 42, 14)
+    pdf.text('Signature + Date + Cachet ', 210, 14)
+    pdf.text('Nom/Prénom/Fonction du représentant : ', 30, 20)
+    pdf.text('Nom/Prénom/Fonction du bénéficiare : ', 200, 20)
 
     // Save the PDF using save() method
     pdf.save('RES/TER.pdf')
