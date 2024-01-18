@@ -216,7 +216,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.addPage()
     pdf.setFontSize(10)
 
-    pdf.text('Les éléments déclarés ci-dessus sont à titre indicatif', 10, 20)
+    pdf.text('Les éléments déclarés ci-dessus sont à titre indicatif', 30, 20)
     pdf.setFontSize(13)
     pdf.text('Signature + Date + Cachet ', 42, 34)
     pdf.text('Signature + Date + Cachet ', 210, 34)
