@@ -220,6 +220,10 @@ const ApexDonutChart = () => {
   }, [chantier, instalateurs, materials, startDate, endDate])
   const customSelectChnatier: any = [
     {
+      label: 'tout',
+      value: ''
+    },
+    {
       label: 'RES/TER',
       value: 'residentiel'
     },

@@ -159,7 +159,20 @@ const ApexDonutChart = () => {
   }
   const store: any = useSelector((state: RootState) => state.user)
   const store2: any = useSelector((state: RootState) => state.material)
-
+  const customSelectChnatier: any = [
+    {
+      label: 'tout',
+      value: ''
+    },
+    {
+      label: 'RES/TER',
+      value: 'residentiel'
+    },
+    {
+      label: 'Industrie',
+      value: 'indestrie'
+    }
+  ]
   useEffect(() => {
     dispatch(
       AllUsers({
@@ -236,7 +249,7 @@ const ApexDonutChart = () => {
                 placeholderText='Cliquez pour sélectionner une date'
                 customInput={<CustomInput start={startDate as Date | number} end={endDate as Date | number} />}
               />
-              <CustomSelect setChantier={setChantier} />
+              <CustomSelect data={customSelectChnatier} haseAll={true} setData={setChantier} />
             </Box>
             <Box style={{ width: '100%' }}>
               <CustomInputCheckBox data={store.data} setData={setInstalateurs} />

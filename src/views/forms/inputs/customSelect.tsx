@@ -22,14 +22,11 @@ const SelectCustom = ({ data, setData, haseAll }: any) => {
       onChange={handleSelect}
     >
       {data?.map((el: any, i: number) => {
-        if (haseAll && i == 0) {
+        if (i == 0) {
           return (
-            <>
-              <MenuItem value=''>
-                <em>Tout</em>
-              </MenuItem>
-              <MenuItem value={el.value}>{el.label}</MenuItem>
-            </>
+            <MenuItem key={i} value={el.value}>
+              <em>{el.label}</em>
+            </MenuItem>
           )
         } else {
           return (

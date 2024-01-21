@@ -61,15 +61,15 @@ const AdminStat = () => {
             <Card sx={{ position: 'relative' }}>
               <CardContent>
                 <Typography variant='h5' sx={{ mb: 0.5 }}>
-                  Congratulations Aurelien! 🎉
+                  félicitations Aurélien! 🎉
                 </Typography>
-                <Typography sx={{ mb: 2, color: 'text.secondary' }}>le Totlal de Coussien utlisé</Typography>
+                <Typography sx={{ mb: 2, color: 'text.secondary' }}>le total des coussins installés est de</Typography>
                 <Typography variant='h4' sx={{ mb: 0.75, color: 'primary.main' }}>
                   {stat.data3.TotalUsed}
                 </Typography>
                 <Button variant='contained'>
                   <Link href={'/suivi-chantier'} style={{ textDecoration: 'none', color: '#fff' }}>
-                    Suivi les Chantiers
+                    Suivi des chantiers
                   </Link>
                 </Button>
                 <Illustration width={116} alt='congratulations john' src='/images/cards/congratulations-john.png' />

@@ -26,14 +26,14 @@ const EcommerceStatistics = ({ stat }: any) => {
   const data: DataType[] = [
     {
       stats: stat.TotalTraiter,
-      title: 'Trait',
+      title: 'Chantier Traité',
       color: 'primary',
       icon: 'tabler:chart-pie-2'
     },
     {
       color: 'error',
       stats: stat.TotlalNotTraiter,
-      title: 'No Trait',
+      title: 'Chantier Non Traité',
       icon: 'tabler:chart-pie-2'
     },
     {
@@ -69,7 +69,7 @@ const EcommerceStatistics = ({ stat }: any) => {
   return (
     <Card>
       <CardHeader
-        title='Statistics'
+        title='Statistique'
         sx={{ '& .MuiCardHeader-action': { m: 0, alignSelf: 'center' } }}
         action={<Typography variant='body2' sx={{ color: 'text.disabled' }}></Typography>}
       />
