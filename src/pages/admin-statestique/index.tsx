@@ -4,7 +4,8 @@ import { styled } from '@mui/material/styles'
 import EcommerceStatistics from '../../views/pages/dashboard/stat'
 import Donate from '../../views/pages/dashboard/donate'
 import Donate2 from '../../views/pages/dashboard/donate2'
-import * as humanize from 'humanize-plus'
+
+// import * as humanize from 'humanize-plus'
 
 // ** Styled Component
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
