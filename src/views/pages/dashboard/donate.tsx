@@ -227,12 +227,12 @@ const ApexDonutChart = () => {
     if (startDate) {
       const date = new Date(startDate)
       date.setDate(date.getDate() + 1)
-      x = startDate
+      x = date
     }
     if (endDate) {
       const date = new Date(endDate)
       date.setDate(date.getDate() + 1)
-      y = startDate
+      y = date
     }
 
     dispatch(
