@@ -208,13 +208,25 @@ const ApexDonutChart = () => {
     )
   })
   useEffect(() => {
+    let x: any = startDate
+    let y: any = endDate
+    if (startDate) {
+      const date = new Date(startDate)
+      date.setDate(date.getDate() + 1)
+      x = startDate
+    }
+    if (endDate) {
+      const date = new Date(endDate)
+      date.setDate(date.getDate() + 1)
+      y = startDate
+    }
     dispatch(
       fetchStatInstalateur({
         chantier,
         instalateurs,
         materials,
-        startDate,
-        endDate
+        startDate: x,
+        endDate: y
       })
     )
   }, [chantier, instalateurs, materials, startDate, endDate])
