@@ -43,13 +43,14 @@ const AdminStat = () => {
     dispatch(dashboardStat())
   }, [])
   const stat: any = useSelector((state: RootState) => state.stat)
-  const HandleNumber = (number: any) => {
-    if (!number) {
-      return humanize.compactInteger(0, 1e3)
-    } else {
-      return humanize.compactInteger(number, 1e3)
-    }
-  }
+
+  // const HandleNumber = (number: any) => {
+  //   if (!number) {
+  //     return humanize.compactInteger(0, 1e3)
+  //   } else {
+  //     return humanize.compactInteger(number, 1e3)
+  //   }
+  // }
 
   return (
     <ApexChartWrapper>
