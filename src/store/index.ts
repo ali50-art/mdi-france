@@ -12,6 +12,7 @@ import pdf from './apps/pdf'
 import suiveChantier from './apps/suiveChantier'
 import suiviChantierPdf from './apps/suiviChantierPdf'
 import instalateurHistorique from './apps/instalateur-historique'
+import stat from './apps/state'
 
 export const store = configureStore({
   reducer: {
@@ -23,7 +24,8 @@ export const store = configureStore({
     instalateurHistorique,
     pdf,
     suiveChantier,
-    suiviChantierPdf
+    suiviChantierPdf,
+    stat
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
