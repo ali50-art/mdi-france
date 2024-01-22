@@ -256,7 +256,7 @@ const ApexDonutChart = () => {
       <CardHeader
         title='installateur'
         action={
-          <Box style={{ display: 'flex', gap: '0.5rem', width: '100%', flexWrap: 'wrap' }}>
+          <Box style={{ display: 'flex', gap: '0.5rem', width: '100%' }}>
             <Box style={{ width: '100%', display: 'flex', gap: '0.5rem' }}>
               <DatePicker
                 selectsRange
@@ -270,7 +270,7 @@ const ApexDonutChart = () => {
               />
               <CustomSelect data={customSelectChnatier} haseAll={true} setData={setChantier} />
             </Box>
-            <Box style={{ width: '100%' }}>
+            <Box>
               <CustomInputCheckBox data={store.data} setData={setInstalateurs} />
             </Box>
             <Box style={{ width: '100%' }}>

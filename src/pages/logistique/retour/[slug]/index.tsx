@@ -180,7 +180,7 @@ const UserList = () => {
       renderCell: ({ row }: CellType) => {
         return (
           <Typography noWrap sx={{ color: 'text.secondary' }}>
-            {formateDate(row?.updatedAt)}
+            {formateDate(row?.createdAt)}
           </Typography>
         )
       }
