@@ -246,7 +246,7 @@ const ApexDonutChart = () => {
   ]
   const customSelectChnatierMaterail: any = []
   if (store2?.data) {
-    store2?.data?.forEach((el: any) => {
+    store2?.data.forEach((el: any) => {
       customSelectChnatierMaterail.push({ label: el.model, value: el.model })
     })
   }
