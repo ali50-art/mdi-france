@@ -20,9 +20,6 @@ import format from 'date-fns/format'
 // ** Store Imports
 import { useDispatch, useSelector } from 'react-redux'
 
-// ** Actions Imports
-import { fetchData as AllUsers } from 'src/store/apps/user'
-
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
 
@@ -35,7 +32,6 @@ import CustomInputCheckBox from '../../../views/forms/inputs/CheckboxesAutoCompl
 import CustomSelect from '../../forms/inputs/customSelect'
 
 // ** Actions Imports
-import { fetchData as fetchMaterial } from 'src/store/apps/material'
 import { fetchStatInstalateur } from 'src/store/apps/state'
 
 const donutColors: any = {
@@ -160,26 +156,6 @@ const ApexDonutChart = () => {
   const store: any = useSelector((state: RootState) => state.user)
   const store2: any = useSelector((state: RootState) => state.material)
 
-  useEffect(() => {
-    dispatch(
-      AllUsers({
-        search: 'instalateur',
-        page: 1,
-        all: true,
-        pageSize: 1000,
-        sort: 'createdAt'
-      })
-    )
-    dispatch(
-      fetchMaterial({
-        page: 1,
-        all: true,
-        pageSize: 1000,
-        sort: 'createdAt'
-      })
-    )
-  }, [dispatch])
-
   const CustomInput = forwardRef((props: any, ref) => {
     const startDate = props.start !== null ? format(props.start, 'MM/dd/yyyy') : ''
     const endDate = props.end !== null ? ` - ${format(props.end, 'MM/dd/yyyy')}` : null
@@ -256,7 +232,7 @@ const ApexDonutChart = () => {
       <CardHeader
         title='installateur'
         action={
-          <Box style={{ display: 'flex', gap: '0.5rem', width: '100%' }}>
+          <Box style={{ display: 'flex', gap: '0.5rem', width: '100%', flexWrap: 'wrap' }}>
             <Box style={{ width: '100%', display: 'flex', gap: '0.5rem' }}>
               <DatePicker
                 selectsRange
@@ -270,7 +246,7 @@ const ApexDonutChart = () => {
               />
               <CustomSelect data={customSelectChnatier} haseAll={true} setData={setChantier} />
             </Box>
-            <Box>
+            <Box style={{ width: '100%' }}>
               <CustomInputCheckBox data={store.data} setData={setInstalateurs} />
             </Box>
             <Box style={{ width: '100%' }}>
