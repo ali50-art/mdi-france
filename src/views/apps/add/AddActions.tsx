@@ -127,7 +127,7 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
       auth.getProfile()
     } else {
       const res = await getStoreData(Stores.PdfData2)
-      console.log('res : ', res)
+
       const res2: any = await getStoreData(Stores.PdfInfo)
       const newArr: any = []
       for (let i = 0; i < res.length; i++) {

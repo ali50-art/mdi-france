@@ -203,8 +203,7 @@ const AdminDashboard = () => {
   const [pageSize, setpageSize] = useState<number>(50)
   const handleAdress = (address: any) => {
     const arr = address.split(' ')
-    console.log('address : ', address)
-
+    if (arr.length == 1) return arr
     let start = 0
     let i = 1
     const finalArr: any = []
@@ -236,6 +235,8 @@ const AdminDashboard = () => {
   // Handle Edit dialog
   // const handleEditClickOpen = () => setOpenEdit(true)
   const returnedType = (row: any) => {
+    console.log('row : ', row)
+
     if (row?.type == 'indestrie') {
       return 'industrie'
     } else {

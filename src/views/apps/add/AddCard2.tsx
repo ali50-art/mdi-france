@@ -263,7 +263,7 @@ const AddCard = (props: Props) => {
   //       id: i,
   //       local: 'test',
   //       nature: 'Fuild',
-  //       red: 'B0',
+  //       red: 'B1',
   //       rep: i,
   //       saved: false,
   //       type: 'Filtre bride '
@@ -276,7 +276,7 @@ const AddCard = (props: Props) => {
   //       id: i,
   //       local: 'test',
   //       nature: 'Fuild',
-  //       red: 'B1',
+  //       red: 'B2',
   //       rep: i,
   //       saved: false,
   //       type: 'Filtre bride '
@@ -289,7 +289,7 @@ const AddCard = (props: Props) => {
   //       id: i,
   //       local: 'test',
   //       nature: 'Fuild',
-  //       red: 'B2',
+  //       red: 'B3',
   //       rep: i,
   //       saved: false,
   //       type: 'Filtre bride '
@@ -302,7 +302,7 @@ const AddCard = (props: Props) => {
   //       id: i,
   //       local: 'test',
   //       nature: 'Fuild',
-  //       red: 'B3',
+  //       red: 'B4',
   //       rep: i,
   //       saved: false,
   //       type: 'Filtre bride '
@@ -788,7 +788,9 @@ const AddCard = (props: Props) => {
           <Button variant='contained' onClick={() => handleAddNewItem()}>
             {data.length > 0 ? 'Changement de chaufferie' : 'Ajouter'}
           </Button>
-
+          {/* <Button variant='contained' onClick={() => handleSet1000Item()}>
+            handele 1000
+          </Button> */}
           {data.length > 0 && (
             <>
               <Button variant='contained' onClick={() => copierline()}>

@@ -157,19 +157,6 @@ const StepperLinearWithValidation = ({ id }: any) => {
     } else {
       setSelectedData([])
     }
-
-    // if (selectedData.length > 0) {
-    //   setSelectedData([])
-    // }
-    // if (e) {
-    //   e.forEach((element: any) => {
-    //     const index = store.data.findIndex((el: any) => el.model == element.props.label)
-    //     if (index >= 0) {
-    //       setSelectedData((items: any) => [...items, store.data[index]._id])
-    //     }
-    //     console.log('selectedData : ', selectedData)
-    //   })
-    // }
   }
   const [type, setType] = useState<any>('')
 
