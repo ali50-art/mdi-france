@@ -243,7 +243,7 @@ const UserList = () => {
       renderCell: ({ row }: CellType) => {
         return (
           <Typography noWrap sx={{ color: 'text.secondary' }}>
-            {formateDate(row?.createdAt)}
+            {formateDate(row?.updatedAt)}
           </Typography>
         )
       }
@@ -301,11 +301,6 @@ const UserList = () => {
 
   return (
     <Grid container spacing={6.5}>
-      {/* <Grid item xs={12}>
-        <Grid item xs={12} md={3} sm={6}>
-          <CardStatsHorizontalWithDetails {...item} />
-        </Grid>
-      </Grid> */}
       <Grid item xs={12}>
         <Card>
           <CardHeader title='' />
