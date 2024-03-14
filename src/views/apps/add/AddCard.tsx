@@ -266,6 +266,12 @@ const AddCard = (props: Props) => {
 
         return
       }
+      const index2 = materials.findIndex((el: any) => el.model == lastData.red)
+      if (index2 == -1) {
+        toast.error('voter stock est terminer !')
+
+        return
+      }
       try {
         lastData.rep += 1
         lastData.id += 1
