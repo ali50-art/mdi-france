@@ -216,8 +216,6 @@ const AddCard = (props: Props) => {
       for (let i = 0; i < data.length; i++) {
         if (data[i].red == lastData.red && d == 'vanne3') {
           count += 3
-        } else {
-          count += 1
         }
       }
 
@@ -251,8 +249,6 @@ const AddCard = (props: Props) => {
     for (let i = 0; i < data.length; i++) {
       if (data[i].red == d && data[i].type == 'vanne3') {
         count += 3
-      } else {
-        count += 1
       }
     }
 
@@ -503,8 +499,6 @@ const AddCard = (props: Props) => {
       for (let i = 0; i < data.length; i++) {
         if (data[i].red == lastData.red && data[i].type == 'vanne3') {
           count += 3
-        } else {
-          count += 1
         }
       }
       const index2 = materials.findIndex((el: any) => el?.model == lastData?.red)
