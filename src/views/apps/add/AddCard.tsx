@@ -190,13 +190,22 @@ const AddCard = (props: Props) => {
       for (let i = 0; i < data.length; i++) {
         if (data[i].red == lastData.red && d == 'vanne3') {
           count += 3
-        } else {
-          count += 1
         }
       }
+
       const index2 = materials.findIndex((el: any) => el.model == lastData.red)
+      if (index2 == -1) {
+        toast.error(
+          'Stock insuffisant, Pour pouvoir rajouter Vanne 3 voie, votre stock doit être supérieur ou égal a 3'
+        )
+
+        return
+      }
+
       if (d == 'vanne3' && materials[index2]?.stock - count < 3) {
-        toast.error('pour utilisé vanne 3 voter stock doit pluse ou égal 3 !')
+        toast.error(
+          'Stock insuffisant, Pour pouvoir rajouter Vanne 3 voie, votre stock doit être supérieur ou égal a 3'
+        )
 
         return
       }
@@ -217,9 +226,13 @@ const AddCard = (props: Props) => {
     }
 
     const index2 = materials.findIndex((el: any) => el.model == d)
+    if (index2 == -1) {
+      toast.error('Stock insuffisant, Pour pouvoir rajouter Vanne 3 voie, votre stock doit être supérieur ou égal a 3')
 
+      return
+    }
     if (lastData.type == 'vanne3' && materials[index2]?.stock - count < 3) {
-      toast.error('pour utilisé vanne 3 voter stock doit pluse ou égal 3 !')
+      toast.error('Stock insuffisant, Pour pouvoir rajouter Vanne 3 voie, votre stock doit être supérieur ou égal a 3')
 
       return
     }
