@@ -463,7 +463,7 @@ const AddCard = (props: Props) => {
 
       return
     } else {
-      const id = Number(localStorage.getItem('lastId'))
+      const id = data[data.length - 1].id
 
       const index = data.findIndex((el: any) => el.id.toString() == id.toString())
 
@@ -496,7 +496,7 @@ const AddCard = (props: Props) => {
 
       return
     } else {
-      const id = Number(localStorage.getItem('lastId'))
+      const id = data[data.length - 1].id
 
       const index = data.findIndex((el: any) => el.id.toString() == id.toString())
 
