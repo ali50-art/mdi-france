@@ -146,7 +146,7 @@ const AddCard = (props: Props) => {
 
   const handleAddNewItem = async () => {
     if (materials.length == 0) {
-      toast.error('voter stock est terminer !')
+      toast.error('Stock insuffisant, Pour pouvoir rajouter Vanne 3 voie, votre stock doit être supérieur ou égal a 3')
 
       return
     } else {
@@ -448,7 +448,7 @@ const AddCard = (props: Props) => {
   // }
   const handleAddNewLine = async () => {
     if (materials.length == 0) {
-      toast.error('voter stock est terminer !')
+      toast.error('Stock insuffisant, Pour pouvoir rajouter Vanne 3 voie, votre stock doit être supérieur ou égal a 3')
 
       return
     } else {
@@ -481,7 +481,7 @@ const AddCard = (props: Props) => {
   }
   const copierline = async () => {
     if (materials.length == 0) {
-      toast.error('voter stock est terminer !')
+      toast.error('Stock insuffisant, Pour pouvoir rajouter Vanne 3 voie, votre stock doit être supérieur ou égal a 3')
 
       return
     } else {
@@ -503,12 +503,16 @@ const AddCard = (props: Props) => {
       }
       const index2 = materials.findIndex((el: any) => el?.model == lastData?.red)
       if (index2 == -1) {
-        toast.error('voter stock est terminer !')
+        toast.error(
+          'Stock insuffisant, Pour pouvoir rajouter Vanne 3 voie, votre stock doit être supérieur ou égal a 3'
+        )
 
         return
       } else {
         if (materials[index2]?.stock - count < 3) {
-          toast.error('voter stock est terminer !')
+          toast.error(
+            'Stock insuffisant, Pour pouvoir rajouter Vanne 3 voie, votre stock doit être supérieur ou égal a 3'
+          )
 
           return
         }
@@ -568,7 +572,7 @@ const AddCard = (props: Props) => {
                     <MenuItem value='Vanne Bs'>Vanne Bs</MenuItem>
                     <MenuItem value='Jeux de brides'>Jeux de brides</MenuItem>
                     <MenuItem value="Purgeur d'air fileté">Purgeur d'air fileté</MenuItem>
-                    <MenuItem value='vanne3'>Vanne 3</MenuItem>
+                    <MenuItem value='vanne3'>Vanne 3 voie</MenuItem>
                     <MenuItem value='Vanne papillon'>Vanne papillon</MenuItem>
                     <MenuItem value='Vanne TA filetée'>Vanne TA filetée</MenuItem>
                     <MenuItem value='Filtre bride'>Filtre bride </MenuItem>
