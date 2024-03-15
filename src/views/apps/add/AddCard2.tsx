@@ -98,7 +98,9 @@ const AddCard = (props: Props) => {
   const countStock = (data: any, model: any) => {
     let nb = 0
     data.forEach((el: any) => {
-      if (el.red == model) {
+      if (el.red == model && el.type == 'vanne3') {
+        nb += 3
+      } else if (el.red == model) {
         nb += 1
       }
     })
@@ -113,7 +115,7 @@ const AddCard = (props: Props) => {
       user.charge.forEach((element: any) => {
         const stockNb = countStock(data, element.model)
 
-        if (stockNb < element.stock) {
+        if (stockNb < element?.stock) {
           newMaterial.push(element)
         }
       })
@@ -209,6 +211,24 @@ const AddCard = (props: Props) => {
     const index = data.findIndex((el: any) => el.id.toString() == id.toString())
 
     const lastData = data[index]
+    let count = 0
+    if (lastData.red !== '') {
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].red == lastData.red && d == 'vanne3') {
+          count += 3
+        } else {
+          count += 1
+        }
+      }
+
+      const index2 = materials.findIndex((el: any) => el?.model == lastData?.red)
+      console.log('materials[index2]?.stock : ', materials[index2]?.stock)
+      if (d == 'vanne3' && materials[index2]?.stock - count < 3) {
+        toast.error('pour utilisé vanne 3 voter stock doit pluse ou égal 3 !')
+
+        return
+      }
+    }
     lastData.type = d
     await updateDataById(Stores.PdfData2, id, { ...lastData })
     setCount(count + 1)
@@ -227,6 +247,21 @@ const AddCard = (props: Props) => {
     const index = data.findIndex((el: any) => el.id.toString() == id.toString())
 
     const lastData = data[index]
+    let count = 0
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].red == d && data[i].type == 'vanne3') {
+        count += 3
+      } else {
+        count += 1
+      }
+    }
+
+    const index2 = materials.findIndex((el: any) => el.model == d)
+    if (lastData.type == 'vanne3' && materials[index2]?.stock - count < 3) {
+      toast.error('pour utilisé vanne 3 voter stock doit pluse ou égal 3 !')
+
+      return
+    }
     lastData.red = d
     await updateDataById(Stores.PdfData2, id, { ...lastData })
     setCount(count + 1)
@@ -464,17 +499,30 @@ const AddCard = (props: Props) => {
 
         return
       }
-      const index2 = materials.findIndex((el: any) => el.model == lastData.red)
+      let count = 0
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].red == lastData.red && data[i].type == 'vanne3') {
+          count += 3
+        } else {
+          count += 1
+        }
+      }
+      const index2 = materials.findIndex((el: any) => el?.model == lastData?.red)
       if (index2 == -1) {
         toast.error('voter stock est terminer !')
 
         return
+      } else {
+        if (materials[index2]?.stock - count < 3) {
+          toast.error('voter stock est terminer !')
+
+          return
+        }
       }
       try {
         lastData.rep += 1
         lastData.id += 1
         lastData.saved = false
-        console.log('lastData : ', lastData)
 
         await addData(Stores.PdfData2, { ...lastData })
         localStorage.setItem('lastId', JSON.stringify(id + 1))
@@ -526,6 +574,7 @@ const AddCard = (props: Props) => {
                     <MenuItem value='Vanne Bs'>Vanne Bs</MenuItem>
                     <MenuItem value='Jeux de brides'>Jeux de brides</MenuItem>
                     <MenuItem value="Purgeur d'air fileté">Purgeur d'air fileté</MenuItem>
+                    <MenuItem value='vanne3'>Vanne 3</MenuItem>
                     <MenuItem value='Vanne papillon'>Vanne papillon</MenuItem>
                     <MenuItem value='Vanne TA filetée'>Vanne TA filetée</MenuItem>
                     <MenuItem value='Filtre bride'>Filtre bride </MenuItem>
