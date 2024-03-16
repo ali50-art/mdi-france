@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, ReactElement, Ref, forwardRef } from 'react'
 
 // ** MUI Imports
 import Card from '@mui/material/Card'
@@ -11,6 +11,8 @@ import PDFFile2 from '../../../utils/generatePdf2'
 import CardContent from '@mui/material/CardContent'
 import { useDispatch } from 'react-redux'
 import toast from 'react-hot-toast'
+import Chip from '@mui/material/Chip'
+import Fade, { FadeProps } from '@mui/material/Fade'
 
 // ** Hooks
 import { useAuth } from 'src/hooks/useAuth'
@@ -19,14 +21,26 @@ import { useAuth } from 'src/hooks/useAuth'
 import Icon from 'src/@core/components/icon'
 import { addPdf } from '../../../store/apps/pdf'
 import { AppDispatch } from 'src/store'
+import { Dialog, DialogContent, IconButton, IconButtonProps, Typography } from '@mui/material'
+import { Box, styled } from '@mui/system'
 
-const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) => {
+// ** Hooks
+import { useSettings } from 'src/@core/hooks/useSettings'
+
+const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep, setActiveStep }: any) => {
+  // ** Hook
+  const { settings } = useSettings()
+
+  // ** Var
+  const { direction } = settings
+  const arrowIcon = direction === 'ltr' ? 'tabler:chevron-right' : 'tabler:chevron-left'
+  const [show, setShow] = useState<boolean>(false)
   const auth = useAuth()
   const [online, setIsOnline] = useState(navigator.onLine)
   const [pdfType, setPdefType] = useState('indestry')
   const [data, setData] = useState<any>([])
   const [data2, setData2] = useState<any>([])
-  const [res, setRes] = useState<any>([])
+  const [res2, setRes] = useState<any>([])
   const [data3, setData3] = useState<any>([])
   const [data4, setData4] = useState<any>([])
   const [loading, setLoading] = useState<any>(false)
@@ -36,6 +50,7 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
   }
   const handleFetchDataPadf1 = async () => {
     const res: any = await getStoreData(Stores.PdfData)
+
     setRes([...res])
     const newData: any = []
     res.forEach((element: any) => {
@@ -86,6 +101,7 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
       const res = await getStoreData(Stores.PdfData)
 
       const res2: any = await getStoreData(Stores.PdfInfo)
+
       const newArr: any = []
       for (let i = 0; i < res.length; i++) {
         const el: any = res[i]
@@ -165,7 +181,28 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
       auth.getProfile()
     }
   }
-
+  const Transition = forwardRef(function Transition(
+    props: FadeProps & { children?: ReactElement<any, any> },
+    ref: Ref<unknown>
+  ) {
+    return <Fade ref={ref} {...props} />
+  })
+  const handleClose = () => {
+    setShow(false)
+  }
+  const CustomCloseButton = styled(IconButton)<IconButtonProps>(({ theme }) => ({
+    top: 0,
+    right: 0,
+    color: 'grey.500',
+    position: 'absolute',
+    transform: 'translate(10px, -10px)',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: `${theme.palette.background.paper} !important`,
+    transition: 'transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out',
+    '&:hover': {
+      transform: 'translate(7px, -5px)'
+    }
+  }))
   useEffect(() => {
     function handleOnlineStatusChange() {
       setIsOnline(navigator.onLine)
@@ -183,46 +220,110 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep }: any) =
   }, [, navigator.onLine, count, pdfType])
 
   return (
-    <Grid container spacing={6}>
-      <Grid item xs={12}>
-        <Card>
-          <CardContent>
-            {loading ? (
-              <Button
-                fullWidth
-                variant='contained'
-                sx={{ mb: 2, '& svg': { mr: 2 } }}
-                disabled={true}
-                onClick={handleSendPdf}
-              >
-                <Icon fontSize='1.125rem' icon='tabler:send' />
-                Loading...
-              </Button>
-            ) : (
-              <Button
-                fullWidth
-                variant='contained'
-                sx={{ mb: 2, '& svg': { mr: 2 } }}
-                disabled={!online}
-                onClick={handleSendPdf}
-              >
-                <Icon fontSize='1.125rem' icon='tabler:send' />
-                Envoyer votre PDF
-              </Button>
-            )}
-
-            {count >= 0 &&
-              (pdfType === 'indestry' ? (
-                <PDFFile2 data={data3} data2={data4} />
+    <>
+      <Grid container spacing={6}>
+        <Grid item xs={12}>
+          <Card>
+            <CardContent>
+              {loading ? (
+                <Button fullWidth variant='contained' sx={{ mb: 2, '& svg': { mr: 2 } }} disabled={true}>
+                  <Icon fontSize='1.125rem' icon='tabler:send' />
+                  Loading...
+                </Button>
               ) : (
-                <>
-                  <PDFFile data={data} data2={data2} res={res} />
-                </>
-              ))}
-          </CardContent>
-        </Card>
+                <Button
+                  fullWidth
+                  variant='contained'
+                  sx={{ mb: 2, '& svg': { mr: 2 } }}
+                  disabled={!online}
+                  onClick={() => setShow(true)}
+                >
+                  <Icon fontSize='1.125rem' icon='tabler:send' />
+                  Envoyer votre PDF
+                </Button>
+              )}
+
+              {count >= 0 &&
+                (pdfType === 'indestry' ? (
+                  <PDFFile2 data={data3} data2={data4} />
+                ) : (
+                  <>
+                    <PDFFile data={data} data2={data2} res2={res2} />
+                  </>
+                ))}
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
-    </Grid>
+
+      <Dialog
+        fullWidth
+        open={show}
+        maxWidth='md'
+        scroll='body'
+        onClose={handleClose}
+        onBackdropClick={handleClose}
+        TransitionComponent={Transition}
+        sx={{ '& .MuiDialog-paper': { overflow: 'visible' } }}
+      >
+        <DialogContent
+          sx={{
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            py: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+          }}
+        >
+          <CustomCloseButton onClick={handleClose}>
+            <Icon icon='tabler:x' fontSize='1.25rem' />
+          </CustomCloseButton>
+
+          <Grid container spacing={6}>
+            <Grid item xs={12}>
+              <Box sx={{ mb: 4, textAlign: 'center' }}>
+                <Typography variant='h3' sx={{ mb: 3 }}>
+                  Verification de l'Adresse du Chantier
+                </Typography>
+                <Typography sx={{ color: 'text.secondary' }}>
+                  Cette méthode est importante pour vérifier l'adresse afin d'éviter les conflits d'adresse !
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={12}></Grid>
+            <Grid item xs={12}>
+              <div className='demo-space-x'>
+                <Chip label={`Nome de site : ${data2[0]?.username}`} color='primary' />
+                <Chip label={`Addresse : ${data2[0]?.address}`} color='primary' />
+                <Chip label={`Ville : ${data2[0]?.ville}`} color='primary' />
+                <Chip label={`Code postal : ${data2[0]?.codePostal}`} color='primary' />
+              </div>
+            </Grid>
+            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Button
+                variant='contained'
+                startIcon={<Icon icon={'tabler:chevron-left'} />}
+                disabled={loading ? true : false}
+                onClick={() => {
+                  setShow(false)
+                  setActiveStep(1)
+                }}
+              >
+                Retour
+              </Button>
+              <Button
+                variant='contained'
+                endIcon={<Icon icon={arrowIcon} />}
+                disabled={loading ? true : false}
+                onClick={() => {
+                  handleSendPdf()
+                  setShow(false)
+                }}
+              >
+                Continuer
+              </Button>
+            </Grid>
+          </Grid>
+        </DialogContent>
+      </Dialog>
+    </>
   )
 }
 

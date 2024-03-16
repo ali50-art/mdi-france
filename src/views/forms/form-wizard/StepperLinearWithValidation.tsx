@@ -450,6 +450,7 @@ const StepperLinearWithValidation = () => {
                     count={count}
                     handleSetCount={handleSetCount}
                     handleActiStepTOfirstStep={handleActiStepTOfirstStep}
+                    setActiveStep={setActiveStep}
                   />
                 </Grid>
               </Grid>
