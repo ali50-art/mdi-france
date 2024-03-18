@@ -40,7 +40,7 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep, setActiv
   const [pdfType, setPdefType] = useState('indestry')
   const [data, setData] = useState<any>([])
   const [data2, setData2] = useState<any>([])
-  const [res2, setRes] = useState<any>([])
+  const [res, setRes] = useState<any>([])
   const [data3, setData3] = useState<any>([])
   const [data4, setData4] = useState<any>([])
   const [loading, setLoading] = useState<any>(false)
@@ -248,7 +248,7 @@ const AddActions = ({ count, handleSetCount, handleActiStepTOfirstStep, setActiv
                   <PDFFile2 data={data3} data2={data4} />
                 ) : (
                   <>
-                    <PDFFile data={data} data2={data2} res2={res2} />
+                    <PDFFile data={data} data2={data2} res={res} />
                   </>
                 ))}
             </CardContent>
