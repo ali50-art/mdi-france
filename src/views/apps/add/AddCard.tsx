@@ -188,7 +188,15 @@ const AddCard = (props: Props) => {
     let count = 0
     if (lastData.red !== '') {
       for (let i = 0; i < data.length; i++) {
-        if (data[i].red == lastData.red && d == 'Vanne 3 voie') {
+        if (
+          data[i].red == lastData.red &&
+          (d == 'Vanne 3 voie taille 1' ||
+            d == 'Vanne 3 voie taille 2' ||
+            d == 'Vanne 3 voie taille 3' ||
+            d == 'Vanne 3 voie taille 4' ||
+            d == 'Vanne 3 voie taille 5' ||
+            d == 'Vanne 3 voie taille 6')
+        ) {
           count += 3
         }
       }
@@ -202,7 +210,15 @@ const AddCard = (props: Props) => {
         return
       }
 
-      if (d == 'Vanne 3 voie' && materials[index2]?.stock - count < 3) {
+      if (
+        (d == 'Vanne 3 voie taille 1' ||
+          d == 'Vanne 3 voie taille 2' ||
+          d == 'Vanne 3 voie taille 3' ||
+          d == 'Vanne 3 voie taille 4' ||
+          d == 'Vanne 3 voie taille 5' ||
+          d == 'Vanne 3 voie taille 6') &&
+        materials[index2]?.stock - count < 3
+      ) {
         toast.error(
           'Stock insuffisant, Pour pouvoir rajouter Vanne 3 voie, votre stock doit être supérieur ou égal a 3'
         )
@@ -220,7 +236,15 @@ const AddCard = (props: Props) => {
     const lastData = data[index]
     let count = 0
     for (let i = 0; i < data.length; i++) {
-      if (data[i].red == d && data[i].type == 'Vanne 3 voie') {
+      if (
+        data[i].red == d &&
+        (data[i].type == 'Vanne 3 voie taille 1' ||
+          data[i].type == 'Vanne 3 voie taille 2' ||
+          data[i].type == 'Vanne 3 voie taille 3' ||
+          data[i].type == 'Vanne 3 voie taille 4' ||
+          data[i].type == 'Vanne 3 voie taille 5' ||
+          data[i].type == 'Vanne 3 voie taille 6')
+      ) {
         count += 3
       }
     }
@@ -231,7 +255,15 @@ const AddCard = (props: Props) => {
 
       return
     }
-    if (lastData.type == 'Vanne 3 voie' && materials[index2]?.stock - count < 3) {
+    if (
+      (lastData.type == 'Vanne 3 voie taille 1' ||
+        lastData.type == 'Vanne 3 voie taille 2' ||
+        lastData.type == 'Vanne 3 voie taille 3' ||
+        lastData.type == 'Vanne 3 voie taille 4' ||
+        lastData.type == 'Vanne 3 voie taille 5' ||
+        lastData.type == 'Vanne 3 voie taille 6') &&
+      materials[index2]?.stock - count < 3
+    ) {
       toast.error('Stock insuffisant, Pour pouvoir rajouter Vanne 3 voie, votre stock doit être supérieur ou égal a 3')
 
       return
@@ -312,7 +344,15 @@ const AddCard = (props: Props) => {
       }
       let count = 0
       for (let i = 0; i < data.length; i++) {
-        if (data[i].red == lastData.red && data[i].type == 'Vanne 3 voie') {
+        if (
+          data[i].red == lastData.red &&
+          (data[i].type == 'Vanne 3 voie taille 1' ||
+            data[i].type == 'Vanne 3 voie taille 2' ||
+            data[i].type == 'Vanne 3 voie taille 3' ||
+            data[i].type == 'Vanne 3 voie taille 4' ||
+            data[i].type == 'Vanne 3 voie taille 5' ||
+            data[i].type == 'Vanne 3 voie taille 6')
+        ) {
           count += 3
         }
       }
@@ -364,7 +404,15 @@ const AddCard = (props: Props) => {
   const countStock = (data: any, model: any) => {
     let nb = 0
     data.forEach((el: any) => {
-      if (el.red == model && el.type == 'Vanne 3 voie') {
+      if (
+        el.red == model &&
+        (el.type == 'Vanne 3 voie taille 1' ||
+          el.type == 'Vanne 3 voie taille 2' ||
+          el.type == 'Vanne 3 voie taille 3' ||
+          el.type == 'Vanne 3 voie taille 4' ||
+          el.type == 'Vanne 3 voie taille 5' ||
+          el.type == 'Vanne 3 voie taille 6')
+      ) {
         nb += 3
       } else if (el.red == model) {
         nb += 1
@@ -435,7 +483,12 @@ const AddCard = (props: Props) => {
                     <MenuItem value='Vanne Bs'>Vanne Bs</MenuItem>
                     <MenuItem value='Jeux de brides'>Jeux de brides</MenuItem>
                     <MenuItem value="Purgeur d'air fileté">Purgeur d'air fileté</MenuItem>
-                    <MenuItem value='Vanne 3 voie'>Vanne 3 voie</MenuItem>
+                    <MenuItem value='Vanne 3 voie taille 1'>Vanne 3 voie taille 1</MenuItem>
+                    <MenuItem value='Vanne 3 voie taille 2'>Vanne 3 voie taille 2</MenuItem>
+                    <MenuItem value='Vanne 3 voie taille 3'>Vanne 3 voie taille 3</MenuItem>
+                    <MenuItem value='Vanne 3 voie taille 4'>Vanne 3 voie taille 4</MenuItem>
+                    <MenuItem value='Vanne 3 voie taille 5'>Vanne 3 voie taille 5</MenuItem>
+                    <MenuItem value='Vanne 3 voie taille 6'>Vanne 3 voie taille 6</MenuItem>
                     <MenuItem value='Vanne papillon'>Vanne papillon</MenuItem>
                     <MenuItem value='Vanne TA filetée'>Vanne TA filetée</MenuItem>
                     <MenuItem value='Filtre bride'>Filtre bride </MenuItem>
