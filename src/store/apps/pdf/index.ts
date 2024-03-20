@@ -139,6 +139,23 @@ export const updatePdf = createAsyncThunk(
   }
 )
 
+// ** Fetch Totla vanne voie 3
+export const fetchTotalVanneVoie3 = createAsyncThunk(
+  'fetchTotalVanneVoie3/fetchTotalVanneVoie3',
+  async (params: any) => {
+    const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
+    const response = await axios.get(`${serverUri.uri}/api/pdf/countVanneVoie3/${params.id}`, {
+      headers: {
+        Authorization: storedToken
+      },
+      params
+    })
+
+    console.log('response.data.data : ', response.data.data)
+
+    return response.data.data
+  }
+)
 export const appPdfSlice = createSlice({
   name: 'appPdf',
   initialState: {
@@ -149,6 +166,7 @@ export const appPdfSlice = createSlice({
     isLoading: false,
     params: {},
     count: 0,
+    TotalVanneVoie: [],
     allData: []
   },
   reducers: {},
@@ -188,6 +206,16 @@ export const appPdfSlice = createSlice({
     builder.addCase(getSepcifiqueStat.fulfilled, (state, action) => {
       state.stat = action.payload
     })
+    builder
+      .addCase(fetchTotalVanneVoie3.pending, state => {
+        state.isLoading = true
+      })
+      .addCase(fetchTotalVanneVoie3.fulfilled, (state, action) => {
+        state.TotalVanneVoie = action.payload
+      })
+      .addCase(fetchTotalVanneVoie3.rejected, state => {
+        state.isLoading = false
+      })
   }
 })
 

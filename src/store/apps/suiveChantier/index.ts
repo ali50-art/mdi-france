@@ -34,6 +34,7 @@ export const fetchData = createAsyncThunk('appSuiveChantier/fetchData', async (p
 
   return { dataCoipe, count: 0 }
 })
+
 export const fetchOne = createAsyncThunk('appSuiveChantier/fetchOne', async (data: any) => {
   const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
   const response = await axios.get(`${serverUri.uri}/api/pdf/${data.id}`, {

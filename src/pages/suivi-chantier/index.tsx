@@ -42,6 +42,7 @@ import TableHeader from 'src/views/apps/logistique/list/TableHeader'
 import AddMaterialDrawer from 'src/views/apps/material/list/AddMaterialDrawer'
 import SelectOrderDialgo from 'src/views/apps/suivierChantier/SelectOrderDialog'
 import TotalDialog from 'src/views/apps/suivierChantier/TotalDialog'
+import TotalVanneVoie3 from 'src/views/apps/suivierChantier/TotalVanneVoie'
 import CustomChip from 'src/@core/components/mui/chip'
 import DeleteItemDialog from 'src/views/apps/suivierChantier/DeletePdfConfermation'
 import AddBenificaire from 'src/views/apps/suivierChantier/AddBenificaire'
@@ -84,6 +85,7 @@ const AdminDashboard = () => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
     const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
     const [openTotalModel, setOpenTotalModel] = useState<any>(false)
+    const [openTotalVanne, setOpenTotalVanne] = useState<any>(false)
     const [openDeleteTogel, setOpenDeleteTogel] = useState<any>(false)
     const [addBenificaire, setAddBenificaire] = useState<any>(false)
     const [addSiteName, setAddSiteName] = useState<any>(false)
@@ -105,6 +107,10 @@ const AdminDashboard = () => {
     const handleOpenTotal = () => {
       handleRowOptionsClose()
       setOpenTotalModel(!openTotalModel)
+    }
+    const handleOpenTotalVanne = () => {
+      handleRowOptionsClose()
+      setOpenTotalVanne(!openTotalVanne)
     }
 
     const handleOpenDeleteTogel = () => {
@@ -175,7 +181,11 @@ const AdminDashboard = () => {
           </MenuItem>
           <MenuItem sx={{ '& svg': { mr: 2 } }} onClick={handleOpenTotal}>
             <Icon icon='tabler:truck' fontSize={20} />
-            total
+            Total des matériaux
+          </MenuItem>
+          <MenuItem sx={{ '& svg': { mr: 2 } }} onClick={handleOpenTotalVanne}>
+            <Icon icon='tabler:truck' fontSize={20} />
+            Total vanne voie 3
           </MenuItem>
           <MenuItem sx={{ '& svg': { mr: 2 } }} onClick={handleOpenDeleteTogel}>
             <Icon icon='tabler:eraser' fontSize={20} />
@@ -183,6 +193,7 @@ const AdminDashboard = () => {
           </MenuItem>
         </Menu>
         {openTotalModel && <TotalDialog open={openTotalModel} toggle={handleOpenTotal} id={id} />}
+        {openTotalVanne && <TotalVanneVoie3 open={openTotalVanne} toggle={handleOpenTotalVanne} id={id} />}
         {addUserOpen && <SelectOrderDialgo open={addUserOpen} toggle={handleOpenEdite} id={id} />}
         {openDeleteTogel && (
           <DeleteItemDialog open={openDeleteTogel} toggle={handleOpenDeleteTogel} id={id} setCount={setCount} />
@@ -235,8 +246,6 @@ const AdminDashboard = () => {
   // Handle Edit dialog
   // const handleEditClickOpen = () => setOpenEdit(true)
   const returnedType = (row: any) => {
-    console.log('row : ', row)
-
     if (row?.type == 'indestrie') {
       return 'industrie'
     } else {
