@@ -69,7 +69,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
               {store?.TotalVanneVoie.map((el: any) => {
                 return (
                   <>
-                    <Grid item xs={6} sm={6}>
+                    <Grid item xs={5} sm={5}>
                       <CustomTextField
                         label='Type de point singulier'
                         value={el?.type}
@@ -77,7 +77,16 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
                         InputLabelProps={{ shrink: true }}
                       />
                     </Grid>
-                    <Grid item xs={3} sm={4}>
+                    <Grid item xs={3} sm={3}>
+                      <CustomTextField
+                        label='Matériel utilisé'
+                        value={el?.model}
+                        id='form-props-number'
+                        InputLabelProps={{ shrink: true }}
+                      />
+                    </Grid>
+
+                    <Grid item xs={3} sm={3}>
                       <CustomTextField
                         label='Quantité'
                         value={el?.count}

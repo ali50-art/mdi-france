@@ -173,7 +173,7 @@ const AddCard = ({ pdfId }: any) => {
 
   const handleUpdatePdf = (id: any) => {
     const index = hasId.findIndex((el: any) => el.id.toString() == id.toString())
-    dispatch(updatePdfDetails({ data: hasId[index], pdfId: pdfId }))
+    dispatch(updatePdfDetails({ data: { ...hasId[index], pdfId: pdfId }, pdfId: pdfId }))
 
     const newHaseId = hasId
     newHaseId.splice(index, 1)
@@ -384,6 +384,12 @@ const AddCard = ({ pdfId }: any) => {
                                 <MenuItem value='Vanne Bs'>Vanne Bs</MenuItem>
                                 <MenuItem value='Vanne TA filetée'>Vanne TA filetée</MenuItem>
                                 <MenuItem value='Robinet volant fileté'>Robinet volant fileté</MenuItem>
+                                <MenuItem value='Vanne 3 voie taille 1'>Vanne 3 voie taille 1</MenuItem>
+                                <MenuItem value='Vanne 3 voie taille 2'>Vanne 3 voie taille 2</MenuItem>
+                                <MenuItem value='Vanne 3 voie taille 3'>Vanne 3 voie taille 3</MenuItem>
+                                <MenuItem value='Vanne 3 voie taille 4'>Vanne 3 voie taille 4</MenuItem>
+                                <MenuItem value='Vanne 3 voie taille 5'>Vanne 3 voie taille 5</MenuItem>
+                                <MenuItem value='Vanne 3 voie taille 6'>Vanne 3 voie taille 6</MenuItem>
                                 <MenuItem value='Manchette de dilatation filetée'>
                                   Manchette de dilatation filetée
                                 </MenuItem>
