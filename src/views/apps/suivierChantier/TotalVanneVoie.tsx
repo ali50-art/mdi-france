@@ -65,40 +65,48 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
               px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`]
             }}
           >
-            <Grid container spacing={6}>
-              {store?.TotalVanneVoie.map((el: any) => {
-                return (
-                  <>
-                    <Grid item xs={5} sm={5}>
-                      <CustomTextField
-                        label='Type de point singulier'
-                        value={el?.type}
-                        id='form-props-number'
-                        InputLabelProps={{ shrink: true }}
-                      />
-                    </Grid>
-                    <Grid item xs={3} sm={3}>
-                      <CustomTextField
-                        label='Matériel utilisé'
-                        value={el?.model}
-                        id='form-props-number'
-                        InputLabelProps={{ shrink: true }}
-                      />
-                    </Grid>
+            {store?.TotalVanneVoie.length == 0 ? (
+              <Grid container spacing={6}>
+                <p style={{ textAlign: 'center', color: 'red', fontSize: '1.5rem' }}>
+                  Dans ce chantier, il n'y a aucune vanne 3 voies.
+                </p>
+              </Grid>
+            ) : (
+              <Grid container spacing={6}>
+                {store?.TotalVanneVoie.map((el: any) => {
+                  return (
+                    <>
+                      <Grid item xs={5} sm={5}>
+                        <CustomTextField
+                          label='Type de point singulier'
+                          value={el?.type}
+                          id='form-props-number'
+                          InputLabelProps={{ shrink: true }}
+                        />
+                      </Grid>
+                      <Grid item xs={3} sm={3}>
+                        <CustomTextField
+                          label='Matériel utilisé'
+                          value={el?.model}
+                          id='form-props-number'
+                          InputLabelProps={{ shrink: true }}
+                        />
+                      </Grid>
 
-                    <Grid item xs={3} sm={3}>
-                      <CustomTextField
-                        label='Quantité'
-                        value={el?.count}
-                        id='form-props-number'
-                        InputLabelProps={{ shrink: true }}
-                      />
-                    </Grid>
-                  </>
-                )
-              })}
-              <Grid item xs={12} sm={12}></Grid>
-            </Grid>
+                      <Grid item xs={3} sm={3}>
+                        <CustomTextField
+                          label='Quantité'
+                          value={el?.count}
+                          id='form-props-number'
+                          InputLabelProps={{ shrink: true }}
+                        />
+                      </Grid>
+                    </>
+                  )
+                })}
+                <Grid item xs={12} sm={12}></Grid>
+              </Grid>
+            )}
           </DialogContent>
           <DialogActions
             sx={{

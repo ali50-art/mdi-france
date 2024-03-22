@@ -185,7 +185,7 @@ const AdminDashboard = () => {
           </MenuItem>
           <MenuItem sx={{ '& svg': { mr: 2 } }} onClick={handleOpenTotalVanne}>
             <Icon icon='tabler:truck' fontSize={20} />
-            Total vanne voie 3
+            Total vanne 3 voie
           </MenuItem>
           <MenuItem sx={{ '& svg': { mr: 2 } }} onClick={handleOpenDeleteTogel}>
             <Icon icon='tabler:eraser' fontSize={20} />
