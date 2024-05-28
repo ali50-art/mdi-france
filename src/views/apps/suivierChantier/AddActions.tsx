@@ -116,6 +116,8 @@ const AddActions = () => {
     return [Between20And65, Between66And100, morThen100]
   }
   const handleDownloadXl = async (d: any) => {
+    console.log("d : ",d);
+    
     const workbook = new ExcelJS.Workbook()
     const worksheet = workbook.addWorksheet('Sheet 1')
 
@@ -138,7 +140,12 @@ const AddActions = () => {
     }
 
     // Add the text to the specified row and column
-    worksheet.getCell(`${String.fromCharCode(64 + 6)}${8}`).value = 'ETAT RECAPITULATIF INDUSTRIE'
+    if(d.type=="residentiel"){
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${8}`).value = 'ETAT RECAPITULATIF RES/TER'
+    }else{
+      worksheet.getCell(`${String.fromCharCode(64 + 6)}${8}`).value = 'ETAT RECAPITULATIF INDUSTRIE'
+    }
+    
     worksheet.getCell(`${String.fromCharCode(64 + 6)}${8}`).font = { size: 14 }
     worksheet.getCell(`${String.fromCharCode(64 + 6)}${9}`).value = 'je soussigné : '
     worksheet.getCell(`${String.fromCharCode(64 + 6)}${9}`).font = { size: 13 }
