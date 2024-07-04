@@ -62,36 +62,39 @@ const PDFGenerator = ({ data, data2, res }: any) => {
     pdf.text(`Au bénéfice de : `, 150, 89, { align: 'center' })
     pdf.text(`${data2[0].address}`, 150, 96, { align: 'center' })
     pdf.text(`${data2[0].ville} ${data2[0].codePostal}`, 150, 101, { align: 'center' })
-    pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 115, { align: 'center' })
-    pdf.text(`Résistance thermique : 1,58 m².K/W à une température moyenne de 50 °C `, 150, 128, { align: 'center' })
-    pdf.text(`: 1,27 m².K/W à une température moyenne de 100°C`, 172, 133, { align: 'center' })
-    pdf.text(`Isolant et référence : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1`, 150, 138, {
+    pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 138, { align: 'center' })
+    pdf.setFontSize(12)
+
+    pdf.text(`Référence : ISOVAN`, 150, 143, {
       align: 'center'
     })
-    pdf.text(`Température maximale : 250°C`, 150, 145, {
+    pdf.text(`Isolant laine de verre: : ISOVER TECH ROLLL3.0 - classé au feu A1`, 150, 148, {
       align: 'center'
     })
-    pdf.text(`Température fluide caloporteur : 70°C`, 150, 150, {
+    pdf.text(`Température fluide caloporteur : 70°C`, 150, 156, {
       align: 'center'
     })
-    pdf.text(`Référence : ISOVAN`, 150, 155, {
+    pdf.text(`Résistance thermique : 1,58 m².K/W à une température moyenne de 50 °C `, 150, 161, { align: 'center' })
+    pdf.text(`: 1,27 m².K/W à une température moyenne de 100°C`, 172, 166, { align: 'center' })
+
+    pdf.text(`Température maximale : 250°C`, 150, 171, {
       align: 'center'
     })
 
-    pdf.text(`Nombre des points singuliers posés : `, 150, 165, {
+    pdf.text(`Nombre des points singuliers posés : `, 150, 180, {
       align: 'center'
     })
-    pdf.text(`DN20 a DN65 = ${Between20And65}`, 150, 170, {
+    pdf.text(`DN20 a DN65 = ${Between20And65}`, 150, 185, {
       align: 'center'
     })
-    pdf.text(`DN66 a DN100 = ${Between66And100}`, 150, 175, {
+    pdf.text(`DN66 a DN100 = ${Between66And100}`, 150, 190, {
       align: 'center'
     })
-    pdf.text(`DN > 100 = ${morThen100}`, 150, 180, {
+    pdf.text(`DN > 100 = ${morThen100}`, 150, 195, {
       align: 'center'
     })
 
-    pdf.text(`Total de points singuliers = ${data.length}`, 150, 190, {
+    pdf.text(`Total de points singuliers = ${data.length}`, 150, 200, {
       align: 'center'
     })
     pdf.addPage()

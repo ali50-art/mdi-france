@@ -76,7 +76,7 @@ const PDFGenerator = ({ data, data2 }: any) => {
       82,
       { align: 'center' }
     )
-    pdf.setFontSize(15)
+    pdf.setFontSize(13)
     pdf.text(`au bénéfice de  :`, 150, 89, { align: 'center' })
 
     pdf.setFontSize(12)
@@ -84,19 +84,26 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.text(`${data?.travauxAdress}`, 150, 101, { align: 'center' })
     pdf.text(`${data?.travauxVille} ${data?.travauxCodePostal}`, 150, 107, { align: 'center' })
 
-    pdf.setFontSize(15)
+    pdf.setFontSize(13)
     pdf.text(`à l'adresse de travaux  :`, 150, 115, { align: 'center' })
     pdf.setFontSize(12)
     pdf.text(`${data.clientName}`, 150, 120, { align: 'center' })
     pdf.text(`${data.clientAdress}`, 150, 125, { align: 'center' })
     pdf.text(`${data.clientVille} ${data.clientCodePostal}`, 150, 130, { align: 'center' })
-    pdf.setFontSize(15)
+    pdf.setFontSize(13)
     pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 138, { align: 'center' })
     pdf.setFontSize(12)
+    pdf.text(`Référence : ISOVAN`, 150, 143, {
+      align: 'center'
+    })
+    pdf.text(`Isolant laine de verre: : ISOVER TECH ROLLL3.0 - classé au feu A1`, 150, 148, {
+      align: 'center'
+    })
+
     pdf.text(
       `Résistance thermique : 1,50 m².K/W sur un réseau d'eau chaude ou de retour de condensats à température moyenne de 70°C      `,
       150,
-      145,
+      158,
       { align: 'center' }
     )
 
@@ -104,27 +111,25 @@ const PDFGenerator = ({ data, data2 }: any) => {
       `: 1,33 m².K/W sur un réseau d'eau surchauffée à température moyenne de 90°C
     `,
       150,
-      150,
+      163,
       {
         align: 'center'
       }
     )
 
-    pdf.text(`: 1,22 m².K/W sur un réseau vapeur à une température moyenne de 110°C    `, 150, 155, {
+    pdf.text(`: 1,22 m².K/W sur un réseau vapeur à une température moyenne de 110°C    `, 150, 168, {
       align: 'center'
     })
-    pdf.text(`: 1,18 m².K/W sur un réseau de fluide organique à une température moyenne de 120°C`, 150, 160, {
+    pdf.text(`: 1,18 m².K/W sur un réseau de fluide organique à une température moyenne de 120°C`, 150, 173, {
       align: 'center'
     })
-    pdf.text(`Isolant et Référence : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1`, 150, 165, {
-      align: 'center'
-    })
-    pdf.text(`Température maximale : 300°`, 150, 170, {
+
+    pdf.text(`Température maximale : 300°`, 150, 178, {
       align: 'center'
     })
 
     // Define the checkbox position and size
-    pdf.text(`Type de fonctionnement : `, 120, 180, {
+    pdf.text(`Type de fonctionnement : `, 120, 193.5, {
       align: 'center'
     })
     const checkboxX = 150

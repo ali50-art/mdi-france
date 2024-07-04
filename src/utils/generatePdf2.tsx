@@ -51,13 +51,20 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.text(`à l'adresse de travaux : :`, 150, 89, { align: 'center' })
     pdf.text(`${data2[0].address}`, 150, 96, { align: 'center' })
     pdf.text(`${data2[0].ville} ${data2[0].codePostal}`, 150, 101, { align: 'center' })
-    pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 115, { align: 'center' })
+    pdf.setFontSize(13)
+    pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 138, { align: 'center' })
+    pdf.setFontSize(12)
+    pdf.text(`Référence : ISOVAN`, 150, 143, {
+      align: 'center'
+    })
+    pdf.text(`Isolant laine de verre: : ISOVER TECH ROLLL3.0 - classé au feu A1`, 150, 148, {
+      align: 'center'
+    })
 
     pdf.text(
-      `Résistance thermique : 1,50 m².K/W sur un réseau d'eau chaude ou de retour de condensats à température moyenne de 70°C
-      `,
+      `Résistance thermique : 1,50 m².K/W sur un réseau d'eau chaude ou de retour de condensats à température moyenne de 70°C      `,
       150,
-      128,
+      158,
       { align: 'center' }
     )
 
@@ -65,42 +72,33 @@ const PDFGenerator = ({ data, data2 }: any) => {
       `: 1,33 m².K/W sur un réseau d'eau surchauffée à température moyenne de 90°C
     `,
       150,
-      133,
+      163,
       {
         align: 'center'
       }
     )
 
-    pdf.text(`: 1,22 m².K/W sur un réseau vapeur à une température moyenne de 110°C`, 150, 138, {
+    pdf.text(`: 1,22 m².K/W sur un réseau vapeur à une température moyenne de 110°C    `, 150, 168, {
       align: 'center'
     })
-    pdf.text(`: 1,18 m².K/W sur un réseau de fluide organique à une température moyenne de 120°C`, 150, 143, {
-      align: 'center'
-    })
-
-    pdf.text(`Isolant et référence : Laine de verre ISOVER TECH ROLL 3.0- classé au feu A1`, 150, 155, {
+    pdf.text(`: 1,18 m².K/W sur un réseau de fluide organique à une température moyenne de 120°C`, 150, 173, {
       align: 'center'
     })
 
-    pdf.text(`Température maximale : 300°C`, 150, 160, {
+    pdf.text(`Température maximale : 300°`, 150, 178, {
+      align: 'center'
+    })
+    pdf.text(`vapeur = ${nb}`, 150, 185, {
+      align: 'center'
+    })
+    pdf.text(`Eau surchauffée = ${nb2}`, 150, 190, {
+      align: 'center'
+    })
+    pdf.text(`Fluide organique = ${nb3}`, 150, 195, {
       align: 'center'
     })
 
-    pdf.text(`Référence : ISOVAN`, 150, 165, {
-      align: 'center'
-    })
-
-    pdf.text(`vapeur = ${nb}`, 150, 180, {
-      align: 'center'
-    })
-    pdf.text(`Eau surchauffée = ${nb2}`, 150, 185, {
-      align: 'center'
-    })
-    pdf.text(`Fluide organique = ${nb3}`, 150, 190, {
-      align: 'center'
-    })
-
-    pdf.text(`Total de points singuliers = ${data.length}`, 150, 194, {
+    pdf.text(`Total de points singuliers = ${data.length}`, 150, 200, {
       align: 'center'
     })
     pdf.addPage()

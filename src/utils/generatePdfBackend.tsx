@@ -77,21 +77,23 @@ const PDFGenerator = ({ data, data2 }: any) => {
     pdf.text(`${data?.clientName}`, 150, 120, { align: 'center' })
     pdf.text(`${data?.clientAdress}`, 150, 125, { align: 'center' })
     pdf.text(`${data?.clientVille} ${data?.clientCodePostal}`, 150, 130, { align: 'center' })
-    pdf.setFontSize(15)
+    pdf.setFontSize(13)
     pdf.text(`Marque : MDI TECHNOLOGIE`, 150, 138, { align: 'center' })
     pdf.setFontSize(12)
-    pdf.text(`Résistance thermique : 1,58 m².K/W à une température moyenne de 50 °C `, 150, 145, { align: 'center' })
-    pdf.text(`: 1,27 m².K/W à une température moyenne de 100°C`, 172, 150, { align: 'center' })
-    pdf.text(`Isolant et référence : Laine de verre ISOVER TECH ROLL 3.0 - classé au feu A1`, 150, 155, {
+
+    pdf.text(`Référence : ISOVAN`, 150, 143, {
       align: 'center'
     })
-    pdf.text(`Température maximale : 250°C`, 150, 160, {
+    pdf.text(`Isolant laine de verre: : ISOVER TECH ROLLL3.0 - classé au feu A1`, 150, 148, {
       align: 'center'
     })
-    pdf.text(`Température fluide caloporteur : 70°C`, 150, 165, {
+    pdf.text(`Température fluide caloporteur : 70°C`, 150, 156, {
       align: 'center'
     })
-    pdf.text(`Référence : ISOVAN`, 150, 170, {
+    pdf.text(`Résistance thermique : 1,58 m².K/W à une température moyenne de 50 °C `, 150, 161, { align: 'center' })
+    pdf.text(`: 1,27 m².K/W à une température moyenne de 100°C`, 172, 166, { align: 'center' })
+
+    pdf.text(`Température maximale : 250°C`, 150, 171, {
       align: 'center'
     })
 
